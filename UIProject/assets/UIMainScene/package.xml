@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="fadwlk6p">
+  <resources>
+    <component id="jejj0" name="UIMainScene.xml" path="/" exported="true"/>
+    <component id="l3b22" name="Button1.xml" path="/"/>
+  </resources>
+  <publish name="" genCode="true"/>
+</packageDescription>

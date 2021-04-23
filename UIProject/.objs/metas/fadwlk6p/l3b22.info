@@ -1,0 +1,16 @@
+{
+  "objectStatus": {
+    "n3_l3b2": {
+      "locked": true
+    },
+    "n2_l3b2": {
+      "locked": true
+    },
+    "n1_l3b2": {
+      "locked": true
+    },
+    "n0_l3b2": {
+      "locked": true
+    }
+  }
+}

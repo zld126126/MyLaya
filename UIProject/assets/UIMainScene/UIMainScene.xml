@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <graph id="n0_stko" name="Bg" xy="0,0" size="800,600" alpha="0.8" type="rect" lineSize="0" fillColor="#ff000000">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <text id="n1_e6d1" name="Title" xy="189,164" size="455,79" fontSize="60" color="#006633" autoSize="none" text="Hello，World！">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <text id="n2_e6d1" name="Author" xy="338,286" size="130,66" fontSize="50" color="#0066ff" text="Dong">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <component id="n4_l3b2" name="Change" src="l3b22" fileName="Button1.xml" xy="80,440" size="80,80">
+      <relation target="" sidePair="left-left,bottom-bottom"/>
+    </component>
+  </displayList>
+</component>

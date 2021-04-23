@@ -1,0 +1,31 @@
+{
+	"version": "0.2.0",
+	"configurations": [ 
+		{
+            "type": "chrome",
+            "request": "launch",
+            "name": "Chrome调试",
+            "file": "${workspaceFolder}/bin/index.html",
+            "webRoot": "${workspaceFolder}",
+            "runtimeArgs": [
+				"--allow-file-access-from-files",
+				"--allow-file-access-frome-files"
+            ],
+            "userDataDir": "${workspaceRoot}/.laya/chrome",
+            "port": 5433,  
+            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+				"src/*": "${workspaceRoot}/src/*"
+			}	
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Gulp task debug",
+            "program": "${workspaceFolder}/node_modules/gulp/bin/gulp.js",
+            "args": [
+                "versionHash"
+            ]
+        }
+	]
+}
