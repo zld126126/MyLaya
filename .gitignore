@@ -1,24 +1,39 @@
 node_modules/.bin/atob
 node_modules/.bin/atob.cmd
-node_modules/.bin/atob.ps1
 node_modules/.bin/color-support
 node_modules/.bin/color-support.cmd
-node_modules/.bin/color-support.ps1
 node_modules/.bin/gulp
 node_modules/.bin/gulp.cmd
-node_modules/.bin/gulp.ps1
 node_modules/.bin/semver
 node_modules/.bin/semver.cmd
-node_modules/.bin/semver.ps1
 node_modules/.bin/tsc
 node_modules/.bin/tsc.cmd
-node_modules/.bin/tsc.ps1
 node_modules/.bin/tsserver
 node_modules/.bin/tsserver.cmd
-node_modules/.bin/tsserver.ps1
 node_modules/.bin/which
 node_modules/.bin/which.cmd
-node_modules/.bin/which.ps1
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/code/cache/7a9ef8718e4232a344cb7220b8e7cc5650b60e79
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/code/cache/8c0753cad5a07f7c4ca670aa2a9c1a0e023fb1f7
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/code/cache/833b772ac418ebe8476eece443cd7a034ccc978b
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/code/cache/28744acfeb38d5e9e78e962c7284d44433267f84
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/code/cache/abc16503d359cc8d0a04fb8b92c24b056f30b1e4
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/semanticDiagnostics/cache/7a9ef8718e4232a344cb7220b8e7cc5650b60e79
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/semanticDiagnostics/cache/8c0753cad5a07f7c4ca670aa2a9c1a0e023fb1f7
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/semanticDiagnostics/cache/833b772ac418ebe8476eece443cd7a034ccc978b
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/semanticDiagnostics/cache/28744acfeb38d5e9e78e962c7284d44433267f84
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/semanticDiagnostics/cache/abc16503d359cc8d0a04fb8b92c24b056f30b1e4
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/syntacticDiagnostics/cache/7a9ef8718e4232a344cb7220b8e7cc5650b60e79
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/syntacticDiagnostics/cache/8c0753cad5a07f7c4ca670aa2a9c1a0e023fb1f7
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/syntacticDiagnostics/cache/833b772ac418ebe8476eece443cd7a034ccc978b
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/syntacticDiagnostics/cache/28744acfeb38d5e9e78e962c7284d44433267f84
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/syntacticDiagnostics/cache/abc16503d359cc8d0a04fb8b92c24b056f30b1e4
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/types/cache/7c18aaa8f43accf3ac5bd63f7abe021bd17944f3
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/types/cache/22a7adf90fed4af6d67ee9a7b80cf499ca515d8a
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/types/cache/baa3af38793561a5ac816f469530673ffc1c4232
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/types/cache/c13814f419b776be08b8faf44c4a4fb17a3cb8c7
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/types/cache/d0046de4f493d6ad7ca9c8b51237167d372e8058
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/types/cache/e0ac7eb304275e71cb4f9e651115a7dc11e896f6
+node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/types/cache/eb77dc64fb3c25a61f85e7c43366f2884c8db62e
 node_modules/ansi-colors/index.js
 node_modules/ansi-colors/LICENSE
 node_modules/ansi-colors/package.json
@@ -180,10 +195,6 @@ node_modules/binary-extensions/binary-extensions.json
 node_modules/binary-extensions/license
 node_modules/binary-extensions/package.json
 node_modules/binary-extensions/readme.md
-node_modules/bindings/bindings.js
-node_modules/bindings/LICENSE.md
-node_modules/bindings/package.json
-node_modules/bindings/README.md
 node_modules/brace-expansion/index.js
 node_modules/brace-expansion/LICENSE
 node_modules/brace-expansion/package.json
@@ -1575,16 +1586,6 @@ node_modules/fast-levenshtein/levenshtein.js
 node_modules/fast-levenshtein/LICENSE.md
 node_modules/fast-levenshtein/package.json
 node_modules/fast-levenshtein/README.md
-node_modules/file-uri-to-path/.npmignore
-node_modules/file-uri-to-path/.travis.yml
-node_modules/file-uri-to-path/History.md
-node_modules/file-uri-to-path/index.d.ts
-node_modules/file-uri-to-path/index.js
-node_modules/file-uri-to-path/LICENSE
-node_modules/file-uri-to-path/package.json
-node_modules/file-uri-to-path/README.md
-node_modules/file-uri-to-path/test/test.js
-node_modules/file-uri-to-path/test/tests.json
 node_modules/fill-range/index.js
 node_modules/fill-range/LICENSE
 node_modules/fill-range/package.json
@@ -1730,7 +1731,6 @@ node_modules/gulp/README.md
 node_modules/gulp/bin/gulp.js
 node_modules/gulp/node_modules/.bin/gulp
 node_modules/gulp/node_modules/.bin/gulp.cmd
-node_modules/gulp/node_modules/.bin/gulp.ps1
 node_modules/gulp/node_modules/gulp-cli/gulp.1
 node_modules/gulp/node_modules/gulp-cli/index.js
 node_modules/gulp/node_modules/gulp-cli/LICENSE
@@ -2199,52 +2199,6 @@ node_modules/mute-stdout/index.js
 node_modules/mute-stdout/LICENSE
 node_modules/mute-stdout/package.json
 node_modules/mute-stdout/README.md
-node_modules/nan/CHANGELOG.md
-node_modules/nan/include_dirs.js
-node_modules/nan/LICENSE.md
-node_modules/nan/nan_callbacks_12_inl.h
-node_modules/nan/nan_callbacks_pre_12_inl.h
-node_modules/nan/nan_callbacks.h
-node_modules/nan/nan_converters_43_inl.h
-node_modules/nan/nan_converters_pre_43_inl.h
-node_modules/nan/nan_converters.h
-node_modules/nan/nan_define_own_property_helper.h
-node_modules/nan/nan_implementation_12_inl.h
-node_modules/nan/nan_implementation_pre_12_inl.h
-node_modules/nan/nan_json.h
-node_modules/nan/nan_maybe_43_inl.h
-node_modules/nan/nan_maybe_pre_43_inl.h
-node_modules/nan/nan_new.h
-node_modules/nan/nan_object_wrap.h
-node_modules/nan/nan_persistent_12_inl.h
-node_modules/nan/nan_persistent_pre_12_inl.h
-node_modules/nan/nan_private.h
-node_modules/nan/nan_string_bytes.h
-node_modules/nan/nan_typedarray_contents.h
-node_modules/nan/nan_weak.h
-node_modules/nan/nan.h
-node_modules/nan/package.json
-node_modules/nan/README.md
-node_modules/nan/doc/asyncworker.md
-node_modules/nan/doc/buffers.md
-node_modules/nan/doc/callback.md
-node_modules/nan/doc/converters.md
-node_modules/nan/doc/errors.md
-node_modules/nan/doc/json.md
-node_modules/nan/doc/maybe_types.md
-node_modules/nan/doc/methods.md
-node_modules/nan/doc/new.md
-node_modules/nan/doc/node_misc.md
-node_modules/nan/doc/object_wrappers.md
-node_modules/nan/doc/persistent.md
-node_modules/nan/doc/scopes.md
-node_modules/nan/doc/script.md
-node_modules/nan/doc/string_bytes.md
-node_modules/nan/doc/v8_internals.md
-node_modules/nan/doc/v8_misc.md
-node_modules/nan/tools/1to2.js
-node_modules/nan/tools/package.json
-node_modules/nan/tools/README.md
 node_modules/nanomatch/CHANGELOG.md
 node_modules/nanomatch/index.js
 node_modules/nanomatch/LICENSE
@@ -3318,6 +3272,26 @@ node_modules/yargs-parser/LICENSE.txt
 node_modules/yargs-parser/package.json
 node_modules/yargs-parser/README.md
 node_modules/yargs-parser/lib/tokenize-arg-string.js
+release/web/fileconfig.json
+release/web/GameConfig.js
+release/web/index.html
+release/web/index.js
+release/web/Main.js
+release/web/unpack.json
+release/web/version.json
+release/web/MVC/MainController.js
+release/web/UI/UIMainScene/UIMainScene.js
+release/web/UI/UIMainScene/UIMainSceneBinder.js
+release/web/js/bundle.js
+release/web/libs/laya.core.js
+release/web/libs/laya.html.js
+release/web/libs/laya.physics.js
+release/web/libs/laya.ui.js
+release/web/libs/fairygui/fairygui.js
+release/web/libs/fairygui/rawinflate.min.js
+release/web/res/atlas/comp.atlas
+release/web/res/atlas/comp.png
+release/web/res/ui/UIMainScene.fui
 .rpt2_cache/rpt2_0310af33b8ac540237562b718f8a8d0d93790061/code/cache/2a3dd5b2afadf6b71a7cf10613546b35e795f3df
 .rpt2_cache/rpt2_0310af33b8ac540237562b718f8a8d0d93790061/code/cache/2194fc06bb95690f75d493633e624c5e6822888a
 .rpt2_cache/rpt2_0310af33b8ac540237562b718f8a8d0d93790061/code/cache/4379da5dcbea572a6f43517faacad4ff985f85ef
@@ -3340,6 +3314,25 @@ node_modules/yargs-parser/lib/tokenize-arg-string.js
 .rpt2_cache/rpt2_0310af33b8ac540237562b718f8a8d0d93790061/types/cache/be9151c5466bd26a0e34e4e1658dce822c65fb16
 .rpt2_cache/rpt2_0310af33b8ac540237562b718f8a8d0d93790061/types/cache/d0046de4f493d6ad7ca9c8b51237167d372e8058
 .rpt2_cache/rpt2_0310af33b8ac540237562b718f8a8d0d93790061/types/cache/ebf9995b763f6cdc7bdba3226740d4a1e8c02cd7
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/code/cache/833b772ac418ebe8476eece443cd7a034ccc978b
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/code/cache/28744acfeb38d5e9e78e962c7284d44433267f84
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/code/cache/abc16503d359cc8d0a04fb8b92c24b056f30b1e4
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/code/cache/ac80d48b5f5fb3dd93cd124ce1bea4d2c94e2eb7
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/semanticDiagnostics/cache/833b772ac418ebe8476eece443cd7a034ccc978b
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/semanticDiagnostics/cache/28744acfeb38d5e9e78e962c7284d44433267f84
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/semanticDiagnostics/cache/abc16503d359cc8d0a04fb8b92c24b056f30b1e4
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/semanticDiagnostics/cache/ac80d48b5f5fb3dd93cd124ce1bea4d2c94e2eb7
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/syntacticDiagnostics/cache/833b772ac418ebe8476eece443cd7a034ccc978b
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/syntacticDiagnostics/cache/28744acfeb38d5e9e78e962c7284d44433267f84
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/syntacticDiagnostics/cache/abc16503d359cc8d0a04fb8b92c24b056f30b1e4
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/syntacticDiagnostics/cache/ac80d48b5f5fb3dd93cd124ce1bea4d2c94e2eb7
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/types/cache/7c18aaa8f43accf3ac5bd63f7abe021bd17944f3
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/types/cache/22a7adf90fed4af6d67ee9a7b80cf499ca515d8a
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/types/cache/baa3af38793561a5ac816f469530673ffc1c4232
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/types/cache/c13814f419b776be08b8faf44c4a4fb17a3cb8c7
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/types/cache/d0046de4f493d6ad7ca9c8b51237167d372e8058
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/types/cache/e0ac7eb304275e71cb4f9e651115a7dc11e896f6
+.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/types/cache/eb77dc64fb3c25a61f85e7c43366f2884c8db62e
 .rpt2_cache/rpt2_0e88a6e112307a4c584f49aa959a8fbfdec59546/code/cache/4379da5dcbea572a6f43517faacad4ff985f85ef
 .rpt2_cache/rpt2_0e88a6e112307a4c584f49aa959a8fbfdec59546/code/cache/ba9d9b300c807f2081cab5a6fb1916baa23e4af7
 .rpt2_cache/rpt2_0e88a6e112307a4c584f49aa959a8fbfdec59546/semanticDiagnostics/cache/4379da5dcbea572a6f43517faacad4ff985f85ef
@@ -3386,611 +3379,6 @@ node_modules/yargs-parser/lib/tokenize-arg-string.js
 .rpt2_cache/rpt2_883932a5f93a5c09a0d20526b75f864552660970/types/cache/be9151c5466bd26a0e34e4e1658dce822c65fb16
 .rpt2_cache/rpt2_883932a5f93a5c09a0d20526b75f864552660970/types/cache/d0046de4f493d6ad7ca9c8b51237167d372e8058
 .rpt2_cache/rpt2_883932a5f93a5c09a0d20526b75f864552660970/types/cache/ebf9995b763f6cdc7bdba3226740d4a1e8c02cd7
-.laya/compile.js
-.laya/publish_alipaygame.js
-.laya/publish_bdgame.js
-.laya/publish_oppogame.js
-.laya/publish_qqgame.js
-.laya/publish_vivogame.js
-.laya/publish_wxgame.js
-.laya/publish_xmgame.js
-.laya/publish.js
-.laya/chrome/b427f1c4-19dc-41a7-b1bf-7ec0aef7ef60.tmp
-.laya/chrome/CrashpadMetrics-active.pma
-.laya/chrome/Last Browser
-.laya/chrome/Last Version
-.laya/chrome/Local State
-.laya/chrome/Module Info Cache
-.laya/chrome/AutofillStates/2020.11.2.164946/AD
-.laya/chrome/AutofillStates/2020.11.2.164946/AE
-.laya/chrome/AutofillStates/2020.11.2.164946/AF
-.laya/chrome/AutofillStates/2020.11.2.164946/AG
-.laya/chrome/AutofillStates/2020.11.2.164946/AL
-.laya/chrome/AutofillStates/2020.11.2.164946/AM
-.laya/chrome/AutofillStates/2020.11.2.164946/AO
-.laya/chrome/AutofillStates/2020.11.2.164946/AR
-.laya/chrome/AutofillStates/2020.11.2.164946/AS
-.laya/chrome/AutofillStates/2020.11.2.164946/AT
-.laya/chrome/AutofillStates/2020.11.2.164946/AU
-.laya/chrome/AutofillStates/2020.11.2.164946/AX
-.laya/chrome/AutofillStates/2020.11.2.164946/AZ
-.laya/chrome/AutofillStates/2020.11.2.164946/BA
-.laya/chrome/AutofillStates/2020.11.2.164946/BB
-.laya/chrome/AutofillStates/2020.11.2.164946/BD
-.laya/chrome/AutofillStates/2020.11.2.164946/BE
-.laya/chrome/AutofillStates/2020.11.2.164946/BF
-.laya/chrome/AutofillStates/2020.11.2.164946/BG
-.laya/chrome/AutofillStates/2020.11.2.164946/BH
-.laya/chrome/AutofillStates/2020.11.2.164946/BI
-.laya/chrome/AutofillStates/2020.11.2.164946/BJ
-.laya/chrome/AutofillStates/2020.11.2.164946/BM
-.laya/chrome/AutofillStates/2020.11.2.164946/BN
-.laya/chrome/AutofillStates/2020.11.2.164946/BO
-.laya/chrome/AutofillStates/2020.11.2.164946/BQ
-.laya/chrome/AutofillStates/2020.11.2.164946/BR
-.laya/chrome/AutofillStates/2020.11.2.164946/BS
-.laya/chrome/AutofillStates/2020.11.2.164946/BT
-.laya/chrome/AutofillStates/2020.11.2.164946/BW
-.laya/chrome/AutofillStates/2020.11.2.164946/BY
-.laya/chrome/AutofillStates/2020.11.2.164946/BZ
-.laya/chrome/AutofillStates/2020.11.2.164946/CA
-.laya/chrome/AutofillStates/2020.11.2.164946/CD
-.laya/chrome/AutofillStates/2020.11.2.164946/CF
-.laya/chrome/AutofillStates/2020.11.2.164946/CG
-.laya/chrome/AutofillStates/2020.11.2.164946/CH
-.laya/chrome/AutofillStates/2020.11.2.164946/CI
-.laya/chrome/AutofillStates/2020.11.2.164946/CL
-.laya/chrome/AutofillStates/2020.11.2.164946/CM
-.laya/chrome/AutofillStates/2020.11.2.164946/CN
-.laya/chrome/AutofillStates/2020.11.2.164946/CO
-.laya/chrome/AutofillStates/2020.11.2.164946/CR
-.laya/chrome/AutofillStates/2020.11.2.164946/CU
-.laya/chrome/AutofillStates/2020.11.2.164946/CV
-.laya/chrome/AutofillStates/2020.11.2.164946/CW
-.laya/chrome/AutofillStates/2020.11.2.164946/CY
-.laya/chrome/AutofillStates/2020.11.2.164946/CZ
-.laya/chrome/AutofillStates/2020.11.2.164946/DE
-.laya/chrome/AutofillStates/2020.11.2.164946/DJ
-.laya/chrome/AutofillStates/2020.11.2.164946/DK
-.laya/chrome/AutofillStates/2020.11.2.164946/DM
-.laya/chrome/AutofillStates/2020.11.2.164946/DO
-.laya/chrome/AutofillStates/2020.11.2.164946/DZ
-.laya/chrome/AutofillStates/2020.11.2.164946/EC
-.laya/chrome/AutofillStates/2020.11.2.164946/EE
-.laya/chrome/AutofillStates/2020.11.2.164946/EG
-.laya/chrome/AutofillStates/2020.11.2.164946/EH
-.laya/chrome/AutofillStates/2020.11.2.164946/ER
-.laya/chrome/AutofillStates/2020.11.2.164946/ES
-.laya/chrome/AutofillStates/2020.11.2.164946/ET
-.laya/chrome/AutofillStates/2020.11.2.164946/FI
-.laya/chrome/AutofillStates/2020.11.2.164946/FJ
-.laya/chrome/AutofillStates/2020.11.2.164946/FM
-.laya/chrome/AutofillStates/2020.11.2.164946/FO
-.laya/chrome/AutofillStates/2020.11.2.164946/FR
-.laya/chrome/AutofillStates/2020.11.2.164946/GA
-.laya/chrome/AutofillStates/2020.11.2.164946/GB
-.laya/chrome/AutofillStates/2020.11.2.164946/GD
-.laya/chrome/AutofillStates/2020.11.2.164946/GE
-.laya/chrome/AutofillStates/2020.11.2.164946/GF
-.laya/chrome/AutofillStates/2020.11.2.164946/GG
-.laya/chrome/AutofillStates/2020.11.2.164946/GH
-.laya/chrome/AutofillStates/2020.11.2.164946/GL
-.laya/chrome/AutofillStates/2020.11.2.164946/GM
-.laya/chrome/AutofillStates/2020.11.2.164946/GN
-.laya/chrome/AutofillStates/2020.11.2.164946/GP
-.laya/chrome/AutofillStates/2020.11.2.164946/GQ
-.laya/chrome/AutofillStates/2020.11.2.164946/GR
-.laya/chrome/AutofillStates/2020.11.2.164946/GT
-.laya/chrome/AutofillStates/2020.11.2.164946/GW
-.laya/chrome/AutofillStates/2020.11.2.164946/GY
-.laya/chrome/AutofillStates/2020.11.2.164946/HK
-.laya/chrome/AutofillStates/2020.11.2.164946/HN
-.laya/chrome/AutofillStates/2020.11.2.164946/HR
-.laya/chrome/AutofillStates/2020.11.2.164946/HT
-.laya/chrome/AutofillStates/2020.11.2.164946/HU
-.laya/chrome/AutofillStates/2020.11.2.164946/ID
-.laya/chrome/AutofillStates/2020.11.2.164946/IE
-.laya/chrome/AutofillStates/2020.11.2.164946/IL
-.laya/chrome/AutofillStates/2020.11.2.164946/IM
-.laya/chrome/AutofillStates/2020.11.2.164946/IN
-.laya/chrome/AutofillStates/2020.11.2.164946/IQ
-.laya/chrome/AutofillStates/2020.11.2.164946/IR
-.laya/chrome/AutofillStates/2020.11.2.164946/IS
-.laya/chrome/AutofillStates/2020.11.2.164946/IT
-.laya/chrome/AutofillStates/2020.11.2.164946/JE
-.laya/chrome/AutofillStates/2020.11.2.164946/JM
-.laya/chrome/AutofillStates/2020.11.2.164946/JO
-.laya/chrome/AutofillStates/2020.11.2.164946/JP
-.laya/chrome/AutofillStates/2020.11.2.164946/KE
-.laya/chrome/AutofillStates/2020.11.2.164946/KG
-.laya/chrome/AutofillStates/2020.11.2.164946/KH
-.laya/chrome/AutofillStates/2020.11.2.164946/KI
-.laya/chrome/AutofillStates/2020.11.2.164946/KM
-.laya/chrome/AutofillStates/2020.11.2.164946/KN
-.laya/chrome/AutofillStates/2020.11.2.164946/KP
-.laya/chrome/AutofillStates/2020.11.2.164946/KR
-.laya/chrome/AutofillStates/2020.11.2.164946/KW
-.laya/chrome/AutofillStates/2020.11.2.164946/KY
-.laya/chrome/AutofillStates/2020.11.2.164946/KZ
-.laya/chrome/AutofillStates/2020.11.2.164946/LA
-.laya/chrome/AutofillStates/2020.11.2.164946/LB
-.laya/chrome/AutofillStates/2020.11.2.164946/LC
-.laya/chrome/AutofillStates/2020.11.2.164946/LI
-.laya/chrome/AutofillStates/2020.11.2.164946/LK
-.laya/chrome/AutofillStates/2020.11.2.164946/LR
-.laya/chrome/AutofillStates/2020.11.2.164946/LS
-.laya/chrome/AutofillStates/2020.11.2.164946/LT
-.laya/chrome/AutofillStates/2020.11.2.164946/LU
-.laya/chrome/AutofillStates/2020.11.2.164946/LV
-.laya/chrome/AutofillStates/2020.11.2.164946/LY
-.laya/chrome/AutofillStates/2020.11.2.164946/MA
-.laya/chrome/AutofillStates/2020.11.2.164946/manifest.fingerprint
-.laya/chrome/AutofillStates/2020.11.2.164946/manifest.json
-.laya/chrome/AutofillStates/2020.11.2.164946/MD
-.laya/chrome/AutofillStates/2020.11.2.164946/ME
-.laya/chrome/AutofillStates/2020.11.2.164946/MF
-.laya/chrome/AutofillStates/2020.11.2.164946/MG
-.laya/chrome/AutofillStates/2020.11.2.164946/MH
-.laya/chrome/AutofillStates/2020.11.2.164946/MK
-.laya/chrome/AutofillStates/2020.11.2.164946/ML
-.laya/chrome/AutofillStates/2020.11.2.164946/MM
-.laya/chrome/AutofillStates/2020.11.2.164946/MN
-.laya/chrome/AutofillStates/2020.11.2.164946/MP
-.laya/chrome/AutofillStates/2020.11.2.164946/MQ
-.laya/chrome/AutofillStates/2020.11.2.164946/MR
-.laya/chrome/AutofillStates/2020.11.2.164946/MS
-.laya/chrome/AutofillStates/2020.11.2.164946/MU
-.laya/chrome/AutofillStates/2020.11.2.164946/MV
-.laya/chrome/AutofillStates/2020.11.2.164946/MW
-.laya/chrome/AutofillStates/2020.11.2.164946/MX
-.laya/chrome/AutofillStates/2020.11.2.164946/MY
-.laya/chrome/AutofillStates/2020.11.2.164946/MZ
-.laya/chrome/AutofillStates/2020.11.2.164946/NA
-.laya/chrome/AutofillStates/2020.11.2.164946/NC
-.laya/chrome/AutofillStates/2020.11.2.164946/NE
-.laya/chrome/AutofillStates/2020.11.2.164946/NG
-.laya/chrome/AutofillStates/2020.11.2.164946/NI
-.laya/chrome/AutofillStates/2020.11.2.164946/NL
-.laya/chrome/AutofillStates/2020.11.2.164946/NO
-.laya/chrome/AutofillStates/2020.11.2.164946/NP
-.laya/chrome/AutofillStates/2020.11.2.164946/NR
-.laya/chrome/AutofillStates/2020.11.2.164946/NU
-.laya/chrome/AutofillStates/2020.11.2.164946/NZ
-.laya/chrome/AutofillStates/2020.11.2.164946/OM
-.laya/chrome/AutofillStates/2020.11.2.164946/PA
-.laya/chrome/AutofillStates/2020.11.2.164946/PE
-.laya/chrome/AutofillStates/2020.11.2.164946/PF
-.laya/chrome/AutofillStates/2020.11.2.164946/PG
-.laya/chrome/AutofillStates/2020.11.2.164946/PH
-.laya/chrome/AutofillStates/2020.11.2.164946/PK
-.laya/chrome/AutofillStates/2020.11.2.164946/PL
-.laya/chrome/AutofillStates/2020.11.2.164946/PM
-.laya/chrome/AutofillStates/2020.11.2.164946/PR
-.laya/chrome/AutofillStates/2020.11.2.164946/PS
-.laya/chrome/AutofillStates/2020.11.2.164946/PT
-.laya/chrome/AutofillStates/2020.11.2.164946/PW
-.laya/chrome/AutofillStates/2020.11.2.164946/PY
-.laya/chrome/AutofillStates/2020.11.2.164946/QA
-.laya/chrome/AutofillStates/2020.11.2.164946/RE
-.laya/chrome/AutofillStates/2020.11.2.164946/RO
-.laya/chrome/AutofillStates/2020.11.2.164946/RS
-.laya/chrome/AutofillStates/2020.11.2.164946/RU
-.laya/chrome/AutofillStates/2020.11.2.164946/RW
-.laya/chrome/AutofillStates/2020.11.2.164946/SA
-.laya/chrome/AutofillStates/2020.11.2.164946/SB
-.laya/chrome/AutofillStates/2020.11.2.164946/SC
-.laya/chrome/AutofillStates/2020.11.2.164946/SD
-.laya/chrome/AutofillStates/2020.11.2.164946/SE
-.laya/chrome/AutofillStates/2020.11.2.164946/SH
-.laya/chrome/AutofillStates/2020.11.2.164946/SI
-.laya/chrome/AutofillStates/2020.11.2.164946/SJ
-.laya/chrome/AutofillStates/2020.11.2.164946/SK
-.laya/chrome/AutofillStates/2020.11.2.164946/SL
-.laya/chrome/AutofillStates/2020.11.2.164946/SM
-.laya/chrome/AutofillStates/2020.11.2.164946/SN
-.laya/chrome/AutofillStates/2020.11.2.164946/SO
-.laya/chrome/AutofillStates/2020.11.2.164946/SR
-.laya/chrome/AutofillStates/2020.11.2.164946/SS
-.laya/chrome/AutofillStates/2020.11.2.164946/ST
-.laya/chrome/AutofillStates/2020.11.2.164946/SV
-.laya/chrome/AutofillStates/2020.11.2.164946/SX
-.laya/chrome/AutofillStates/2020.11.2.164946/SY
-.laya/chrome/AutofillStates/2020.11.2.164946/SZ
-.laya/chrome/AutofillStates/2020.11.2.164946/TC
-.laya/chrome/AutofillStates/2020.11.2.164946/TD
-.laya/chrome/AutofillStates/2020.11.2.164946/TG
-.laya/chrome/AutofillStates/2020.11.2.164946/TH
-.laya/chrome/AutofillStates/2020.11.2.164946/TJ
-.laya/chrome/AutofillStates/2020.11.2.164946/TK
-.laya/chrome/AutofillStates/2020.11.2.164946/TL
-.laya/chrome/AutofillStates/2020.11.2.164946/TM
-.laya/chrome/AutofillStates/2020.11.2.164946/TN
-.laya/chrome/AutofillStates/2020.11.2.164946/TO
-.laya/chrome/AutofillStates/2020.11.2.164946/TR
-.laya/chrome/AutofillStates/2020.11.2.164946/TT
-.laya/chrome/AutofillStates/2020.11.2.164946/TV
-.laya/chrome/AutofillStates/2020.11.2.164946/TW
-.laya/chrome/AutofillStates/2020.11.2.164946/TZ
-.laya/chrome/AutofillStates/2020.11.2.164946/UA
-.laya/chrome/AutofillStates/2020.11.2.164946/UG
-.laya/chrome/AutofillStates/2020.11.2.164946/US
-.laya/chrome/AutofillStates/2020.11.2.164946/UY
-.laya/chrome/AutofillStates/2020.11.2.164946/UZ
-.laya/chrome/AutofillStates/2020.11.2.164946/VC
-.laya/chrome/AutofillStates/2020.11.2.164946/VE
-.laya/chrome/AutofillStates/2020.11.2.164946/VG
-.laya/chrome/AutofillStates/2020.11.2.164946/VI
-.laya/chrome/AutofillStates/2020.11.2.164946/VN
-.laya/chrome/AutofillStates/2020.11.2.164946/VU
-.laya/chrome/AutofillStates/2020.11.2.164946/WF
-.laya/chrome/AutofillStates/2020.11.2.164946/WS
-.laya/chrome/AutofillStates/2020.11.2.164946/XK
-.laya/chrome/AutofillStates/2020.11.2.164946/YE
-.laya/chrome/AutofillStates/2020.11.2.164946/YT
-.laya/chrome/AutofillStates/2020.11.2.164946/ZA
-.laya/chrome/AutofillStates/2020.11.2.164946/ZM
-.laya/chrome/AutofillStates/2020.11.2.164946/ZW
-.laya/chrome/AutofillStates/2020.11.2.164946/_metadata/verified_contents.json
-.laya/chrome/BrowserMetrics/BrowserMetrics-608232EF-1F18.pma
-.laya/chrome/CertificateRevocation/6560/crl-set
-.laya/chrome/CertificateRevocation/6560/LICENSE
-.laya/chrome/CertificateRevocation/6560/manifest.fingerprint
-.laya/chrome/CertificateRevocation/6560/manifest.json
-.laya/chrome/CertificateRevocation/6560/_metadata/verified_contents.json
-.laya/chrome/Crashpad/metadata
-.laya/chrome/Crashpad/settings.dat
-.laya/chrome/Crowd Deny/2021.4.19.1142/manifest.fingerprint
-.laya/chrome/Crowd Deny/2021.4.19.1142/manifest.json
-.laya/chrome/Crowd Deny/2021.4.19.1142/Preload Data
-.laya/chrome/Crowd Deny/2021.4.19.1142/_metadata/verified_contents.json
-.laya/chrome/Default/a85375a2-560f-4fe7-b356-c7c4cf18a167.tmp
-.laya/chrome/Default/Cookies
-.laya/chrome/Default/Cookies-journal
-.laya/chrome/Default/Favicons
-.laya/chrome/Default/Favicons-journal
-.laya/chrome/Default/heavy_ad_intervention_opt_out.db
-.laya/chrome/Default/heavy_ad_intervention_opt_out.db-journal
-.laya/chrome/Default/History
-.laya/chrome/Default/History Provider Cache
-.laya/chrome/Default/History-journal
-.laya/chrome/Default/Login Data
-.laya/chrome/Default/Login Data-journal
-.laya/chrome/Default/Media History
-.laya/chrome/Default/Media History-journal
-.laya/chrome/Default/Network Action Predictor
-.laya/chrome/Default/Network Action Predictor-journal
-.laya/chrome/Default/Network Persistent State
-.laya/chrome/Default/Preferences
-.laya/chrome/Default/Preferences~RF25fb25.TMP
-.laya/chrome/Default/PreferredApps
-.laya/chrome/Default/previews_opt_out.db
-.laya/chrome/Default/previews_opt_out.db-journal
-.laya/chrome/Default/README
-.laya/chrome/Default/Reporting and NEL
-.laya/chrome/Default/Reporting and NEL-journal
-.laya/chrome/Default/Secure Preferences
-.laya/chrome/Default/Shortcuts
-.laya/chrome/Default/Shortcuts-journal
-.laya/chrome/Default/Top Sites
-.laya/chrome/Default/Top Sites-journal
-.laya/chrome/Default/TransportSecurity
-.laya/chrome/Default/Visited Links
-.laya/chrome/Default/Web Data
-.laya/chrome/Default/Web Data-journal
-.laya/chrome/Default/AutofillStrikeDatabase/000003.log
-.laya/chrome/Default/AutofillStrikeDatabase/CURRENT
-.laya/chrome/Default/AutofillStrikeDatabase/LOCK
-.laya/chrome/Default/AutofillStrikeDatabase/LOG
-.laya/chrome/Default/AutofillStrikeDatabase/LOG.old
-.laya/chrome/Default/AutofillStrikeDatabase/MANIFEST-000001
-.laya/chrome/Default/BudgetDatabase/000003.log
-.laya/chrome/Default/BudgetDatabase/CURRENT
-.laya/chrome/Default/BudgetDatabase/LOCK
-.laya/chrome/Default/BudgetDatabase/LOG
-.laya/chrome/Default/BudgetDatabase/LOG.old
-.laya/chrome/Default/BudgetDatabase/MANIFEST-000001
-.laya/chrome/Default/Cache/data_0
-.laya/chrome/Default/Cache/data_1
-.laya/chrome/Default/Cache/data_2
-.laya/chrome/Default/Cache/data_3
-.laya/chrome/Default/Cache/f_000001
-.laya/chrome/Default/Cache/f_000002
-.laya/chrome/Default/Cache/index
-.laya/chrome/Default/Code Cache/js/index
-.laya/chrome/Default/Code Cache/js/index-dir/the-real-index
-.laya/chrome/Default/Code Cache/wasm/index
-.laya/chrome/Default/Code Cache/wasm/index-dir/the-real-index
-.laya/chrome/Default/Extension State/000003.log
-.laya/chrome/Default/Extension State/CURRENT
-.laya/chrome/Default/Extension State/LOCK
-.laya/chrome/Default/Extension State/LOG
-.laya/chrome/Default/Extension State/LOG.old
-.laya/chrome/Default/Extension State/MANIFEST-000001
-.laya/chrome/Default/Feature Engagement Tracker/AvailabilityDB/000003.log
-.laya/chrome/Default/Feature Engagement Tracker/AvailabilityDB/CURRENT
-.laya/chrome/Default/Feature Engagement Tracker/AvailabilityDB/LOCK
-.laya/chrome/Default/Feature Engagement Tracker/AvailabilityDB/LOG
-.laya/chrome/Default/Feature Engagement Tracker/AvailabilityDB/LOG.old
-.laya/chrome/Default/Feature Engagement Tracker/AvailabilityDB/MANIFEST-000001
-.laya/chrome/Default/Feature Engagement Tracker/EventDB/000003.log
-.laya/chrome/Default/Feature Engagement Tracker/EventDB/CURRENT
-.laya/chrome/Default/Feature Engagement Tracker/EventDB/LOCK
-.laya/chrome/Default/Feature Engagement Tracker/EventDB/LOG
-.laya/chrome/Default/Feature Engagement Tracker/EventDB/LOG.old
-.laya/chrome/Default/Feature Engagement Tracker/EventDB/MANIFEST-000001
-.laya/chrome/Default/GPUCache/data_0
-.laya/chrome/Default/GPUCache/data_1
-.laya/chrome/Default/GPUCache/data_2
-.laya/chrome/Default/GPUCache/data_3
-.laya/chrome/Default/GPUCache/index
-.laya/chrome/Default/Local Storage/leveldb/000003.log
-.laya/chrome/Default/Local Storage/leveldb/CURRENT
-.laya/chrome/Default/Local Storage/leveldb/LOCK
-.laya/chrome/Default/Local Storage/leveldb/LOG
-.laya/chrome/Default/Local Storage/leveldb/LOG.old
-.laya/chrome/Default/Local Storage/leveldb/MANIFEST-000001
-.laya/chrome/Default/Platform Notifications/000003.log
-.laya/chrome/Default/Platform Notifications/CURRENT
-.laya/chrome/Default/Platform Notifications/LOCK
-.laya/chrome/Default/Platform Notifications/LOG
-.laya/chrome/Default/Platform Notifications/LOG.old
-.laya/chrome/Default/Platform Notifications/MANIFEST-000001
-.laya/chrome/Default/Session Storage/000003.log
-.laya/chrome/Default/Session Storage/CURRENT
-.laya/chrome/Default/Session Storage/LOCK
-.laya/chrome/Default/Session Storage/LOG
-.laya/chrome/Default/Session Storage/LOG.old
-.laya/chrome/Default/Session Storage/MANIFEST-000001
-.laya/chrome/Default/Sessions/Session_13263619046656806
-.laya/chrome/Default/Sessions/Session_13263619058069123
-.laya/chrome/Default/Sessions/Tabs_13263619046722438
-.laya/chrome/Default/Sessions/Tabs_13263619058135891
-.laya/chrome/Default/Site Characteristics Database/000003.log
-.laya/chrome/Default/Site Characteristics Database/CURRENT
-.laya/chrome/Default/Site Characteristics Database/LOCK
-.laya/chrome/Default/Site Characteristics Database/LOG
-.laya/chrome/Default/Site Characteristics Database/LOG.old
-.laya/chrome/Default/Site Characteristics Database/MANIFEST-000001
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/18bcb3b5-6246-45ea-b724-277cd71c82b5.tmp
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Network Persistent State
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Code Cache/js/index
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Code Cache/js/index-dir/the-real-index
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Code Cache/wasm/index
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Code Cache/wasm/index-dir/the-real-index
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/GPUCache/data_0
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/GPUCache/data_1
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/GPUCache/data_2
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/GPUCache/data_3
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/GPUCache/index
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Local Storage/leveldb/000003.log
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Local Storage/leveldb/CURRENT
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Local Storage/leveldb/LOCK
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Local Storage/leveldb/LOG
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Local Storage/leveldb/MANIFEST-000001
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Platform Notifications/000003.log
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Platform Notifications/CURRENT
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Platform Notifications/LOCK
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Platform Notifications/LOG
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Platform Notifications/MANIFEST-000001
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Session Storage/000003.log
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Session Storage/CURRENT
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Session Storage/LOCK
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Session Storage/LOG
-.laya/chrome/Default/Storage/ext/gfdkimpbcpahaombhbimeihdjnejgicl/def/Session Storage/MANIFEST-000001
-.laya/chrome/Default/Sync Data/LevelDB/000003.log
-.laya/chrome/Default/Sync Data/LevelDB/CURRENT
-.laya/chrome/Default/Sync Data/LevelDB/LOCK
-.laya/chrome/Default/Sync Data/LevelDB/LOG
-.laya/chrome/Default/Sync Data/LevelDB/LOG.old
-.laya/chrome/Default/Sync Data/LevelDB/MANIFEST-000001
-.laya/chrome/Default/data_reduction_proxy_leveldb/000053.log
-.laya/chrome/Default/data_reduction_proxy_leveldb/CURRENT
-.laya/chrome/Default/data_reduction_proxy_leveldb/LOCK
-.laya/chrome/Default/data_reduction_proxy_leveldb/LOG
-.laya/chrome/Default/data_reduction_proxy_leveldb/LOG.old
-.laya/chrome/Default/data_reduction_proxy_leveldb/MANIFEST-000052
-.laya/chrome/Default/shared_proto_db/LOCK
-.laya/chrome/Default/shared_proto_db/LOG
-.laya/chrome/Default/shared_proto_db/LOG.old
-.laya/chrome/Default/shared_proto_db/metadata/000003.log
-.laya/chrome/Default/shared_proto_db/metadata/CURRENT
-.laya/chrome/Default/shared_proto_db/metadata/LOCK
-.laya/chrome/Default/shared_proto_db/metadata/LOG
-.laya/chrome/Default/shared_proto_db/metadata/LOG.old
-.laya/chrome/Default/shared_proto_db/metadata/MANIFEST-000001
-.laya/chrome/FileTypePolicies/43/download_file_types.pb
-.laya/chrome/FileTypePolicies/43/manifest.fingerprint
-.laya/chrome/FileTypePolicies/43/manifest.json
-.laya/chrome/FileTypePolicies/43/_metadata/verified_contents.json
-.laya/chrome/Floc/1.0.6/manifest.fingerprint
-.laya/chrome/Floc/1.0.6/manifest.json
-.laya/chrome/Floc/1.0.6/SortingLshClusters
-.laya/chrome/Floc/1.0.6/_metadata/verified_contents.json
-.laya/chrome/GrShaderCache/GPUCache/data_0
-.laya/chrome/GrShaderCache/GPUCache/data_1
-.laya/chrome/GrShaderCache/GPUCache/data_2
-.laya/chrome/GrShaderCache/GPUCache/data_3
-.laya/chrome/GrShaderCache/GPUCache/f_000001
-.laya/chrome/GrShaderCache/GPUCache/f_000002
-.laya/chrome/GrShaderCache/GPUCache/f_000003
-.laya/chrome/GrShaderCache/GPUCache/f_000004
-.laya/chrome/GrShaderCache/GPUCache/f_000005
-.laya/chrome/GrShaderCache/GPUCache/f_000006
-.laya/chrome/GrShaderCache/GPUCache/index
-.laya/chrome/OriginTrials/1.0.0.6/manifest.fingerprint
-.laya/chrome/OriginTrials/1.0.0.6/manifest.json
-.laya/chrome/OriginTrials/1.0.0.6/_metadata/verified_contents.json
-.laya/chrome/SSLErrorAssistant/7/manifest.fingerprint
-.laya/chrome/SSLErrorAssistant/7/manifest.json
-.laya/chrome/SSLErrorAssistant/7/ssl_error_assistant.pb
-.laya/chrome/SSLErrorAssistant/7/_metadata/verified_contents.json
-.laya/chrome/SafetyTips/2620/manifest.fingerprint
-.laya/chrome/SafetyTips/2620/manifest.json
-.laya/chrome/SafetyTips/2620/safety_tips.pb
-.laya/chrome/SafetyTips/2620/_metadata/verified_contents.json
-.laya/chrome/ShaderCache/GPUCache/data_0
-.laya/chrome/ShaderCache/GPUCache/data_1
-.laya/chrome/ShaderCache/GPUCache/data_2
-.laya/chrome/ShaderCache/GPUCache/data_3
-.laya/chrome/ShaderCache/GPUCache/index
-.laya/chrome/Subresource Filter/Indexed Rules/27/9.22.0/Ruleset Data
-.laya/chrome/Subresource Filter/Unindexed Rules/9.22.0/Filtering Rules
-.laya/chrome/Subresource Filter/Unindexed Rules/9.22.0/LICENSE.txt
-.laya/chrome/Subresource Filter/Unindexed Rules/9.22.0/manifest.fingerprint
-.laya/chrome/Subresource Filter/Unindexed Rules/9.22.0/manifest.json
-.laya/chrome/Subresource Filter/Unindexed Rules/9.22.0/_metadata/verified_contents.json
-.laya/chrome/TLSDeprecationConfig/4/manifest.fingerprint
-.laya/chrome/TLSDeprecationConfig/4/manifest.json
-.laya/chrome/TLSDeprecationConfig/4/tls_deprecation_config.pb
-.laya/chrome/TLSDeprecationConfig/4/_metadata/verified_contents.json
-.laya/chrome/ThirdPartyModuleList64/2018.8.8.0/manifest.fingerprint
-.laya/chrome/ThirdPartyModuleList64/2018.8.8.0/manifest.json
-.laya/chrome/ThirdPartyModuleList64/2018.8.8.0/module_list_proto
-.laya/chrome/ThirdPartyModuleList64/2018.8.8.0/_metadata/verified_contents.json
-.laya/chrome/ZxcvbnData/1/english_wikipedia.txt
-.laya/chrome/ZxcvbnData/1/female_names.txt
-.laya/chrome/ZxcvbnData/1/male_names.txt
-.laya/chrome/ZxcvbnData/1/manifest.fingerprint
-.laya/chrome/ZxcvbnData/1/manifest.json
-.laya/chrome/ZxcvbnData/1/passwords.txt
-.laya/chrome/ZxcvbnData/1/surnames.txt
-.laya/chrome/ZxcvbnData/1/us_tv_and_film.txt
-.laya/chrome/ZxcvbnData/1/_metadata/verified_contents.json
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-as.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-be.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-bg.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-bn.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-cu.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-cy.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-da.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-de-1901.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-de-1996.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-de-ch-1901.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-en-gb.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-en-us.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-es.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-et.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-eu.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-fr.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-ga.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-gu.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-hi.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-hr.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-hu.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-hy.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-kn.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-la.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-ml.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-mn-cyrl.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-mr.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-nb.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-nn.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-or.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-pa.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-pt.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-sl.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-ta.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-te.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-tk.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/hyph-und-ethi.hyb
-.laya/chrome/hyphen-data/92.0.4485.0/manifest.fingerprint
-.laya/chrome/hyphen-data/92.0.4485.0/manifest.json
-.laya/chrome/hyphen-data/92.0.4485.0/_metadata/verified_contents.json
-.laya/chrome/pnacl/0.57.44.2492/manifest.fingerprint
-.laya/chrome/pnacl/0.57.44.2492/manifest.json
-.laya/chrome/pnacl/0.57.44.2492/_metadata/verified_contents.json
-.laya/chrome/pnacl/0.57.44.2492/_platform_specific/x86_64/pnacl_public_pnacl_json
-.laya/chrome/pnacl/0.57.44.2492/_platform_specific/x86_64/pnacl_public_x86_64_crtbegin_for_eh_o
-.laya/chrome/pnacl/0.57.44.2492/_platform_specific/x86_64/pnacl_public_x86_64_crtbegin_o
-.laya/chrome/pnacl/0.57.44.2492/_platform_specific/x86_64/pnacl_public_x86_64_crtend_o
-.laya/chrome/pnacl/0.57.44.2492/_platform_specific/x86_64/pnacl_public_x86_64_ld_nexe
-.laya/chrome/pnacl/0.57.44.2492/_platform_specific/x86_64/pnacl_public_x86_64_libcrt_platform_a
-.laya/chrome/pnacl/0.57.44.2492/_platform_specific/x86_64/pnacl_public_x86_64_libgcc_a
-.laya/chrome/pnacl/0.57.44.2492/_platform_specific/x86_64/pnacl_public_x86_64_libpnacl_irt_shim_a
-.laya/chrome/pnacl/0.57.44.2492/_platform_specific/x86_64/pnacl_public_x86_64_libpnacl_irt_shim_dummy_a
-.laya/chrome/pnacl/0.57.44.2492/_platform_specific/x86_64/pnacl_public_x86_64_pnacl_llc_nexe
-.laya/chrome/pnacl/0.57.44.2492/_platform_specific/x86_64/pnacl_public_x86_64_pnacl_sz_nexe
-.laya/chrome/6646e3ab-12b4-4fec-9f5b-bb6f4fa3e4f2.tmp
-.laya/chrome/CrashpadMetrics.pma
-.laya/chrome/BrowserMetrics/BrowserMetrics-60823AAF-D60.pma
-.laya/chrome/Default/4ea49bf7-1772-479b-a7de-51d219c8d087.tmp
-.laya/chrome/Default/111d855b-2143-4c30-8c0c-18ccf303a053.tmp
-.laya/chrome/Default/0946c60f-de4e-4058-a3ce-df1a28feb263.tmp
-.laya/chrome/Default/Sessions/Session_13263621042175057
-.laya/chrome/Default/Sessions/Tabs_13263621042241573
-.laya/chrome/57b9e5c1-4973-48fc-9fa0-6d47aae74f0d.tmp
-.laya/chrome/lockfile
-.laya/chrome/BrowserMetrics/BrowserMetrics-60823B6A-27C.pma
-.laya/chrome/Default/470203d4-f2a7-4a8e-8162-85238311d249.tmp
-.laya/chrome/Default/975764e8-e1be-4955-9e4d-065147903053.tmp
-.laya/chrome/Default/a90eac2b-8da8-45e6-8917-fb72cb1c163a.tmp
-.laya/chrome/Default/Session Storage/LOG.old~RF46f3e1.TMP
-.laya/chrome/Default/Sessions/Session_13263621228790292
-.laya/chrome/Default/Sessions/Tabs_13263621228854523
-.laya/chrome/Local State~RF46f43e.TMP
-.laya/chrome/e225932a-6ef0-4439-ad2d-605cd9c0f2f9.tmp
-.laya/chrome/eafbb3ce-1571-4c14-9a60-55ac2201bd7a.tmp
-.laya/chrome/Local State~RF1287668.TMP
-.laya/chrome/BrowserMetrics/BrowserMetrics-608276C0-36C.pma
-.laya/chrome/BrowserMetrics/BrowserMetrics-60827519-7EC.pma
-.laya/chrome/BrowserMetrics/BrowserMetrics-60827528-2FF8.pma
-.laya/chrome/Default/1ba8b69d-440e-40c5-8496-d522c810f00d.tmp
-.laya/chrome/Default/60e5b408-4ca5-4d95-859b-4c71d5501e93.tmp
-.laya/chrome/Default/61d894ac-3c27-4f66-b0e0-d5d73f639d7b.tmp
-.laya/chrome/Default/76a6a90e-07ca-4c88-bb4c-4c8b77efd371.tmp
-.laya/chrome/Default/83697a14-13c1-4cc9-af0a-a6cbf2a36807.tmp
-.laya/chrome/Default/e6335966-ccb9-483a-91de-29229ddc0194.tmp
-.laya/chrome/Default/Preferences~RF1287668.TMP
-.laya/chrome/Default/Sessions/Session_13263636010981423
-.laya/chrome/Default/Sessions/Session_13263636419403032
-.laya/chrome/Default/Sessions/Tabs_13263636011000877
-.laya/chrome/Default/Sessions/Tabs_13263636419471188
-.laya/chrome/Default/data_reduction_proxy_leveldb/000065.log
-.laya/chrome/Default/data_reduction_proxy_leveldb/MANIFEST-000064
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/code/cache/7a9ef8718e4232a344cb7220b8e7cc5650b60e79
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/code/cache/8c0753cad5a07f7c4ca670aa2a9c1a0e023fb1f7
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/code/cache/833b772ac418ebe8476eece443cd7a034ccc978b
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/code/cache/28744acfeb38d5e9e78e962c7284d44433267f84
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/code/cache/abc16503d359cc8d0a04fb8b92c24b056f30b1e4
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/semanticDiagnostics/cache/7a9ef8718e4232a344cb7220b8e7cc5650b60e79
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/semanticDiagnostics/cache/8c0753cad5a07f7c4ca670aa2a9c1a0e023fb1f7
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/semanticDiagnostics/cache/833b772ac418ebe8476eece443cd7a034ccc978b
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/semanticDiagnostics/cache/28744acfeb38d5e9e78e962c7284d44433267f84
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/semanticDiagnostics/cache/abc16503d359cc8d0a04fb8b92c24b056f30b1e4
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/syntacticDiagnostics/cache/7a9ef8718e4232a344cb7220b8e7cc5650b60e79
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/syntacticDiagnostics/cache/8c0753cad5a07f7c4ca670aa2a9c1a0e023fb1f7
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/syntacticDiagnostics/cache/833b772ac418ebe8476eece443cd7a034ccc978b
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/syntacticDiagnostics/cache/28744acfeb38d5e9e78e962c7284d44433267f84
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/syntacticDiagnostics/cache/abc16503d359cc8d0a04fb8b92c24b056f30b1e4
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/types/cache/7c18aaa8f43accf3ac5bd63f7abe021bd17944f3
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/types/cache/22a7adf90fed4af6d67ee9a7b80cf499ca515d8a
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/types/cache/baa3af38793561a5ac816f469530673ffc1c4232
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/types/cache/c13814f419b776be08b8faf44c4a4fb17a3cb8c7
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/types/cache/d0046de4f493d6ad7ca9c8b51237167d372e8058
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/types/cache/e0ac7eb304275e71cb4f9e651115a7dc11e896f6
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/types/cache/eb77dc64fb3c25a61f85e7c43366f2884c8db62e
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/code/cache/833b772ac418ebe8476eece443cd7a034ccc978b
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/code/cache/28744acfeb38d5e9e78e962c7284d44433267f84
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/code/cache/abc16503d359cc8d0a04fb8b92c24b056f30b1e4
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/code/cache/ac80d48b5f5fb3dd93cd124ce1bea4d2c94e2eb7
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/semanticDiagnostics/cache/833b772ac418ebe8476eece443cd7a034ccc978b
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/semanticDiagnostics/cache/28744acfeb38d5e9e78e962c7284d44433267f84
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/semanticDiagnostics/cache/abc16503d359cc8d0a04fb8b92c24b056f30b1e4
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/semanticDiagnostics/cache/ac80d48b5f5fb3dd93cd124ce1bea4d2c94e2eb7
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/syntacticDiagnostics/cache/833b772ac418ebe8476eece443cd7a034ccc978b
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/syntacticDiagnostics/cache/28744acfeb38d5e9e78e962c7284d44433267f84
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/syntacticDiagnostics/cache/abc16503d359cc8d0a04fb8b92c24b056f30b1e4
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/syntacticDiagnostics/cache/ac80d48b5f5fb3dd93cd124ce1bea4d2c94e2eb7
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/types/cache/7c18aaa8f43accf3ac5bd63f7abe021bd17944f3
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/types/cache/22a7adf90fed4af6d67ee9a7b80cf499ca515d8a
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/types/cache/baa3af38793561a5ac816f469530673ffc1c4232
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/types/cache/c13814f419b776be08b8faf44c4a4fb17a3cb8c7
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/types/cache/d0046de4f493d6ad7ca9c8b51237167d372e8058
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/types/cache/e0ac7eb304275e71cb4f9e651115a7dc11e896f6
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/types/cache/eb77dc64fb3c25a61f85e7c43366f2884c8db62e
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/code/cache/ac80d48b5f5fb3dd93cd124ce1bea4d2c94e2eb7
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/semanticDiagnostics/cache/ac80d48b5f5fb3dd93cd124ce1bea4d2c94e2eb7
-.rpt2_cache/rpt2_0c9992725ab6dbebe1e5cc0c801fc070d4046eda/syntacticDiagnostics/cache/ac80d48b5f5fb3dd93cd124ce1bea4d2c94e2eb7
 .rpt2_cache/rpt2_ce85bedd85f89da698cb18b137f51a11f7eaffe8/code/cache/833b772ac418ebe8476eece443cd7a034ccc978b
 .rpt2_cache/rpt2_ce85bedd85f89da698cb18b137f51a11f7eaffe8/code/cache/28744acfeb38d5e9e78e962c7284d44433267f84
 .rpt2_cache/rpt2_ce85bedd85f89da698cb18b137f51a11f7eaffe8/code/cache/abc16503d359cc8d0a04fb8b92c24b056f30b1e4
@@ -4029,29 +3417,3 @@ node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd6
 .rpt2_cache/rpt2_e911b3f16584e73e12d5d9992dd99c860e3b96e7/types/cache/d0046de4f493d6ad7ca9c8b51237167d372e8058
 .rpt2_cache/rpt2_e911b3f16584e73e12d5d9992dd99c860e3b96e7/types/cache/e0ac7eb304275e71cb4f9e651115a7dc11e896f6
 .rpt2_cache/rpt2_e911b3f16584e73e12d5d9992dd99c860e3b96e7/types/cache/eb77dc64fb3c25a61f85e7c43366f2884c8db62e
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/code/cache/7a9ef8718e4232a344cb7220b8e7cc5650b60e79
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/code/cache/8c0753cad5a07f7c4ca670aa2a9c1a0e023fb1f7
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/semanticDiagnostics/cache/7a9ef8718e4232a344cb7220b8e7cc5650b60e79
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/semanticDiagnostics/cache/8c0753cad5a07f7c4ca670aa2a9c1a0e023fb1f7
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/syntacticDiagnostics/cache/7a9ef8718e4232a344cb7220b8e7cc5650b60e79
-node_modules/.cache/rollup-plugin-typescript2/rpt2_cda1731f8690c647e556977bb1dd67537b9948ed/syntacticDiagnostics/cache/8c0753cad5a07f7c4ca670aa2a9c1a0e023fb1f7
-release/web/fileconfig.json
-release/web/GameConfig.js
-release/web/index.html
-release/web/index.js
-release/web/Main.js
-release/web/unpack.json
-release/web/version.json
-release/web/MVC/MainController.js
-release/web/UI/UIMainScene/UIMainScene.js
-release/web/UI/UIMainScene/UIMainSceneBinder.js
-release/web/js/bundle.js
-release/web/libs/laya.core.js
-release/web/libs/laya.html.js
-release/web/libs/laya.physics.js
-release/web/libs/laya.ui.js
-release/web/libs/fairygui/fairygui.js
-release/web/libs/fairygui/rawinflate.min.js
-release/web/res/atlas/comp.atlas
-release/web/res/atlas/comp.png
-release/web/res/ui/UIMainScene.fui
