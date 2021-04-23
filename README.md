@@ -18,3 +18,8 @@ vscode:
 需要配置launch.json ==> "runtimeExecutable": "D://Program Files//Chrome//Chrome.exe",
 npm install
 ctrl+F5
+
+
+如果想在vscode中编译laya：
+请打开tools文件夹
+最后在vscode中ctrl+shift+b ==> build 任务运行 ==> F5运行即可

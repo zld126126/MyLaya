@@ -1,0 +1,1 @@
+{"version":3,"file":"UIMainSceneBinder.js","sourceRoot":"","sources":["UIMainSceneBinder.ts"],"names":[],"mappings":"AAAA,sFAAsF;AAEtF,OAAO,WAAW,MAAM,eAAe,CAAC;AAExC,MAAM,CAAC,OAAO;IACN,MAAM,CAAC,OAAO;QACpB,IAAI,CAAC,eAAe,CAAC,YAAY,CAAC,WAAW,CAAC,GAAG,EAAE,WAAW,CAAC,CAAC;IACjE,CAAC;CACD"}

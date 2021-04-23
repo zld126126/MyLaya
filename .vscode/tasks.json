@@ -1,0 +1,12 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            // 执行自定义命令
+                "label": "build",
+                "type": "shell",
+                "command": "node",
+                "args": ["compile.js"]
+            } 
+    ]
+}
