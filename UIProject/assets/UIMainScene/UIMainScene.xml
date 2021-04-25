@@ -4,14 +4,20 @@
     <graph id="n0_stko" name="Bg" xy="0,0" size="800,600" alpha="0.8" type="rect" lineSize="0" fillColor="#ff000000">
       <relation target="" sidePair="width-width,height-height"/>
     </graph>
-    <text id="n1_e6d1" name="Title" xy="189,164" size="455,79" fontSize="60" color="#006633" autoSize="none" text="Hello，World！">
+    <text id="n1_e6d1" name="Title" xy="189,164" pivot="0.5,0.5" size="455,79" fontSize="60" color="#006633" autoSize="none" text="Hello，World！">
       <relation target="" sidePair="center-center"/>
     </text>
-    <text id="n2_e6d1" name="Author" xy="338,286" size="130,66" fontSize="50" color="#0066ff" text="Dong">
+    <text id="n2_e6d1" name="Author" xy="338,286" pivot="0.5,0.5" size="130,66" fontSize="50" color="#0066ff" text="Dong">
       <relation target="" sidePair="center-center"/>
     </text>
     <component id="n4_l3b2" name="Change" src="l3b22" fileName="Button1.xml" xy="80,440" size="80,80">
       <relation target="" sidePair="left-left,bottom-bottom"/>
     </component>
   </displayList>
+  <transition name="ShowTransition">
+    <item time="0" type="Scale" target="n1_e6d1" tween="true" startValue="0.6,0.6" endValue="1.2,1.2" duration="12"/>
+    <item time="0" type="Scale" target="n2_e6d1" tween="true" startValue="0.6,0.6" endValue="1.2,1.2" duration="12"/>
+    <item time="12" type="Scale" target="n1_e6d1" tween="true" startValue="1.2,1.2" endValue="1,1" duration="6"/>
+    <item time="12" type="Scale" target="n2_e6d1" tween="true" startValue="1.2,1.2" endValue="1,1" duration="6"/>
+  </transition>
 </component>

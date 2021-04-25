@@ -1,5 +1,5 @@
 {
-  "path": "D:\\laya_project\\MyLaya\\myLaya\\bin\\res\\ui",
+  "path": "D:\\laya_project\\MyLaya\\bin\\res\\ui",
   "branchPath": "",
   "fileExtension": "fui",
   "packageCount": 2,
@@ -9,7 +9,7 @@
   "compressPNG": false,
   "codeGeneration": {
     "allowGenCode": true,
-    "codePath": "D:\\laya_project\\MyLaya\\myLaya\\src\\UI",
+    "codePath": "D:\\laya_project\\MyLaya\\src\\UI",
     "classNamePrefix": "",
     "memberNamePrefix": "m_",
     "packageName": null,

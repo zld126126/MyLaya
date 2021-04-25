@@ -6,6 +6,7 @@ export default class UIMainScene extends fgui.GComponent {
 	public m_Title:fgui.GTextField;
 	public m_Author:fgui.GTextField;
 	public m_Change:fgui.GButton;
+	public m_ShowTransition:fgui.Transition;
 	public static URL:string = "ui://fadwlk6pjejj0";
 
 	public static createInstance():UIMainScene {
@@ -17,5 +18,6 @@ export default class UIMainScene extends fgui.GComponent {
 		this.m_Title = <fgui.GTextField>(this.getChild("Title"));
 		this.m_Author = <fgui.GTextField>(this.getChild("Author"));
 		this.m_Change = <fgui.GButton>(this.getChild("Change"));
+		this.m_ShowTransition = this.getTransition("ShowTransition");
 	}
 }

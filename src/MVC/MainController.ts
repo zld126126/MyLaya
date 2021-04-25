@@ -16,7 +16,6 @@ export default class MainController{
         this._ui.makeFullScreen();
         fgui.GRoot.inst.addChild(this._ui);
         console.log("页面加载成功");
-
         this._ui.m_Change.onClick(this,this.SetChangeContent,["东宝","你好,世界！"]);
     }
     
@@ -32,6 +31,8 @@ export default class MainController{
         this.IsChange = false;
         this._ui.m_Title.text = this.Title;
         this._ui.m_Author.text = this.Author;
+        this._ui.m_ShowTransition.play(undefined,-1,0);
+        this._ui.m_ShowTransition.timeScale = 1;
     }
 
     Update(){

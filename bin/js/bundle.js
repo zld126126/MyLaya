@@ -31,6 +31,7 @@
             this.m_Title = (this.getChild("Title"));
             this.m_Author = (this.getChild("Author"));
             this.m_Change = (this.getChild("Change"));
+            this.m_ShowTransition = this.getTransition("ShowTransition");
         }
     }
     UIMainScene.URL = "ui://fadwlk6pjejj0";
@@ -61,6 +62,8 @@
             this.IsChange = false;
             this._ui.m_Title.text = this.Title;
             this._ui.m_Author.text = this.Author;
+            this._ui.m_ShowTransition.play(undefined, -1, 0);
+            this._ui.m_ShowTransition.timeScale = 1;
         }
         Update() {
             if (this.IsChange) {
