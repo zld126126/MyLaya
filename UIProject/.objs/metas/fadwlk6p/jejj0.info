@@ -1,9 +1,15 @@
 {
   "objectStatus": {
+    "n1_e6d1": {
+      "locked": true
+    },
     "n4_l3b2": {
       "locked": true
     },
     "n0_stko": {
+      "locked": true
+    },
+    "n2_e6d1": {
       "locked": true
     }
   },
