@@ -13,8 +13,8 @@
     "classNamePrefix": "",
     "memberNamePrefix": "m_",
     "packageName": null,
-    "ignoreNoname": true,
-    "getMemberByName": true,
+    "ignoreNoname": false,
+    "getMemberByName": false,
     "codeType": ""
   },
   "includeHighResolution": 0,

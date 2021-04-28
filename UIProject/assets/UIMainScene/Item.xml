@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="400,100">
+  <controller name="Pos" pages="0,,1," selected="0"/>
+  <displayList>
+    <graph id="n0_rn11" name="n0" xy="0,0" size="400,100" type="rect" lineSize="0" fillColor="#ff66ccff">
+      <gearDisplay controller="Pos" pages="0,1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <text id="n1_rn11" name="Title_Left" xy="0,0" size="400,100" fontSize="12" color="#ffffff" align="center" vAlign="middle" autoSize="none" bold="true" text="这是一行测试数据">
+      <gearDisplay controller="Pos" pages="0"/>
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </text>
+    <text id="n2_uzbv" name="Title_Right" xy="0,0" size="400,100" fontSize="12" color="#ffffff" align="center" vAlign="middle" autoSize="none" bold="true" text="这是一行测试数据">
+      <gearDisplay controller="Pos" pages="1"/>
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </text>
+  </displayList>
+</component>

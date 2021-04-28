@@ -1,0 +1,15 @@
+{
+  "objectStatus": {
+    "n0_rn11": {
+      "locked": true
+    },
+    "n2_uzbv": {
+      "locked": true
+    },
+    "n1_rn11": {
+      "locked": true
+    }
+  },
+  "adaptiveTest": true,
+  "fitScreen": "FitSize"
+}

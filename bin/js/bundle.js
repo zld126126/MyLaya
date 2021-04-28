@@ -26,11 +26,13 @@
             return (fgui.UIPackage.createObject("UIMainScene", "UIMainScene"));
         }
         onConstruct() {
-            this.m_Bg = (this.getChild("Bg"));
-            this.m_Title = (this.getChild("Title"));
-            this.m_Author = (this.getChild("Author"));
-            this.m_Change = (this.getChild("Change"));
-            this.m_ShowTransition = this.getTransition("ShowTransition");
+            this.m_Bg = (this.getChildAt(0));
+            this.m_Title = (this.getChildAt(1));
+            this.m_Author = (this.getChildAt(2));
+            this.m_ContentBox = (this.getChildAt(3));
+            this.m_Change = (this.getChildAt(4));
+            this.m_Add = (this.getChildAt(5));
+            this.m_ShowTransition = this.getTransitionAt(0);
         }
     }
     UIMainScene.URL = "ui://fadwlk6pjejj0";
@@ -38,8 +40,10 @@
     class MainController {
         constructor() {
             this.IsChange = false;
+            this.IsAdd = false;
             this.Title = "";
             this.Author = "";
+            this.ItemCount = 0;
             fgui.UIPackage.loadPackage("res/ui/UIMainScene", Laya.Handler.create(this, this.onUILoaded));
             Laya.timer.frameLoop(1, this, this.Update);
         }
@@ -48,9 +52,40 @@
             this._ui.makeFullScreen();
             fgui.GRoot.inst.addChild(this._ui);
             console.log("页面加载成功");
-            this._ui.m_Change.onClick(this, this.SetChangeContent, ["东宝", "你好,世界！"]);
+            this._ui.m_Change.onClick(this, this.Change, ["东宝", "你好,世界！"]);
+            this._ui.m_Add.onClick(this, this.Add);
+            this._ui.m_ContentBox.itemRenderer = Laya.Handler.create(this, this.RenderItem, undefined, false);
+            this._ui.m_ContentBox.numItems = this.ItemCount;
         }
-        SetChangeContent(author, title) {
+        Add() {
+            this.IsAdd = true;
+        }
+        AddItem() {
+            this.IsAdd = false;
+            this.ItemCount++;
+            this._ui.m_ContentBox.numItems = this.ItemCount;
+            if (this.ItemCount > 0) {
+                this._ui.m_ContentBox.scrollToView(this.ItemCount - 1, true);
+            }
+        }
+        RenderItem(index, obj) {
+            let isLeft = index % 2 == 1;
+            if (isLeft) {
+                obj.m_Pos.setSelectedIndex(0);
+                obj.m_Title_Left.text = "这是第" + index + "行测试数据";
+            }
+            else {
+                obj.m_Pos.setSelectedIndex(1);
+                obj.m_Title_Right.text = "这是第" + index + "行测试数据";
+            }
+            let contentHeight = this._ui.m_ContentBox.scrollPane.contentHeight;
+            let viewHeight = this._ui.m_ContentBox.scrollPane.viewHeight;
+            if (contentHeight > viewHeight) {
+                console.log("内容高度应景超出视口高度");
+            }
+            console.log("内容高度:" + contentHeight + "视口高度:" + viewHeight);
+        }
+        Change(author, title) {
             console.log("点击了按钮");
             this.IsChange = true;
             this.Title = title;
@@ -68,15 +103,62 @@
             if (this.IsChange) {
                 this.ChangeContent();
             }
+            if (this.IsAdd) {
+                this.AddItem();
+            }
         }
         destroy() {
             this._ui.dispose();
         }
     }
 
+    class Button1 extends fgui.GButton {
+        static createInstance() {
+            return (fgui.UIPackage.createObject("UIMainScene", "Button1"));
+        }
+        onConstruct() {
+            this.m_button = this.getControllerAt(0);
+            this.m_n0 = (this.getChildAt(0));
+            this.m_n1 = (this.getChildAt(1));
+            this.m_n2 = (this.getChildAt(2));
+            this.m_title = (this.getChildAt(3));
+        }
+    }
+    Button1.URL = "ui://fadwlk6pl3b22";
+
+    class Button2 extends fgui.GButton {
+        static createInstance() {
+            return (fgui.UIPackage.createObject("UIMainScene", "Button2"));
+        }
+        onConstruct() {
+            this.m_button = this.getControllerAt(0);
+            this.m_n0 = (this.getChildAt(0));
+            this.m_n1 = (this.getChildAt(1));
+            this.m_n2 = (this.getChildAt(2));
+            this.m_title = (this.getChildAt(3));
+        }
+    }
+    Button2.URL = "ui://fadwlk6prn114";
+
+    class Item extends fgui.GComponent {
+        static createInstance() {
+            return (fgui.UIPackage.createObject("UIMainScene", "Item"));
+        }
+        onConstruct() {
+            this.m_Pos = this.getControllerAt(0);
+            this.m_n0 = (this.getChildAt(0));
+            this.m_Title_Left = (this.getChildAt(1));
+            this.m_Title_Right = (this.getChildAt(2));
+        }
+    }
+    Item.URL = "ui://fadwlk6prn116";
+
     class UIMainSceneBinder {
         static bindAll() {
             fgui.UIObjectFactory.setExtension(UIMainScene.URL, UIMainScene);
+            fgui.UIObjectFactory.setExtension(Button1.URL, Button1);
+            fgui.UIObjectFactory.setExtension(Button2.URL, Button2);
+            fgui.UIObjectFactory.setExtension(Item.URL, Item);
         }
     }
 
