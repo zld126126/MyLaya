@@ -3,6 +3,7 @@
   "libview.iconScale": 0,
   "doc.openedDocs": [
     "ui://fadwlk6pjejj0",
+    "ui://fadwlk6pffoa9",
     "ui://fadwlk6prn116",
     "ui://fadwlk6pl3b22",
     "ui://fadwlk6prn114"
@@ -10,7 +11,7 @@
   "test.device": "iPhone 8",
   "canvasColor": 10066329,
   "auxline2": true,
-  "doc.activeDoc": "ui://fadwlk6prn116",
+  "doc.activeDoc": "ui://fadwlk6pffoa9",
   "libview.twoColumn": false,
   "libview.expandedNodes": [
     "fadwlk6p",

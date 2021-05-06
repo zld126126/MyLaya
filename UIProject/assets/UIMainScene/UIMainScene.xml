@@ -10,7 +10,7 @@
     <text id="n2_e6d1" name="Author" xy="338,110" pivot="0.5,0.5" size="130,66" fontSize="50" color="#0066ff" text="Dong">
       <relation target="" sidePair="center-center"/>
     </text>
-    <list id="n5_rn11" name="ContentBox" xy="195,194" size="400,400" overflow="scroll" scrollBarFlags="5" lineGap="10" defaultItem="ui://fadwlk6prn116">
+    <list id="n5_rn11" name="ContentBox" xy="195,194" size="400,400" overflow="scroll" ptrRes=",ui://fadwlk6pffoa9" lineGap="10" defaultItem="ui://fadwlk6prn116">
       <relation target="" sidePair="width-width"/>
       <item/>
       <item/>

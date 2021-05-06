@@ -2,7 +2,8 @@
     'use strict';
 
     class GameConfig {
-        constructor() { }
+        constructor() {
+        }
         static init() {
             var reg = Laya.ClassUtils.regClass;
         }
@@ -63,8 +64,8 @@
         AddItem() {
             this.IsAdd = false;
             this.ItemCount++;
-            this._ui.m_ContentBox.numItems = this.ItemCount;
             if (this.ItemCount > 0) {
+                this._ui.m_ContentBox.numItems = this.ItemCount;
                 this._ui.m_ContentBox.scrollToView(this.ItemCount - 1, true);
             }
         }
@@ -78,12 +79,6 @@
                 obj.m_Pos.setSelectedIndex(1);
                 obj.m_Title_Right.text = "这是第" + index + "行测试数据";
             }
-            let contentHeight = this._ui.m_ContentBox.scrollPane.contentHeight;
-            let viewHeight = this._ui.m_ContentBox.scrollPane.viewHeight;
-            if (contentHeight > viewHeight) {
-                console.log("内容高度应景超出视口高度");
-            }
-            console.log("内容高度:" + contentHeight + "视口高度:" + viewHeight);
         }
         Change(author, title) {
             console.log("点击了按钮");
@@ -96,7 +91,7 @@
             this.IsChange = false;
             this._ui.m_Title.text = this.Title;
             this._ui.m_Author.text = this.Author;
-            this._ui.m_ShowTransition.play(undefined, -1, 0);
+            this._ui.m_ShowTransition.play(undefined, 1, 0);
             this._ui.m_ShowTransition.timeScale = 1;
         }
         Update() {
@@ -111,6 +106,17 @@
             this._ui.dispose();
         }
     }
+
+    class Refresh extends fgui.GComponent {
+        static createInstance() {
+            return (fgui.UIPackage.createObject("UIMainScene", "Refresh"));
+        }
+        onConstruct() {
+            this.m_Pos = this.getControllerAt(0);
+            this.m_n0 = (this.getChildAt(0));
+        }
+    }
+    Refresh.URL = "ui://fadwlk6pffoa9";
 
     class Button1 extends fgui.GButton {
         static createInstance() {
@@ -155,6 +161,7 @@
 
     class UIMainSceneBinder {
         static bindAll() {
+            fgui.UIObjectFactory.setExtension(Refresh.URL, Refresh);
             fgui.UIObjectFactory.setExtension(UIMainScene.URL, UIMainScene);
             fgui.UIObjectFactory.setExtension(Button1.URL, Button1);
             fgui.UIObjectFactory.setExtension(Button2.URL, Button2);

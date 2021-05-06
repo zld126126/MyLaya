@@ -8,14 +8,6 @@
             "args": [
                 "compile.js"
             ]
-        },
-        {
-            "label": "build laya",
-            "type": "shell",
-            "command": "layaair2-cmd",
-            "args": [
-                "compile"
-            ]
         }
     ]
 }

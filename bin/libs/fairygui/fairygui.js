@@ -484,6 +484,7 @@
         }
         static dispatch(type, target, source) {
             target.event(type, this.createEvent(type, target, source));
+            //console.log(type,target,source);
         }
     }
     Events.STATE_CHANGED = "fui_state_changed";

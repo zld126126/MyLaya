@@ -9,6 +9,7 @@ export default class MainController{
     private Title:string = "";
     private Author:string = "";
     private ItemCount :number = 0;
+
     constructor() {
         fgui.UIPackage.loadPackage("res/ui/UIMainScene", Laya.Handler.create(this, this.onUILoaded)); 
         Laya.timer.frameLoop(1, this, this.Update);
@@ -32,11 +33,9 @@ export default class MainController{
     public AddItem(){
         this.IsAdd = false;
         this.ItemCount ++;
-        this._ui.m_ContentBox.numItems  = this.ItemCount;
         if (this.ItemCount > 0){
+            this._ui.m_ContentBox.numItems = this.ItemCount;
             this._ui.m_ContentBox.scrollToView(this.ItemCount-1,true);
-        }else{
-            // 需要模拟下拉
         }
     }
 
@@ -49,14 +48,6 @@ export default class MainController{
             obj.m_Pos.setSelectedIndex(1);
             obj.m_Title_Right.text = "这是第"+index+"行测试数据";
         }
-
-        let contentHeight = this._ui.m_ContentBox.scrollPane.contentHeight;
-        let viewHeight = this._ui.m_ContentBox.scrollPane.viewHeight;
-        if (contentHeight > viewHeight){
-            console.log("内容高度应景超出视口高度");
-            
-        }
-        console.log("内容高度:"+contentHeight+"视口高度:"+viewHeight);
     }
     
     public Change(author:string,title:string){
@@ -71,7 +62,7 @@ export default class MainController{
         this.IsChange = false;
         this._ui.m_Title.text = this.Title;
         this._ui.m_Author.text = this.Author;
-        this._ui.m_ShowTransition.play(undefined,-1,0);
+        this._ui.m_ShowTransition.play(undefined,1,0);
         this._ui.m_ShowTransition.timeScale = 1;
     }
 

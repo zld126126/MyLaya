@@ -5,6 +5,7 @@
     <component id="l3b22" name="Button1.xml" path="/"/>
     <component id="rn114" name="Button2.xml" path="/"/>
     <component id="rn116" name="Item.xml" path="/" exported="true"/>
+    <component id="ffoa9" name="Refresh.xml" path="/"/>
   </resources>
   <publish name="" genCode="true"/>
 </packageDescription>

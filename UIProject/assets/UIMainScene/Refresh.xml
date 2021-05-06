@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="50,50">
+  <controller name="Pos" pages="0,,1," selected="0"/>
+  <displayList>
+    <loader id="n0_ffoa" name="n0" xy="0,0" size="50,50">
+      <gearDisplay controller="Pos" pages="0,1"/>
+    </loader>
+  </displayList>
+</component>
