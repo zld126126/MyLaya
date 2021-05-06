@@ -1,6 +1,9 @@
 import GameConfig from "./GameConfig";
-import MainController from "./MVC/MainController";
+import MainController from "./Biz/MainController";
 import UIMainSceneBinder from "./UI/UIMainScene/UIMainSceneBinder";
+import { Database } from "./Database/Database";
+import { ResourceManager } from "./Asset/ResourcesManager";
+import { EventManager, EventType } from "./Event/EventManager";
 class Main {
 	constructor() {
 		//根据IDE设置初始化引擎		
@@ -23,6 +26,7 @@ class Main {
 
 		//激活资源版本控制，version.json由IDE发布功能自动生成，如果没有也不影响后续流程
 		Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
+		EventManager.RegistEvent(EventType.RESOURCE_READY,Laya.Handler.create(this, this.Ready));
 	}
 
 	onVersionLoaded(): void {
@@ -31,16 +35,23 @@ class Main {
 	}
 
 	onConfigLoaded(): void {
+		Database.getInstance();
+		ResourceManager.getInstance();
 		//加载IDE指定的场景
 		//GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
 		Laya.stage.addChild(fgui.GRoot.inst.displayObject);
 		this.bindAllUI();
-		new MainController();
+		// new MainController();
 	}
 
 	bindAllUI(){
 		UIMainSceneBinder.bindAll();
 		console.log("UI绑定成功");
+	}
+
+	Ready(){
+		MainController.getInstance();
+		//Database.getInstance().PrintJson();
 	}
 
 }

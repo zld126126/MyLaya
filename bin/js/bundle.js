@@ -22,6 +22,93 @@
     GameConfig.exportSceneToJson = true;
     GameConfig.init();
 
+    class Singleton {
+        static getInstance() {
+            if (!this.instance) {
+                this.instance = new this();
+            }
+            return this.instance;
+        }
+    }
+
+    class BaseController extends Singleton {
+        constructor() {
+            super();
+        }
+        init(path) {
+            console.log("BaseController init");
+            fgui.UIPackage.loadPackage(path, Laya.Handler.create(this, this.onUILoaded));
+            Laya.timer.frameLoop(1, this, this.Update);
+        }
+        Update() {
+        }
+        onUILoaded() {
+        }
+    }
+
+    class EventExtra {
+        constructor() {
+            this._handerList = new Array();
+        }
+        Add(handler) {
+            this._handerList.push(handler);
+        }
+        Remove(handler) {
+            for (let i = 0; i < this._handerList.length; i++) {
+                if (handler.caller == this._handerList[i].caller && handler.method == this._handerList[i].method) {
+                    this._handerList[i].recover();
+                    this._handerList.splice(i, 1);
+                    handler.recover();
+                    return;
+                }
+            }
+        }
+        Exec(args) {
+            for (let i = this._handerList.length; i >= 0; i--) {
+                let handler = this._handerList[i];
+                if (handler != null) {
+                    try {
+                        handler.setTo(handler.caller, handler.method, args, false);
+                        handler.run();
+                    }
+                    catch (e) {
+                        console.error(e);
+                    }
+                }
+            }
+        }
+    }
+    class EventManager {
+        static DispatchEvent(type, args) {
+            if (!(args instanceof Array))
+                args = [args];
+            let e = EventManager.eventMap.get(type);
+            if (e != null || e != undefined) {
+                try {
+                    e.Exec(args);
+                }
+                catch (e) {
+                    console.error(e);
+                }
+            }
+        }
+        static RegistEvent(type, handler) {
+            let e = EventManager.eventMap.get(type);
+            if (e == null || e == undefined) {
+                e = new EventExtra();
+                EventManager.eventMap.set(type, e);
+            }
+            e.Add(handler);
+        }
+        static RemoveEvent(type, handler) {
+            let e = EventManager.eventMap.get(type);
+            if (e != undefined && handler != null) {
+                e.Remove(handler);
+            }
+        }
+    }
+    EventManager.eventMap = new Map();
+
     class UIMainScene extends fgui.GComponent {
         static createInstance() {
             return (fgui.UIPackage.createObject("UIMainScene", "UIMainScene"));
@@ -38,25 +125,30 @@
     }
     UIMainScene.URL = "ui://fadwlk6pjejj0";
 
-    class MainController {
+    class MainController extends BaseController {
         constructor() {
+            super();
             this.IsChange = false;
             this.IsAdd = false;
             this.Title = "";
             this.Author = "";
             this.ItemCount = 0;
-            fgui.UIPackage.loadPackage("res/ui/UIMainScene", Laya.Handler.create(this, this.onUILoaded));
-            Laya.timer.frameLoop(1, this, this.Update);
+            this.init("res/ui/UIMainScene");
         }
         onUILoaded() {
             this._ui = UIMainScene.createInstance();
             this._ui.makeFullScreen();
             fgui.GRoot.inst.addChild(this._ui);
             console.log("页面加载成功");
+            this.Register();
+        }
+        Register() {
             this._ui.m_Change.onClick(this, this.Change, ["东宝", "你好,世界！"]);
             this._ui.m_Add.onClick(this, this.Add);
             this._ui.m_ContentBox.itemRenderer = Laya.Handler.create(this, this.RenderItem, undefined, false);
             this._ui.m_ContentBox.numItems = this.ItemCount;
+            EventManager.RegistEvent("TESTEVENT", Laya.Handler.create(this, this.EventTest));
+            console.log("页面注册组件成功");
         }
         Add() {
             this.IsAdd = true;
@@ -67,6 +159,7 @@
             if (this.ItemCount > 0) {
                 this._ui.m_ContentBox.numItems = this.ItemCount;
                 this._ui.m_ContentBox.scrollToView(this.ItemCount - 1, true);
+                EventManager.DispatchEvent("TESTEVENT");
             }
         }
         RenderItem(index, obj) {
@@ -104,6 +197,9 @@
         }
         destroy() {
             this._ui.dispose();
+        }
+        EventTest() {
+            console.log("EventTest 事件派发测试");
         }
     }
 
@@ -169,6 +265,53 @@
         }
     }
 
+    class Database extends Singleton {
+        constructor() {
+            super();
+            this.SAVEDATA_KEY = "SAVEDATA";
+            this.SAVEDATA = "";
+        }
+        onLoaded() {
+            console.log("json onLoaded success");
+            this.json = Laya.loader.getRes("res/json/test.json");
+            console.log(this.json["name"]);
+            console.log(this.json["age"]);
+            console.log(this.json["sex"]);
+            console.log(this.json["isChinese"]);
+        }
+        PrintJson() {
+            this.json = Laya.loader.getRes("res/json/test.json");
+            console.log(this.json["name"]);
+            console.log(this.json["age"]);
+            console.log(this.json["sex"]);
+            console.log(this.json["isChinese"]);
+        }
+        SaveStorage() {
+            var s = localStorage.getItem(this.SAVEDATA_KEY);
+            console.log(s);
+        }
+        LoadStorage() {
+            localStorage.setItem(this.SAVEDATA_KEY, this.SAVEDATA);
+        }
+        ResetStorage() {
+            localStorage.removeItem(this.SAVEDATA_KEY);
+        }
+    }
+
+    class ResourceManager extends Singleton {
+        constructor() {
+            super();
+            this.res = [
+                { url: "res/json/test.json", type: Laya.Loader.JSON },
+            ];
+            Laya.loader.load(this.res, null, Laya.Handler.create(this, this.onProgress, null, false));
+        }
+        onProgress() {
+            console.log("Resource load success");
+            EventManager.DispatchEvent("RESOURCE_READY");
+        }
+    }
+
     class Main {
         constructor() {
             if (window["Laya3D"])
@@ -190,18 +333,23 @@
                 Laya.Stat.show();
             Laya.alertGlobalError = true;
             Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
+            EventManager.RegistEvent("RESOURCE_READY", Laya.Handler.create(this, this.Ready));
         }
         onVersionLoaded() {
             Laya.AtlasInfoManager.enable("fileconfig.json", Laya.Handler.create(this, this.onConfigLoaded));
         }
         onConfigLoaded() {
+            Database.getInstance();
+            ResourceManager.getInstance();
             Laya.stage.addChild(fgui.GRoot.inst.displayObject);
             this.bindAllUI();
-            new MainController();
         }
         bindAllUI() {
             UIMainSceneBinder.bindAll();
             console.log("UI绑定成功");
+        }
+        Ready() {
+            MainController.getInstance();
         }
     }
     new Main();
