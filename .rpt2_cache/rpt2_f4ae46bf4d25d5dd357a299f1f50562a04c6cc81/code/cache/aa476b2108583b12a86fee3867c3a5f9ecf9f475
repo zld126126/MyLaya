@@ -1,5 +1,0 @@
-{
-  "code": "export default class Refresh extends fgui.GComponent {\r\n    static createInstance() {\r\n        return (fgui.UIPackage.createObject(\"UIMainScene\", \"Refresh\"));\r\n    }\r\n    onConstruct() {\r\n        this.m_Pos = this.getControllerAt(0);\r\n        this.m_n0 = (this.getChildAt(0));\r\n    }\r\n}\r\nRefresh.URL = \"ui://fadwlk6pffoa9\";\r\n//# sourceMappingURL=Refresh.js.map",
-  "references": [],
-  "map": "{\"version\":3,\"file\":\"Refresh.js\",\"sourceRoot\":\"\",\"sources\":[\"../../../../src/UI/UIMainScene/Refresh.ts\"],\"names\":[],\"mappings\":\"AAEA,MAAM,CAAC,OAAO,OAAO,OAAQ,SAAQ,IAAI,CAAC,UAAU;IAM5C,MAAM,CAAC,cAAc;QAC3B,OAAgB,CAAC,IAAI,CAAC,SAAS,CAAC,YAAY,CAAC,aAAa,EAAE,SAAS,CAAC,CAAC,CAAC;IACzE,CAAC;IAES,WAAW;QACpB,IAAI,CAAC,KAAK,GAAG,IAAI,CAAC,eAAe,CAAC,CAAC,CAAC,CAAC;QACrC,IAAI,CAAC,IAAI,GAAiB,CAAC,IAAI,CAAC,UAAU,CAAC,CAAC,CAAC,CAAC,CAAC;IAChD,CAAC;;AATa,WAAG,GAAU,oBAAoB,CAAC\"}"
-}

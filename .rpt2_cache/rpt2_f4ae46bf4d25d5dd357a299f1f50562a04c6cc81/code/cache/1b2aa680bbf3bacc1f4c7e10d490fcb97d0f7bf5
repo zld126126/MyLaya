@@ -1,5 +1,0 @@
-{
-  "code": "export default class Item extends fgui.GComponent {\r\n    static createInstance() {\r\n        return (fgui.UIPackage.createObject(\"UIMainScene\", \"Item\"));\r\n    }\r\n    onConstruct() {\r\n        this.m_Pos = this.getControllerAt(0);\r\n        this.m_n0 = (this.getChildAt(0));\r\n        this.m_Title_Left = (this.getChildAt(1));\r\n        this.m_Title_Right = (this.getChildAt(2));\r\n    }\r\n}\r\nItem.URL = \"ui://fadwlk6prn116\";\r\n//# sourceMappingURL=Item.js.map",
-  "references": [],
-  "map": "{\"version\":3,\"file\":\"Item.js\",\"sourceRoot\":\"\",\"sources\":[\"../../../../src/UI/UIMainScene/Item.ts\"],\"names\":[],\"mappings\":\"AAEA,MAAM,CAAC,OAAO,OAAO,IAAK,SAAQ,IAAI,CAAC,UAAU;IAQzC,MAAM,CAAC,cAAc;QAC3B,OAAa,CAAC,IAAI,CAAC,SAAS,CAAC,YAAY,CAAC,aAAa,EAAE,MAAM,CAAC,CAAC,CAAC;IACnE,CAAC;IAES,WAAW;QACpB,IAAI,CAAC,KAAK,GAAG,IAAI,CAAC,eAAe,CAAC,CAAC,CAAC,CAAC;QACrC,IAAI,CAAC,IAAI,GAAgB,CAAC,IAAI,CAAC,UAAU,CAAC,CAAC,CAAC,CAAC,CAAC;QAC9C,IAAI,CAAC,YAAY,GAAoB,CAAC,IAAI,CAAC,UAAU,CAAC,CAAC,CAAC,CAAC,CAAC;QAC1D,IAAI,CAAC,aAAa,GAAoB,CAAC,IAAI,CAAC,UAAU,CAAC,CAAC,CAAC,CAAC,CAAC;IAC5D,CAAC;;AAXa,QAAG,GAAU,oBAAoB,CAAC\"}"
-}

@@ -1,8 +1,0 @@
-{
-  "code": "import Singleton from \"../Base/Singleton\";\r\nimport { EventManager } from \"../Event/EventManager\";\r\nexport class ResourceManager extends Singleton {\r\n    constructor() {\r\n        super();\r\n        this.res = [\r\n            { url: \"res/json/test.json\", type: Laya.Loader.JSON },\r\n        ];\r\n        Laya.loader.load(this.res, null, Laya.Handler.create(this, this.onProgress, null, false));\r\n    }\r\n    onProgress() {\r\n        console.log(\"Resource load success\");\r\n        EventManager.DispatchEvent(\"RESOURCE_READY\");\r\n    }\r\n}\r\n//# sourceMappingURL=ResourcesManager.js.map",
-  "references": [
-    "D:/laya_project/MyLaya/src/Base/Singleton.ts",
-    "D:/laya_project/MyLaya/src/Event/EventManager.ts"
-  ],
-  "map": "{\"version\":3,\"file\":\"ResourcesManager.js\",\"sourceRoot\":\"\",\"sources\":[\"../../../src/Asset/ResourcesManager.ts\"],\"names\":[],\"mappings\":\"AAAA,OAAO,SAAS,MAAM,mBAAmB,CAAC;AAC1C,OAAO,EAAE,YAAY,EAAa,MAAM,uBAAuB,CAAC;AAEhE,MAAM,OAAO,eAAgB,SAAQ,SAAS;IAU1C;QACI,KAAK,EAAE,CAAC;QATJ,QAAG,GAAe;YACtB,EAAC,GAAG,EAAC,oBAAoB,EAAC,IAAI,EAAC,IAAI,CAAC,MAAM,CAAC,IAAI,EAAC;SAKnD,CAAC;QAIE,IAAI,CAAC,MAAM,CAAC,IAAI,CAAC,IAAI,CAAC,GAAG,EAAC,IAAI,EAAC,IAAI,CAAC,OAAO,CAAC,MAAM,CAAC,IAAI,EAAC,IAAI,CAAC,UAAU,EAAC,IAAI,EAAC,KAAK,CAAC,CAAC,CAAC;IACzF,CAAC;IAED,UAAU;QACN,OAAO,CAAC,GAAG,CAAC,uBAAuB,CAAC,CAAC;QACrC,YAAY,CAAC,aAAa,kBAA0B,CAAC;IACzD,CAAC;CACJ\"}"
-}
