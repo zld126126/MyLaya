@@ -1,0 +1,8 @@
+{
+  "code": "export default class UIMainScene extends fgui.GComponent {\r\n    static createInstance() {\r\n        return (fgui.UIPackage.createObject(\"UIMainScene\", \"UIMainScene\"));\r\n    }\r\n    onConstruct() {\r\n        this.m_Bg = (this.getChildAt(0));\r\n        this.m_Title = (this.getChildAt(1));\r\n        this.m_Author = (this.getChildAt(2));\r\n        this.m_ContentBox = (this.getChildAt(3));\r\n        this.m_Change = (this.getChildAt(4));\r\n        this.m_Add = (this.getChildAt(5));\r\n        this.m_ShowTransition = this.getTransitionAt(0);\r\n    }\r\n}\r\nUIMainScene.URL = \"ui://fadwlk6pjejj0\";\r\n//# sourceMappingURL=UIMainScene.js.map",
+  "references": [
+    "D:/laya_project/MyLaya/src/UI/UIMainScene/Button1.ts",
+    "D:/laya_project/MyLaya/src/UI/UIMainScene/Button2.ts"
+  ],
+  "map": "{\"version\":3,\"file\":\"UIMainScene.js\",\"sourceRoot\":\"\",\"sources\":[\"../../../../src/UI/UIMainScene/UIMainScene.ts\"],\"names\":[],\"mappings\":\"AAKA,MAAM,CAAC,OAAO,OAAO,WAAY,SAAQ,IAAI,CAAC,UAAU;IAWhD,MAAM,CAAC,cAAc;QAC3B,OAAoB,CAAC,IAAI,CAAC,SAAS,CAAC,YAAY,CAAC,aAAa,EAAE,aAAa,CAAC,CAAC,CAAC;IACjF,CAAC;IAES,WAAW;QACpB,IAAI,CAAC,IAAI,GAAgB,CAAC,IAAI,CAAC,UAAU,CAAC,CAAC,CAAC,CAAC,CAAC;QAC9C,IAAI,CAAC,OAAO,GAAoB,CAAC,IAAI,CAAC,UAAU,CAAC,CAAC,CAAC,CAAC,CAAC;QACrD,IAAI,CAAC,QAAQ,GAAoB,CAAC,IAAI,CAAC,UAAU,CAAC,CAAC,CAAC,CAAC,CAAC;QACtD,IAAI,CAAC,YAAY,GAAe,CAAC,IAAI,CAAC,UAAU,CAAC,CAAC,CAAC,CAAC,CAAC;QACrD,IAAI,CAAC,QAAQ,GAAY,CAAC,IAAI,CAAC,UAAU,CAAC,CAAC,CAAC,CAAC,CAAC;QAC9C,IAAI,CAAC,KAAK,GAAY,CAAC,IAAI,CAAC,UAAU,CAAC,CAAC,CAAC,CAAC,CAAC;QAC3C,IAAI,CAAC,gBAAgB,GAAG,IAAI,CAAC,eAAe,CAAC,CAAC,CAAC,CAAC;IACjD,CAAC;;AAda,eAAG,GAAU,oBAAoB,CAAC\"}"
+}

@@ -147,7 +147,7 @@
             this._ui.m_Add.onClick(this, this.Add);
             this._ui.m_ContentBox.itemRenderer = Laya.Handler.create(this, this.RenderItem, undefined, false);
             this._ui.m_ContentBox.numItems = this.ItemCount;
-            EventManager.RegistEvent("TESTEVENT", Laya.Handler.create(this, this.EventTest));
+            EventManager.RegistEvent("TEST_EVENT", Laya.Handler.create(this, this.EventTest));
             console.log("页面注册组件成功");
         }
         Add() {
@@ -159,7 +159,7 @@
             if (this.ItemCount > 0) {
                 this._ui.m_ContentBox.numItems = this.ItemCount;
                 this._ui.m_ContentBox.scrollToView(this.ItemCount - 1, true);
-                EventManager.DispatchEvent("TESTEVENT");
+                EventManager.DispatchEvent("TEST_EVENT");
             }
         }
         RenderItem(index, obj) {
@@ -286,6 +286,9 @@
             console.log(this.json["sex"]);
             console.log(this.json["isChinese"]);
         }
+        JsCallTs(res) {
+            console.log(res);
+        }
         SaveStorage() {
             var s = localStorage.getItem(this.SAVEDATA_KEY);
             console.log(s);
@@ -339,7 +342,9 @@
             Laya.AtlasInfoManager.enable("fileconfig.json", Laya.Handler.create(this, this.onConfigLoaded));
         }
         onConfigLoaded() {
-            Database.getInstance();
+            var db = Database.getInstance();
+            window['Database'] = db;
+            window["TsCallJs"]("TsCallJs");
             ResourceManager.getInstance();
             Laya.stage.addChild(fgui.GRoot.inst.displayObject);
             this.bindAllUI();

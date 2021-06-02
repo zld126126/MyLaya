@@ -20,12 +20,16 @@ export class Database extends Singleton {
         console.log(this.json["isChinese"]);
     }
 
-    public PrintJson(){
+    public PrintJson() {
         this.json = Laya.loader.getRes("res/json/test.json");
         console.log(this.json["name"]);
         console.log(this.json["age"]);
         console.log(this.json["sex"]);
         console.log(this.json["isChinese"]);
+    }
+
+    public JsCallTs(res:string){
+        console.log(res);
     }
 
     public SaveStorage() {
