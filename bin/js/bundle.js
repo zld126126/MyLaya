@@ -345,6 +345,7 @@
             var db = Database.getInstance();
             window['Database'] = db;
             window["TsCallJs"]("TsCallJs");
+            window["SaveJson"](`{"name":"dong","age":18}`, `test2.txt`);
             ResourceManager.getInstance();
             Laya.stage.addChild(fgui.GRoot.inst.displayObject);
             this.bindAllUI();

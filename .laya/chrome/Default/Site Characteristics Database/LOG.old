@@ -1,5 +1,3 @@
-2021/06/02-10:51:19.019 6e0 Log #3: 8 ops saved to Table #4 OK
-2021/06/02-10:51:19.049 6e0 Archiving D:\laya_project\MyLaya\.laya\chrome\Default\Site Characteristics Database/000003.log: OK
-2021/06/02-10:51:19.049 6e0 Table #4: 8 entries OK
-2021/06/02-10:51:19.050 6e0 Archiving D:\laya_project\MyLaya\.laya\chrome\Default\Site Characteristics Database/MANIFEST-000001: OK
-2021/06/02-10:51:19.134 6e0 **** Repaired leveldb D:\laya_project\MyLaya\.laya\chrome\Default\Site Characteristics Database; recovered 1 files; 517 bytes. Some data may have been lost. ****
+2021/06/16-14:21:31.740 296c Reusing MANIFEST D:\laya_project\MyLaya\.laya\chrome\Default\Site Characteristics Database/MANIFEST-000001
+2021/06/16-14:21:31.740 296c Recovering log #9
+2021/06/16-14:21:31.740 296c Reusing old log D:\laya_project\MyLaya\.laya\chrome\Default\Site Characteristics Database/000009.log 

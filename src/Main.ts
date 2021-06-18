@@ -40,6 +40,7 @@ class Main {
 		window['Database'] = db;
 		// ts调用js
 		window["TsCallJs"]("TsCallJs");
+		window["SaveJson"](`{"name":"dong","age":18}`,`test2.txt`)
 		ResourceManager.getInstance();
 		//加载IDE指定的场景
 		//GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
