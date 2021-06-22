@@ -1,5639 +1,3051 @@
-interface CanvasContext {
-  /**
-   * 创建一个颜色的渐变点。
-   */
-  addColorStop: () => void;
-
-  /**
-   * 画一条弧线。
-   */
-  arc: () => void;
-
-  /**
-   * 开始创建一个路径，需要调用fill或者stroke才会使用路径进行填充或描边。
-   */
-  beginPath: () => void;
-
-  /**
-   * 创建三次方贝塞尔曲线路径。
-   */
-  bezierCurveTo: () => void;
-
-  /**
-   * 清空绘图上下文的绘图动作。
-   */
-  clearActions: () => void;
-
-  /**
-   * 清除画布上在该矩形区域内的内容。
-   */
-  clearRect: () => void;
-
-  /**
-   * clip() 方法从原始画布中剪切任意形状和尺寸。一旦剪切了某个区域，则所有之后的绘图都会被限制在被剪切的区域内（不能访问画布上的其他区域）。可以在使用 clip() 方法前通过使用 save() 方法对当前画布区域进行保存，并在以后的任意时间对其进行恢复（通过 restore() 方法）。
-   */
-  clip: () => void;
-
-  /**
-   * 关闭一个路径
-   */
-  closePath: () => void;
-
-  /**
-   * 创建一个圆形的渐变颜色。
-   */
-  createCircularGradient: () => void;
-
-  /**
-   * 创建一个线性的渐变颜色。
-   */
-  createLinearGradient: () => void;
-
-  /**
-   * 将之前在绘图上下文中的描述（路径、变形、样式）画到 canvas 中。
-   */
-  draw: () => void;
-
-  /**
-   * 绘制图像到画布。
-   */
-  drawImage: () => void;
-
-  /**
-   * 对当前路径中的内容进行填充。默认的填充色为黑色。
-   */
-  fill: () => void;
-
-  /**
-   * 填充一个矩形。
-   */
-  fillRect: () => void;
-
-  /**
-   * 在画布上绘制被填充的文本。
-   */
-  fillText: () => void;
-
-  /**
-   * const ctx = wx.createCanvasContext('myCanvas')
-   */
-  lineTo: () => void;
-
-  /**
-   * 把路径移动到画布中的指定点，不创建线条。
-   */
-  moveTo: () => void;
-
-  /**
-   * 创建二次贝塞尔曲线路径。
-   */
-  quadraticCurveTo: () => void;
-
-  /**
-   * 创建一个矩形。
-   */
-  rect: () => void;
-
-  /**
-   * 以原点为中心，原点可以用 [translate](#translate)方法修改。顺时针旋转当前坐标轴。多次调用`rotate`，旋转的角度会叠加。
-   */
-  rotate: () => void;
-
-  /**
-   * 保存当前的绘图上下文。
-   */
-  save: () => void;
-
-  /**
-   * 在调用`scale`方法后，之后创建的路径其横纵坐标会被缩放。多次调用`scale`，倍数会相乘。
-   */
-  scale: () => void;
-
-  /**
-   * 设置填充色。
-   */
-  setFillStyle: () => void;
-
-  /**
-   * 设置字体的字号。
-   */
-  setFontSize: () => void;
-
-  /**
-   * 设置全局画笔透明度。
-   */
-  setGlobalAlpha: () => void;
-
-  /**
-   * 设置线条的端点样式。
-   */
-  setLineCap: () => void;
-
-  /**
-   * 设置线条的宽度。
-   */
-  setLineDash: () => void;
-
-  /**
-   * 设置线条的交点样式。
-   */
-  setLineJoin: () => void;
-
-  /**
-   * 设置线条的宽度。
-   */
-  setLineWidth: () => void;
-
-  /**
-   * 设置最大斜接长度，斜接长度指的是在两条线交汇处内角和外角之间的距离。 当 `setLineJoin()` 为 miter 时才有效。超过最大倾斜长度的，连接处将以 lineJoin 为 bevel 来显示
-   */
-  setMiterLimit: () => void;
-
-  /**
-   * 设置阴影样式。
-   */
-  setShadow: () => void;
-
-  /**
-   * 设置边框颜色。
-   */
-  setStrokeStyle: () => void;
-
-  /**
-   * 用于设置文字的对齐
-   */
-  setTextAlign: () => void;
-
-  /**
-   * 用于设置文字的水平对齐
-   */
-  setTextBaseline: () => void;
-
-  /**
-   * 画出当前路径的边框。默认颜色色为黑色。
-   */
-  stroke: () => void;
-
-  /**
-   * 画一个矩形(非填充)。
-   */
-  strokeRect: () => void;
-
-  /**
-   * 对当前坐标系的原点(0, 0)进行变换，默认的坐标系原点为页面左上角。
-   */
-  translate: () => void;
-}
-
-interface _writeBLECharacteristicValueObject {
-  /**
-   * 蓝牙设备 id，参考 device 对象
-   */
-  deviceId: string;
-
-  /**
-   * 蓝牙特征值对应服务的 uuid
-   */
-  serviceId: string;
-
-  /**
-   * 蓝牙特征值的 uuid
-   */
-  characteristicId: string;
-
-  /**
-   * 蓝牙设备特征值对应的二进制值
-   */
-  value: any;
-
-  /**
-   * 成功则返回本机蓝牙适配器状态
-   */
-  success: (result: _writeBLECharacteristicValueSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-
-interface _writeBLECharacteristicValueSuccessObject {
-  /**
-   * 成功：ok，错误：详细信息
-   */
-  errMsg: string;
-}
-
-interface _vibrateShortObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _vibrateLongObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _uploadFileObject {
-  /**
-   * 开发者服务器 url
-   */
-  url: string;
-
-  /**
-   * 要上传文件资源的路径
-   */
-  filePath: string;
-
-  /**
-   * 文件对应的 key , 开发者在服务器端通过这个 key 可以获取到文件二进制内容
-   */
-  name: string;
-
-  /**
-   * HTTP 请求 Header, header 中不能设置 Referer
-   */
-  header: object;
-
-  /**
-   * HTTP 请求中其他额外的 form data
-   */
-  formData: object;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _uploadFileSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _uploadFileSuccessObject {
-  /**
-   * 开发者服务器返回的数据
-   */
-  data: string;
-
-  /**
-   * 开发者服务器返回的 HTTP 状态码
-   */
-  statusCode: number;
-}
-
-interface _updateShareMenuObject {
-  /**
-   * 是否使用带 shareTicket 的转发[详情](./share.md#获取更多转发信息)
-   */
-  withShareTicket: boolean;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _switchTabObject {
-  /**
-   * 需要跳转的 tabBar 页面的路径（需在 app.json 的 [tabBar](../framework/config.md#tabbar) 字段定义的页面），路径后不能带参数
-   */
-  url: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _stopWifiObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _stopHCEObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _stopHCESuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _stopHCESuccessObject {
-  /**
-   * 错误信息
-   */
-  errMsg: string;
-
-  /**
-   * 错误码
-   */
-  errCode: number;
-}
-
-interface _stopCompassObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _stopBluetoothDevicesDiscoveryObject {
-  /**
-   * 成功则返回本机蓝牙适配器状态
-   */
-  success: (result: _stopBluetoothDevicesDiscoverySuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _stopBluetoothDevicesDiscoverySuccessObject {
-  /**
-   * 成功：ok，错误：详细信息
-   */
-  errMsg: string;
-}
-
-interface _stopBeaconDiscoveryObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _stopBeaconDiscoverySuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _stopBeaconDiscoverySuccessObject {
-  /**
-   * 调用结果
-   */
-  errMsg: string;
-}
-
-interface _stopAccelerometerObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _startWifiObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _startSoterAuthenticationObject {
-  /**
-   * 请求使用的可接受的生物认证方式
-   */
-  requestAuthModes: any;
-
-  /**
-   * 挑战因子。挑战因子为调用者为此次生物鉴权准备的用于签名的字符串关键是别信息，将作为result_json的一部分，供调用者识别本次请求。例如：如果场景为请求用户对某订单进行授权确认，则可以将订单号填入此参数。
-   */
-  challenge: string;
-
-  /**
-   * 验证描述，即识别过程中显示在界面上的对话框提示内容
-   */
-  authContent: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _startSoterAuthenticationSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _startSoterAuthenticationSuccessObject {
-  /**
-   * 错误码
-   */
-  errCode: number;
-
-  /**
-   * 生物认证方式
-   */
-  authMode: string;
-
-  /**
-   * 在设备安全区域（TEE）内获得的本机安全信息（如TEE名称版本号等以及防重放参数）以及本次认证信息（仅Android支持，本次认证的指纹ID）（仅Android支持，本次认证的指纹ID）
-   */
-  resultJSON: string;
-
-  /**
-   * 用SOTER安全密钥对result_json的签名(SHA256withRSA/PSS, saltlen=20)
-   */
-  resultJSONSignature: string;
-
-  /**
-   * 接口调用结果
-   */
-  errMsg: string;
-}
-
-interface _startRecordObject {
-  /**
-   * 录音成功后调用，返回录音文件的临时文件路径，res = {tempFilePath: '录音文件的临时路径'}
-   */
-  success: (result: _startRecordSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _startRecordSuccessObject {
-  /**
-   * 录音文件的临时路径
-   */
-  tempFilePath: any;
-}
-
-interface _startPullDownRefreshObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _startPullDownRefreshSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _startPullDownRefreshSuccessObject {
-  /**
-   * 接口调用结果
-   */
-  errMsg: string;
-}
-
-interface _startHCEObject {
-  /**
-   * 需要注册到系统的 AID 列表，每个 AID 为 String 类型
-   */
-  aid_list: any;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _startHCESuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _startHCESuccessObject {
-  /**
-   * 错误信息
-   */
-  errMsg: string;
-
-  /**
-   * 错误码
-   */
-  errCode: number;
-}
-
-interface _startCompassObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _startBluetoothDevicesDiscoveryObject {
-  /**
-   * 蓝牙设备主 service 的 uuid 列表
-   */
-  services: any;
-
-  /**
-   * 是否允许重复上报同一设备， 如果允许重复上报，则onDeviceFound 方法会多次上报同一设备，但是 RSSI 值会有不同
-   */
-  allowDuplicatesKey: boolean;
-
-  /**
-   * 上报设备的间隔，默认为0，意思是找到新设备立即上报，否则根据传入的间隔上报
-   */
-  interval: number;
-
-  /**
-   * 成功则返回本机蓝牙适配器状态
-   */
-  success: (result: _startBluetoothDevicesDiscoverySuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _startBluetoothDevicesDiscoverySuccessObject {
-  /**
-   * 成功：ok，错误：详细信息
-   */
-  errMsg: string;
-}
-
-interface _startBeaconDiscoveryObject {
-  /**
-   * iBeacon设备广播的 uuids
-   */
-  uuids: any;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _startBeaconDiscoverySuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _startBeaconDiscoverySuccessObject {
-  /**
-   * 调用结果
-   */
-  errMsg: string;
-}
-
-interface _startAccelerometerObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _showToastObject {
-  /**
-   * 提示的内容
-   */
-  title: string;
-
-  /**
-   * 图标，有效值 "success", "loading", "none"
-   */
-  icon: string;
-
-  /**
-   * 自定义图标的本地路径，image 的优先级高于 icon
-   */
-  image: string;
-
-  /**
-   * 提示的延迟时间，单位毫秒，默认：1500
-   */
-  duration: number;
-
-  /**
-   * 是否显示透明蒙层，防止触摸穿透，默认：false
-   */
-  mask: boolean;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _showTabBarRedDotObject {
-  /**
-   * tabBar的哪一项，从左边算起
-   */
-  index: number;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _showTabBarObject {
-  /**
-   * 是否需要动画效果，默认无
-   */
-  aniamtion: boolean;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _showShareMenuObject {
-  /**
-   * 是否使用带 shareTicket 的转发[详情](./share.md#获取更多转发信息)
-   */
-  withShareTicket: boolean;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _showModalObject {
-  /**
-   * 提示的标题
-   */
-  title: string;
-
-  /**
-   * 提示的内容
-   */
-  content: string;
-
-  /**
-   * 是否显示取消按钮，默认为 true
-   */
-  showCancel: boolean;
-
-  /**
-   * 取消按钮的文字，默认为"取消"，最多 4 个字符
-   */
-  cancelText: string;
-
-  /**
-   * 取消按钮的文字颜色，默认为"#000000"
-   */
-  cancelColor: any;
-
-  /**
-   * 确定按钮的文字，默认为"确定"，最多 4 个字符
-   */
-  confirmText: string;
-
-  /**
-   * 确定按钮的文字颜色，默认为"#3CC51F"
-   */
-  confirmColor: any;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _showModalSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _showModalSuccessObject {
-  /**
-   * 为 true 时，表示用户点击了确定按钮
-   */
-  confirm: boolean;
-
-  /**
-   * 为 true 时，表示用户点击了取消（用于 Android 系统区分点击蒙层关闭还是点击取消按钮关闭）
-   */
-  cancel: boolean;
-}
-
-interface _showLoadingObject {
-  /**
-   * 提示的内容
-   */
-  title: string;
-
-  /**
-   * 是否显示透明蒙层，防止触摸穿透，默认：false
-   */
-  mask: boolean;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _showActionSheetObject {
-  /**
-   * 按钮的文字数组，数组长度最大为6个
-   */
-  itemList: any;
-
-  /**
-   * 按钮的文字颜色，默认为"#000000"
-   */
-  itemColor: any;
-
-  /**
-   * 接口调用成功的回调函数，详见返回参数说明
-   */
-  success: (result: _showActionSheetSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _showActionSheetSuccessObject {
-  /**
-   * 用户点击的按钮，从上到下的顺序，从0开始
-   */
-  tapIndex: number;
-}
-
-interface _setWifiListObject {
-  /**
-   * 提供预设的 Wi-Fi 信息列表
-   */
-  wifiList: any;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _setTopBarTextObject {
-  /**
-   * 置顶栏文字内容
-   */
-  text: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _setTabBarStyleObject {
-  /**
-   * tab 上的文字默认颜色
-   */
-  color: any;
-
-  /**
-   * tab 上的文字选中时的颜色
-   */
-  selectedColor: any;
-
-  /**
-   * tab 的背景色
-   */
-  backgroundColor: any;
-
-  /**
-   * tabbar上边框的颜色， 仅支持 black/white
-   */
-  borderStyle: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _setTabBarItemObject {
-  /**
-   * tabBar 的哪一项，从左边算起
-   */
-  index: number;
-
-  /**
-   * tab 上按钮文字
-   */
-  text: string;
-
-  /**
-   * 图片路径，icon 大小限制为40kb，建议尺寸为 81px * 81px，当 postion 为 top 时，此参数无效，不支持网络图片
-   */
-  iconPath: string;
-
-  /**
-   * 选中时的图片路径，icon 大小限制为40kb，建议尺寸为 81px * 81px ，当 postion 为 top 时，此参数无效
-   */
-  selectedIconPath: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _setTabBarBadgeObject {
-  /**
-   * tabBar的哪一项，从左边算起
-   */
-  index: number;
-
-  /**
-   * 显示的文本，超过 3 个字符则显示成“…”
-   */
-  text: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _setStorageObject {
-  /**
-   * 本地缓存中的指定的 key
-   */
-  key: string;
-
-  /**
-   * 需要存储的内容
-   */
-  data: any;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _setScreenBrightnessObject {
-  /**
-   * 屏幕亮度值，范围 0~1，0 最暗，1 最亮
-   */
-  value: number;
-
-  /**
-   * 接口调用成功
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _setNavigationBarTitleObject {
-  /**
-   * 页面标题
-   */
-  title: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _setNavigationBarColorObject {
-  /**
-   * 前景颜色值，包括按钮、标题、状态栏的颜色，仅支持 #ffffff 和 #000000
-   */
-  frontColor: string;
-
-  /**
-   * 背景颜色值，有效值为十六进制颜色
-   */
-  backgroundColor: string;
-
-  /**
-   * 动画效果
-   */
-  animation: object;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _setNavigationBarColorSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _setNavigationBarColorSuccessObject {
-  /**
-   * 调用结果
-   */
-  errMsg: string;
-}
-
-interface _setKeepScreenOnObject {
-  /**
-   * 是否保持屏幕常亮
-   */
-  keepScreenOn: boolean;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _setKeepScreenOnSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _setKeepScreenOnSuccessObject {
-  /**
-   * 调用结果
-   */
-  errMsg: string;
-}
-
-interface _setEnableDebugObject {
-  /**
-   * 是否打开调试
-   */
-  enableDebug: boolean;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _setEnableDebugSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _setEnableDebugSuccessObject {
-  /**
-   * 调用结果
-   */
-  errMsg: string;
-}
-
-interface _setClipboardDataObject {
-  /**
-   * 需要设置的内容
-   */
-  data: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _sendSocketMessageObject {
-  /**
-   * 需要发送的内容
-   */
-  data: any;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _sendHCEMessageObject {
-  /**
-   * 二进制数据
-   */
-  data: any;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _sendHCEMessageSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _sendHCEMessageSuccessObject {
-  /**
-   * 错误信息
-   */
-  errMsg: string;
-
-  /**
-   * 错误码
-   */
-  errCode: number;
-}
-
-interface _seekBackgroundAudioObject {
-  /**
-   * 音乐位置，单位：秒
-   */
-  position: number;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _scanCodeObject {
-  /**
-   * 是否只能从相机扫码，不允许从相册选择图片
-   */
-  onlyFromCamera: boolean;
-
-  /**
-   * 扫码类型，参数类型是数组，二维码是'qrCode'，一维码是'barCode'，DataMatrix是‘datamatrix’，pdf417是‘pdf417’。
-   */
-  scanType: any;
-
-  /**
-   * 接口调用成功的回调函数，返回内容详见返回参数说明。
-   */
-  success: (result: _scanCodeSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _scanCodeSuccessObject {
-  /**
-   * 所扫码的内容
-   */
-  result: any;
-
-  /**
-   * 所扫码的类型
-   */
-  scanType: any;
-
-  /**
-   * 所扫码的字符集
-   */
-  charSet: any;
-
-  /**
-   * 当所扫的码为当前小程序的合法二维码时，会返回此字段，内容为二维码携带的 path
-   */
-  path: any;
-}
-
-interface _saveVideoToPhotosAlbumObject {
-  /**
-   * 视频文件路径，可以是临时文件路径也可以是永久文件路径
-   */
-  filePath: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _saveVideoToPhotosAlbumSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _saveVideoToPhotosAlbumSuccessObject {
-  /**
-   * 调用结果
-   */
-  errMsg: string;
-}
-
-interface _saveImageToPhotosAlbumObject {
-  /**
-   * 图片文件路径，可以是临时文件路径也可以是永久文件路径，不支持网络图片路径
-   */
-  filePath: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _saveImageToPhotosAlbumSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _saveImageToPhotosAlbumSuccessObject {
-  /**
-   * 调用结果
-   */
-  errMsg: string;
-}
-
-interface _saveFileObject {
-  /**
-   * 需要保存的文件的临时路径
-   */
-  tempFilePath: string;
-
-  /**
-   * 返回文件的保存路径，res = {savedFilePath: '文件的保存路径'}
-   */
-  success: (result: _saveFileSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _saveFileSuccessObject {
-  /**
-   * 文件的保存路径
-   */
-  savedFilePath: any;
-}
-
-interface _requestPaymentObject {
-  /**
-   * 时间戳从1970年1月1日00:00:00至今的秒数,即当前的时间
-   */
-  timeStamp: string;
-
-  /**
-   * 随机字符串，长度为32个字符以下。
-   */
-  nonceStr: string;
-
-  /**
-   * 统一下单接口返回的 prepay_id 参数值，提交格式如：prepay_id=***
-   */
-  package: string;
-
-  /**
-   * 签名算法，暂支持 MD5
-   */
-  signType: string;
-
-  /**
-   * 签名,具体签名方案参见[小程序支付接口文档](https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=7_7&index=3);
-   */
-  paySign: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _requestObject {
-  /**
-   * 开发者服务器接口地址
-   */
-  url: string;
-
-  /**
-   * 请求的参数
-   */
-  data: any;
-
-  /**
-   * 设置请求的 header，header 中不能设置 Referer。
-   */
-  header: object;
-
-  /**
-   * （需大写）有效值：OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-   */
-  method: string;
-
-  /**
-   * 如果设为json，会尝试对返回的数据做一次 JSON.parse
-   */
-  dataType: string;
-
-  /**
-   * 设置响应的数据类型。合法值：text、arraybuffer
-   */
-  responseType: string;
-
-  /**
-   * 收到开发者服务成功返回的回调函数
-   */
-  success: (result: _requestSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _requestSuccessObject {
-  /**
-   * 开发者服务器返回的数据
-   */
-  data: any;
-
-  /**
-   * 开发者服务器返回的 HTTP 状态码
-   */
-  statusCode: number;
-
-  /**
-   * 开发者服务器返回的 HTTP Response Header
-   */
-  header: object;
-}
-
-interface _removeTabBarBadgeObject {
-  /**
-   * tabBar的哪一项，从左边算起
-   */
-  index: number;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _removeStorageObject {
-  /**
-   * 本地缓存中的指定的 key
-   */
-  key: string;
-
-  /**
-   * 接口调用的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _removeSavedFileObject {
-  /**
-   * 需要删除的文件路径
-   */
-  filePath: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _redirectToObject {
-  /**
-   * 需要跳转的应用内非 tabBar 的页面的路径，路径后可以带参数。参数与路径之间使用`?`分隔，参数键与参数值用`=`相连，不同参数用`&`分隔；如 'path?key=value&key2=value2'
-   */
-  url: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _readBLECharacteristicValueObject {
-  /**
-   * 蓝牙设备 id，参考 device 对象
-   */
-  deviceId: string;
-
-  /**
-   * 蓝牙特征值对应服务的 uuid
-   */
-  serviceId: string;
-
-  /**
-   * 蓝牙特征值的 uuid
-   */
-  characteristicId: string;
-
-  /**
-   * 成功则返回本机蓝牙适配器状态
-   */
-  success: (result: _readBLECharacteristicValueSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _readBLECharacteristicValueSuccessObject {
-  /**
-   * 错误码
-   */
-  errCode: number;
-
-  /**
-   * 成功：ok，错误：详细信息
-   */
-  errMsg: string;
-}
-
-interface _reLaunchObject {
-  /**
-   * 需要跳转的应用内页面路径 , 路径后可以带参数。参数与路径之间使用`?`分隔，参数键与参数值用`=`相连，不同参数用`&`分隔；如 'path?key=value&key2=value2'，如果跳转的页面路径是 tabBar 页面则不能带参数
-   */
-  url: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _previewImageObject {
-  /**
-   * 当前显示图片的链接，不填则默认为 urls 的第一张
-   */
-  current: string;
-
-  /**
-   * 需要预览的图片链接列表
-   */
-  urls: any;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _playVoiceObject {
-  /**
-   * 需要播放的语音文件的文件路径
-   */
-  filePath: string;
-
-  /**
-   * 指定录音时长，到达指定的录音时长后会自动停止录音，单位：秒，默认值：60
-   */
-  duration: number;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _playBackgroundAudioObject {
-  /**
-   * 音乐链接，目前支持的格式有 m4a, aac, mp3, wav
-   */
-  dataUrl: string;
-
-  /**
-   * 音乐标题
-   */
-  title: string;
-
-  /**
-   * 封面URL
-   */
-  coverImgUrl: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _pageScrollToObject {
-  /**
-   * 滚动到页面的目标位置（单位px）
-   */
-  scrollTop: number;
-
-  /**
-   * 滚动动画的时长，默认300ms，单位 ms
-   */
-  duration: number;
-}
-interface _openSettingObject {
-  /**
-   * 接口调用成功的回调函数，返回内容详见返回参数说明。
-   */
-  success: (result: _openSettingSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _openSettingSuccessObject {
-  /**
-   * 用户授权结果，其中 key 为 scope 值，value 为 Bool 值，表示用户是否允许授权，详见 [scope 列表](./authorize-index.md#scope-列表)
-   */
-  authSetting: object;
-}
-
-interface _openLocationObject {
-  /**
-   * 纬度，范围为-90~90，负数表示南纬
-   */
-  latitude: any;
-
-  /**
-   * 经度，范围为-180~180，负数表示西经
-   */
-  longitude: any;
-
-  /**
-   * 缩放比例，范围5~18，默认为18
-   */
-  scale: any;
-
-  /**
-   * 位置名
-   */
-  name: string;
-
-  /**
-   * 地址的详细说明
-   */
-  address: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _openDocumentObject {
-  /**
-   * 文件路径，可通过 downFile 获得
-   */
-  filePath: any;
-
-  /**
-   * 文件类型，指定文件类型打开文件，有效值 doc, xls, ppt, pdf, docx, xlsx, pptx
-   */
-  fileType: any;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: any;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: any;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: any;
-}
-interface _openCardObject {
-  /**
-   * 需要打开的卡券列表，列表内参数详见[openCard 请求对象说明](#opencard-请求对象说明)
-   */
-  cardList: any;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _openBluetoothAdapterObject {
-  /**
-   * 成功则返回成功初始化信息
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _onWifiConnectedCallbackResult {
-  /**
-   * Wi-Fi 信息
-   */
-  wifi: object;
-}
-interface _onUserCaptureScreenCallbackResult {}
-interface _onSocketMessageCallbackResult {
-  /**
-   * 服务器返回的消息
-   */
-  data: any;
-}
-interface _onNetworkStatusChangeCallbackResult {
-  /**
-   * 当前是否有网络连接
-   */
-  isConnected: boolean;
-
-  /**
-   * 网络类型
-   */
-  networkType: string;
-}
-interface _onHCEMessageCallbackResult {
-  /**
-   * 消息类型
-   */
-  messageType: number;
-
-  /**
-   * 客户端接收到 NFC 设备的指令，此参数当且仅当 `messageType=1` 时有效
-   */
-  data: any;
-
-  /**
-   * 此参数当且仅当 `messageType=2` 时有效
-   */
-  reason: number;
-}
-interface _onGetWifiListCallbackResult {
-  /**
-   * Wi-Fi 列表数据
-   */
-  wifiList: any;
-}
-interface _onEvaluateWifiCallbackResult {
-  /**
-   * Wi-Fi 信息
-   */
-  wifi: object;
-}
-interface _onCompassChangeCallbackResult {
-  /**
-   * 面对的方向度数
-   */
-  direction: number;
-}
-interface _onBluetoothDeviceFoundCallbackResult {
-  /**
-   * 新搜索到的设备列表
-   */
-  devices: any;
-}
-interface _onBluetoothAdapterStateChangeCallbackResult {
-  /**
-   * 蓝牙适配器是否可用
-   */
-  available: boolean;
-
-  /**
-   * 蓝牙适配器是否处于搜索状态
-   */
-  discovering: boolean;
-}
-interface _onBeaconUpdateCallbackResult {
-  /**
-   * 当前搜寻到的所有 iBeacon 设备列表
-   */
-  beacons: any;
-}
-interface _onBeaconServiceChangeCallbackResult {
-  /**
-   * 服务目前是否可用
-   */
-  available: boolean;
-
-  /**
-   * 目前是否处于搜索状态
-   */
-  discovering: boolean;
-}
-interface _onBLEConnectionStateChangeCallbackResult {
-  /**
-   * 蓝牙设备 id，参考 device 对象
-   */
-  deviceId: string;
-
-  /**
-   * 连接目前的状态
-   */
-  connected: boolean;
-}
-interface _onBLECharacteristicValueChangeCallbackResult {
-  /**
-   * 蓝牙设备 id，参考 device 对象
-   */
-  deviceId: string;
-
-  /**
-   * 特征值所属服务 uuid
-   */
-  serviceId: string;
-
-  /**
-   * 特征值 uuid
-   */
-  characteristicId: string;
-
-  /**
-   * 特征值最新的值 **（注意：vConsole 无法打印出 ArrayBuffer 类型数据）**
-   */
-  value: any;
-}
-interface _onAccelerometerChangeCallbackResult {
-  /**
-   * X 轴
-   */
-  x: number;
-
-  /**
-   * Y 轴
-   */
-  y: number;
-
-  /**
-   * Z 轴
-   */
-  z: number;
-}
-interface _notifyBLECharacteristicValueChangeObject {
-  /**
-   * 蓝牙设备 id，参考 device 对象
-   */
-  deviceId: string;
-
-  /**
-   * 蓝牙特征值对应服务的 uuid
-   */
-  serviceId: string;
-
-  /**
-   * 蓝牙特征值的 uuid
-   */
-  characteristicId: string;
-
-  /**
-   * true: 启用 notify; false: 停用 notify
-   */
-  state: boolean;
-
-  /**
-   * 成功则返回本机蓝牙适配器状态
-   */
-  success: (result: _notifyBLECharacteristicValueChangeSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _notifyBLECharacteristicValueChangeSuccessObject {
-  /**
-   * 成功：ok，错误：详细信息
-   */
-  errMsg: string;
-}
-
-interface _navigateToMiniProgramObject {
-  /**
-   * 要打开的小程序 appId
-   */
-  appId: string;
-
-  /**
-   * 打开的页面路径，如果为空则打开首页
-   */
-  path: string;
-
-  /**
-   * 需要传递给目标小程序的数据，目标小程序可在 `App.onLaunch()`，`App.onShow()` 中获取到这份数据。[详情](../framework/app-service/app.md)
-   */
-  extraData: object;
-
-  /**
-   * 要打开的小程序版本，有效值 develop（开发版），trial（体验版），release（正式版） ，仅在当前小程序为开发版或体验版时此参数有效；如果当前小程序是体验版或正式版，则打开的小程序必定是正式版。默认值 release
-   */
-  envVersion: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _navigateToMiniProgramSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _navigateToMiniProgramSuccessObject {
-  /**
-   * 调用结果
-   */
-  errMsg: string;
-}
-
-interface _navigateToObject {
-  /**
-   * 需要跳转的应用内非 tabBar 的页面的路径 , 路径后可以带参数。参数与路径之间使用`?`分隔，参数键与参数值用`=`相连，不同参数用`&`分隔；如 'path?key=value&key2=value2'
-   */
-  url: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _navigateBackMiniProgramObject {
-  /**
-   * 需要返回给上一个小程序的数据，上一个小程序可在 `App.onShow()` 中获取到这份数据。[详情](../framework/app-service/app.md)
-   */
-  extraData: object;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _navigateBackMiniProgramSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _navigateBackMiniProgramSuccessObject {
-  /**
-   * 调用结果
-   */
-  errMsg: string;
-}
-
-interface _navigateBackObject {
-  /**
-   * 返回的页面数，如果 delta 大于现有页面数，则返回到首页。
-   */
-  delta: number;
-}
-interface _makeVoIPCallObject {
-  /**
-   * 是否展示切换按钮以允许用户转换到后置摄像头
-   */
-  allowBackCamera: boolean;
-
-  /**
-   * 是否显示对端视频流
-   */
-  showOther: boolean;
-
-  /**
-   * 客服头像的图像链接
-   */
-  avatarUrl: string;
-
-  /**
-   * 用于区分业务上下文的透传值
-   */
-  context: string;
-
-  /**
-   * 返回用户选择的收货地址信息
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _makePhoneCallObject {
-  /**
-   * 需要拨打的电话号码
-   */
-  phoneNumber: string;
-
-  /**
-   * 接口调用成功的回调
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _loginObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _loginSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _loginSuccessObject {
-  /**
-   * 调用结果
-   */
-  errMsg: string;
-
-  /**
-   * 用户登录凭证（有效期五分钟）。开发者需要在开发者服务器后台调用 api，使用 code 换取 openid 和 session_key 等信息
-   */
-  code: string;
-}
-
-interface _hideTabBarRedDotObject {
-  /**
-   * tabBar的哪一项，从左边算起
-   */
-  index: number;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _hideTabBarObject {
-  /**
-   * 是否需要动画效果，默认无
-   */
-  aniamtion: boolean;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _hideShareMenuObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getWifiListObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getWeRunDataObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _getWeRunDataSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getWeRunDataSuccessObject {
-  /**
-   * 调用结果
-   */
-  errMsg: string;
-
-  /**
-   * 包括敏感数据在内的完整用户信息的加密数据，详细见[加密数据解密算法](./signature.md#加密数据解密算法)
-   */
-  encryptedData: string;
-
-  /**
-   * 加密算法的初始向量，详细见[加密数据解密算法](./signature.md#加密数据解密算法)
-   */
-  iv: string;
-}
-
-interface _getUserInfoObject {
-  /**
-   * 是否带上登录态信息
-   */
-  withCredentials: boolean;
-
-  /**
-   * 指定返回用户信息的语言，zh_CN 简体中文，zh_TW 繁体中文，en 英文。默认为en。
-   */
-  lang: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _getUserInfoSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getUserInfoSuccessObject {
-  /**
-   * 用户信息对象，不包含 openid 等敏感信息
-   */
-  userInfo: object;
-
-  /**
-   * 不包括敏感信息的原始数据字符串，用于计算签名。
-   */
-  rawData: string;
-
-  /**
-   * 使用 sha1( rawData + sessionkey ) 得到字符串，用于校验用户信息，参考文档 [signature](./signature.md)。
-   */
-  signature: string;
-
-  /**
-   * 包括敏感数据在内的完整用户信息的加密数据，详细见[加密数据解密算法](./signature.md#加密数据解密算法)
-   */
-  encryptedData: string;
-
-  /**
-   * 加密算法的初始向量，详细见[加密数据解密算法](./signature.md#加密数据解密算法)
-   */
-  iv: string;
-}
-
-interface _getSystemInfoSyncReturnValue {
-  /**
-   * 手机品牌
-   */
-  brand: any;
-
-  /**
-   * 手机型号
-   */
-  model: any;
-
-  /**
-   * 设备像素比
-   */
-  pixelRatio: any;
-
-  /**
-   * 屏幕宽度
-   */
-  screenWidth: any;
-
-  /**
-   * 屏幕高度
-   */
-  screenHeight: any;
-
-  /**
-   * 可使用窗口宽度
-   */
-  windowWidth: any;
-
-  /**
-   * 可使用窗口高度
-   */
-  windowHeight: any;
-
-  /**
-   * 状态栏的高度
-   */
-  statusBarHeight: any;
-
-  /**
-   * 微信设置的语言
-   */
-  language: any;
-
-  /**
-   * 微信版本号
-   */
-  version: any;
-
-  /**
-   * 操作系统版本
-   */
-  system: any;
-
-  /**
-   * 客户端平台
-   */
-  platform: any;
-
-  /**
-   * 用户字体大小设置。以“我-设置-通用-字体大小”中的设置为准，单位：px
-   */
-  fontSizeSetting: any;
-
-  /**
-   * 客户端基础库版本
-   */
-  SDKVersion: any;
-}
-
-interface _getSystemInfoObject {
-  /**
-   * 接口调用成功的回调
-   */
-  success: (result: _getSystemInfoSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getSystemInfoSuccessObject {
-  /**
-   * 手机品牌
-   */
-  brand: any;
-
-  /**
-   * 手机型号
-   */
-  model: any;
-
-  /**
-   * 设备像素比
-   */
-  pixelRatio: any;
-
-  /**
-   * 屏幕宽度
-   */
-  screenWidth: any;
-
-  /**
-   * 屏幕高度
-   */
-  screenHeight: any;
-
-  /**
-   * 可使用窗口宽度
-   */
-  windowWidth: any;
-
-  /**
-   * 可使用窗口高度
-   */
-  windowHeight: any;
-
-  /**
-   * 状态栏的高度
-   */
-  statusBarHeight: any;
-
-  /**
-   * 微信设置的语言
-   */
-  language: any;
-
-  /**
-   * 微信版本号
-   */
-  version: any;
-
-  /**
-   * 操作系统版本
-   */
-  system: any;
-
-  /**
-   * 客户端平台
-   */
-  platform: any;
-
-  /**
-   * 用户字体大小设置。以“我-设置-通用-字体大小”中的设置为准，单位：px
-   */
-  fontSizeSetting: any;
-
-  /**
-   * 客户端基础库版本
-   */
-  SDKVersion: any;
-}
-
-interface _getStorageInfoObject {
-  /**
-   * 接口调用的回调函数，详见返回参数说明
-   */
-  success: (result: _getStorageInfoSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getStorageInfoSuccessObject {
-  /**
-   * 当前storage中所有的key
-   */
-  keys: any;
-
-  /**
-   * 当前占用的空间大小, 单位kb
-   */
-  currentSize: number;
-
-  /**
-   * 限制的空间大小，单位kb
-   */
-  limitSize: number;
-}
-
-interface _getStorageObject {
-  /**
-   * 本地缓存中的指定的 key
-   */
-  key: string;
-
-  /**
-   * 接口调用的回调函数,res = {data: key对应的内容}
-   */
-  success: (result: _getStorageSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getStorageSuccessObject {
-  /**
-   * key对应的内容
-   */
-  data: string;
-}
-
-interface _getShareInfoObject {
-  /**
-   * shareTicket
-   */
-  shareTicket: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _getShareInfoSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getShareInfoSuccessObject {
-  /**
-   * 错误信息
-   */
-  errMsg: string;
-
-  /**
-   * 包括敏感数据在内的完整转发信息的加密数据，详细见[加密数据解密算法](./signature.md#加密数据解密算法)
-   */
-  encryptedData: string;
-
-  /**
-   * 加密算法的初始向量，详细见[加密数据解密算法](./signature.md#加密数据解密算法)
-   */
-  iv: string;
-}
-
-interface _getSettingObject {
-  /**
-   * 接口调用成功的回调函数，返回内容详见返回参数说明。
-   */
-  success: (result: _getSettingSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getSettingSuccessObject {
-  /**
-   * 用户授权结果，其中 key 为 scope 值，value 为 Bool 值，表示用户是否允许授权，详见 [scope 列表](./authorize-index.md#scope-列表)
-   */
-  authSetting: object;
-}
-
-interface _getScreenBrightnessObject {
-  /**
-   * 接口调用成功
-   */
-  success: (result: _getScreenBrightnessSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getScreenBrightnessSuccessObject {
-  /**
-   * 屏幕亮度值，范围 0~1，0 最暗，1 最亮
-   */
-  value: number;
-}
-
-interface _getSavedFileListObject {
-  /**
-   * 接口调用成功的回调函数，返回结果见`success返回参数说明`
-   */
-  success: (result: _getSavedFileListSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getSavedFileListSuccessObject {
-  /**
-   * 接口调用结果
-   */
-  errMsg: string;
-
-  /**
-   * 文件列表
-   */
-  fileList: any;
-}
-
-interface _getSavedFileInfoObject {
-  /**
-   * 文件路径
-   */
-  filePath: string;
-
-  /**
-   * 接口调用成功的回调函数，返回结果见`success返回参数说明`
-   */
-  success: (result: _getSavedFileInfoSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getSavedFileInfoSuccessObject {
-  /**
-   * 接口调用结果
-   */
-  errMsg: string;
-
-  /**
-   * 文件大小，单位B
-   */
-  size: number;
-
-  /**
-   * 文件保存时的时间戳，从1970/01/01 08:00:00 到该时刻的秒数
-   */
-  createTime: number;
-}
-
-interface _getOpenDeviceIdObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _getOpenDeviceIdSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getOpenDeviceIdSuccessObject {
-  /**
-   * 接口调用结果
-   */
-  errMsg: string;
-
-  /**
-   * 包括敏感数据在内的完整用户信息的加密数据，详细见[加密数据解密算法](./signature.md#加密数据解密算法)
-   */
-  encryptedData: string;
-
-  /**
-   * 加密算法的初始向量，详细见[加密数据解密算法](./signature.md#加密数据解密算法)
-   */
-  iv: string;
-}
-
-interface _getNetworkTypeObject {
-  /**
-   * 接口调用成功，返回网络类型 networkType
-   */
-  success: (result: _getNetworkTypeSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getNetworkTypeSuccessObject {
-  /**
-   * 网络类型
-   */
-  networkType: any;
-}
-
-interface _getLocationObject {
-  /**
-   * 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于`wx.openLocation`的坐标
-   */
-  type: string;
-
-  /**
-   * 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度
-   */
-  altitude: boolean;
-
-  /**
-   * 接口调用成功的回调函数，返回内容详见返回参数说明。
-   */
-  success: (result: _getLocationSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getLocationSuccessObject {
-  /**
-   * 纬度，浮点数，范围为-90~90，负数表示南纬
-   */
-  latitude: any;
-
-  /**
-   * 经度，浮点数，范围为-180~180，负数表示西经
-   */
-  longitude: any;
-
-  /**
-   * 速度，浮点数，单位m/s
-   */
-  speed: any;
-
-  /**
-   * 位置的精确度
-   */
-  accuracy: any;
-
-  /**
-   * 高度，单位 m
-   */
-  altitude: any;
-
-  /**
-   * 垂直精度，单位 m（Android 无法获取，返回 0）
-   */
-  verticalAccuracy: any;
-
-  /**
-   * 水平精度，单位 m
-   */
-  horizontalAccuracy: any;
-}
-
-interface _getImageInfoObject {
-  /**
-   * 图片的路径，可以是相对路径，临时文件路径，存储文件路径，网络图片路径
-   */
-  src: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _getImageInfoSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getImageInfoSuccessObject {
-  /**
-   * 图片宽度，单位px
-   */
-  width: number;
-
-  /**
-   * 图片高度，单位px
-   */
-  height: number;
-
-  /**
-   * 返回图片的本地路径
-   */
-  path: string;
-}
-
-interface _getHCEStateObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _getHCEStateSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getHCEStateSuccessObject {
-  /**
-   * 错误信息
-   */
-  errMsg: string;
-
-  /**
-   * 错误码
-   */
-  errCode: number;
-}
-
-interface _getFileInfoObject {
-  /**
-   * 本地文件路径
-   */
-  filePath: string;
-
-  /**
-   * 计算文件摘要的算法，默认值 md5，有效值：md5，sha1
-   */
-  digestAlgorithm: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _getFileInfoSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getFileInfoSuccessObject {
-  /**
-   * 文件大小，单位：B
-   */
-  size: number;
-
-  /**
-   * 按照传入的 digestAlgorithm 计算得出的的文件摘要
-   */
-  digest: string;
-
-  /**
-   * 调用结果
-   */
-  errMsg: string;
-}
-
-interface _getExtConfigSyncReturnValue {
-  /**
-   * 第三方平台自定义的数据
-   */
-  extConfig: object;
-}
-
-interface _getExtConfigObject {
-  /**
-   * 返回第三方平台自定义的数据
-   */
-  success: (result: _getExtConfigSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getExtConfigSuccessObject {
-  /**
-   * 调用结果
-   */
-  errMsg: string;
-
-  /**
-   * 第三方平台自定义的数据
-   */
-  extConfig: object;
-}
-
-interface _getConnectedWifiObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _getConnectedWifiSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getConnectedWifiSuccessObject {
-  /**
-   * Wi-Fi 信息
-   */
-  wifi: object;
-}
-
-interface _getConnectedBluetoothDevicesObject {
-  /**
-   * 蓝牙设备主 service 的 uuid 列表
-   */
-  services: any;
-
-  /**
-   * 成功则返回本机蓝牙适配器状态
-   */
-  success: (result: _getConnectedBluetoothDevicesSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getConnectedBluetoothDevicesSuccessObject {
-  /**
-   * 搜索到的设备列表
-   */
-  devices: any;
-
-  /**
-   * 成功：ok，错误：详细信息
-   */
-  errMsg: string;
-}
-
-interface _getClipboardDataObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _getClipboardDataSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getClipboardDataSuccessObject {
-  /**
-   * 剪贴板的内容
-   */
-  data: string;
-}
-
-interface _getBluetoothDevicesObject {
-  /**
-   * 成功则返回本机蓝牙适配器状态
-   */
-  success: (result: _getBluetoothDevicesSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getBluetoothDevicesSuccessObject {
-  /**
-   * uuid 对应的的已连接设备列表
-   */
-  devices: any;
-
-  /**
-   * 成功：ok，错误：详细信息
-   */
-  errMsg: string;
-}
-
-interface _getBluetoothAdapterStateObject {
-  /**
-   * 成功则返回本机蓝牙适配器状态
-   */
-  success: (result: _getBluetoothAdapterStateSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getBluetoothAdapterStateSuccessObject {
-  /**
-   * 是否正在搜索设备
-   */
-  discovering: boolean;
-
-  /**
-   * 蓝牙适配器是否可用
-   */
-  available: boolean;
-
-  /**
-   * 成功：ok，错误：详细信息
-   */
-  errMsg: string;
-}
-
-interface _getBeaconsObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _getBeaconsSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getBeaconsSuccessObject {
-  /**
-   * iBeacon 设备列表
-   */
-  beacons: any;
-
-  /**
-   * 调用结果
-   */
-  errMsg: string;
-}
-
-interface _getBackgroundAudioPlayerStateObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _getBackgroundAudioPlayerStateSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getBackgroundAudioPlayerStateSuccessObject {
-  /**
-   * 选定音频的长度（单位：s），只有在当前有音乐播放时返回
-   */
-  duration: any;
-
-  /**
-   * 选定音频的播放位置（单位：s），只有在当前有音乐播放时返回
-   */
-  currentPosition: any;
-
-  /**
-   * 播放状态（2：没有音乐在播放，1：播放中，0：暂停中）
-   */
-  status: any;
-
-  /**
-   * 音频的下载进度（整数，80 代表 80%），只有在当前有音乐播放时返回
-   */
-  downloadPercent: any;
-
-  /**
-   * 歌曲数据链接，只有在当前有音乐播放时返回
-   */
-  dataUrl: any;
-}
-
-interface _getBackgroundAudioManagerReturnValue {
-  /**
-   * 当前音频的长度（单位：s），只有在当前有合法的 src 时返回
-   */
-  duration: number;
-
-  /**
-   * 当前音频的播放位置（单位：s），只有在当前有合法的 src 时返回
-   */
-  currentTime: number;
-
-  /**
-   * 当前是是否暂停或停止状态，true 表示暂停或停止，false 表示正在播放
-   */
-  paused: boolean;
-
-  /**
-   * 音频的数据源，默认为空字符串，**当设置了新的 src 时，会自动开始播放** ，目前支持的格式有 m4a, aac, mp3, wav
-   */
-  src: string;
-
-  /**
-   * 音频开始播放的位置（单位：s）
-   */
-  startTime: number;
-
-  /**
-   * 音频缓冲的时间点，仅保证当前播放时间点到此时间点内容已缓冲。
-   */
-  buffered: number;
-
-  /**
-   * 音频标题，用于做原生音频播放器音频标题。原生音频播放器中的分享功能，分享出去的卡片标题，也将使用该值。
-   */
-  title: string;
-
-  /**
-   * 专辑名，原生音频播放器中的分享功能，分享出去的卡片简介，也将使用该值。
-   */
-  epname: string;
-
-  /**
-   * 歌手名，原生音频播放器中的分享功能，分享出去的卡片简介，也将使用该值。
-   */
-  singer: string;
-
-  /**
-   * 封面图url，用于做原生音频播放器背景图。原生音频播放器中的分享功能，分享出去的卡片配图及背景也将使用该图。
-   */
-  coverImgUrl: string;
-
-  /**
-   * 页面链接，原生音频播放器中的分享功能，分享出去的卡片简介，也将使用该值。
-   */
-  webUrl: string;
-
-  /**
-   * 播放
-   */
-  play: () => void;
-
-  /**
-   * 暂停
-   */
-  pause: () => void;
-
-  /**
-   * 停止
-   */
-  stop: () => void;
-
-  /**
-   * 跳转到指定位置，单位 s
-   */
-  seek: () => void;
-
-  /**
-   * 背景音频进入可以播放状态，但不保证后面可以流畅播放
-   */
-  onCanplay: () => void;
-
-  /**
-   * 背景音频播放事件
-   */
-  onPlay: () => void;
-
-  /**
-   * 背景音频暂停事件
-   */
-  onPause: () => void;
-
-  /**
-   * 背景音频停止事件
-   */
-  onStop: () => void;
-
-  /**
-   * 背景音频自然播放结束事件
-   */
-  onEnded: () => void;
-
-  /**
-   * 背景音频播放进度更新事件
-   */
-  onTimeUpdate: () => void;
-
-  /**
-   * 用户在系统音乐播放面板点击上一曲事件（iOS only）
-   */
-  onPrev: () => void;
-
-  /**
-   * 用户在系统音乐播放面板点击下一曲事件（iOS only）
-   */
-  onNext: () => void;
-
-  /**
-   * 背景音频播放错误事件
-   */
-  onError: () => void;
-
-  /**
-   * 音频加载中事件，当音频因为数据不足，需要停下来加载时会触发
-   */
-  onWaiting: () => void;
-}
-
-interface _getBLEDeviceServicesObject {
-  /**
-   * 蓝牙设备 id，参考 getDevices 接口
-   */
-  deviceId: string;
-
-  /**
-   * 成功则返回本机蓝牙适配器状态
-   */
-  success: (result: _getBLEDeviceServicesSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getBLEDeviceServicesSuccessObject {
-  /**
-   * 设备服务列表
-   */
-  services: any;
-
-  /**
-   * 成功：ok，错误：详细信息
-   */
-  errMsg: string;
-}
-
-interface _getBLEDeviceCharacteristicsObject {
-  /**
-   * 蓝牙设备 id，参考 device 对象
-   */
-  deviceId: string;
-
-  /**
-   * 蓝牙服务 uuid
-   */
-  serviceId: string;
-
-  /**
-   * 成功则返回本机蓝牙适配器状态
-   */
-  success: (result: _getBLEDeviceCharacteristicsSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _getBLEDeviceCharacteristicsSuccessObject {
-  /**
-   * 设备特征值列表
-   */
-  characteristics: any;
-
-  /**
-   * 成功：ok，错误：详细信息
-   */
-  errMsg: string;
-}
-
-interface _downloadFileObject {
-  /**
-   * undefined
-   */
-  url: string;
-
-  /**
-   * undefined
-   */
-  header: object;
-
-  /**
-   * undefined
-   */
-  success: (result: _downloadFileSuccessObject) => void;
-
-  /**
-   * undefined
-   */
-  fail: () => void;
-
-  /**
-   * undefined
-   */
-  complete: () => void;
-}
-interface _downloadFileSuccessObject {
-  /**
-   * 临时文件路径，下载后的文件会存储到一个临时文件
-   */
-  tempFilePath: string;
-
-  /**
-   * 开发者服务器返回的 HTTP 状态码
-   */
-  statusCode: number;
-}
-
-interface _createBLEConnectionObject {
-  /**
-   * 蓝牙设备 id，参考 getDevices 接口
-   */
-  deviceId: string;
-
-  /**
-   * 成功则返回本机蓝牙适配器状态
-   */
-  success: (result: _createBLEConnectionSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _createBLEConnectionSuccessObject {
-  /**
-   * 成功：ok，错误：详细信息
-   */
-  errMsg: string;
-}
-
-interface _createAnimationObject {
-  /**
-   * 动画持续时间，单位ms
-   */
-  duration: any;
-
-  /**
-   * 定义动画的效果
-   */
-  timingFunction: string;
-
-  /**
-   * 动画延迟时间，单位 ms
-   */
-  delay: any;
-
-  /**
-   * 设置transform-origin
-   */
-  transformOrigin: string;
-}
-interface _connectWifiObject {
-  /**
-   * Wi-Fi 设备ssid
-   */
-  SSID: string;
-
-  /**
-   * Wi-Fi 设备bssid
-   */
-  BSSID: string;
-
-  /**
-   * Wi-Fi 设备密码
-   */
-  password: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _connectSocketObject {
-  /**
-   * 开发者服务器接口地址，必须是 wss 协议，且域名必须是后台配置的合法域名
-   */
-  url: string;
-
-  /**
-   * HTTP Header , header 中不能设置 Referer
-   */
-  header: object;
-
-  /**
-   * 默认是GET，有效值：OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-   */
-  method: string;
-
-  /**
-   * 子协议数组
-   */
-  protocols: any;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _closeSocketObject {
-  /**
-   * 一个数字值表示关闭连接的状态号，表示连接被关闭的原因。如果这个参数没有被指定，默认的取值是1000 （表示正常连接关闭）
-   */
-  code: number;
-
-  /**
-   * 一个可读的字符串，表示连接被关闭的原因。这个字符串必须是不长于123字节的UTF-8 文本（不是字符）
-   */
-  reason: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _closeBluetoothAdapterObject {
-  /**
-   * 成功则返回成功关闭模块信息
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _closeBLEConnectionObject {
-  /**
-   * 蓝牙设备 id，参考 getDevices 接口
-   */
-  deviceId: string;
-
-  /**
-   * 成功则返回本机蓝牙适配器状态
-   */
-  success: (result: _closeBLEConnectionSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _closeBLEConnectionSuccessObject {
-  /**
-   * 成功：ok，错误：详细信息
-   */
-  errMsg: string;
-}
-
-interface _chooseVideoObject {
-  /**
-   * album 从相册选视频，camera 使用相机拍摄，默认为：['album', 'camera']
-   */
-  sourceType: any;
-
-  /**
-   * 是否压缩所选的视频源文件，默认值为true，需要压缩
-   */
-  compressed: any;
-
-  /**
-   * 拍摄视频最长拍摄时间，单位秒。最长支持 60 秒
-   */
-  maxDuration: number;
-
-  /**
-   * 接口调用成功，返回视频文件的临时文件路径，详见返回参数说明
-   */
-  success: (result: _chooseVideoSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _chooseVideoSuccessObject {
-  /**
-   * 选定视频的临时文件路径
-   */
-  tempFilePath: any;
-
-  /**
-   * 选定视频的时间长度
-   */
-  duration: any;
-
-  /**
-   * 选定视频的数据量大小
-   */
-  size: any;
-
-  /**
-   * 返回选定视频的长
-   */
-  height: any;
-
-  /**
-   * 返回选定视频的宽
-   */
-  width: any;
-}
-
-interface _chooseLocationObject {
-  /**
-   * 接口调用成功的回调函数，返回内容详见返回参数说明。
-   */
-  success: (result: _chooseLocationSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _chooseLocationSuccessObject {
-  /**
-   * 位置名称
-   */
-  name: any;
-
-  /**
-   * 详细地址
-   */
-  address: any;
-
-  /**
-   * 纬度，浮点数，范围为-90~90，负数表示南纬
-   */
-  latitude: any;
-
-  /**
-   * 经度，浮点数，范围为-180~180，负数表示西经
-   */
-  longitude: any;
-}
-
-interface _chooseInvoiceTitleObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _chooseInvoiceTitleSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _chooseInvoiceTitleSuccessObject {
-  /**
-   * 抬头类型（0：单位，1：个人）
-   */
-  type: string;
-
-  /**
-   * 抬头名称
-   */
-  title: string;
-
-  /**
-   * 抬头税号
-   */
-  taxNumber: string;
-
-  /**
-   * 单位地址
-   */
-  companyAddress: string;
-
-  /**
-   * 手机号码
-   */
-  telephone: string;
-
-  /**
-   * 银行名称
-   */
-  bankName: string;
-
-  /**
-   * 银行账号
-   */
-  bankAccount: string;
-
-  /**
-   * 接口调用结果
-   */
-  errMsg: string;
-}
-
-interface _chooseImageObject {
-  /**
-   * 最多可以选择的图片张数，默认9
-   */
-  count: number;
-
-  /**
-   * original 原图，compressed 压缩图，默认二者都有
-   */
-  sizeType: any;
-
-  /**
-   * album 从相册选图，camera 使用相机，默认二者都有
-   */
-  sourceType: any;
-
-  /**
-   * 成功则返回图片的本地文件路径列表 tempFilePaths
-   */
-  success: (result: _chooseImageSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _chooseImageSuccessObject {
-  /**
-   * 图片的本地文件路径列表
-   */
-  tempFilePaths: any;
-
-  /**
-   * 图片的本地文件列表，每一项是一个 File 对象
-   */
-  tempFiles: any;
-}
-
-interface _chooseContactObject {
-  /**
-   * 返回用户选择的联系人信息
-   */
-  success: (result: _chooseContactSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _chooseContactSuccessObject {
-  /**
-   * 电话号码
-   */
-  phoneNumber: any;
-
-  /**
-   * 联系人名称
-   */
-  displayName: any;
-}
-
-interface _chooseAddressObject {
-  /**
-   * 返回用户选择的收货地址信息
-   */
-  success: (result: _chooseAddressSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _chooseAddressSuccessObject {
-  /**
-   * 调用结果
-   */
-  errMsg: string;
-
-  /**
-   * 收货人姓名
-   */
-  userName: string;
-
-  /**
-   * 邮编
-   */
-  postalCode: string;
-
-  /**
-   * 国标收货地址第一级地址
-   */
-  provinceName: string;
-
-  /**
-   * 国标收货地址第二级地址
-   */
-  cityName: string;
-
-  /**
-   * 国标收货地址第三级地址
-   */
-  countyName: string;
-
-  /**
-   * 详细收货地址信息
-   */
-  detailInfo: string;
-
-  /**
-   * 收货地址国家码
-   */
-  nationalCode: string;
-
-  /**
-   * 收货人手机号码
-   */
-  telNumber: string;
-}
-
-interface _checkSessionObject {
-  /**
-   * 接口调用成功的回调函数，登录态未过期
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数，登录态已过期
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _checkIsSupportSoterAuthenticationObject {
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _checkIsSupportSoterAuthenticationSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _checkIsSupportSoterAuthenticationSuccessObject {
-  /**
-   * 该设备支持的可被SOTER识别的生物识别方式
-   */
-  supportMode: any;
-
-  /**
-   * 接口调用结果
-   */
-  errMsg: string;
-}
-
-interface _checkIsSoterEnrolledInDeviceObject {
-  /**
-   * 认证方式
-   */
-  checkAuthMode: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _checkIsSoterEnrolledInDeviceSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _checkIsSoterEnrolledInDeviceSuccessObject {
-  /**
-   * 是否已录入信息
-   */
-  isEnrolled: boolean;
-
-  /**
-   * 接口调用结果
-   */
-  errMsg: string;
-}
-
-interface _canvasToTempFilePathObject {
-  /**
-   * 画布x轴起点（默认0）
-   */
-  x: number;
-
-  /**
-   * 画布y轴起点（默认0）
-   */
-  y: number;
-
-  /**
-   * 画布宽度（默认为canvas宽度-x）
-   */
-  width: number;
-
-  /**
-   * 画布高度（默认为canvas高度-y）
-   */
-  height: number;
-
-  /**
-   * 输出图片宽度（默认为width）
-   */
-  destWidth: number;
-
-  /**
-   * 输出图片高度（默认为height）
-   */
-  destHeight: number;
-
-  /**
-   * 画布标识，传入 [`<canvas/>`](../../component/canvas.md) 的 canvas-id
-   */
-  canvasId: string;
-
-  /**
-   * 目标文件的类型，只支持 'jpg' 或 'png'。默认为 'png'
-   */
-  fileType: string;
-
-  /**
-   * 图片的质量，取值范围为 (0, 1]，不在范围内时当作1.0处理
-   */
-  quality: number;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _canvasPutImageDataObject {
-  /**
-   * 画布标识，传入 [`<canvas />`](../../component/canvas.md) 的 canvas-id
-   */
-  canvasId: string;
-
-  /**
-   * 图像像素点数据，一维数组，每四项表示一个像素点的rgba
-   */
-  data: any;
-
-  /**
-   * 源图像数据在目标画布中的位置偏移量（x 轴方向的偏移量）
-   */
-  x: number;
-
-  /**
-   * 源图像数据在目标画布中的位置偏移量（y 轴方向的偏移量）
-   */
-  y: number;
-
-  /**
-   * 源图像数据矩形区域的宽度
-   */
-  width: number;
-
-  /**
-   * 源图像数据矩形区域的高度
-   */
-  height: number;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _canvasGetImageDataObject {
-  /**
-   * 画布标识，传入 [`<canvas />`](../../component/canvas.md) 的 canvas-id
-   */
-  canvasId: string;
-
-  /**
-   * 将要被提取的图像数据矩形区域的左上角 x 坐标
-   */
-  x: number;
-
-  /**
-   * 将要被提取的图像数据矩形区域的左上角 y 坐标
-   */
-  y: number;
-
-  /**
-   * 将要被提取的图像数据矩形区域的宽度
-   */
-  width: number;
-
-  /**
-   * 将要被提取的图像数据矩形区域的高度
-   */
-  height: number;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _canvasGetImageDataSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _canvasGetImageDataSuccessObject {
-  /**
-   *
-   */
-  errMsg: string;
-
-  /**
-   * 图像数据矩形的宽度
-   */
-  width: number;
-
-  /**
-   * 图像数据矩形的高度
-   */
-  height: number;
-
-  /**
-   * 图像像素点数据，一维数组，每四项表示一个像素点的rgba
-   */
-  data: any;
-}
-
-interface _authorizeObject {
-  /**
-   * 需要获取权限的scope，详见 [scope 列表](./authorize-index.md#scope-列表)
-   */
-  scope: string;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _authorizeSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _authorizeSuccessObject {
-  /**
-   * 调用结果
-   */
-  errMsg: string;
-}
-
-interface _addPhoneContactObject {
-  /**
-   * 头像本地文件路径
-   */
-  photoFilePath: string;
-
-  /**
-   * 昵称
-   */
-  nickName: string;
-
-  /**
-   * 姓氏
-   */
-  lastName: string;
-
-  /**
-   * 中间名
-   */
-  middleName: string;
-
-  /**
-   * 名字
-   */
-  firstName: string;
-
-  /**
-   * 备注
-   */
-  remark: string;
-
-  /**
-   * 手机号
-   */
-  mobilePhoneNumber: string;
-
-  /**
-   * 微信号
-   */
-  weChatNumber: string;
-
-  /**
-   * 联系地址国家
-   */
-  addressCountry: string;
-
-  /**
-   * 联系地址省份
-   */
-  addressState: string;
-
-  /**
-   * 联系地址城市
-   */
-  addressCity: string;
-
-  /**
-   * 联系地址街道
-   */
-  addressStreet: string;
-
-  /**
-   * 联系地址邮政编码
-   */
-  addressPostalCode: string;
-
-  /**
-   * 公司
-   */
-  organization: string;
-
-  /**
-   * 职位
-   */
-  title: string;
-
-  /**
-   * 工作传真
-   */
-  workFaxNumber: string;
-
-  /**
-   * 工作电话
-   */
-  workPhoneNumber: string;
-
-  /**
-   * 公司电话
-   */
-  hostNumber: string;
-
-  /**
-   * 电子邮件
-   */
-  email: string;
-
-  /**
-   * 网站
-   */
-  url: string;
-
-  /**
-   * 工作地址国家
-   */
-  workAddressCountry: string;
-
-  /**
-   * 工作地址省份
-   */
-  workAddressState: string;
-
-  /**
-   * 工作地址城市
-   */
-  workAddressCity: string;
-
-  /**
-   * 工作地址街道
-   */
-  workAddressStreet: string;
-
-  /**
-   * 工作地址邮政编码
-   */
-  workAddressPostalCode: string;
-
-  /**
-   * 住宅传真
-   */
-  homeFaxNumber: string;
-
-  /**
-   * 住宅电话
-   */
-  homePhoneNumber: string;
-
-  /**
-   * 住宅地址国家
-   */
-  homeAddressCountry: string;
-
-  /**
-   * 住宅地址省份
-   */
-  homeAddressState: string;
-
-  /**
-   * 住宅地址城市
-   */
-  homeAddressCity: string;
-
-  /**
-   * 住宅地址街道
-   */
-  homeAddressStreet: string;
-
-  /**
-   * 住宅地址邮政编码
-   */
-  homeAddressPostalCode: string;
-
-  /**
-   * 接口调用成功
-   */
-  success: () => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _addCardObject {
-  /**
-   * 需要添加的卡券列表，列表内对象说明请参见[请求对象说明](#请求对象说明)
-   */
-  cardList: any;
-
-  /**
-   * 接口调用成功的回调函数
-   */
-  success: (result: _addCardSuccessObject) => void;
-
-  /**
-   * 接口调用失败的回调函数
-   */
-  fail: () => void;
-
-  /**
-   * 接口调用结束的回调函数（调用成功、失败都会执行）
-   */
-  complete: () => void;
-}
-interface _addCardSuccessObject {
-  /**
-   * 卡券添加结果列表，列表内对象说明请详见[返回对象说明](#返回对象说明)
-   */
-  cardList: any;
-}
-
-interface _ShareAppMessageReturnObject {
-  /**
-   * 分享标题。默认为当前小程序名称。
-   */
-
-  title: string;
-
-  /**
-   * 分享路径。默认为当前页面 path，必须是以 / 开头的完整路径。
-   */
-
-  path: string;
-}
-
-interface _AppShowOptions {
-  /**
-   * 打开小程序的路径
-   */
-  path: string;
-
-  /**
-   * 打开小程序的query
-   */
-  query: object;
-
-  /**
-   * 打开小程序的场景值
-   */
-  scene: number;
-
-  /**
-   * shareTicket
-   */
-  shareTicket: string;
-}
-
-declare interface _AppOptions {
-  /**
-   * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
-   */
-  onLaunch?: (options: _AppShowOptions) => void;
-
-  /**
-   * 当小程序启动，或从后台进入前台显示，会触发 onShow
-   */
-  onShow?: (options: _AppShowOptions) => void;
-
-  /**
-   * 当小程序从前台进入后台，会触发 onHide
-   */
-  onHide?: () => void;
-
-  /**
-   * 当小程序发生脚本错误，或者 api 调用失败时，会触发 onError 并带上错误信息
-   */
-  onError?: (msg: string) => void;
-}
-
-declare function App(options: _AppOptions): void;
+/**
+ * 暂时解决官方没有wx.d.ts的问题
+ * 20210608 fork by https://gitee.com/llqgit/wx.d.ts/blob/master/wx.d.ts
+ * https://developers.weixin.qq.com/community/develop/doc/00024cc7020238e944e9465f651400?highLine=wx.d.ts
+*/
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-types */
+/**
+ * 取消一个先前通过调用 requestAnimationFrame 方法添加到计划中的动画帧请求
+ */
+declare function cancelAnimationFrame(requestID: number): void;
 
 /**
- * 获取到小程序实例
+ * 在下次进行重绘时执行。
  */
-declare function getApp(): object;
+declare function requestAnimationFrame(callback: () => void): number;
 
-declare interface PageOptions {
-  /**
-   * 页面的初始数据
-   */
-  data?: any;
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad?: (options?: object) => void;
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-
-  onReady?: () => void;
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-
-  onShow?: () => void;
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-
-  onHide?: () => void;
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-
-  onUnload?: () => void;
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-
-  onPullDownRefresh?: () => void;
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-
-  onReachBottom?: () => void;
-
-  /**
-   * 用户点击右上角分享
-   */
-
-  onShareAppMessage?: () => _ShareAppMessageReturnObject;
+/** 输出日志*/
+interface Console {
+  debug(message?: any, ...optionalParams: any[]): void;
+  error(message?: any, ...optionalParams: any[]): void;
+  group(groupTitle?: string, ...optionalParams: any[]): void;
+  groupEnd(): void;
+  info(message?: any, ...optionalParams: any[]): void;
+  log(message?: any, ...optionalParams: any[]): void;
+  warn(message?: any, ...optionalParams: any[]): void;
 }
 
-declare function Page(page: PageOptions): void;
+/** 输出日志*/
+declare const Console: {
+  prototype: Console;
+  new (): Console;
+};
 
-declare function getCurrentPages(): object[];
+declare const console: Console;
+/**
+ * 可取消由 setTimeout() 方法设置的定时器。
+ */
+declare function clearTimeout(timeoutID: number): void;
 
+/**
+ * 可取消由 setInterval() 方法设置的定时器。
+ */
+declare function clearInterval(intervalID: number): void;
+
+/**
+ * 设定一个定时器，在定时到期以后执行注册的回调函数
+ * @param callback 回调函数
+ * @param delay 延迟的时间，函数的调用会在该延迟之后发生，单位 ms。
+ * @param rest param1, param2, ..., paramN 等附加参数，它们会作为参数传递给回调函数。
+ * @returns number定时器的编号。这个值可以传递给 clearTimeout 来取消该定时。
+ */
+declare function setTimeout(callback: () => void, delay: number, ...rest): number;
+
+/**
+ * 设定一个定时器，按照指定的周期（以毫秒计）来执行注册的回调函数
+ * @param callback 回调函数
+ * @param delay 执行回调函数之间的时间间隔，单位 ms。
+ * @param rest param1, param2, ..., paramN 等附加参数，它们会作为参数传递给回调函数。
+ * @returns number定时器的编号。这个值可以传递给 clearTimeout 来取消该定时。
+ */
+declare function setInterval(callback: () => void, delay: number, ...rest): number;
+
+/**
+ * 微信小游戏命名空间
+ */
 declare namespace wx {
-  /**
-   * 批量添加卡券。
-   */
-  export function addCard(object: _addCardObject): void;
+  type ENV = {
+    USER_DATA_PATH: string;
+  };
+
+  const env: ENV;
+
+  type systemInfo = {
+    /** 手机品牌*/
+    brand: string;
+    /** 手机型号*/
+    model: string;
+    /**	设备像素比 */
+    pixelRatio: number;
+    /** 屏幕宽度*/
+    screenWidth: number;
+    /** 屏幕高度*/
+    screenHeight: number;
+    /** 可使用窗口宽度*/
+    windowWidth: number;
+    /** 可使用窗口高度*/
+    windowHeight: number;
+    /** 状态栏的高度*/
+    statusBarHeight: number;
+    /** 微信设置的语言*/
+    language: string;
+    /** 微信版本号*/
+    version: string;
+    /** 操作系统版本*/
+    system: string;
+    /** 客户端平台*/
+    platform: string;
+    /** 用户字体大小设置。以“我-设置 - 通用 - 字体大小”中的设置为准，单位 px。*/
+    fontSizeSetting: number;
+    /** 客户端基础库版本*/
+    SDKVersion: string;
+    /** 性能等级*/
+    benchmarkLevel: number;
+  };
+
+  type launchOption = {
+    /** 启动小游戏的场景值*/
+    scene: number;
+    /** 启动小游戏的 query 参数	*/
+    query: Object;
+    /** 当前小游戏是否被显示在聊天顶部*/
+    referrerInfo: ReferrerInfo;
+    /** shareTicket，详见获取更多转发信息*/
+    shareTicket: string;
+  };
+
+  type ReferrerInfo = {
+    /** 来源小程序或公众号或App的 appId	*/
+    appId: string;
+    /**  来源小程序传过来的数据，scene=1037或1038时支持*/
+    extraData: any;
+  };
 
   /**
-   * 调用后，用户可以选择将该表单以“新增联系人”或“添加到已有联系人”的方式，写入手机系统通讯录，完成手机通讯录联系人和联系方式的增加。
+   * UpdateManager 对象，用来管理更新，可通过 wx.getUpdateManager 接口获取实例。
    */
-  export function addPhoneContact(object: _addPhoneContactObject): void;
+  type UpdateManager = {
+    /**
+     * 强制小程序重启并使用新版本。在小程序新版本下载完成后（即收到 onUpdateReady 回调）调用。
+     */
+    applyUpdate(): void;
+    /**
+     * 监听向微信后台请求检查更新结果事件。微信在小程序冷启动时自动检查更新，不需由开发者主动触发。
+     * @param callback 向微信后台请求检查更新结果事件的回调函数
+     */
+    onCheckForUpdate(callback: (res: { hasUpdate: boolean }) => void): void;
+    /**
+     * 监听小程序有版本更新事件。客户端主动触发下载（无需开发者触发），下载成功后回调
+     * @param callback 小程序有版本更新事件的回调函数
+     */
+    onUpdateReady(callback: () => void): void;
+    /**
+     * 监听小程序更新失败事件。小程序有新版本，客户端主动触发下载（无需开发者触发），下载失败（可能是网络原因等）后回调
+     * @param callback 小程序更新失败事件的回调函数
+     */
+    onUpdateFailed(callback: () => void): void;
+  };
 
   /**
-   * 将 ArrayBuffer 数据转成 Base64 字符串
+   * 在触控设备上的触摸点。通常是指手指或者触控笔在触屏设备或者触摸板上的操作。
    */
-  export function arrayBufferToBase64(): void;
+  type Touch = {
+    /** Touch 对象的唯一标识符，只读属性。一次触摸动作(我们值的是手指的触摸)在平面上移动的整个过程中, 该标识符不变。可以根据它来判断跟踪的是否是同一次触摸过程。*/
+    identifier: number;
+    /** 触点相对于屏幕左边沿的 X 坐标。*/
+    screenX: number;
+    /** 触点相对于屏幕上边沿的 Y 坐标。*/
+    screenY: number;
+  };
 
   /**
-   * 提前向用户发起授权请求。调用后会立刻弹窗询问用户是否同意授权小程序使用某项功能或获取用户的某些数据，但不会实际调用对应接口。如果用户之前已经同意授权，则不会出现弹窗，直接返回成功。
+   * 性能管理器
    */
-  export function authorize(object: _authorizeObject): void;
+  type Performance = {
+    /**
+     * 可以获取当前时间以微秒为单位的时间戳
+     */
+    now(): number;
+  };
 
   /**
-   * 将 Base64 字符串转成 ArrayBuffer 数据
+   * 加载分包任务实例，用于获取分包加载状态
    */
-  export function base64ToArrayBuffer(base64: string): void;
+  type LoadSubpackageTask = {
+    /**
+     * 监听分包加载进度变化事件
+     * @param callback 分包加载进度变化事件的回调函数
+     */
+    onProgressUpdate(
+      callback: (res: {
+        /** 分包下载进度百分比*/
+        progress: number;
+        /** 已经下载的数据长度，单位 Bytes	*/
+        totalBytesWritten: number;
+        /** 预期需要下载的数据总长度，单位 Bytes*/
+        totalBytesExpectedToWrite: number;
+      }) => void
+    ): void;
+  };
 
   /**
-   * 判断小程序的API，回调，参数，组件等是否在当前版本可用。
-   */
-  export function canIUse(string: string): void;
+       * 通过 Canvas.getContext('2d') 接口可以获取 CanvasRenderingContext2D 对象，实现了 HTML Canvas 2D Context 定义的大部分属性、方法。
+       * 通过 Canvas.getContext('webgl') 接口可以获取 WebGLRenderingContext 对象，实现了 WebGL 1.0 定义的所有属性、方法、常量。
+       * 2d 接口支持情况
+       * iOS/Android 不支持的 2d 属性和接口
+  
+       * globalCompositeOperation 不支持以下值： source-in source-out destination-atop lighter copy。如果使用，不会报错，但是将得到与预期不符的结果。
+       * isPointInPath
+       * WebGL 接口支持情况
+       * iOS/Android 不支持的 WebGL 接口
+  
+       * pixelStorei 当第一个参数是 gl.UNPACK_COLORSPACE_CONVERSION_WEBGL 时
+       * compressedTexImage2D
+       * compressedTexSubImage2D
+       * 除此之外 Android 还不支持 WebGL 接口
+  
+       * getExtension
+       * getSupportedExtensions
+       */
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface RenderingContext {}
+
+  interface Canvas {
+    /** 画布的宽度*/
+    width: number;
+    /** 画布的高度*/
+    height: number;
+
+    /**
+     * 获取画布对象的绘图上下文
+     */
+    getContext(
+      contextType: "2d" | "webgl",
+      contextAttributes: { antialias?: boolean; preserveDrawingBuffer?: boolean; antialiasSamples?: 2 }
+    ): RenderingContext;
+    /**
+     * 将当前 Canvas 保存为一个临时文件，并生成相应的临时文件路径。
+     */
+    toTempFilePath(object: {
+      x?: number;
+      y?: number;
+      width?: number;
+      height?: number;
+      destWidth?: number;
+      destHeight?: number;
+      fileType?: "jpg" | "png";
+      quality?: number;
+      success?: (res?: any) => void;
+      fail?: (err?: any) => void;
+      complete?: (res?: any) => void;
+    }): string;
+    /**
+     * 把画布上的绘制内容以一个 data URI 的格式返回
+     */
+    toDataURL(): string;
+    /**
+     * Canvas.toTempFilePath 的同步版本
+     */
+    toTempFilePathSync(object: {
+      x?: number;
+      y?: number;
+      width?: number;
+      height?: number;
+      destWidth?: number;
+      destHeight?: number;
+      fileType?: "jpg" | "png";
+      quality?: number;
+    }): void;
+  }
 
   /**
-   * 返回一个数组，用来描述 canvas 区域隐含的像素数据
+   * 获取系统信息
    */
-  export function canvasGetImageData(object: _canvasGetImageDataObject): void;
+  function getSystemInfo(object: {
+    success: (res?: systemInfo) => void;
+    fail: (err?: any) => void;
+    complete: (res?: any) => void;
+  }): void;
 
   /**
-   * 将像素数据绘制到画布的方法
+   * wx.getSystemInfo 的同步版本
    */
-  export function canvasPutImageData(object: _canvasPutImageDataObject): void;
+  function getSystemInfoSync(): systemInfo;
 
   /**
-   * 把当前画布指定区域的内容导出生成指定大小的图片，并返回文件路径。
+   * 返回值 UpdateManager
    */
-  export function canvasToTempFilePath(
-    this: string,
-    object: _canvasToTempFilePathObject
+  function getUpdateManager(): UpdateManager;
+
+  /**
+   * 退出当前小游戏
+   */
+  function exitMiniProgram(object: { success?: () => void; fail?: () => void; complete?: () => void }): void;
+
+  /**
+   * 返回小程序启动参数
+   */
+  function getLaunchOptionsSync(): launchOption;
+  /**
+   * 监听小游戏隐藏到后台事件。锁屏、按 HOME 键退到桌面、显示在聊天顶部等操作会触发此事件。
+   */
+  function onHide(callback: () => void): void;
+  /**
+   * 取消监听小游戏隐藏到后台事件。锁屏、按 HOME 键退到桌面、显示在聊天顶部等操作会触发此事件。
+   */
+  function offHide(callback: () => void): void;
+  /**
+   * 监听小游戏回到前台的事件
+   */
+  function onShow(
+    callback: (res: {
+      /** 场景值*/
+      scene: string;
+      /** 查询参数*/
+      query: any;
+      /** shareTicket*/
+      shareTicket: string;
+      /** 当场景为由从另一个小程序或公众号或App打开时，返回此字段*/
+      referrerInfo: ReferrerInfo;
+    }) => void
   ): void;
+  /**
+   * 取消监听小游戏回到前台的事件
+   */
+  function offShow(callback: () => void): void;
 
   /**
-   * 获取设备内是否录入如指纹等生物信息的接口
+   * 监听音频中断结束，在收到 onAudioInterruptionBegin 事件之后，小程序内所有音频会暂停，收到此事件之后才可再次播放成功
    */
-  export function checkIsSoterEnrolledInDevice(
-    object: _checkIsSoterEnrolledInDeviceObject
+  function onAudioInterruptionEnd(callback: () => void): void;
+  /**
+   * 取消监听音频中断结束，在收到 onAudioInterruptionBegin 事件之后，小程序内所有音频会暂停，收到此事件之后才可再次播放成功
+   */
+  function offAudioInterruptionEnd(callback: () => void): void;
+  /**
+   * 监听音频因为受到系统占用而被中断开始，以下场景会触发此事件：闹钟、电话、FaceTime 通话、微信语音聊天、微信视频聊天。此事件触发后，小程序内所有音频会暂停。
+   */
+  function onAudioInterruptionBegin(callback: () => void): void;
+  /**
+   * 取消监听音频因为受到系统占用而被中断开始，以下场景会触发此事件：闹钟、电话、FaceTime 通话、微信语音聊天、微信视频聊天。此事件触发后，小程序内所有音频会暂停。
+   */
+  function offAudioInterruptionBegin(callback: () => void): void;
+  /**
+   * 监听全局错误事件
+   */
+  function onError(
+    callback: (res: {
+      /** 错误*/
+      message: string;
+      /** 错误调用堆栈*/
+      stack: string;
+    }) => void
   ): void;
+  /**
+   * 取消监听全局错误事件
+   */
+  function offError(callback: () => void): void;
 
   /**
-   * 获取本机支持的 SOTER 生物认证方式
+   * 监听开始触摸事件
    */
-  export function checkIsSupportSoterAuthentication(
-    object: _checkIsSupportSoterAuthenticationObject
+  function onTouchStart(
+    callback: (res: {
+      /** 当前所有触摸点的列表*/
+      touches: Array<Touch>;
+      /** 触发此次事件的触摸点列表*/
+      changedTouches: Array<Touch>;
+      /** 事件触发时的时间戳*/
+      timeStamp: number;
+    }) => void
   ): void;
-
   /**
-   * 通过上述接口获得的用户登录态拥有一定的时效性。用户越久未使用小程序，用户登录态越有可能失效。反之如果用户一直在使用小程序，则用户登录态一直保持有效。具体时效逻辑由微信维护，对开发者透明。开发者只需要调用wx.checkSession接口**检测当前用户登录态是否有效**。登录态过期后开发者可以再调用wx.login获取新的用户登录态。
+   * 取消监听开始触摸事件
    */
-  export function checkSession(object: _checkSessionObject): void;
-
+  function offTouchStart(callback: () => void): void;
   /**
-   * 调起用户编辑收货地址原生界面，并在编辑完成后返回用户选择的地址。
+   * 监听触点移动事件
    */
-  export function chooseAddress(object: _chooseAddressObject): void;
-
-  /**
-   * 调起选择手机通讯录联系人界面，返回用户选择的联系人信息。
-   */
-  export function chooseContact(object: _chooseContactObject): void;
-
-  /**
-   * 从本地相册选择图片或使用相机拍照。
-   */
-  export function chooseImage(object: _chooseImageObject): void;
-
-  /**
-   * 选择用户的发票抬头。
-   */
-  export function chooseInvoiceTitle(object: _chooseInvoiceTitleObject): void;
-
-  /**
-   * 打开地图选择位置。
-   */
-  export function chooseLocation(object: _chooseLocationObject): void;
-
-  /**
-   * 拍摄视频或从手机相册中选视频，返回视频的临时文件路径。
-   */
-  export function chooseVideo(object: _chooseVideoObject): void;
-
-  /**
-   * 清理本地数据缓存。
-   */
-  export function clearStorage(): void;
-
-  /**
-   * 同步清理本地数据缓存
-   */
-  export function clearStorageSync(): void;
-
-  /**
-   * 断开与低功耗蓝牙设备的连接
-   */
-  export function closeBLEConnection(object: _closeBLEConnectionObject): void;
-
-  /**
-   * 关闭蓝牙模块，使其进入未初始化状态。调用该方法将断开所有已建立的链接并释放系统资源。建议在使用小程序蓝牙流程后调用，与`wx.openBluetoothAdapter`成对调用。
-   */
-  export function closeBluetoothAdapter(
-    object: _closeBluetoothAdapterObject
+  function onTouchMove(
+    callback: (res: {
+      /** 当前所有触摸点的列表*/
+      touches: Array<Touch>;
+      /** 触发此次事件的触摸点列表*/
+      changedTouches: Array<Touch>;
+      /** 事件触发时的时间戳*/
+      timeStamp: number;
+    }) => void
   ): void;
-
   /**
-   * 关闭 WebSocket 连接。
+   * 取消监听触点移动事件
    */
-  export function closeSocket(object: _closeSocketObject): void;
-
+  function offTouchMove(callback: () => void): void;
   /**
-   * 创建一个 [WebSocket](https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket) 连接。**使用前请先阅读[说明](./api-network.md)**。
+   * 监听触摸结束事件
    */
-  export function connectSocket(object: _connectSocketObject): void;
-
-  /**
-   * 连接 Wi-Fi。若已知 Wi-Fi 信息，可以直接利用该接口连接。仅 Android 与 iOS 11 以上版本支持。
-   */
-  export function connectWifi(object: _connectWifiObject): void;
-
-  /**
-   * 创建一个动画实例[animation](#animation)。调用实例的方法来描述动画。最后通过动画实例的`export`方法导出动画数据传递给组件的`animation`属性。
-   */
-  export function createAnimation(object: _createAnimationObject): void;
-
-  /**
-   * 创建并返回 audio 上下文 `audioContext` 对象。在自定义组件下，第二个参数传入组件实例this，以操作组件内 `<audio/>` 组件
-   */
-  export function createAudioContext(this: string, audioid: string): void;
-
-  /**
-   * 连接低功耗蓝牙设备。
-   */
-  export function createBLEConnection(object: _createBLEConnectionObject): void;
-
-  /**
-   * 创建并返回 camera 上下文 `cameraContext` 对象，`cameraContext` 与页面的 `camera` 组件绑定，一个页面只能有一个camera，通过它可以操作对应的 `<camera/>` 组件。
-   */
-  export function createCameraContext(this: string): void;
-
-  /**
-   * 创建 canvas 绘图上下文（指定 canvasId）。在自定义组件下，第二个参数传入组件实例this，以操作组件内 `<canvas/>` 组件
-   */
-  export function createCanvasContext(
-    this: string,
-    canvasid: string
-  ): CanvasContext;
-
-  /**
-   * 创建并返回绘图上下文。
-   */
-  export function createContext(): CanvasContext;
-
-  /**
-   * 创建并返回内部 audio 上下文 `innerAudioContext` 对象。*本接口是 `wx.createAudioContext` 升级版。*
-   */
-  export function createInnerAudioContext(): void;
-
-  /**
-   * 操作对应的 `<live-player/>` 组件。
-   */
-  export function createLivePlayerContext(this: string, domid: string): void;
-
-  /**
-   * 创建并返回 `live-pusher` 上下文 `LivePusherContext` 对象，`LivePusherContext` 与页面的 `<live-pusher />` 组件绑定，一个页面只能有一个 `live-pusher`，通过它可以操作对应的 `<live-pusher/>` 组件。
-   */
-  export function createLivePusherContext(): void;
-
-  /**
-   * 创建并返回 map 上下文 `mapContext` 对象。在自定义组件下，第二个参数传入组件实例this，以操作组件内 `<map/>` 组件
-   */
-  export function createMapContext(this: string, mapid: string): void;
-
-  /**
-   * undefined
-   */
-  export function createSelectorQuery(): void;
-
-  /**
-   * 创建并返回 video 上下文 `videoContext` 对象。在自定义组件下，第二个参数传入组件实例this，以操作组件内 `<video/>` 组件
-   */
-  export function createVideoContext(this: string, videoid: string): void;
-
-  /**
-   * 下载文件资源到本地，客户端直接发起一个 HTTP GET 请求，返回文件的本地临时路径。**使用前请先阅读[说明](./api-network.md)**。
-   */
-  export function downloadFile(object: _downloadFileObject): void;
-
-  /**
-   * 蓝牙设备characteristic(特征值)信息
-   */
-  export function getBLEDeviceCharacteristics(
-    object: _getBLEDeviceCharacteristicsObject
+  function onTouchEnd(
+    callback: (res: {
+      /** 当前所有触摸点的列表*/
+      touches: Array<Touch>;
+      /** 触发此次事件的触摸点列表*/
+      changedTouches: Array<Touch>;
+      /** 事件触发时的时间戳*/
+      timeStamp: number;
+    }) => void
   ): void;
-
   /**
-   * 获取蓝牙设备所有 service（服务）
+   * 取消监听触摸结束事件
    */
-  export function getBLEDeviceServices(
-    object: _getBLEDeviceServicesObject
+  function offTouchEnd(callback: () => void): void;
+  /**
+   * 监听触点失效事件
+   */
+  function onTouchCancel(
+    callback: (res: {
+      /** 当前所有触摸点的列表*/
+      touches: Array<Touch>;
+      /** 触发此次事件的触摸点列表*/
+      changedTouches: Array<Touch>;
+      /** 事件触发时的时间戳*/
+      timeStamp: number;
+    }) => void
   ): void;
-
-  /**
-   * 获取**全局唯一**的背景音频管理器 `backgroundAudioManager`。
-   */
-  export function getBackgroundAudioManager(): _getBackgroundAudioManagerReturnValue;
-
-  /**
-   * 获取后台音乐播放状态。
-   */
-  export function getBackgroundAudioPlayerState(
-    object: _getBackgroundAudioPlayerStateObject
-  ): void;
-
-  /**
-   * 获取所有已搜索到的`iBeacon`设备
-   */
-  export function getBeacons(object: _getBeaconsObject): void;
-
-  /**
-   * 获取本机蓝牙适配器状态
-   */
-  export function getBluetoothAdapterState(
-    object: _getBluetoothAdapterStateObject
-  ): void;
-
-  /**
-   * 获取在小程序蓝牙模块生效期间所有已发现的蓝牙设备，包括已经和本机处于连接状态的设备。
-   */
-  export function getBluetoothDevices(object: _getBluetoothDevicesObject): void;
-
-  /**
-   * 获取系统剪贴板内容
-   */
-  export function getClipboardData(object: _getClipboardDataObject): void;
-
-  /**
-   * 根据 uuid 获取处于已连接状态的设备
-   */
-  export function getConnectedBluetoothDevices(
-    object: _getConnectedBluetoothDevicesObject
-  ): void;
-
-  /**
-   * 获取已连接中的 Wi-Fi 信息
-   */
-  export function getConnectedWifi(object: _getConnectedWifiObject): void;
-
-  /**
-   * 获取第三方平台自定义的数据字段。
-   */
-  export function getExtConfig(object: _getExtConfigObject): void;
-
-  /**
-   * 获取第三方平台自定义的数据字段的同步接口。
-   */
-  export function getExtConfigSync(): _getExtConfigSyncReturnValue;
-
-  /**
-   * 获取文件信息
-   */
-  export function getFileInfo(object: _getFileInfoObject): void;
-
-  /**
-   * 判断当前设备是否支持 HCE 能力。
-   */
-  export function getHCEState(object: _getHCEStateObject): void;
-
-  /**
-   * 获取图片信息
-   */
-  export function getImageInfo(object: _getImageInfoObject): void;
-
-  /**
-   * 获取当前的地理位置、速度。当用户离开小程序后，此接口无法调用；当用户点击“显示在聊天顶部”时，此接口可继续调用。
-   */
-  export function getLocation(object: _getLocationObject): void;
-
-  /**
-   * 获取网络类型。
-   */
-  export function getNetworkType(object: _getNetworkTypeObject): void;
-
-  /**
-   * 获取微信替设备生成的唯一标识，用于判断设备是否更换。获取的数据为AES加密数据，需要自行解密。
-   */
-  export function getOpenDeviceId(object: _getOpenDeviceIdObject): void;
-
-  /**
-   * 获取**全局唯一**的录音管理器 `recorderManager`。
-   */
-  export function getRecorderManager(): void;
-
-  /**
-   * 获取本地文件的文件信息。此接口只能用于获取已保存到本地的文件，若需要获取临时文件信息，请使用 [wx.getFileInfo](./getFileInfo.md) 接口。
-   */
-  export function getSavedFileInfo(object: _getSavedFileInfoObject): void;
-
-  /**
-   * 获取本地已保存的文件列表
-   */
-  export function getSavedFileList(object: _getSavedFileListObject): void;
-
-  /**
-   * 获取屏幕亮度。
-   */
-  export function getScreenBrightness(object: _getScreenBrightnessObject): void;
-
-  /**
-   * 获取用户的当前设置。
-   */
-  export function getSetting(object: _getSettingObject): void;
-
-  /**
-   * 获取转发详细信息
-   */
-  export function getShareInfo(object: _getShareInfoObject): void;
-
-  /**
-   * 从本地缓存中异步获取指定 key 对应的内容。
-   */
-  export function getStorage(object: _getStorageObject): void;
-
-  /**
-   * 异步获取当前storage的相关信息
-   */
-  export function getStorageInfo(object: _getStorageInfoObject): void;
-
-  /**
-   * 同步获取当前storage的相关信息
-   */
-  export function getStorageInfoSync(): void;
-
-  /**
-   * 从本地缓存中同步获取指定 key 对应的内容。
-   */
-  export function getStorageSync(key: string): void;
-
-  /**
-   * 获取系统信息。
-   */
-  export function getSystemInfo(object: _getSystemInfoObject): void;
-
-  /**
-   * 获取系统信息同步接口
-   */
-  export function getSystemInfoSync(): _getSystemInfoSyncReturnValue;
-
-  /**
-   * 获取用户信息，withCredentials 为 true 时需要先调用 [wx.login](./api-login.md#wxloginobject) 接口。
-   */
-  export function getUserInfo(object: _getUserInfoObject): void;
-
-  /**
-   * 获取用户过去三十天微信运动步数，需要先调用 [wx.login](./api-login.md#wxloginobject) 接口。
-   */
-  export function getWeRunData(object: _getWeRunDataObject): void;
-
-  /**
-   * 请求获取 Wi-Fi 列表，在 `onGetWifiList` 注册的回调中返回 wifiList 数据。iOS 将跳转到系统的 Wi-Fi 界面，Android 不会跳转。
-   */
-  export function getWifiList(object: _getWifiListObject): void;
-
-  /**
-   * 隐藏 loading 提示框
-   */
-  export function hideLoading(): void;
-
-  /**
-   * 隐藏导航条加载动画。
-   */
-  export function hideNavigationBarLoading(): void;
-
-  /**
-   * 隐藏转发按钮
-   */
-  export function hideShareMenu(object: _hideShareMenuObject): void;
-
-  /**
-   * 隐藏 tabBar
-   */
-  export function hideTabBar(object: _hideTabBarObject): void;
-
-  /**
-   * 隐藏 tabBar 某一项的右上角的红点
-   */
-  export function hideTabBarRedDot(object: _hideTabBarRedDotObject): void;
-
-  /**
-   * 隐藏消息提示框
-   */
-  export function hideToast(): void;
-
-  /**
-   * 调用接口获取**登录凭证（code）**进而换取用户登录态信息，包括用户的**唯一标识（openid）** 及本次登录的 **会话密钥（session_key）**等。**用户数据的加解密通讯**需要依赖会话密钥完成。
-   */
-  export function login(object: _loginObject): void;
-
-  /**
-   * wx.makePhoneCall({
-   */
-  export function makePhoneCall(object: _makePhoneCallObject): void;
-
-  /**
-   * 调起 VoIP 音视频通话界面。
-   */
-  export function makeVoIPCall(object: _makeVoIPCallObject): void;
-
-  /**
-   * 关闭当前页面，返回上一页面或多级页面。可通过 [`getCurrentPages()`](../framework/app-service/page.md#getCurrentPages()) 获取当前的页面栈，决定需要返回几层。
-   */
-  export function navigateBack(object: _navigateBackObject): void;
-
-  /**
-   * 返回到上一个小程序，只有在当前小程序是被其他小程序打开时可以调用成功
-   */
-  export function navigateBackMiniProgram(
-    object: _navigateBackMiniProgramObject
-  ): void;
-
-  /**
-   * 保留当前页面，跳转到应用内的某个页面，使用`wx.navigateBack`可以返回到原页面。
-   */
-  export function navigateTo(object: _navigateToObject): void;
-
-  /**
-   * 打开同一公众号下关联的另一个小程序。**（注：必须是同一公众号下，而非同个 open 账号下）**
-   */
-  export function navigateToMiniProgram(
-    object: _navigateToMiniProgramObject
-  ): void;
-
-  /**
-   * 启用低功耗蓝牙设备特征值变化时的 notify 功能，订阅特征值。注意：必须设备的特征值支持`notify`或者`indicate`才可以成功调用，具体参照 characteristic 的 properties 属性
-   */
-  export function notifyBLECharacteristicValueChange(
-    object: _notifyBLECharacteristicValueChangeObject
-  ): void;
-
-  /**
-   * 监听加速度数据，频率：5次/秒，接口调用后会自动开始监听，可使用 `wx.stopAccelerometer` 停止监听。
-   */
-  export function onAccelerometerChange(
-    callback: (result: _onAccelerometerChangeCallbackResult) => void
-  ): void;
-
-  /**
-   * 监听低功耗蓝牙设备的特征值变化。必须先启用`notify`接口才能接收到设备推送的notification。
-   */
-  export function onBLECharacteristicValueChange(
-    callback: (result: _onBLECharacteristicValueChangeCallbackResult) => void
-  ): void;
-
-  /**
-   * 监听低功耗蓝牙连接的错误事件，包括设备丢失，连接异常断开等等。
-   */
-  export function onBLEConnectionStateChange(
-    callback: (result: _onBLEConnectionStateChangeCallbackResult) => void
-  ): void;
-
-  /**
-   * 监听音乐暂停。
-   */
-  export function onBackgroundAudioPause(callback: string): void;
-
-  /**
-   * 监听音乐播放。
-   */
-  export function onBackgroundAudioPlay(callback: string): void;
-
-  /**
-   * 监听音乐停止。
-   */
-  export function onBackgroundAudioStop(callback: string): void;
-
-  /**
-   * 监听 `iBeacon` 服务的状态变化
-   */
-  export function onBeaconServiceChange(
-    callback: (result: _onBeaconServiceChangeCallbackResult) => void
-  ): void;
-
-  /**
-   * 监听 `iBeacon` 设备的更新事件
-   */
-  export function onBeaconUpdate(
-    callback: (result: _onBeaconUpdateCallbackResult) => void
-  ): void;
-
-  /**
-   * 监听蓝牙适配器状态变化事件
-   */
-  export function onBluetoothAdapterStateChange(
-    callback: (result: _onBluetoothAdapterStateChangeCallbackResult) => void
-  ): void;
-
-  /**
-   * 监听寻找到新设备的事件
-   */
-  export function onBluetoothDeviceFound(
-    callback: (result: _onBluetoothDeviceFoundCallbackResult) => void
-  ): void;
-
-  /**
-   * 监听罗盘数据，频率：5次/秒，接口调用后会自动开始监听，可使用`wx.stopCompass`停止监听。
-   */
-  export function onCompassChange(
-    callback: (result: _onCompassChangeCallbackResult) => void
-  ): void;
-
-  /**
-   * 监听需要评估连上的 Wi-Fi 的请求，在回调里必须返回 `confidence` 字段
-   */
-  export function onEvaluateWifi(
-    callback: (result: _onEvaluateWifiCallbackResult) => void
-  ): void;
-
-  /**
-   * 监听在获取到 Wi-Fi 列表数据时的事件，在回调中将返回 wifiList。
-   */
-  export function onGetWifiList(
-    callback: (result: _onGetWifiListCallbackResult) => void
-  ): void;
-
-  /**
-   * 监听 NFC 设备的消息回调，并在回调中处理。返回参数中 `messageType` 表示消息类型，目前有如下值：
-   */
-  export function onHCEMessage(
-    callback: (result: _onHCEMessageCallbackResult) => void
-  ): void;
-
-  /**
-   * 监听网络状态变化。
-   */
-  export function onNetworkStatusChange(
-    callback: (result: _onNetworkStatusChangeCallbackResult) => void
-  ): void;
-
-  /**
-   * 监听WebSocket关闭。
-   */
-  export function onSocketClose(callback: string): void;
-
-  /**
-   * 监听WebSocket错误。
-   */
-  export function onSocketError(callback: string): void;
-
-  /**
-   * 监听WebSocket接受到服务器的消息事件。
-   */
-  export function onSocketMessage(
-    callback: (result: _onSocketMessageCallbackResult) => void
-  ): void;
-
-  /**
-   * 监听WebSocket连接打开事件。
-   */
-  export function onSocketOpen(callback: string): void;
-
-  /**
-   * 监听用户主动截屏事件，用户使用系统截屏按键截屏时触发此事件
-   */
-  export function onUserCaptureScreen(
-    callback: (result: _onUserCaptureScreenCallbackResult) => void
-  ): void;
-
-  /**
-   * 监听连接上 Wi-Fi 的事件。
-   */
-  export function onWifiConnected(
-    callback: (result: _onWifiConnectedCallbackResult) => void
-  ): void;
-
-  /**
-   * 初始化小程序蓝牙模块，生效周期为调用`wx.openBluetoothAdapter`至调用`wx.closeBluetoothAdapter`或小程序被销毁为止。
-   */
-  export function openBluetoothAdapter(
-    object: _openBluetoothAdapterObject
-  ): void;
-
-  /**
-   * 查看微信卡包中的卡券。
-   */
-  export function openCard(object: _openCardObject): void;
-
-  /**
-   * 新开页面打开文档，支持格式：doc, xls, ppt, pdf, docx, xlsx, pptx
-   */
-  export function openDocument(object: _openDocumentObject): void;
-
-  /**
-   * ​使用微信内置地图查看位置。
-   */
-  export function openLocation(object: _openLocationObject): void;
-
-  /**
-   * 调起客户端小程序设置界面，返回用户设置的操作结果。
-   */
-  export function openSetting(object: _openSettingObject): void;
-
-  /**
-   * 将页面滚动到目标位置。
-   */
-  export function pageScrollTo(object: _pageScrollToObject): void;
-
-  /**
-   * 暂停播放音乐。
-   */
-  export function pauseBackgroundAudio(): void;
-
-  /**
-   * 暂停正在播放的语音。再次调用wx.playVoice播放同一个文件时，会从暂停处开始播放。如果想从头开始播放，需要先调用 wx.stopVoice。
-   */
-  export function pauseVoice(): void;
-
-  /**
-   * 使用后台播放器播放音乐，对于微信客户端来说，只能同时有一个后台音乐在播放。当用户离开小程序后，音乐将暂停播放；当用户点击“显示在聊天顶部”时，音乐不会暂停播放；当用户在其他小程序占用了音乐播放器，原有小程序内的音乐将停止播放。
-   */
-  export function playBackgroundAudio(object: _playBackgroundAudioObject): void;
-
-  /**
-   * 开始播放语音，同时只允许一个语音文件正在播放，如果前一个语音文件还没播放完，将中断前一个语音播放。
-   */
-  export function playVoice(object: _playVoiceObject): void;
-
-  /**
-   * 预览图片。
-   */
-  export function previewImage(object: _previewImageObject): void;
-
-  /**
-   * 关闭所有页面，打开到应用内的某个页面。
-   */
-  export function reLaunch(object: _reLaunchObject): void;
-
-  /**
-   * 读取低功耗蓝牙设备的特征值的二进制数据值。注意：必须设备的特征值支持`read`才可以成功调用，具体参照 characteristic 的 properties 属性
-   */
-  export function readBLECharacteristicValue(
-    object: _readBLECharacteristicValueObject
-  ): void;
-
-  /**
-   * 关闭当前页面，跳转到应用内的某个页面。
-   */
-  export function redirectTo(object: _redirectToObject): void;
-
   /**
-   * 删除本地存储的文件
+   * 取消监听触点失效事件
    */
-  export function removeSavedFile(object: _removeSavedFileObject): void;
+  function offTouchCancel(callback: () => void): void;
 
   /**
-   * 从本地缓存中异步移除指定 key 。
+   * 获取性能管理器
    */
-  export function removeStorage(object: _removeStorageObject): void;
-
-  /**
-   * 从本地缓存中同步移除指定 key 。
-   */
-  export function removeStorageSync(key: string): void;
-
-  /**
-   * 移除 tabBar 某一项右上角的文本
-   */
-  export function removeTabBarBadge(object: _removeTabBarBadgeObject): void;
-
-  /**
-   * 自定义分析数据上报接口。使用前，需要在小程序管理后台自定义分析中新建事件，配置好事件名与字段。
-   */
-  export function reportAnalytics(eventname: string, data: string): void;
-
-  /**
-   * 发起网络请求。**使用前请先阅读[说明](./api-network.md)**。
-   */
-  export function request(object: _requestObject): void;
-
-  /**
-   * 发起微信支付。
-   */
-  export function requestPayment(object: _requestPaymentObject): void;
-
-  /**
-   * 保存文件到本地。**注意：saveFile 会把临时文件移动，因此调用成功后传入的 tempFilePath 将不可用**
-   */
-  export function saveFile(object: _saveFileObject): void;
-
-  /**
-   * 保存图片到系统相册。需要[用户授权](./authorize-index.md) scope.writePhotosAlbum
-   */
-  export function saveImageToPhotosAlbum(
-    object: _saveImageToPhotosAlbumObject
-  ): void;
-
-  /**
-   * 保存视频到系统相册。需要[用户授权](./authorize-index.md) scope.writePhotosAlbum
-   */
-  export function saveVideoToPhotosAlbum(
-    object: _saveVideoToPhotosAlbumObject
-  ): void;
-
-  /**
-   * 调起客户端扫码界面，扫码成功后返回对应的结果
-   */
-  export function scanCode(object: _scanCodeObject): void;
-
-  /**
-   * 控制音乐播放进度。
-   */
-  export function seekBackgroundAudio(object: _seekBackgroundAudioObject): void;
-
-  /**
-   * 发送 NFC 消息。仅在安卓系统下有效。
-   */
-  export function sendHCEMessage(object: _sendHCEMessageObject): void;
-
-  /**
-   * 通过 WebSocket 连接发送数据，需要先 [wx.connectSocket](#wxconnectsocketobject)，并在 [wx.onSocketOpen](#wxonsocketopencallback) 回调之后才能发送。
-   */
-  export function sendSocketMessage(object: _sendSocketMessageObject): void;
-
-  /**
-   * 设置系统剪贴板的内容
-   */
-  export function setClipboardData(object: _setClipboardDataObject): void;
-
+  function getPerformance(): Performance;
   /**
-   * 设置是否打开调试开关，此开关对正式版也能生效。
+   * 加快触发 JavaScrpitCore Garbage Collection（垃圾回收），GC 时机是由 JavaScrpitCore 来控制的，并不能保证调用后马上触发 GC。
    */
-  export function setEnableDebug(object: _setEnableDebugObject): void;
+  function triggerGC(): void;
 
   /**
-   * 设置是否保持常亮状态。仅在当前小程序生效，离开小程序后设置失效。
+   *  基础库 2.1.0 开始支持，低版本需做兼容处理。
+   *  触发分包加载，详见 分包加载
    */
-  export function setKeepScreenOn(object: _setKeepScreenOnObject): void;
+  function loadSubpackage(res: {
+    /** 分包的名字，可以填 name 或者 root*/
+    name: () => void;
+    /** 分包加载成功回调事件*/
+    success: () => void;
+    /** 分包加载失败回调事件*/
+    fail: () => void;
+    /** 分包加载结束回调事件(加载成功、失败都会执行）*/
+    complete: () => void;
+  }): LoadSubpackageTask;
 
-  /**
-   * wx.setNavigationBarColor({
-   */
-  export function setNavigationBarColor(
-    object: _setNavigationBarColorObject
-  ): void;
-
-  /**
-   * 动态设置当前页面的标题。
-   */
-  export function setNavigationBarTitle(
-    object: _setNavigationBarTitleObject
-  ): void;
-
-  /**
-   * 设置屏幕亮度。
-   */
-  export function setScreenBrightness(object: _setScreenBrightnessObject): void;
-
-  /**
-   * 将数据存储在本地缓存中指定的 key 中，会覆盖掉原来该 key 对应的内容，这是一个异步接口。
-   */
-  export function setStorage(object: _setStorageObject): void;
-
-  /**
-   * 将 data 存储在本地缓存中指定的 key 中，会覆盖掉原来该 key 对应的内容，这是一个同步接口。
-   */
-  export function setStorageSync(key: string): void;
-
-  /**
-   * 为 tabBar 某一项的右上角添加文本
-   */
-  export function setTabBarBadge(object: _setTabBarBadgeObject): void;
-
-  /**
-   * 动态设置 tabBar 某一项的内容
-   */
-  export function setTabBarItem(object: _setTabBarItemObject): void;
-
-  /**
-   * 动态设置 tabBar 的整体样式
-   */
-  export function setTabBarStyle(object: _setTabBarStyleObject): void;
-
-  /**
-   * 动态设置置顶栏文字内容，只有当前小程序被置顶时能生效，如果当前小程序没有被置顶，也能调用成功，但是不会立即生效，只有在用户将这个小程序置顶后才换上设置的文字内容。**注意：调用成功后，需间隔 5s 才能再次调用此接口，如果在 5s 内再次调用此接口，会回调 fail，errMsg："setTopBarText: fail invoke too frequently"**
-   */
-  export function setTopBarText(object: _setTopBarTextObject): void;
-
-  /**
-   * 在 `onGetWifiList` 回调后，利用接口设置 wifiList 中 AP 的相关信息。
-   */
-  export function setWifiList(object: _setWifiListObject): void;
-
-  /**
-   * ​显示操作菜单
-   */
-  export function showActionSheet(object: _showActionSheetObject): void;
-
-  /**
-   * 显示 loading 提示框, 需主动调用 [wx.hideLoading](#wxhideloading) 才能关闭提示框
-   */
-  export function showLoading(object: _showLoadingObject): void;
-
-  /**
-   * ​显示模态弹窗
-   */
-  export function showModal(object: _showModalObject): void;
-
-  /**
-   * 在当前页面显示导航条加载动画。
-   */
-  export function showNavigationBarLoading(): void;
+  /**
+   * 基础库 1.4.0 开始支持，低版本需做兼容处理。
+   * 设置是否打开调试开关。此开关对正式版也能生效。
+   */
+  function setEnableDebug(res: {
+    /** 是否打开调试*/
+    enableDebug: boolean;
+    /** 接口调用成功的回调函数*/
+    success?: () => void;
+    /** 接口调用失败的回调函数*/
+    fail?: () => void;
+    /** 接口调用结束的回调函数（调用成功、失败都会执行）*/
+    complete?: () => void;
+  }): void;
+
+  /**
+   * 创建一个画布对象。首次调用创建的是显示在屏幕上的画布，之后调用创建的都是离屏画布。
+   */
+  function createCanvas(): Canvas;
+
+  /**
+   * 可以修改渲染帧率。默认渲染帧率为 60 帧每秒。修改后，requestAnimationFrame 的回调频率会发生改变。
+   */
+  function setPreferredFramesPerSecond(fps: number): void;
+
+  /**
+   * 获取一行文本的行高
+   * @returns number 文本的行高
+   */
+  function getTextLineHeight(object: {
+    fontStyle?: "normal" | "italic";
+    fontWeight?: "normal" | "bold";
+    fontSize?: 16;
+    fontFamily: string;
+    text: string;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): number;
+  /**
+   * 加载自定义字体文件
+   * @returns string 如果加载字体成功，则返回字体 family 值，否则返回 null。
+   */
+  function loadFont(path: string): string;
+
+  interface Image {
+    /**
+     * 图片的 URL
+     */
+    src: string;
+    /**
+     * 图片的真实宽度
+     */
+    width: number;
+    /**
+     * 图片的真实高度
+     */
+    height: number;
+    /**
+     * 图片的加载完成
+     */
+    onload: (res?: any) => void;
+    /**
+     * 图片加载发生错误后触发的回调函数
+     */
+    onerror: (res?: any) => void;
+  }
+
+  /**
+   * 创建一个图片对象
+   */
+  function createImage(): Image;
+
+  /**
+   * banner 广告组件。banner 广告组件是一个原生组件，层级比上屏 Canvas 高，会覆盖在上屏 Canvas 上。banner 广告组件默认是隐藏的，需要调用 BannerAd.show() 将其显示。banner 广告会根据开发者设置的宽度进行等比缩放，缩放后的尺寸将通过 BannerAd.onResize() 事件中提供。
+   */
+  interface BannerAd {
+    /**
+     * banner 广告组件的样式。style 上的属性的值仅为开发者设置的值，banner 广告会根据开发者设置的宽度进行等比缩放，缩放后的真实尺寸需要通过 BannerAd.onResize() 事件获得。
+     */
+    style: {
+      /** banner 广告组件的左上角横坐标*/
+      left: number;
+      /** banner 广告组件的左上角纵坐标*/
+      top: number;
+      /** banner 广告组件的宽度。最小 300，最大至 屏幕宽度（屏幕宽度可以通过 wx.getSystemInfoSync() 获取）。*/
+      width: number;
+      /** banner 广告组件的高度*/
+      height: number;
+      /** banner 广告组件经过缩放后真实的宽度*/
+      realWidth: number;
+      /** banner 广告组件经过缩放后真实的高度*/
+      realHeight: number;
+    };
+
+    /** 显示 banner 广告。*/
+    show(): Promise<any>;
+    /** 隐藏 banner 广告*/
+    hide(): void;
+    /** 销毁 banner 广告*/
+    destroy(): void;
+    /** 监听 banner 广告尺寸变化事件*/
+    onResize(callback: (res: { width: number; height: number }) => void): void;
+    /** 取消监听 banner 广告尺寸变化事件*/
+    offResize(callback: () => void): void;
+    /** 监听 banner 广告加载事件*/
+    onLoad(callback: () => void): void;
+    /** 取消监听 banner 广告加载事件*/
+    offLoad(callback: () => void): void;
+    /** 监听 banner 广告错误事件*/
+    onError(
+      callback: (res: { errMsg: string; errCode: 1000 | 1001 | 1002 | 1003 | 1004 | 1005 | 1006 | 1007 | 1008 }) => void
+    ): void;
+    /** 取消监听 banner 广告错误事件*/
+    offError(callback: () => void): void;
+  }
+
+  /**
+   *  插屏广告组件
+   */
+  interface InterstitialAd {
+    /** 显示 插屏 广告。*/
+    show(): Promise<any>;
+    /** 隐藏 插屏 广告*/
+    hide(): void;
+    /** 销毁 插屏 广告*/
+    destroy(): void;
+    /** 监听 插屏 广告尺寸变化事件*/
+    onResize(callback: (res: { width: number; height: number }) => void): void;
+    /** 取消监听 插屏 广告尺寸变化事件*/
+    offResize(callback: () => void): void;
+    /** 监听 插屏 广告加载事件*/
+    onLoad(callback: () => void): void;
+    /** 取消监听 插屏 广告加载事件*/
+    offLoad(callback: () => void): void;
+    /** 监听 插屏 广告错误事件*/
+    onError(
+      callback: (res: { errMsg: string; errCode: 1000 | 1001 | 1002 | 1003 | 1004 | 1005 | 1006 | 1007 | 1008 }) => void
+    ): void;
+    /** 取消监听 插屏 广告错误事件*/
+    offError(callback: () => void): void;
+  }
+
+  /**
+   * 激励视频广告组件。激励视频广告组件是一个原生组件，并且是一个全局单例。层级比上屏 Canvas 高，会覆盖在上屏 Canvas 上。激励视频 广告组件默认是隐藏的，需要调用 RewardedVideoAd.show() 将其显示。
+   */
+  interface RewardedVideoAd {
+    /** 隐藏激励视频广告*/
+    load(): Promise<any>;
+    /** 显示激励视频广告。激励视频广告将从屏幕下方推入。*/
+    show(): Promise<any>;
+    /** 销毁 banner 广告*/
+    destroy(): void;
+    /** 监听 banner 广告尺寸变化事件*/
+    onResize(callback: (res: { width: number; height: number }) => void): void;
+    /** 取消监听 banner 广告尺寸变化事件*/
+    offResize(callback: () => void): void;
+    /** 监听激励视频广告加载事件*/
+    onLoad(callback: () => void): void;
+    /** 取消监听激励视频广告加载事件*/
+    offLoad(callback: () => void): void;
+    /** 监听激励视频错误事件*/
+    onError(
+      callback: (res: { errMsg: string; errCode: 1000 | 1001 | 1002 | 1003 | 1004 | 1005 | 1006 | 1007 | 1008 }) => void
+    ): void;
+    /** 取消监听激励视频错误事件*/
+    offError(callback: () => void): void;
+    /** 监听用户点击 关闭广告 按钮的事件*/
+    onClose(callback: (res: { isEnded: boolean }) => void);
+    /** 取消监听用户点击 关闭广告 按钮的事件*/
+    offClose(callback: () => void);
+  }
+
+  /**
+   * 创建激励视频广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.0.4 后再使用该 API。同时，开发者工具上暂不支持调试该 API，请直接在真机上进行调试。
+   * @param res
+   */
+  function createRewardedVideoAd(res: {
+    adUnitId: string; // 广告 ID
+    multiton: boolean; // 是否开启多实例模式，默认是false，2.8.0
+  }): RewardedVideoAd;
+
+  /**
+   * 创建 banner 广告组件。请通过 wx.getSystemInfoSync() 返回对象的 SDKVersion 判断基础库版本号 >= 2.0.4 后再使用该 API。同时，开发者工具上暂不支持调试该 API，请直接在真机上进行调试。
+   */
+  function createBannerAd(res: {
+    adUnitId: string;
+    adIntervals?: number; // 广告刷新时间，必须大于 30 s
+    style: {
+      left: number;
+      top: number;
+      width: number;
+      height: number;
+    };
+  }): BannerAd;
+
+  /**
+   * 创建插屏广告
+   * @param object
+   */
+  function createInterstitialAd(res: { adUnitId: string }): InterstitialAd;
+
+  /**
+   * 显示操作菜单
+   */
+  function showActionSheet(object: {
+    itemList: string[];
+    itemColor?: string;
+    success?: (res?: { tapIndex: number }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 隐藏 loading 提示框*/
+  function hideLoading(object: {
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+  /** 显示 loading 提示框。需主动调用 wx.hideLoading 才能关闭提示框*/
+  function showLoading(object: {
+    title: string;
+    mask?: boolean;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 隐藏消息提示框*/
+  function hideToast(object: {
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 显示消息提示框*/
+  function showToast(object: {
+    title: string;
+    icon?: "success" | "loading" | "none";
+    image?: string;
+    duration?: number; // 1500;
+    mask?: boolean;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 显示模态对话框
+   */
+  function showModal(object: {
+    title: string;
+    content: string;
+    showCancel?: boolean; // true;
+    cancelText?: string; // "取消";
+    cancelColor?: string; // "#000000";
+    confirmText?: string; // "确定";
+    confirmColor?: string; // "#3cc51f";
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 基础库 2.1.0 开始支持，低版本需做兼容处理。更新键盘输入框内容。只有当键盘处于拉起状态时才会产生效果
+   */
+  function updateKeyboard(res: {
+    value: string;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 隐藏键盘
+   */
+  function hideKeyboard(object: {
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 显示键盘
+   */
+  function showKeyboard(object: {
+    defaultValue: string;
+    maxLength: number;
+    multiple: boolean;
+    confirmHold: boolean;
+    confirmType: "done" | "next" | "search" | "go" | "send";
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+  /**
+   * 监听键盘输入事件
+   */
+  function onKeyboardInput(callback: (res: { value: string }) => void): void;
+  /**
+   * 取消监听键盘输入事件
+   */
+  function offKeyboardInput(callback: () => void): void;
+  /**
+   * 监听用户点击键盘 Confirm 按钮时的事件
+   */
+  function onKeyboardConfirm(callback: (res: { value: string }) => void): void;
+  /**
+   * 取消监听用户点击键盘 Confirm 按钮时的事件
+   */
+  function offKeyboardConfirm(callback: () => void): void;
+  /**
+   * 监听监听键盘收起的事件
+   */
+  function onKeyboardComplete(callback: (res: { value: string }) => void): void;
+  /**
+   * 取消监听监听键盘收起的事件
+   */
+  function offKeyboardComplete(callback: () => void): void;
+
+  /** 基础库 2.1.0 开始支持，低版本需做兼容处理。获取菜单按钮（右上角胶囊按钮）的布局位置信息。坐标信息以屏幕左上角为原点。*/
+  function getMenuButtonBoundingClientRect(): {
+    width: number;
+    height: number;
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+  };
+
+  /** 动态设置通过右上角按钮拉起的菜单的样式。*/
+  function setMenuStyle(res: {
+    style: "light" | "dark";
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 当在配置中设置 showStatusBarStyle 时，屏幕顶部会显示状态栏。此接口可以修改状态栏的样式。*/
+  function setStatusBarStyle(res: {
+    style: "white" | "black";
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 监听窗口尺寸变化事件
+   */
+  function onWindowResize(callback: (res: { windowWidth: number; windowHeight: number }) => void): void;
+  /**
+   * 取消监听窗口尺寸变化事件
+   */
+  function offWindowResize(callback: () => void): void;
+
+  interface RequestTask {
+    abort(): void;
+    /** 监听 HTTP Response Header 事件。会比请求完成事件更早*/
+    onHeadersReceived(callback: (res: { header: Object }) => void): void;
+    /** 取消监听 HTTP Response Header 事件*/
+    offHeadersReceived(callback: () => void): void;
+  }
+
+  /**
+   * 发起网络请求。
+   */
+  function request(object: {
+    url: string;
+    data?: string | {} | ArrayBuffer;
+    header?: {};
+    method?: "OPTIONS" | "GET" | "HEAD" | "POST" | "PUT" | "DELETE" | "TRACE" | "CONNECT";
+    dataType?: "json" | string;
+    responseType?: "text" | "arraybuffer";
+    success?: (res?: { data: string | {} | ArrayBuffer; statusCode: number; header: {} }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): RequestTask;
+
+  interface DownloadTask {
+    abort(): void;
+
+    /** 监听下载进度变化事件*/
+    onProgressUpdate(
+      callback: (res: { progress: number; totalBytesWritten: number; totalBytesExpectedToWrite: number }) => void
+    ): void;
+
+    /** 取消监听下载进度变化事件*/
+    offProgressUpdate(callback: () => void): void;
+    /** 监听 HTTP Response Header 事件。会比请求完成事件更早*/
+    onHeadersReceived(callback: (res: { header: Object }) => void): void;
+    /** 取消监听 HTTP Response Header 事件*/
+    offHeadersReceived(callback: () => void): void;
+  }
+
+  /**
+   * 下载文件资源到本地，客户端直接发起一个 HTTP GET 请求，返回文件的本地文件路径。
+   */
+  function downloadFile(object: {
+    url: string;
+    header?: Object;
+    filePath?: string;
+    success?: (res?: { tempFilePath: string; statusCode: number }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): DownloadTask;
+
+  interface UploadTask {
+    /** 中断上传任务*/
+    abort(): void;
+    /** 监听上传进度变化事件*/
+    onProgressUpdate(
+      callback: (res: { progress: number; totalBytesSent: number; totalBytesExpectedToSend: number }) => void
+    ): void;
+    /** 取消监听上传进度变化事件*/
+    offProgressUpdate(callback: () => void): void;
+    /** 监听 HTTP Response Header 事件。会比请求完成事件更早*/
+    onHeadersReceived(callback: (res: { header: Object }) => void): void;
+    /** 取消监听 HTTP Response Header 事件*/
+    offHeadersReceived(callback: () => void): void;
+  }
+
+  /**
+   * 将本地资源上传到开发者服务器，客户端发起一个 HTTPS POST 请求，其中 content-type 为 multipart/form-data 。
+   */
+  function uploadFile(object: {
+    url: string;
+    filePath: string;
+    name: string;
+    header?: Object;
+    formData?: Object;
+    success?: (res?: { data: string; statusCode: number }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): UploadTask;
+
+  interface SocketTask {
+    /**
+     * 关闭 WebSocket 连接
+     */
+    close(object: {
+      code?: 1000;
+      reason?: string;
+      success?: (res?: any) => void;
+      fail?: (res?: any) => void;
+      complete?: (res?: any) => void;
+    }): void;
+    /**
+     * 监听WebSocket 连接打开事件
+     */
+    onOpen(callback: (res: { header: Object }) => void): void;
+    /**
+     * 监听WebSocket 连接关闭事件
+     */
+    onClose(callback: () => void): void;
+    /**
+     * 监听WebSocket 错误事件
+     */
+    onError(callback: (res: { errMsg: string }) => void): void;
+    /**
+     * 监听WebSocket 接受到服务器的消息事件
+     */
+    onMessage(callback: (res: { data: string | ArrayBuffer }) => void): void;
+    /**
+     * 通过 WebSocket 连接发送数据
+     */
+    send(object: {
+      data: string | ArrayBuffer;
+      success?: (res?: any) => void;
+      fail?: (res?: any) => void;
+      complete?: (res?: any) => void;
+    }): void;
+  }
+
+  /**
+   * 监听WebSocket 错误事件
+   */
+  function onSocketError(callback: (err?: any) => void): void;
+
+  /**
+   * 创建一个 WebSocket 连接。
+   */
+  function connectSocket(object: {
+    url: string;
+    header?: {};
+    protocols: Array<string>;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): SocketTask;
+  /**
+   * 关闭 WeSocket 连接
+   */
+  function closeSocket(object: {
+    code?: 1000;
+    reason?: string;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+  /**
+   * 监听WebSocket 连接打开事件
+   */
+  function onSocketOpen(callback: (res: { header: {} }) => void): void;
+  /**
+   * 监听WebSocket 连接关闭事件
+   */
+  function onSocketClose(callback: () => void): void;
+  /**
+   * 监听WebSocket 接受到服务器的消息事件
+   */
+  function onSocketMessage(callback: (res: { data: string | ArrayBuffer }) => void): void;
+  /**
+   * 通过 WebSocket 连接发送数据，需要先 wx.connectSocket，并在 wx.onSocketOpen 回调之后才能发送。
+   */
+  function sendSocketMessage(object: {
+    data: string | ArrayBuffer;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 创建一个 UDP Socket 实例。使用前请注意阅读相关说明*/
+  function createUDPSocket(): UDPSocket;
+
+  /** 一个 UDP Socket 实例，默认使用 IPv4 协议*/
+  interface UDPSocket {
+    /** 绑定一个系统随机分配的可用端口，或绑定一个指定的端口号*/
+    bind(port: number): number;
+    /** 关闭 UDP Socket 实例，相当于销毁。 在关闭之后，UDP Socket 实例不能再发送消息，每次调用 UDPSocket.send 将会触发错误事件，并且 message 事件回调函数也不会再也执行。在 UDPSocket 实例被创建后将被 Native 强引用，保证其不被 GC。在 UDPSocket.close 后将解除对其的强引用，让 UDPSocket 实例遵从 GC。*/
+    close(): void;
+    /** 取消监听关闭事件*/
+    offClose(callback: () => void): void;
+    /** 取消监听错误事件*/
+    offError(callback: () => void): void;
+    /** 取消监听开始监听数据包消息的事件*/
+    offListening(callback: () => void): void;
+    /** 取消监听收到消息的事件*/
+    offMessage(callback: () => void): void;
+    /** 监听关闭事件*/
+    onClose(callback: () => void): void;
+    /** 监听错误事件*/
+    onError(callback: () => void): void;
+    /** 监听开始监听数据包消息的事件*/
+    onListening(callback: () => void): void;
+    /** 监听收到消息的事件*/
+    onMessage(callback: () => void): void;
+    /** 向指定的 IP 和 port 发送消息*/
+    send(obj: { address: string; port: number; message: string | ArrayBuffer; offset?: number; length?: number }): void;
+  }
+
+  /**
+   * 更新转发属性
+   *
+   */
+  function updateShareMenu(object: {
+    withShareTicket?: boolean;
+    isUpdatableMessage?: boolean;
+    activityId?: string;
+    templateInfo?: { parameterList: Array<{ name: string; value: string }> };
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
 
   /**
    * 显示当前页面的转发按钮
    */
-  export function showShareMenu(object: _showShareMenuObject): void;
+  function showShareMenu(object: {
+    withShareTicket?: boolean;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
 
   /**
-   * 显示 tabBar
+   * 隐藏转发按钮
+   *
    */
-  export function showTabBar(object: _showTabBarObject): void;
+  function hideShareMenu(object: {
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
 
   /**
-   * 显示 tabBar 某一项的右上角的红点
+   * 获取转发详细信息
+   *
    */
-  export function showTabBarRedDot(object: _showTabBarRedDotObject): void;
+  function getShareInfo(object: {
+    shareTicket: string;
+    timeout: number;
+    success?: (res: { errMsg: string; encryptedData: string; iv: string }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
 
   /**
-   * 显示消息提示框
+   * 主动拉起转发，进入选择通讯录界面。
    */
-  export function showToast(object: _showToastObject): void;
+  function shareAppMessage(object: { title?: string; imageUrl?: string; query?: string; imageUrlId?: string }): void;
 
   /**
-   * 开始监听加速度数据。
+   * 取消监听用户点击右上角菜单的“转发”按钮时触发的事件
    */
-  export function startAccelerometer(object: _startAccelerometerObject): void;
+  function offShareAppMessage(callback: () => void): void;
 
   /**
-   * 开始搜索附近的`iBeacon`设备
+   * 监听用户点击右上角菜单的“转发”按钮时触发的事件
    */
-  export function startBeaconDiscovery(
-    object: _startBeaconDiscoveryObject
+  function onShareAppMessage(callback: (res: { title: string; imageUrl: string; query: string }) => void): void;
+
+  /**
+   * 发起米大师支付
+   */
+  function requestMidasPayment(object: {
+    mode: string;
+    env?: 0 | 1;
+    offerId: string;
+    currencyType: string;
+    platform?: string;
+    buyQuantity?: number;
+    zoneId?: string;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * wx.getStorageInfo 的同步版本
+   */
+  function getStorageInfoSync(): { keys: Array<string>; currentSize: number; limitSize: number };
+
+  /**
+   * 异步获取当前storage的相关信息
+   */
+  function getStorageInfo(object: {
+    success?: (res: { keys: Array<string>; currentSize: number; limitSize: number }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * wx.clearStorage 的同步版本
+   */
+  function clearStorageSync(): void;
+
+  /**
+   * 清理本地数据缓存
+   */
+  function clearStorage(object: {
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * wx.removeStorage 的同步版本
+   */
+  function removeStorageSync(key: string): void;
+
+  /**
+   * 从本地缓存中移除指定 key
+   */
+  function removeStorage(object: {
+    key: string;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * wx.setStorage 的同步版本
+   */
+  function setStorageSync(key: string, data: any): void;
+
+  /**
+   * 将数据存储在本地缓存中指定的 key 中，会覆盖掉原来该 key 对应的内容。
+   */
+  function setStorage(object: {
+    key: string;
+    data: any;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * wx.getStorage 的同步版本
+   */
+  function getStorageSync(key: string): any;
+
+  /**
+   * 从本地缓存中异步获取指定 key 的内容
+   */
+  function getStorage(object: {
+    key: string;
+    success?: (res: { data: any }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 设置 InnerAudioContext 的播放选项。设置之后对当前小程序全局生效。
+   */
+  function setInnerAudioOption(
+    mixWithOther: true,
+    obeyMuteSwitch: true,
+    success?: (res: { data: any }) => void,
+    fail?: (res?: any) => void,
+    complete?: (res?: any) => void
   ): void;
 
   /**
-   * 开始搜寻附近的蓝牙外围设备。注意，该操作比较耗费系统资源，请在搜索并连接到设备后调用 stop 方法停止搜索。
+   * 获取当前支持的音频输入源
    */
-  export function startBluetoothDevicesDiscovery(
-    object: _startBluetoothDevicesDiscoveryObject
+  function getAvailableAudioSources(
+    success?: (res: {
+      audioSources: Array<
+        "auto" | "buildInMic" | "headsetMic" | "mic" | "camcorder" | "voice_communication" | "voice_recognition"
+      >;
+    }) => void,
+    fail?: (res?: any) => void,
+    complete?: (res?: any) => void
   ): void;
 
   /**
-   * 开始监听罗盘数据。
+   * InnerAudioContext 实例，可通过 wx.createInnerAudioContext 接口获取实例。
    */
-  export function startCompass(object: _startCompassObject): void;
+  interface InnerAudioContext {
+    /** 音频资源的地址，用于直接播放。2.2.3 开始支持云文件ID*/
+    src: string;
+    /** 开始播放的位置（单位：s），默认为 0*/
+    startTime: number;
+    /** 是否自动开始播放，默认为 false*/
+    autoplay: boolean;
+    /** 是否循环播放，默认为 false*/
+    loop: boolean;
+    /** 是否遵循系统静音开关，默认为 true。当此参数为 false 时，即使用户打开了静音开关，也能继续发出声音*/
+    obeyMuteSwitch: boolean;
+    /** 基础库 1.9.90 开始支持，低版本需做兼容处理。音量。范围 0~1。默认为 1*/
+    volume: number;
+    /** 当前音频的长度（单位 s）。只有在当前有合法的 src 时返回（只读）*/
+    duration: number;
+    /** 当前音频的播放位置（单位 s）。只有在当前有合法的 src 时返回，时间保留小数点后 6 位（只读）*/
+    currentTime: number;
+    /** 当前是是否暂停或停止状态（只读）*/
+    paused: boolean;
+    /** 音频缓冲的时间点，仅保证当前播放时间点到此时间点内容已缓冲（只读）*/
+    buffered: number;
+    /**
+     * 销毁当前实例
+     */
+    destroy(): void;
+    /**
+     * 取消监听音频进入可以播放状态的事件
+     */
+    offCanplay(callback: () => void): void;
+    /**
+     * 监听音频暂停事件
+     */
+    onPause(callback: () => void): void;
+    /**
+     * 监听音频停止事件
+     */
+    onStop(callback: () => void): void;
+    /**
+     * 取消监听音频停止事件
+     */
+    offStop(callback: () => void): void;
+    /**
+     * 监听音频自然播放至结束的事件
+     */
+    onEnded(callback: () => void): void;
+    /**
+     * 取消监听音频自然播放至结束的事件
+     */
+    offEnded(callback: () => void): void;
+    /**
+     * 监听音频播放进度更新事件
+     */
+    onTimeUpdate(callback: () => void): void;
+    /**
+     * 监听音频播放事件
+     */
+    onPlay(callback: () => void): void;
+    /**
+     * 监听音频播放错误事件
+     */
+    onError(callback: (res: { errCode: 10001 | 10002 | 10003 | 10004 | -1 }) => void): void;
+    /**
+     * 取消监听音频暂停事件
+     */
+    offPause(callback: () => void): void;
+    /**
+     * 监听音频加载中事件，当音频因为数据不足，需要停下来加载时会触发
+     */
+    onWaiting(callback: () => void): void;
+    /**
+     * 取消监听音频加载中事件，当音频因为数据不足，需要停下来加载时会触发
+     */
+    offWaiting(callback: () => void): void;
+    /**
+     * 监听音频进行跳转操作的事件
+     */
+    onSeeking(callback: () => void): void;
+    /**
+     * 取消监听音频进行跳转操作的事件
+     */
+    offSeeking(callback: () => void): void;
+    /**
+     * 监听音频完成跳转操作的事件
+     */
+    onSeeked(callback: () => void): void;
+    /**
+     * 取消监听音频完成跳转操作的事件
+     */
+    offSeeked(callback: () => void): void;
+    /**
+     * 取消监听音频播放事件
+     */
+    offPlay(callback: () => void): void;
+    /**
+     * 取消监听音频播放进度更新事件
+     */
+    offTimeUpdate(callback: () => void): void;
+    /**
+     * 监听音频进入可以播放状态的事件
+     */
+    onCanplay(callback: () => void): void;
+    /**
+     * 取消监听音频播放错误事件
+     */
+    offError(callback: () => void): void;
+    /**
+     * 停止。停止后的音频再播放会从头开始播放。
+     */
+    pause(): void;
+    /**
+     * 播放
+     */
+    play(): void;
+    /**
+     * 跳转到指定位置，单位 s
+     */
+    seek(position: number): void;
+  }
+  /**
+   * 创建内部 audio 上下文 InnerAudioContext 对象。
+   */
+  function createInnerAudioContext(): InnerAudioContext;
 
   /**
-   * 初始化 NFC 模块。
+   * 从本地相册选择图片或使用相机拍照。
    */
-  export function startHCE(object: _startHCEObject): void;
+  function chooseImage(object: {
+    count: number; // 9;
+    sizeType?: ["original", "compressed"];
+    sourceType?: ["album", "camera"];
+    success?: (res: { tempFilePaths: Array<string>; tempFiles: Array<{ path: string; size: number }> }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
 
   /**
-   * 开始下拉刷新，调用后触发下拉刷新动画，效果与用户手动下拉刷新一致
+   * 预览图片
    */
-  export function startPullDownRefresh(
-    object: _startPullDownRefreshObject
-  ): void;
+  function previewImage(object: {
+    urls: string[];
+    current?: string;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+  /**
+   * 保存图片到系统相册。
+   */
+  function saveImageToPhotosAlbum(object: {
+    filePath: string;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**全局唯一的录音管理器 */
+  interface RecorderManager {
+    /**
+     * 监听录音暂停事件
+     */
+    onPause(callback: () => void): void;
+    /**
+     * 监听录音结束事件
+     */
+    onStop(callback: (res: { tempFilePath: string }) => void): void;
+    /**
+     * 监听已录制完指定帧大小的文件事件。如果设置了 frameSize，则会回调此事件。
+     */
+    onFrameRecorded(callback: (res: { frameBuffer: ArrayBuffer; isLastFrame: boolean }) => void): void;
+    /**
+     * 监听录音错误事件
+     */
+    onError(callback: (res: { errMsg: string }) => void): void;
+    /**
+     * 监听录音开始事件
+     */
+    onStart(callback: () => void): void;
+    /**
+     * 监听录音因为受到系统占用而被中断开始事件。以下场景会触发此事件：微信语音聊天、微信视频聊天。此事件触发后，录音会被暂停。pause 事件在此事件后触发
+     */
+    onInterruptionBegin(callback: () => void): void;
+    /**
+     * 监听录音中断结束事件。在收到 interruptionBegin 事件之后，小程序内所有录音会暂停，收到此事件之后才可再次录音成功。
+     */
+    onInterruptionEnd(callback: () => void): void;
+    /**
+     * 监听录音继续事件
+     */
+    onResume(callback: () => void): void;
+    /**
+     * 暂停录音
+     */
+    pause(): void;
+    /**
+     * 继续录音
+     */
+    resume(): void;
+    /**
+     * 停止录音
+     */
+    stop(): void;
+    /**
+     * 开始录音
+     */
+    start(object: {
+      duration?: number;
+      sampleRate?: number;
+      numberOfChannels?: number;
+      encodeBitRate?: number;
+      format?: string;
+      frameSize?: number;
+      audioSource?: string;
+    }): void;
+  }
 
   /**
-   * 开始录音。当主动调用`wx.stopRecord`，或者录音超过1分钟时自动结束录音，返回录音文件的临时文件路径。当用户离开小程序时，此接口无法调用。
+   * 获取全局唯一的录音管理器 RecorderManager
    */
-  export function startRecord(object: _startRecordObject): void;
+  function getRecorderManager(): RecorderManager;
+
+  /** 视频对象*/
+  interface Video {
+    /** 视频的左上角横坐标*/
+    x: number;
+    /** 视频的左上角纵坐标*/
+    y: number;
+    /** 视频的宽度*/
+    width: number;
+    /** 视频的高度*/
+    height: number;
+    /** 视频的资源地址*/
+    src: number;
+    /** 视频的封面*/
+    poster: number;
+    /** 视频的初始播放位置，单位为 s 秒*/
+    initialTime: number;
+    /** 视频的播放速率，有效值有 0.5、0.8、1.0、1.25、1.5*/
+    playbackRate: number;
+    /** 视频是否为直播*/
+    live: number;
+    /** 视频的缩放模式*/
+    objectFit: number;
+    /** 视频是否显示控件*/
+    controls: number;
+    /** 视频是否自动播放*/
+    autoplay: number;
+    /** 视频是否是否循环播放*/
+    loop: number;
+    /** 视频是否禁音播放*/
+    muted: number;
+    /** 是否启用手势控制播放进度*/
+    enableProgressGesture: boolean;
+    /** 是否显示视频中央的播放按钮*/
+    showCenterPlayBtn: boolean;
+
+    /** 视频开始缓冲时触发的回调函数*/
+    onwaiting: () => void;
+
+    /** 视频开始播放时触发的回调函数*/
+    onplay: () => void;
+
+    /** 视频暂停时触发的回调函数*/
+    onpause: () => void;
+
+    /** 视频播放到末尾时触发的回调函数*/
+    onended: () => void;
+
+    /** 每当视频播放进度更新时触发的回调函数*/
+    ontimeupdate: () => void;
+
+    /** 视频发生错误时触发的回调函数*/
+    onerror: () => void;
+
+    /**
+     * 视频退出全屏
+     */
+    exitFullScreen(): Promise<Object>;
+    /**
+     * 取消监听视频暂停事件
+     */
+    offPause(callback: () => void): void;
+    /**
+     * 监听视频播放到末尾事件
+     */
+    onEnded(callback: () => void): void;
+    /**
+     * 取消监听视频播放到末尾事件
+     */
+    offEnded(callback: () => void): void;
+    /**
+     * 监听视频播放进度更新事件
+     */
+    onTimeUpdate(callback: (res: { position: number; duration: number }) => void): void;
+    /**
+     * 取消监听视频播放进度更新事件
+     */
+    offTimeUpdate(callback: () => void): void;
+    /**
+     * 监听视频错误事件
+     */
+    onError(callback: (res: { errMsg: string }) => void): void;
+    /**
+     * 取消监听视频错误事件
+     */
+    offError(callback: () => void): void;
+    /**
+     * 监听视频播放事件
+     */
+    onPlay(callback: () => void): void;
+    /**
+     * 监听视频暂停事件
+     */
+    onPause(callback: () => void): void;
+    /**
+     * 取消监听视频缓冲事件
+     */
+    offWaiting(callback: () => void): void;
+    /**
+     * 监听视频缓冲事件
+     */
+    onWaiting(callback: () => void): void;
+    /**
+     * 取消监听视频播放事件
+     */
+    offPlay(callback: () => void): void;
+    /**
+     * 暂停视频
+     */
+    pause(): Promise<any>;
+    /**
+     * 播放视频
+     */
+    play(): Promise<any>;
+    /**
+     * 视频全屏
+     */
+    requestFullScreen(): Promise<any>;
+    /**
+     * 视频跳转
+     */
+    seek(time: number): Promise<any>;
+    /**
+     * 停止视频
+     */
+    stop(): Promise<Object>;
+  }
 
   /**
-   * 开始 SOTER 生物认证
+   * 创建视频
    */
-  export function startSoterAuthentication(
-    object: _startSoterAuthenticationObject
-  ): void;
+  function createVideo(object: {
+    x?: number;
+    y?: number;
+    width?: number;
+    height?: number;
+    src: number;
+    poster: number;
+    initialTime?: number;
+    playbackRate?: number;
+    live?: number;
+    objectFit?: number;
+    controls?: number;
+    autoplay?: number;
+    loop?: number;
+    muted?: number;
+    enableProgressGesture: boolean;
+    showCenterPlayBtn: boolean;
+  }): Video;
 
   /**
-   * 初始化 Wi-Fi 模块。
+   * 获取当前的地理位置、速度。当用户离开小程序后，此接口无法调用；当用户点击“显示在聊天顶部”时，此接口可继续调用。
    */
-  export function startWifi(object: _startWifiObject): void;
+  function getLocation(object: {
+    type?: string;
+    altitude: string;
+    success?: (res: {
+      latitude: number;
+      longitude: number;
+      speed: number;
+      accuracy: number;
+      altitude: number;
+      verticalAccuracy: number;
+      horizontalAccuracy: number;
+    }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 文件管理器*/
+  interface FileSystemManager {
+    /**
+     * 判断文件/目录是否存在
+     */
+    access(object: {
+      path: string;
+      success?: (res?: any) => void;
+      fail?: (res?: { errMsg: string }) => void;
+      complete?: (res?: any) => void;
+    }): void;
+    /**
+     * FileSystemManager.access 的同步版本
+     */
+    accessSync(path: string): void;
+
+    /** 在文件结尾追加内容*/
+    appendFile(
+      filePath: string,
+      data: string | ArrayBuffer,
+      encoding: string,
+      success?: (res?: any) => void,
+      fail?: (res: { errMsg: string }) => void,
+      complete?: (res?: any) => void
+    ): void;
+
+    /** appendFile同步版本*/
+    appendFileSync(filePath: string, data: string | ArrayBuffer, encoding: string): void;
+
+    /**
+     * 保存临时文件到本地。此接口会移动临时文件，因此调用成功后，tempFilePath 将不可用。
+     */
+    saveFile(object: {
+      tempFilePath: string;
+      filePath?: string;
+      success?: (res: { savedFilePath: number }) => void;
+      fail?: (res: { errMsg: string }) => void;
+      complete?: (res?: any) => void;
+    }): void;
+
+    /**
+     * FileSystemManager.saveFile 的同步版本
+     */
+    saveFileSync(tempFilePath: string, filePath: string): number;
+
+    /**
+     * 获取该小程序下已保存的本地缓存文件列表
+     */
+    getSavedFileList(object: {
+      success?: (res: { fileList: Array<{ filePath: string; size: number; createTime: number }> }) => void;
+      fail?: (res?: any) => void;
+      complete?: (res?: any) => void;
+    }): void;
+
+    /**
+     * 删除该小程序下已保存的本地缓存文件
+     */
+    removeSavedFile(object: {
+      filePath: string;
+      success?: (res?: any) => void;
+      fail?: (res: { errMsg: string }) => void;
+      complete?: (res?: any) => void;
+    }): void;
+
+    /**
+     * 复制文件
+     */
+    copyFile(object: {
+      srcPath: string;
+      destPath: string;
+      success?: (res?: any) => void;
+      fail?: (res: { errMsg: string }) => void;
+      complete?: (res?: any) => void;
+    }): void;
+
+    /**
+     * FileSystemManager.copyFile 的同步版本
+     */
+    copyFileSync(srcPath: string, destPath: string): void;
+
+    /**
+     * 获取该小程序下的 本地临时文件 或 本地缓存文件 信息
+     */
+    getFileInfo(object: {
+      filePath: string;
+      success?: (res: { size: number }) => void;
+      fail?: (res: { errMsg: string }) => void;
+      complete?: (res?: any) => void;
+    }): void;
+
+    /**
+     * 创建目录
+     */
+    mkdir(object: {
+      dirPath: string;
+      recursive?: boolean;
+      success?: (res?: any) => void;
+      fail?: (res: { errMsg: string }) => void;
+      complete?: (res?: any) => void;
+    }): void;
+
+    /**
+     * FileSystemManager.mkdir 的同步版本
+     */
+    mkdirSync(dirPath: string): void;
+
+    /**
+     * 读取本地文件内容
+     */
+    readFile(object: {
+      filePath: string;
+      encoding?: string;
+      success?: (res: { data: string | ArrayBuffer }) => void;
+      fail?: (res: { errMsg: string }) => void;
+      complete?: (res?: any) => void;
+    }): void;
+
+    /**
+     * FileSystemManager.readFile 的同步版本
+     */
+    readFileSync(filePath: string, encoding: string): string | ArrayBuffer;
+
+    /**
+     * 读取目录内文件列表
+     */
+    readdir(object: {
+      dirPath: string;
+      success?: (res: { files: Array<string> }) => void;
+      fail?: (res: { errMsg: string }) => void;
+      complete?: (res?: any) => void;
+    }): void;
+    /**
+     * FileSystemManager.readdir 的同步版本
+     */
+    readdirSync(dirPath: string): string[];
+
+    /**
+     * 重命名文件，可以把文件从 oldPath 移动到 newPath
+     */
+    rename(object: {
+      oldPath: string;
+      newPath: string;
+      success?: (res?: any) => void;
+      fail?: (res: { errMsg: string }) => void;
+      complete?: (res?: any) => void;
+    }): void;
+
+    /**
+     * FileSystemManager.rename 的同步版本
+     */
+    renameSync(oldPath: string, newPath: string): void;
+
+    /**
+     * 删除目录
+     */
+    rmdir(object: {
+      dirPath: string;
+      recursive: boolean;
+      success?: (res?: any) => void;
+      fail?: (res: { errMsg: string }) => void;
+      complete?: (res?: any) => void;
+    }): void;
+
+    /**
+     * FileSystemManager.rmdir 的同步版本
+     */
+    rmdirSync(dirPath: string, recursive: boolean): void;
+
+    /**
+     * 获取文件 Stats 对象
+     */
+    stat(object: {
+      path: string;
+      recursive?: boolean;
+      success?: (res: { stats: Stats | Object }) => void;
+      fail?: (res: { errMsg: string }) => void;
+      complete?: (res?: any) => void;
+    }): Stats;
+
+    /**
+     * FileSystemManager.stat 的同步版本
+     */
+    statSync(path: string, recursive: boolean): Stats;
+
+    /**
+     * 删除文件
+     */
+    unlink(object: {
+      filePath: string;
+      success?: (res?: any) => void;
+      fail?: (res: { errMsg: string }) => void;
+      complete?: (res?: any) => void;
+    }): void;
+
+    /**
+     * 解压文件
+     */
+    unzip(object: {
+      zipFilePath: string;
+      targetPath: string;
+      success?: (res?: any) => void;
+      fail?: (res: { errMsg: string }) => void;
+      complete?: (res?: any) => void;
+    }): void;
+
+    /**
+     * FileSystemManager.unlink 的同步版本
+     */
+    unlinkSync(filePath: string): void;
+
+    /**
+     * 写文件
+     */
+    writeFile(object: {
+      filePath: string;
+      data: string | ArrayBuffer;
+      encoding: string;
+      success?: (res?: any) => void;
+      fail?: (res: { errMsg: string }) => void;
+      complete?: (res?: any) => void;
+    }): void;
+
+    /**
+     * FileSystemManager.writeFile 的同步版本
+     */
+    writeFileSync(filePath: string, data: string | ArrayBuffer, encoding: string): void;
+  }
+
+  /** 描述文件状态的对象*/
+  interface Stats {
+    /**
+     * 文件的类型和存取的权限，对应 POSIX stat.st_mode
+     */
+    mode: string;
+    /**
+     * 文件大小，单位：B，对应 POSIX stat.st_size
+     */
+    size: number;
+    /**
+     * 文件最近一次被存取或被执行的时间，UNIX 时间戳，对应 POSIX stat.st_atime
+     */
+    lastAccessedTime: number;
+    /**
+     * 文件最后一次被修改的时间，UNIX 时间戳，对应 POSIX stat.st_mtime
+     */
+    lastModifiedTime: number;
+    /**
+     * 判断当前文件是否一个目录
+     */
+    isDirectory(): boolean;
+    /**
+     * 判断当前文件是否一个普通文件
+     */
+    isFile(): boolean;
+  }
 
   /**
-   * 停止监听加速度数据。
+   * 获取全局唯一的文件管理器
    */
-  export function stopAccelerometer(object: _stopAccelerometerObject): void;
+  function getFileSystemManager(): FileSystemManager;
+
+  /** 打开另一个小程序*/
+  function navigateToMiniProgram(object: {
+    appId: string;
+    path?: string;
+    extraData?: {};
+    envVersion?: string;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
 
   /**
-   * 停止播放音乐。
+   * 用户信息
    */
-  export function stopBackgroundAudio(): void;
+  interface UserInfo {
+    /** 用户昵称*/
+    nickName: string;
+    /** 用户头像图片的 URL。URL 最后一个数值代表正方形头像大小（有 0、46、64、96、132 数值可选，0 代表 640x640 的正方形头像，46 表示 46x46 的正方形头像，剩余数值以此类推。默认132），用户没有头像时该项为空。若用户更换头像，原有头像 URL 将失效。*/
+    avatarUrl: string;
+    /** 用户性别*/
+    gender: 0 | 1 | 2;
+    /** 用户所在国家*/
+    country: string;
+    /** 用户所在省份*/
+    province: string;
+    /** 用户所在城市*/
+    city: string;
+    /** 显示 country，province，city 所用的语言*/
+    language: "en" | "zh_CN" | "zh_TW";
+  }
 
   /**
-   * 停止搜索附近的`iBeacon`设备
+   * 调用前需要 用户授权 scope.userInfo。
+   * 获取用户信息。
    */
-  export function stopBeaconDiscovery(object: _stopBeaconDiscoveryObject): void;
+  function getUserInfo(object: {
+    withCredentials?: boolean;
+    lang?: string;
+    success?: (res: {
+      ƒ;
+      userInfo: UserInfo;
+      rawData: string;
+      signature: string;
+      encryptedData: string;
+      iv: string;
+    }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 在无须用户授权的情况下，批量获取用户信息。该接口只在开放数据域下可用*/
+  function getUserInfo(object: {
+    /** 要获取信息的用户的 openId 数组，如果要获取当前用户信息，则将数组中的一个元素设为 'selfOpenId'*/
+    openIdList?: Array<string>;
+    /** 显示用户信息的语言*/
+    lang?: "en" | "zh_CN" | "zh_TW";
+    success?: (res: {
+      data: Array<{
+        avatarUrl: string;
+        city: string;
+        country: string;
+        gender: number;
+        language: string;
+        nickName: string;
+        openId: string;
+        province: string;
+      }>;
+    }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 用户信息按钮*/
+  interface UserInfoButton {
+    /** 按钮的类型*/
+    type: "text" | "image";
+    /** 按钮上的文本，仅当 type 为 text 时有效*/
+    text: string;
+    /** 按钮的背景图片，仅当 type 为 image 时有效*/
+    image: string;
+    /** 按钮的样式*/
+    style: {
+      left: number;
+      top: number;
+      width: number;
+      height: number;
+      backgroundColor: string;
+      borderColor: string;
+      borderWidth: number;
+      borderRadius: number;
+      textAlign: string;
+      fontSize: number;
+      lineHeight: number;
+    };
+    /** 显示用户信息按钮*/
+    show();
+
+    /** 隐藏用户信息按钮。*/
+    hide();
+
+    /** 销毁用户信息按钮*/
+    destroy();
+
+    /** 监听用户信息按钮的点击事件*/
+    onTap(
+      callback: (res: {
+        userInfo: UserInfo;
+        rawData: string;
+        signature: string;
+        encryptedData: string;
+        iv: string;
+      }) => void
+    );
+
+    /** 取消监听用户信息按钮的点击事件*/
+    offTap(callback: () => void);
+  }
+
+  /** 创建用户信息按钮*/
+  function createUserInfoButton(object: {
+    type: "text" | "image";
+    text?: string;
+    image?: string;
+    style: {
+      left: number;
+      top: number;
+      width: number;
+      height: number;
+      color?: string;
+      backgroundColor?: string;
+      borderColor?: string;
+      borderWidth?: number;
+      borderRadius?: number;
+      textAlign?: "left" | "center" | "right";
+      fontSize?: number;
+      lineHeight?: number;
+    };
+    withCredentials?: boolean;
+    lang?: "en" | "zh_CN" | "zh_TW";
+  }): UserInfoButton;
 
   /**
-   * 停止搜寻附近的蓝牙外围设备。若已经找到需要的蓝牙设备并不需要继续搜索时，建议调用该接口停止蓝牙搜索。
+   * 通过 wx.login 接口获得的用户登录态拥有一定的时效性。用户越久未使用小程序，用户登录态越有可能失效。反之如果用户一直在使用小程序，则用户登录态一直保持有效。具体时效逻辑由微信维护，对开发者透明。开发者只需要调用 wx.checkSession 接口检测当前用户登录态是否有效。登录态过期后开发者可以再调用 wx.login 获取新的用户登录态。
    */
-  export function stopBluetoothDevicesDiscovery(
-    object: _stopBluetoothDevicesDiscoveryObject
-  ): void;
+  function checkSession(object: {
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 提前向用户发起授权请求。调用后会立刻弹窗询问用户是否同意授权小程序使用某项功能或获取用户的某些数据，但不会实际调用对应接口。如果用户之前已经同意授权，则不会出现弹窗，直接返回成功。更多用法详见 用户授权。*/
+  function authorize(object: {
+    scope: string;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
 
   /**
-   * 停止监听罗盘数据。
+   * 调用接口获取登录凭证（code）进而换取用户登录态信息，包括用户的唯一标识（openid） 及本次登录的 会话密钥（session_key）等。用户数据的加解密通讯需要依赖会话密钥完成。
    */
-  export function stopCompass(object: _stopCompassObject): void;
+  function login(object: {
+    timeout?: number;
+    success?: (res: { code: string }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
 
   /**
-   * 关闭 NFC 模块。仅在安卓系统下有效。
+   * 只有开放数据域能调用，获取主域和开放数据域共享的 sharedCanvas
    */
-  export function stopHCE(object: _stopHCEObject): void;
+  function getSharedCanvas(): Canvas;
 
-  /**
-   * 停止当前页面下拉刷新。
-   */
-  export function stopPullDownRefresh(): void;
+  /** 托管的 KV 数据*/
+  interface KVData {
+    /** 数据的 key*/
+    key: string;
+    /** 数据的 value*/
+    value: string;
+  }
 
-  /**
-   * ​主动调用停止录音。
-   */
-  export function stopRecord(): void;
+  /** 托管数据*/
+  interface UserGameData {
+    /** 用户的微信头像 url*/
+    avatarUrl: string;
+    /** 用户的微信昵称*/
+    nickname: string;
+    /** 用户的 openid*/
+    openid: string;
+    /** 用户的托管 KV 数据列表*/
+    KVDataList: Array<KVData>;
+  }
 
-  /**
-   * 结束播放语音。
-   */
-  export function stopVoice(): void;
+  interface FriendInfo {
+    /** 用户的微信头像 url*/
+    avatarUrl: string;
+    /** 用户的微信昵称*/
+    nickname: string;
+    /** 用户的 openid*/
+    openid: string;
+  }
 
-  /**
-   * 关闭 Wi-Fi 模块。
-   */
-  export function stopWifi(object: _stopWifiObject): void;
-
-  /**
-   * 跳转到 tabBar 页面，并关闭其他所有非 tabBar 页面
-   */
-  export function switchTab(object: _switchTabObject): void;
-
-  /**
-   * 更新转发属性
-   */
-  export function updateShareMenu(object: _updateShareMenuObject): void;
-
-  /**
-   * 将本地资源上传到开发者服务器，客户端发起一个 HTTPS POST 请求，其中 `content-type` 为 `multipart/form-data` 。**使用前请先阅读[说明](./api-network.md)**。
-   */
-  export function uploadFile(object: _uploadFileObject): void;
-
-  /**
-   * 使手机发生较长时间的振动（400ms）
-   */
-  export function vibrateLong(object: _vibrateLongObject): void;
-
-  /**
-   * 使手机发生较短时间的振动（15ms）
-   */
-  export function vibrateShort(object: _vibrateShortObject): void;
-
-  /***
-   * 监听主域发送的消息
-   */
-  export function onMessage(callback:Function):void;
   /**
    * 拉取当前用户所有同玩好友的托管数据。该接口只可在开放数据域下使用
    */
-  export function getFriendCloudStorage(object):void;
+  function getFriendCloudStorage(object: {
+    keyList: string[];
+    success?: (res: { data: Array<UserGameData> }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
   /**
-   * 对用户托管数据进行写数据操作。允许同时写多组 KV 数据。
-   * @param object 
+   * 在小游戏是通过群分享卡片打开的情况下，可以通过调用该接口获取群同玩成员的游戏数据。该接口只可在开放数据域下使用。
    */
-  export function setUserCloudStorage(object):void;
+  function getGroupCloudStorage(object: {
+    shareTicket: string;
+    keyList: string[];
+    success?: (res: { data: Array<UserGameData> }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
   /**
-   * 向低功耗蓝牙设备特征值中写入二进制数据。注意：必须设备的特征值支持`write`才可以成功调用，具体参照 characteristic 的 properties 属性
+   * 获取当前用户托管数据当中对应 key 的数据。该接口只可在开放数据域下使用
    */
-  export function writeBLECharacteristicValue(
-    object: _writeBLECharacteristicValueObject
+  function getUserCloudStorage(object: {
+    keyList: Array<string>;
+    success?: (res: { KVDataList: Array<KVData> }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 删除用户托管数据当中对应 key 的数据。
+   */
+  function removeUserCloudStorage(object: {
+    keyList: string[];
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 对用户托管数据进行写数据操作，允许同时写多组 KV 数据。
+   */
+  function setUserCloudStorage(object: {
+    KVDataList: Array<KVData>;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 给指定的好友分享游戏信息，该接口只可在开放数据域下使用。
+   * 接收者打开之后，可以用 wx.modifyFriendInteractiveStorage
+   * 传入参数 quiet=true
+   * 发起一次无需弹框确认的好友互动。
+   * @param object
+   */
+  function shareMessageToFriend(object: {
+    openId: string; // 发送对象的 openId
+    title?: string; // 转发标题，不传则默认使用当前小游戏的昵称。
+    imageUrl?: string; // 转发显示图片的链接，可以是网络图片路径或本地图片文件路径或相对代码包根目录的图片文件路径。显示图片长宽比是 5:4
+    imageUrlId?: string; // 审核通过的图片 ID，详见 使用审核通过的转发图片
+    success?: () => void; // 接口调用成功的回调函数
+    fail?: (object: { errMsg: string }) => void; // 接口调用失败的回调函数
+    complete?: () => void; // 接口调用结束的回调函数（调用成功、失败都会执行）
+  }): void;
+
+  /**
+   * 监听主域接收 wx.shareMessageToFriend 接口的成功失败通知，基础库 2.9.4 开始支持
+   */
+  function onShareMessageToFriend(callback: (res: { success: boolean; errMsg: string }) => void);
+
+  /**
+   * 修改好友的互动型托管数据，该接口只可在开放数据域下使用（基础库 2.7.7 开始支持）
+   * @param object
+   * @param object.operation 值只能为"add"，加
+   * @param object.fail res: {errMsg, errCode} https://developers.weixin.qq.com/minigame/dev/api/open-api/data/wx.modifyFriendInteractiveStorage.html
+   * eg:
+   * ```js
+   * wx.modifyFriendInteractiveStorage({
+   *   key: '1',
+   *   opNum: 1,
+   *   operation: 'add',
+   *   toUser: '', // 好友的 openId
+   *   title: '送你 10 个金币，赶快打开游戏看看吧', // 2.9.0 支持
+   *   imageUrl: 'image/xxx' // 2.9.0 支持
+   * })
+   * ```
+   */
+  function modifyFriendInteractiveStorage(object: {
+    key: string; //	需要修改的数据的 key，目前可以为 '1' - '50'
+    opNum: number; //	需要修改的数值，目前只能为 1
+    operation: string; // 修改类型
+    toUser?: string; // 目标好友的 openId
+    title?: string; // 分享标题，如果设置了这个值，则在交互成功后自动询问用户是否分享给好友（需要配置模板规则）	2.9.0
+    imageUrl?: string; // 分享图片地址，详见 wx.shareMessageToFriend 同名参数（需要配置模板规则）	2.9.0
+    imageUrlId?: string; // 分享图片 ID，详见 wx.shareMessageToFriend 同名参数（需要配置模板规则）	2.9.0
+    quiet?: boolean; //	false 是否静默修改（不弹框）。当进入场景是好友 定向分享 的卡片时有效，代表分享反馈操作，此时 toUser 默认为原分享者的 openId	2.9.0
+    success?: Function; // 接口调用成功的回调函数
+    fail?: Function; // 接口调用失败的回调函数
+    complete?: Function; // 接口调用结束的回调函数（调用成功、失败都会执行）
+  });
+
+  /**
+   * 监听成功修改好友的互动型托管数据事件，该接口在游戏主域使用（基础库 2.9.0 开始支持）
+   * @param callback 事件发生的回调函数，只有一个参数为 wx.modifyFriendInteractiveStorage 传入的 key
+   */
+  function onInteractiveStorageModified(callback: (key: string) => any);
+
+  /**
+   * 取消监听成功修改好友的互动型托管数据事件，该接口在游戏主域使用（基础库 2.14.4 开始支持）
+   * @param callback 事件发生的回调函数，留空则清除所有回调
+   */
+  function offInteractiveStorageModified(callback?: Function);
+
+  /**
+   * 获取当前用户互动型托管数据对应 key 的数据，基础库 2.7.7 开始支持
+   * @param object
+   */
+  function getUserInteractiveStorage(object: {
+    keyList: string[]; // 要获取的 key 列表
+    success?: (res: { encryptedData: string; iv: string; errMsg: string; cloudID?: string }) => void; //接口调用成功的回调函数
+    fail?: (res: { errMsg: string; errCode: number }) => void; //接口调用失败的回调函数
+    complete?: () => void; //接口调用结束的回调函数（调用成功、失败都会执行）
+  });
+
+  /**
+   * 获取当前用户对游戏感兴趣的未注册的好友名单
+   * 基础库 2.9.0 开始支持
+   * @param object
+   */
+  function getPotentialFriendList(object: {
+    success?: (res: { errMsg: string; list: Array<FriendInfo> }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 监听主域发送的消息
+   */
+  function onMessage(callback: (data: any) => void): void;
+
+  /** 开放数据域对象*/
+  interface OpenDataContext {
+    /** 开放数据域和主域共享的 sharedCanvas*/
+    canvas: Canvas;
+    /**
+     * 向开放数据域发送消息
+     * @param message {} 要发送的消息，message 中及嵌套对象中 key 的 value 只能是 primitive value。即 number、string、boolean、null、undefined。
+     */
+    postMessage(message: {}): void;
+  }
+
+  /**
+   * 获取开放数据域
+   */
+  function getOpenDataContext(): OpenDataContext;
+
+  /**
+   * 根据用户当天游戏时间判断用户是否需要休息
+   */
+  function checkIsUserAdvisedToRest(object: {
+    todayPlayedTime: number;
+    success?: (res: { result: boolean }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**用户点击后打开意见反馈页面的按钮 */
+  interface FeedbackButton {
+    /** 按钮的类型*/
+    type: "text" | "image";
+    text: string;
+    image: string;
+    style: {
+      left: number;
+      top: number;
+      width: number;
+      height: number;
+      backgroundColor: string;
+      borderColor: string;
+      borderWidth: number;
+      borderRadius: number;
+      textAlign: "left" | "center" | "right";
+      fontSize: number;
+      lineHeight: number;
+    };
+
+    /** 显示意见反馈按钮*/
+    show(): void;
+
+    /** 隐藏意见反馈按钮。*/
+    hide(): void;
+
+    /** 销毁意见反馈按钮*/
+    destroy(): void;
+
+    /** 监听意见反馈按钮的点击事件*/
+    onTap(callback: () => void): void;
+
+    /** 取消监听意见反馈按钮的点击事件*/
+    offTap(callback: () => void): void;
+  }
+  /**
+   * 创建打开意见反馈页面的按钮
+   */
+  function createFeedbackButton(object: {
+    type: "text" | "image";
+    text?: string;
+    image?: string;
+    style: {
+      left: number;
+      top: number;
+      width: number;
+      height: number;
+      backgroundColor: string;
+      borderColor: string;
+      borderWidth: number;
+      borderRadius: number;
+      textAlign: "left" | "center" | "right";
+      fontSize: number;
+      lineHeight: number;
+    };
+  }): FeedbackButton;
+
+  /** 用户授权设置信息，详情参考权限*/
+  interface AuthSetting {
+    /** 是否授权用户信息，对应接口 wx.getUserInfo*/
+    userInfo: boolean;
+    /** 是否授权地理位置，对应接口 wx.getLocation*/
+    userLocation: boolean;
+    /** 是否授权微信运动步数，对应接口 wx.getWeRunData*/
+    werun: boolean;
+    /** 是否授权保存到相册 wx.saveImageToPhotosAlbum*/
+    writePhotosAlbum: boolean;
+  }
+
+  /** 调起客户端小程序设置界面，返回用户设置的操作结果。设置界面只会出现小程序已经向用户请求过的权限。*/
+  function openSetting(object: {
+    success?: (res: { authSetting: AuthSetting }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 获取用户的当前设置。返回值中只会出现小程序已经向用户请求过的权限。*/
+  function getSetting(object: {
+    success?: (res: { authSetting: AuthSetting }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 用户点击后打开设置页面的按钮
+   */
+  interface OpenSettingButton {
+    type: "text" | "image";
+    text: string;
+    image: string;
+    style: {
+      left: number;
+      top: number;
+      width: number;
+      height: number;
+      backgroundColor: string;
+      borderColor: string;
+      borderWidth: number;
+      borderRadius: number;
+      textAlign: "left" | "center" | "right";
+      fontSize: number;
+      lineHeight: number;
+    };
+
+    show(): void;
+
+    hide(): void;
+
+    destroy(): void;
+
+    onTap(callback: () => void): void;
+
+    offTap(callback: () => void): void;
+  }
+
+  /** 创建打开设置页面的按钮*/
+  function createOpenSettingButton(object: {
+    type: "text" | "image";
+    text?: string;
+    image?: string;
+    style: {
+      left: number;
+      top: number;
+      width: number;
+      height: number;
+      backgroundColor: string;
+      borderColor: string;
+      borderWidth: number;
+      borderRadius: number;
+      textAlign: "left" | "center" | "right";
+      fontSize: number;
+      lineHeight: number;
+    };
+    show(): void;
+
+    hide(): void;
+
+    destroy(): void;
+
+    onTap(callback: () => void): void;
+
+    offTap(callback: () => void): void;
+  }): OpenSettingButton;
+
+  /** 游戏圈按钮。游戏圈按钮被点击后会跳转到小游戏的游戏圈。更多关于游戏圈的信息见 游戏圈使用指南*/
+  interface GameClubButton {
+    type: "text" | "image";
+    text?: string;
+    image?: string;
+    style: {
+      left: number;
+      top: number;
+      width: number;
+      height: number;
+      backgroundColor: string;
+      borderColor: string;
+      borderWidth: number;
+      borderRadius: number;
+      textAlign: "left" | "center" | "right";
+      fontSize: number;
+      lineHeight: number;
+    };
+    icon: "green" | "white" | "dark" | "light";
+  }
+
+  /** 创建游戏圈按钮。游戏圈按钮被点击后会跳转到小游戏的游戏圈。更多关于游戏圈的信息见 游戏圈使用指南*/
+  function createGameClubButton(object: {
+    type?: "text" | "image";
+    text?: string;
+    image?: string;
+    style: {
+      left: number;
+      top: number;
+      width: number;
+      height: number;
+      backgroundColor?: string;
+      borderColor?: string;
+      borderWidth?: number;
+      borderRadius?: number;
+      textAlign?: "left" | "center" | "right";
+      fontSize?: number;
+      lineHeight?: number;
+    };
+    icon: "green" | "white" | "dark" | "light";
+  }): GameClubButton;
+
+  /** 进入客服会话。要求在用户发生过至少一次 touch 事件后才能调用。后台接入方式与小程序一致，详见 客服消息接入*/
+  function openCustomerServiceConversation(object: {
+    sessionFrom?: string;
+    showMessageCard?: boolean;
+    sendMessageTitle?: string;
+    sendMessagePath?: string;
+    sendMessageImg?: string;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 获取用户过去三十天微信运动步数。需要先调用 wx.login 接口。步数信息会在用户主动进入小程序时更新。*/
+  function getWeRunData(object: {
+    success?: (res: { encryptedData: string; iv: string }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 获取当前帐号信息。线上小程序版本号仅支持在正式版小程序中获取，开发版和体验版中无法获取
+   * 基础库 2.11.2 开始支持，低版本需做兼容处理
+   * 本接口从基础库版本 2.2.2 起支持在小程序插件中使用
+   **/
+  function getAccountInfoSync(): {
+    miniProgram: {
+      appId: string; // 小程序 appId
+      envVersion: string; // 小程序版本 2.10.0
+      version: string; // 线上小程序版本号 2.10.2
+    };
+    plugin?: {
+      appId: string;
+      version: string;
+    };
+  };
+
+  /** 取消监听横竖屏切换事件*/
+  function offDeviceOrientationChange(callback: () => void): void;
+
+  /** 监听横竖屏切换事件*/
+  function onDeviceOrientationChange(
+    callback: (res: { value: "portrait" | "landscape" | "landscapeReverse" }) => void
   ): void;
+
+  /** 监听加速度数据事件。频率根据 wx.startAccelerometer() 的 interval 参数。可使用 wx.stopAccelerometer() 停止监听。*/
+  function onAccelerometerChange(callback: (res: { x: number; y: number; z: number }) => void): void;
+
+  /** 停止监听加速度数据。*/
+  function stopAccelerometer(object: {
+    success?: (res: { encryptedData: string; iv: string }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 开始监听加速度数据。*/
+  function startAccelerometer(object: {
+    interval: string;
+    success?: (res: { encryptedData: string; iv: string }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 获取设备电量
+   */
+  function getBatteryInfo(object: {
+    success?: (res: { level: string; isCharging: boolean }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * wx.getBatteryInfo 的同步版本
+   */
+  function getBatteryInfoSync(): { level: string; isCharging: boolean };
+
+  /** 获取系统剪贴板的内容*/
+  function getClipboardData(object: {
+    success?: (res: { data: string }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 设置系统剪贴板的内容*/
+  function setClipboardData(object: {
+    data: string;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 监听罗盘数据，频率：5 次/秒，接口调用后会自动开始监听，可使用 wx.stopCompass 停止监听。
+   * accuracy 在 iOS/Android 的差异
+   * 由于平台差异，accuracy 在 iOS/Android 的值不同。
+   * iOS：accuracy 是一个 number 类型的值，表示相对于磁北极的偏差。0 表示设备指向磁北，90 表示指向东，180 表示指向南，依此类推。
+   * Android：accuracy 是一个 string 类型的枚举值。
+   */
+  function onCompassChange(callback: (res: { direction: number; accuracy: number | string }) => void): void;
+
+  /**
+   * 开始监听陀螺仪数据。
+   */
+  function startCompass(object: {
+    interval?: string;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 停止监听陀螺仪数据。
+   */
+  function stopCompass(object: {
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 监听设备方向变化事件。频率根据 wx.startDeviceMotionListening() 的 interval 参数。可以使用 wx.stopDeviceMotionListening() 停止监听。
+   */
+  function onDeviceMotionChange(callback: (res: { alpha: number; beta: number; gamma: number }) => void): void;
+
+  /** 停止监听设备方向的变化。*/
+  function stopDeviceMotionListening(
+    success?: (res?: any) => void,
+    fail?: (res?: any) => void,
+    complete?: (res?: any) => void
+  ): void;
+
+  /** 开始监听设备方向的变化。*/
+  function startDeviceMotionListening(
+    interval: string,
+    success?: (res?: any) => void,
+    fail?: (res?: any) => void,
+    complete?: (res?: any) => void
+  ): void;
+
+  /** 监听网络状态变化事件*/
+  function onNetworkStatusChange(callback: (res: { isConnected: boolean; networkType: string }) => void): void;
+
+  /** 获取网络类型*/
+  function getNetworkType(object: {
+    success?: (res: { networkType: string }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 使手机发生较长时间的振动（400 ms)*/
+  function vibrateLong(object: {
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 使手机发生较短时间的振动（15 ms）。仅在 iPhone 7 / 7 Plus 以上及 Android 机型生效*/
+  function vibrateShort(object: {
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 监听内存不足告警事件。
+   * 当 iOS/Android 向小程序进程发出内存警告时，触发该事件。触发该事件不意味小程序被杀，大部分情况下仅仅是告警，开发者可在收到通知后回收一些不必要资源避免进一步加剧内存紧张。
+   */
+  function onMemoryWarning(callback: (res: { level: number }) => void): void;
+
+  /** 设置屏幕亮度*/
+  function setScreenBrightness(object: {
+    value: number;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 设置是否保持常亮状态。仅在当前小程序生效，离开小程序后设置失效。*/
+  function setKeepScreenOn(object: {
+    keepScreenOn: boolean;
+    success?: (res?: any) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /** 获取屏幕亮度*/
+  function getScreenBrightness(object: {
+    success?: (res: { value: number }) => void;
+    fail?: (res?: any) => void;
+    complete?: (res?: any) => void;
+  }): void;
+
+  /**
+   * 对于游戏来说，每帧 16ms 是极其宝贵的，如果有一些可以异步处理的任务，可以放置于 Worker 中运行，待运行结束后，再把结果返回到主线程。Worker 运行于一个单独的全局上下文与线程中，不能直接调用主线程的方法，Worker 也不具备渲染的能力。 Worker 与主线程之间的数据传输，双方使用 Worker.postMessage() 来发送数据，Worker.onMessage() 来接收数据，传输的数据并不是直接共享，而是被复制的。
+   * @see https://developers.weixin.qq.com/minigame/dev/tutorial/usability/worker.html
+   */
+  interface Worker {
+    /**
+     * 监听接收主线程/Worker 线程向当前线程发送的消息
+     */
+    onMessage(callback: (res: { message: Object }) => void): void;
+    /**
+     * 向主线程/Worker 线程发送的消息。
+     */
+    postMessage(message: {}): void;
+    /**
+     * 结束当前 worker 线程，仅限在主线程 worker 对象上调用。
+     */
+    terminate(): void;
+  }
+
+  /**
+   * 创建一个 Worker 线程，目前限制最多只能创建一个 Worker，创建下一个 Worker 前请调用 Worker.terminate
+   */
+  function createWorker(scriptPath: string): Worker;
+
+  /**
+   * 云开发小程序端
+   */
+  namespace cloud {
+    /** 在调用云开发各 API 前，需先调用初始化方法 init 一次（全局只需一次，多次调用时只有第一次生效）*/
+    function init(options?: {
+      env?: string | { database?: string; storage?: string; functions?: string };
+      traceUser?: false;
+    }): void;
+
+    /** 调用云函数*/
+    function callFunction(obj: {
+      name: string;
+      data?: Object;
+      config?: cloudEnvType;
+      success: (res: { errMsg: string; result: any; requestID: string }) => void;
+      fail?: cloudCallFailType;
+      complete?: cloudEmptyFunction;
+    }): void;
+    function callFunction(obj: {
+      name: string;
+      data?: Object;
+      config?: cloudEnvType;
+      success?: (res: { errMsg: string; result: any; requestID: string }) => void;
+      fail: cloudCallFailType;
+      complete?: cloudEmptyFunction;
+    }): void;
+    function callFunction(obj: {
+      name: string;
+      data?: Object;
+      config?: cloudEnvType;
+      success?: (res: { errMsg: string; result: any; requestID: string }) => void;
+      fail?: cloudCallFailType;
+      complete: cloudEmptyFunction;
+    }): void;
+    function callFunction(obj: {
+      name: string;
+      data?: Object;
+      config?: cloudEnvType;
+    }): Promise<{ errMsg: string; result: any; requestID: string }>;
+
+    /** 将本地资源上传至云存储空间，如果上传至同一路径则是覆盖写*/
+    function uploadFile(obj: {
+      cloudPath: string;
+      filePath: string;
+      header?: Object;
+      config?: cloudEnvType;
+      success: (res: { fileID: string; statusCode: number; errMsg: string }) => void;
+      fail?: cloudCallFailType;
+      complete?: cloudEmptyFunction;
+    }): void;
+    function uploadFile(obj: {
+      cloudPath: string;
+      filePath: string;
+      header?: Object;
+      config?: cloudEnvType;
+      success?: (res: { fileID: string; statusCode: number; errMsg: string }) => void;
+      fail: cloudCallFailType;
+      complete?: cloudEmptyFunction;
+    }): void;
+    function uploadFile(obj: {
+      cloudPath: string;
+      filePath: string;
+      header?: Object;
+      config?: cloudEnvType;
+      success?: (res: { fileID: string; statusCode: number; errMsg: string }) => void;
+      fail?: cloudCallFailType;
+      complete: cloudEmptyFunction;
+    }): void;
+    function uploadFile(obj: {
+      cloudPath: string;
+      filePath: string;
+      header?: Object;
+      config?: cloudEnvType;
+    }): Promise<{ fileID: string; statusCode: number; errMsg: string }>;
+
+    /** 从云存储空间下载文件*/
+    function downloadFile(obj: {
+      fileID: string;
+      config?: cloudEnvType;
+      success: (res: { tempFilePath: string; statusCode: number; errMsg: string }) => void;
+      fail?: cloudCallFailType;
+      complete?: cloudEmptyFunction;
+    }): void;
+    function downloadFile(obj: {
+      fileID: string;
+      config?: cloudEnvType;
+      success?: (res: { tempFilePath: string; statusCode: number; errMsg: string }) => void;
+      fail: cloudCallFailType;
+      complete?: cloudEmptyFunction;
+    }): void;
+    function downloadFile(obj: {
+      fileID: string;
+      config?: cloudEnvType;
+      success?: (res: { tempFilePath: string; statusCode: number; errMsg: string }) => void;
+      fail?: cloudCallFailType;
+      complete: cloudEmptyFunction;
+    }): void;
+    function downloadFile(obj: {
+      cloudPath: string;
+      filePath: string;
+      header?: Object;
+      config?: cloudEnvType;
+    }): Promise<{ tempFilePath: string; statusCode: number; errMsg: string }>;
+
+    /** 用云文件 ID 换取真实链接，可自定义有效期，默认一天且最大不超过一天。一次最多取 50 个。*/
+    function getTempFileURL(obj: {
+      fileList: string[];
+      config?: cloudEnvType;
+      success: (fileList: Array<{ fileID: string; tempFileURL: string; status: number; errMsg: string }>) => void;
+      fail?: cloudCallFailType;
+      complete?: cloudEmptyFunction;
+    }): void;
+    function getTempFileURL(obj: {
+      fileList: string[];
+      config?: cloudEnvType;
+      success?: (fileList: Array<{ fileID: string; tempFileURL: string; status: number; errMsg: string }>) => void;
+      fail: cloudCallFailType;
+      complete?: cloudEmptyFunction;
+    }): void;
+    function getTempFileURL(obj: {
+      fileList: string[];
+      config?: cloudEnvType;
+      success?: (fileList: Array<{ fileID: string; tempFileURL: string; status: number; errMsg: string }>) => void;
+      fail?: cloudCallFailType;
+      complete: cloudEmptyFunction;
+    }): void;
+    function getTempFileURL(obj: {
+      fileList: string[];
+      config?: cloudEnvType;
+    }): Promise<Array<{ fileID: string; tempFileURL: string; status: number; errMsg: string }>>;
+
+    /** 从云存储空间删除文件，一次最多 50 个*/
+    function deleteFile(obj: {
+      fileList: string[];
+      config?: cloudEnvType;
+      success: (fileList: Array<{ fileID: string; status: number; errMsg: string }>) => void;
+      fail?: cloudCallFailType;
+      complete?: cloudEmptyFunction;
+    }): void;
+    function deleteFile(obj: {
+      fileList: string[];
+      config?: cloudEnvType;
+      success?: (fileList: Array<{ fileID: string; status: number; errMsg: string }>) => void;
+      fail: cloudCallFailType;
+      complete?: cloudEmptyFunction;
+    }): void;
+    function deleteFile(obj: {
+      fileList: string[];
+      config?: cloudEnvType;
+      success?: (fileList: Array<{ fileID: string; status: number; errMsg: string }>) => void;
+      fail?: cloudCallFailType;
+      complete: cloudEmptyFunction;
+    }): void;
+    function deleteFile(obj: {
+      fileList: string[];
+      config?: cloudEnvType;
+    }): Promise<Array<{ fileID: string; status: number; errMsg: string }>>;
+
+    //============== 数据库 API 手动添加的，可能有错误，请 pr==============
+    function database(options?: cloudEnvType): Database;
+  }
+
+  interface GameIcon {
+    load(); // 小游戏推荐icon组件加载数据接口。
+    show(); // 显示小游戏推荐icon组件。
+    hide(); // 隐藏小游戏推荐icon组件。
+    destroy(); // 销毁小游戏推荐icon组件，组件销毁后所有方法和事件都将失效。
+    onResize(callback: Function); // 监听小游戏推荐icon组件位置或者尺寸改变事件。回调函数回抛出一个数组，包含被渲染出来的游戏的信息，该数组为组件实例属性icons的子集。
+    offResize(callback: Function); // 取消监听小游戏推荐icon组件位置或者尺寸改变事件
+    onLoad(callback: Function); // 监听小游戏推荐icon组件加载成功事件。
+    offLoad(callback: Function); // 取消监听小游戏推荐icon组件加载成功事件
+    onError(callback: Function); // 监听小游戏推荐icon组件加载错误事件。
+    offError(callback: Function); // 取消监听小游戏推荐icon组件加载错误事件
+  }
+
+  type styleItem = {
+    appNameHidden: boolean; // true; // boolean; //游戏名称是否隐藏
+    color: string; // "#fff"; // string; //游戏名称的颜色色值
+    size: number; // 60; // number; //游戏icon的宽高值
+    borderWidth: number; // 2; // number; //游戏icon的border尺寸
+    borderColor: string; // "#333"; // string; //游戏icon的border颜色色值
+    left: number; // 0; // number; //游戏icon的X轴坐标
+    top: number; // 200; // number; //游戏icon的Y轴坐标
+  };
+
+  // 创建小游戏推荐icon组件 2.8.3
+  function createGameIcon(obj: {
+    adUnitId: string; // 推荐单元 id
+    count: number; // 游戏icon的数量，请注意，正式版下面渲染出来的icon数量会小于等于count，请注册做好样式兼容
+    style: Array<styleItem>; // 数组的每一项可以针对对应的icon设置位置和样式等信息，style的每一项称为styleItem
+  }): GameIcon;
 }
+
+/** */
+type cloudEnvType = { env: string };
+/** */
+type cloudCallFailType = (err: { errCode: string; errMsg: string }) => void;
+/** */
+type cloudEmptyFunction = () => void;
+
+interface Database {
+  command: Command;
+  serverDate(options?: object): ServerDate;
+  Geo: Geo;
+  createCollection: Promise<CreateCollectionSuccess>;
+  collection(name: string): Collection;
+  RegExp(options: RegExpOptions): DBRegExp;
+}
+
+type DBRegExp = RegExp;
+
+type ServerDate = Date;
+
+interface RegExpOptions {
+  regexp: string; // 正则表达式，字符串形式
+  options: "i" | "m" | "s"; // flags，包括 i, m, s 但前端不做强限制
+}
+
+interface Query {
+  get(): Promise<GetCollectionResult>;
+  update(options: CommonOption): Promise<UpateCollectionResult>;
+  remove(): Promise<RemoveCollectionResult>;
+  count(): Promise<CountCollectionResult>;
+  orderBy(fieldName: string, order: "asc" | "desc"): Collection | Query;
+  limit(max: number): Collection | Query;
+  skip(offset: number): Collection | Query;
+  field(definition: object): Collection | Query | Document;
+}
+
+interface Collection extends Query {
+  doc(id: string | number): Document;
+  add(options: CommonOption): Promise<AddCollectionResult>;
+  where(rule: object): Query;
+
+  aggregate(): Aggregate;
+}
+
+interface CommonOption<T = any> {
+  data: T;
+}
+
+interface GetCollectionResult {
+  data: any[];
+}
+
+interface AddCollectionResult {
+  _id: string | number;
+}
+
+interface UpateCollectionResult {
+  stats: {
+    updated: number;
+  };
+}
+
+interface RemoveCollectionResult {
+  stats: {
+    removed: number;
+  };
+}
+
+interface CountCollectionResult {
+  stats: {
+    total: number;
+  };
+}
+
+interface Document {
+  get(): Promise<{ data: any }>;
+  update(options: CommonOption): Promise<{ stats: { updated: 0 | 1 } }>;
+  set(
+    options: CommonOption
+  ): Promise<{
+    _id: string | number;
+    stats: { updated: 0 | 1; created: 0 | 1 };
+  }>;
+  remove(): Promise<{ stats: { removed: 0 | 1 } }>;
+}
+
+// collection(name: string): Collection
+interface Command {
+  eq(value: any): Command;
+  neq(value: any): Command;
+  lt(value: number): Command;
+  lte(value: number): Command;
+  gt(value: number): Command;
+  gte(value: number): Command;
+  in(values: any[]): Command;
+  nin(values: any[]): Command;
+  and(command: Command): Command;
+  and(...commands: Command[]): Command;
+  or(command: Command | CrosFieldCommand[]): Command;
+  or(...commands: Command[]): Command;
+  set(value: any): Command;
+  remove(): Command;
+  inc(value: number): Command;
+  mul(value: number): Command;
+  push(values: any[]): Command;
+  pop(): Command;
+  shift(): Command;
+  unshift(values: any[]): Command;
+
+  geoNear(options: GeoNearOptions): Command;
+  geoWithin(options: GeoWithinOptions): Command;
+  geoIntersects(options: GeoIntersectsOptions): Command;
+
+  // aggregate: AggregationOperators
+  aggregate: any;
+}
+
+interface CrosFieldCommand {
+  [filed: string]: Command | boolean;
+}
+
+interface GeoNearOptions {
+  geometry: Point; // 点的地理位置
+  maxDistance?: number; // 选填，最大距离，单位为米
+  minDistance?: number; // 选填，最小距离，单位为米
+}
+
+interface GeoWithinOptions {
+  geometry: Polygon | MultiPolygon;
+}
+
+interface GeoIntersectsOptions {
+  geometry: Point | LineString | MultiPoint | MultiLineString | Polygon | MultiPolygon; // 地理位置
+}
+
+interface Geo {
+  Point: Point;
+  LineString: LineString;
+  Polygon: Polygon;
+}
+
+interface Point {
+  (longitude: number, latitude: number): Point;
+}
+
+type PointCoordinates = [number, number];
+
+interface Point {
+  type: "Point";
+  coordinates: PointCoordinates;
+}
+
+interface LineString {
+  (points: Point[]): LineString;
+}
+
+interface LineString {
+  type: "LineString";
+  coordinates: PointCoordinates[];
+}
+
+interface Polygon {
+  (lineStrings: LineString[]): Polygon;
+}
+
+interface Polygon {
+  type: "Polygon";
+  coordinates: PointCoordinates[][];
+}
+
+interface MultiPoint {
+  (points: Point[]): MultiPoint;
+}
+
+interface MultiPoint {
+  type: "MultiPoint";
+  coordinates: PointCoordinates[];
+}
+
+interface MultiLineString {
+  (polygons: LineString[]): MultiLineString;
+}
+
+interface MultiLineString {
+  type: "MultiLineString";
+  coordinates: PointCoordinates[][];
+}
+
+interface MultiPolygon {
+  (polygons: Polygon[]): MultiPolygon;
+}
+
+interface MultiPolygon {
+  type: "MultiPolygon";
+  coordinates: PointCoordinates[][][];
+}
+
+// interface GeoJSON<T> {
+//     type: T;
+//     coordinates: [];
+// }
+
+interface CreateCollectionSuccess {
+  errMsg: string;
+}
+
+interface Aggregate {
+  addFields(fieldObj: { [fieldName: string]: any }): Aggregate;
+  bucket(bucketObj: { groupBy: any; boundaries: any[]; default?: any; output?: object }): Aggregate;
+  bucketAuto(bucketObj: { groupBy: any; buckets: number; granularity?: any; output?: object }): Aggregate;
+  count(expr: string): any;
+  geoNear(geoNearObj: {
+    near: Point;
+    spherical: true;
+    limit?: number;
+    maxDistance?: number;
+    minDistance?: number;
+    query?: object;
+    distanceMultiplier?: number;
+    distanceField: string;
+    includeLocs?: string;
+    key?: string;
+  }): Aggregate;
+  group(groupObj: { _id: any; [fieldName: string]: any }): Aggregate;
+  limit(limitRecords: number): any;
+  match(matchObj: { [fieldName: string]: any }): Aggregate;
+  project(projectObj: { [fieldName: string]: any }): Aggregate;
+  replaceRoot(replaceRootObj: { newRoot: any }): Aggregate;
+  sample(replaceRootObj: { size: number }): Aggregate;
+  skip(skipNum: number): any;
+  sort(replaceRootObj: { [fieldName: string]: 1 | -1 }): Aggregate;
+  sortByCount(fieldName: string): Aggregate;
+  unwind(unwindObj: { path: string; includeArrayIndex?: string; preserveNullAndEmptyArrays?: boolean }): Aggregate;
+  end(): void;
+}
+
+// type
+interface AggregationOperators {
+  abs(operand: number): number;
+  add(...operand: any[]): any;
+  addToSet(expression: string): any;
+  allElementsTrue(expression: [string]): boolean;
+  and(expression: boolean[]): boolean;
+  lt(expression: string, value: number): boolean;
+  lte(expression: string, value: number): boolean;
+  anyElementTrue(expression: [string]): boolean;
+  arrayElemAt(expression: [string, number]): any;
+  arrayToObject(expression: string): object;
+  // arrayToObject(expression: [string, any][]): object
+  // arrayToObject(expression: {k: string; v: any}[]): object
+  avg(expression: string): number;
+}
+
+// /**
+//  * 基础库 2.0.0 开始支持，低版本需做兼容处理。
+//  * 将一个 Canvas 对应的 Texture 绑定到 WebGL 上下文。
+//  */
+// declare var WebGLRenderingContext: {
+//     /**
+//      *
+//      * @param texture WebGL 的纹理类型枚举值
+//      * @param canvas 需要绑定为 Texture 的 Canvas
+//      */
+//     wxBindCanvasTexture: (texture: number, canvas: wx.Canvas) => void
+// }

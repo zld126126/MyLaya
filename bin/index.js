@@ -15,7 +15,7 @@ loadLib("libs/laya.html.js")
 // 增加 文件存储操作库
 loadLib("libs/FileSaver.js")
 // 增加js 自定义库
-loadLib("libs/TsCallJs.js")
+loadLib("libs/myUtils.js")
 //-----libs-end-------
 loadLib("libs/fairygui/rawinflate.min.js");
 loadLib("libs/fairygui/fairygui.js");
