@@ -56,7 +56,33 @@ class Main {
 
 	Ready() {
 		MainController.getInstance();
+		// 展示粒子系统
+		this.showParticle();
 		//Database.getInstance().PrintJson();
+	}
+
+	showParticle(): void {
+		Laya.loader.load("particle/TestParticle.part", new Laya.Handler(this, () => {
+			// 获取粒子配置
+			let setting: Laya.ParticleSetting = Laya.loader.getRes("particle/TestParticle.part");
+			// 创造粒子
+			let particle: Laya.Particle2D = new Laya.Particle2D(setting);
+			particle.x = 500;
+			particle.y = 500;
+			Laya.stage.addChild(particle);
+			// 播放粒子
+			particle.play();
+
+			// 每个粒子持续时间
+			setting.duration = 10;
+			// 修改最小开始半径
+			setting.minStartRadius = 30;
+
+			// 销毁粒子
+			Laya.timer.once(2500, this, () => {
+				particle.destroy();
+			})
+		}));
 	}
 
 }

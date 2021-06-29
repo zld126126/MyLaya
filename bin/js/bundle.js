@@ -354,6 +354,22 @@
         }
         Ready() {
             MainController.getInstance();
+            this.showParticle();
+        }
+        showParticle() {
+            Laya.loader.load("particle/TestParticle.part", new Laya.Handler(this, () => {
+                let setting = Laya.loader.getRes("particle/TestParticle.part");
+                let particle = new Laya.Particle2D(setting);
+                particle.x = 500;
+                particle.y = 500;
+                Laya.stage.addChild(particle);
+                particle.play();
+                setting.duration = 10;
+                setting.minStartRadius = 30;
+                Laya.timer.once(2500, this, () => {
+                    particle.destroy();
+                });
+            }));
         }
     }
     new Main();

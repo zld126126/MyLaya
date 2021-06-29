@@ -9,12 +9,11 @@ window.screenOrientation = "sensor_landscape";
 
 //-----libs-begin-----
 loadLib("libs/laya.core.js")
+loadLib("libs/laya.html.js")
+loadLib("libs/laya.particle.js")
 loadLib("libs/laya.ui.js")
 loadLib("libs/laya.physics.js")
-loadLib("libs/laya.html.js")
-// 增加 文件存储操作库
 loadLib("libs/FileSaver.js")
-// 增加js 自定义库
 loadLib("libs/myUtils.js")
 //-----libs-end-------
 loadLib("libs/fairygui/rawinflate.min.js");
