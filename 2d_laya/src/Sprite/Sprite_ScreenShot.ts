@@ -13,7 +13,6 @@ export class Sprite_ScreenShot extends SingletonScene {
 
     constructor() {
         super();
-        Config.preserveDrawingBuffer = true;
         Laya.stage.addChild(this);
         this.createApes();
     }
@@ -58,13 +57,5 @@ export class Sprite_ScreenShot extends SingletonScene {
                 this.drawSp.graphics.drawRect(0, 0, this.drawSp.width, this.drawSp.height, "#ff0000");
                 break;
         }
-    }
-
-    public Show() {
-        this.visible = true;
-    }
-
-    public Hide() {
-        this.visible = false;
     }
 }

@@ -2,12 +2,13 @@ import SingletonScene from "../SingletonScene";
 import Sprite = Laya.Sprite;
 import Event = Laya.Event;
 
-export class Sprite_Container extends SingletonScene{
+export class Sprite_Container extends SingletonScene {
     constructor() {
         super();
         Laya.stage.addChild(this);
         this.createApes();
     }
+    
     // 该容器用于装载4张猩猩图片
     private apesCtn: Sprite;
 
@@ -41,13 +42,5 @@ export class Sprite_Container extends SingletonScene{
 
     private animate(e: Event): void {
         this.apesCtn.rotation += 1;
-    }
-
-    public Show() {
-        this.visible = true;
-    }
-
-    public Hide() {
-        this.visible = false;
     }
 }

@@ -25,12 +25,4 @@ export class Sprite_DisplayImage extends SingletonScene {
             ape2.pos(200, 0);
         }));
     }
-
-    public Show(): void {
-        this.visible = true;
-    }
-
-    public Hide(): void {
-        this.visible = false;
-    }
 }

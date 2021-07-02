@@ -1,4 +1,11 @@
 export default abstract class SingletonScene extends Laya.Scene {
+    /**
+     * 构造函数
+     */
+    constructor() {
+        super();
+    }
+
     // 是否展示
     public isShow: boolean = false;
     /**
@@ -12,16 +19,21 @@ export default abstract class SingletonScene extends Laya.Scene {
         }
         return (<any>this).instance;
     }
+
     /**
      * 显示
      */
     Show(): void {
+        this.visible = true;
     }
+
     /**
      * 隐藏
      */
     Hide(): void {
+        this.visible = false;
     }
+
     /**
      * 点击
      */
@@ -34,6 +46,7 @@ export default abstract class SingletonScene extends Laya.Scene {
             this.Hide();
         }
     }
+
     /**
      * 销毁
      */
