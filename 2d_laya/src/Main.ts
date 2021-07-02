@@ -1,5 +1,7 @@
 import GameConfig from "./GameConfig";
 import { SpriteMain } from "./Sprite/SpriteMain";
+import { AnimationMain } from "./Animation/AnimationMain";
+import { SkeletalAnimationMain } from "./SkeletalAnimation/SkeletalAnimationMain";
 class Main {
 	constructor() {
 		//根据IDE设置初始化引擎		
@@ -36,7 +38,9 @@ class Main {
 
 	// 加载例子
 	public LoadExample() {
-		SpriteMain.getInstance().LoadExamples();
+		//SpriteMain.getInstance().LoadExamples();
+		//AnimationMain.getInstance().LoadExamples();
+		SkeletalAnimationMain.getInstance().LoadExamples();
 	}
 }
 

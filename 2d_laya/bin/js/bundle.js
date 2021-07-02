@@ -11,8 +11,8 @@
     GameConfig.height = 1136;
     GameConfig.scaleMode = "fixedwidth";
     GameConfig.screenMode = "none";
-    GameConfig.alignV = "middle";
-    GameConfig.alignH = "middle";
+    GameConfig.alignV = "top";
+    GameConfig.alignH = "left";
     GameConfig.startScene = "";
     GameConfig.sceneRoot = "";
     GameConfig.debug = false;
@@ -63,405 +63,256 @@
         }
     }
 
-    var Sprite = Laya.Sprite;
-    var Handler = Laya.Handler;
-    class Sprite_DisplayImage extends SingletonScene {
-        constructor() {
-            super();
-            Laya.stage.addChild(this);
-            this.createApes();
-        }
-        createApes() {
-            var ape1 = new Sprite();
-            this.addChild(ape1);
-            ape1.loadImage("res/apes/monkey3.png");
-            Laya.loader.load("res/apes/monkey2.png", new Handler(this, function () {
-                var t = Laya.loader.getRes("res/apes/monkey2.png");
-                var ape2 = new Sprite();
-                ape2.graphics.drawTexture(t, 0, 0);
-                this.addChild(ape2);
-                ape2.pos(200, 0);
-            }));
-        }
-    }
-
-    var Sprite$1 = Laya.Sprite;
-    var Handler$1 = Laya.Handler;
-    var Button = Laya.Button;
+    var Templet = Laya.Templet;
     var Event = Laya.Event;
-    class Sprite_ScreenShot extends SingletonScene {
+    class MultiTexture extends SingletonScene {
         constructor() {
             super();
-            this.btnArr = ["res/threeDimen/ui/button.png", "res/threeDimen/ui/button.png"];
-            this.nameArr = ["截图", "清理"];
+            this.mStartX = 400;
+            this.mStartY = 500;
+            this.mActionIndex = 0;
+            this.mCurrIndex = 0;
+            this.mCurrSkinIndex = 0;
             Laya.stage.addChild(this);
-            this.createApes();
+            this.startFun();
         }
-        createApes() {
-            var ape1 = new Sprite$1();
-            this.addChild(ape1);
-            ape1.loadImage("res/apes/monkey3.png", Handler$1.create(this, this.onLoaded));
+        startFun() {
+            this.mAniPath = "res/spine/spineRes1/dragon.sk";
+            this.mFactory = new Templet();
+            this.mFactory.on(Event.COMPLETE, this, this.parseComplete);
+            this.mFactory.on(Event.ERROR, this, this.onError);
+            this.mFactory.loadAni(this.mAniPath);
         }
-        createButton(skin, name, cb, index) {
-            var btn = new Button(skin, name);
-            this.addChild(btn);
-            btn.on(Event.CLICK, this, cb);
-            btn.size(40, 20);
-            btn.name = name;
-            btn.right = 5;
-            btn.top = index * (btn.height + 5);
-            return btn;
+        onError() {
+            console.log("error");
         }
-        onLoaded() {
-            for (let index = 0; index < this.btnArr.length; index++) {
-                this.createButton(this.btnArr[index], this.nameArr[index], this._onclick, index);
+        parseComplete() {
+            this.mArmature = this.mFactory.buildArmature(1);
+            this.mArmature.x = this.mStartX;
+            this.mArmature.y = this.mStartY;
+            this.mArmature.scale(0.5, 0.5);
+            this.addChild(this.mArmature);
+            this.mArmature.on(Event.STOPPED, this, this.completeHandler);
+            this.play();
+        }
+        completeHandler() {
+            this.play();
+        }
+        play() {
+            this.mCurrIndex++;
+            if (this.mCurrIndex >= this.mArmature.getAnimNum()) {
+                this.mCurrIndex = 0;
             }
-            this.drawSp = new Sprite$1();
-            this.addChild(this.drawSp);
-            this.drawSp.size(600 / 2, 800 / 2);
-            this.drawSp.y = 800 / 2;
-            this.drawSp.graphics.drawRect(0, 0, this.drawSp.width, this.drawSp.height, "#ff0000");
-        }
-        _onclick(e) {
-            switch (e.target.name) {
-                case this.nameArr[0]:
-                    var text = Laya.stage.drawToTexture(600, 800, 0, 0);
-                    this.drawSp.graphics.drawTexture(text, 0, 0, this.drawSp.width, this.drawSp.height);
-                    break;
-                case this.nameArr[1]:
-                    this.drawSp.graphics.clear();
-                    this.drawSp.graphics.drawRect(0, 0, this.drawSp.width, this.drawSp.height, "#ff0000");
-                    break;
-            }
+            this.mArmature.play(this.mCurrIndex, false);
         }
     }
 
-    var Sprite$2 = Laya.Sprite;
-    class Sprite_Container extends SingletonScene {
+    var Templet$1 = Laya.Templet;
+    var Sprite = Laya.Sprite;
+    var Event$1 = Laya.Event;
+    var Handler = Laya.Handler;
+    var Tween = Laya.Tween;
+    class Skeleton_SpineEvent extends SingletonScene {
         constructor() {
             super();
+            this.mStartX = 400;
+            this.mStartY = 500;
+            this.mActionIndex = 0;
+            this.mCurrIndex = 0;
+            this.mCurrSkinIndex = 0;
             Laya.stage.addChild(this);
-            this.createApes();
+            this.mLabelSprite = new Sprite();
+            this.startFun();
         }
-        createApes() {
-            var layoutRadius = 150;
-            var radianUnit = Math.PI / 2;
-            this.apesCtn = new Sprite$2();
-            this.addChild(this.apesCtn);
-            for (var i = 0; i < 4; i++) {
-                var ape = new Sprite$2();
-                ape.loadImage("res/apes/monkey" + i + ".png");
-                ape.pivot(55, 72);
-                ape.pos(Math.cos(radianUnit * i) * layoutRadius, Math.sin(radianUnit * i) * layoutRadius);
-                this.apesCtn.addChild(ape);
+        startFun() {
+            this.mAniPath = "res/spine/spineRes6/alien.sk";
+            this.mFactory = new Templet$1();
+            this.mFactory.on(Event$1.COMPLETE, this, this.parseComplete);
+            this.mFactory.on(Event$1.ERROR, this, this.onError);
+            this.mFactory.loadAni(this.mAniPath);
+        }
+        onError() {
+            console.log("error");
+        }
+        parseComplete() {
+            this.mArmature = this.mFactory.buildArmature(1);
+            this.mArmature.x = this.mStartX;
+            this.mArmature.y = this.mStartY;
+            this.mArmature.scale(0.5, 0.5);
+            this.addChild(this.mArmature);
+            this.mArmature.on(Event$1.LABEL, this, this.onEvent);
+            this.mArmature.on(Event$1.STOPPED, this, this.completeHandler);
+            this.play();
+        }
+        completeHandler() {
+            this.play();
+        }
+        play() {
+            this.mCurrIndex++;
+            if (this.mCurrIndex >= this.mArmature.getAnimNum()) {
+                this.mCurrIndex = 0;
             }
-            this.apesCtn.pos(Laya.stage.width / 2, Laya.stage.height / 2);
-            Laya.timer.frameLoop(1, this, this.animate);
+            this.mArmature.play(this.mCurrIndex, false);
         }
-        animate(e) {
-            this.apesCtn.rotation += 1;
+        onEvent(e) {
+            var tEventData = e;
+            this.addChild(this.mLabelSprite);
+            this.mLabelSprite.x = this.mStartX;
+            this.mLabelSprite.y = this.mStartY;
+            this.mLabelSprite.graphics.clear();
+            this.mLabelSprite.graphics.fillText(tEventData.name, 0, 0, "20px Arial", "#ff0000", "center");
+            Tween.to(this.mLabelSprite, { y: this.mStartY - 200 }, 1000, null, Handler.create(this, this.playEnd));
+        }
+        playEnd() {
+            this.mLabelSprite.removeSelf();
         }
     }
 
-    var Sprite$3 = Laya.Sprite;
-    class Sprite_RoateAndScale extends SingletonScene {
+    var Templet$2 = Laya.Templet;
+    var Event$2 = Laya.Event;
+    class Skeleton_SpineStretchyman extends SingletonScene {
         constructor() {
             super();
-            this.scaleDelta = 0;
+            this.mStartX = 200;
+            this.mStartY = 500;
+            this.mActionIndex = 0;
+            this.mCurrIndex = 0;
+            this.mCurrSkinIndex = 0;
             Laya.stage.addChild(this);
-            this.createApe();
+            this.startFun();
         }
-        createApe() {
-            this.ape = new Sprite$3();
-            this.ape.loadImage("res/apes/monkey2.png");
-            this.addChild(this.ape);
-            this.ape.pivot(55, 72);
-            this.ape.x = Laya.stage.width / 2;
-            this.ape.y = Laya.stage.height / 2;
-            Laya.timer.frameLoop(1, this, this.animate);
+        startFun() {
+            this.mAniPath = "res/spine/spineRes4/stretchyman.sk";
+            this.mFactory = new Templet$2();
+            this.mFactory.on(Event$2.COMPLETE, this, this.parseComplete);
+            this.mFactory.on(Event$2.ERROR, this, this.onError);
+            this.mFactory.loadAni(this.mAniPath);
         }
-        animate(e) {
-            if (!this.isShow) {
-                return;
+        onError() {
+            console.log("error");
+        }
+        parseComplete() {
+            this.mArmature = this.mFactory.buildArmature(1);
+            this.mArmature.x = this.mStartX;
+            this.mArmature.y = this.mStartY;
+            this.addChild(this.mArmature);
+            this.mArmature.on(Event$2.STOPPED, this, this.completeHandler);
+            this.play();
+        }
+        completeHandler() {
+            this.play();
+        }
+        play() {
+            this.mCurrIndex++;
+            if (this.mCurrIndex >= this.mArmature.getAnimNum()) {
+                this.mCurrIndex = 0;
             }
-            this.ape.rotation += 2;
-            this.scaleDelta += 0.02;
-            var scaleValue = Math.sin(this.scaleDelta);
-            this.ape.scale(scaleValue, scaleValue);
+            this.mArmature.play(this.mCurrIndex, false);
         }
     }
 
-    var Sprite$4 = Laya.Sprite;
-    class Sprite_DrawPath extends SingletonScene {
+    var Templet$3 = Laya.Templet;
+    var Event$3 = Laya.Event;
+    class Skeleton_SpineVine extends SingletonScene {
         constructor() {
             super();
+            this.mStartX = 200;
+            this.mStartY = 500;
+            this.mActionIndex = 0;
+            this.mCurrIndex = 0;
+            this.mCurrSkinIndex = 0;
             Laya.stage.addChild(this);
-            this.drawPentagram();
+            this.startFun();
         }
-        drawPentagram() {
-            var canvas = new Sprite$4();
-            this.addChild(canvas);
-            var path = [];
-            path.push(0, -130);
-            path.push(33, -33);
-            path.push(137, -30);
-            path.push(55, 32);
-            path.push(85, 130);
-            path.push(0, 73);
-            path.push(-85, 130);
-            path.push(-55, 32);
-            path.push(-137, -30);
-            path.push(-33, -33);
-            canvas.graphics.drawPoly(Laya.stage.width / 2, Laya.stage.height / 2, path, "#FF7F50");
+        startFun() {
+            this.mAniPath = "res/spine/spineRes5/vine.sk";
+            this.mFactory = new Templet$3();
+            this.mFactory.on(Event$3.COMPLETE, this, this.parseComplete);
+            this.mFactory.on(Event$3.ERROR, this, this.onError);
+            this.mFactory.loadAni(this.mAniPath);
         }
-    }
-
-    var Sprite$5 = Laya.Sprite;
-    class Sprite_MagnifyingGlass extends SingletonScene {
-        constructor() {
-            super();
-            Laya.stage.addChild(this);
-            this.createApe();
+        onError() {
+            console.log("error");
         }
-        createApe() {
-            var bg = new Sprite$5();
-            bg.loadImage("res/bg2.png");
-            this.addChild(bg);
-            this.bg2 = new Sprite$5();
-            this.bg2.loadImage("res/bg2.png");
-            this.addChild(this.bg2);
-            this.bg2.scale(3, 3);
-            this.maskSp = new Sprite$5();
-            this.maskSp.loadImage("res/mask.png");
-            this.maskSp.pivot(50, 50);
-            this.bg2.mask = this.maskSp;
-            Laya.stage.on("mousemove", this, this.onMouseMove);
+        parseComplete() {
+            this.mArmature = this.mFactory.buildArmature(1);
+            this.mArmature.x = this.mStartX;
+            this.mArmature.y = this.mStartY;
+            this.mArmature.scale(0.5, 0.5);
+            this.addChild(this.mArmature);
+            this.mArmature.on(Event$3.STOPPED, this, this.completeHandler);
+            this.play();
         }
-        onMouseMove() {
-            if (!this.isShow) {
-                return;
+        completeHandler() {
+            this.play();
+        }
+        play() {
+            this.mCurrIndex++;
+            if (this.mCurrIndex >= this.mArmature.getAnimNum()) {
+                this.mCurrIndex = 0;
             }
-            this.bg2.x = -Laya.stage.mouseX * 2;
-            this.bg2.y = -Laya.stage.mouseY * 2;
-            this.maskSp.x = Laya.stage.mouseX;
-            this.maskSp.y = Laya.stage.mouseY;
+            this.mArmature.play(this.mCurrIndex, false);
         }
     }
 
-    var Sprite$6 = Laya.Sprite;
-    class Sprite_DrawShapes extends SingletonScene {
+    var Templet$4 = Laya.Templet;
+    var Event$4 = Laya.Event;
+    class ChangeSkin extends SingletonScene {
         constructor() {
             super();
+            this.mStartX = 400;
+            this.mStartY = 500;
+            this.mActionIndex = 0;
+            this.mCurrIndex = 0;
+            this.mCurrSkinIndex = 0;
+            this.mSkinList = ["goblin", "goblingirl"];
             Laya.stage.addChild(this);
-            this.drawSomething();
+            this.startFun();
         }
-        drawSomething() {
-            this.sp = new Sprite$6();
-            this.addChild(this.sp);
-            this.sp.graphics.drawLine(10, 58, 146, 58, "#ff0000", 3);
-            this.sp.graphics.drawLines(176, 58, [0, 0, 39, -50, 78, 0, 117, 50, 156, 0], "#ff0000", 5);
-            this.sp.graphics.drawCurves(352, 58, [0, 0, 19, -100, 39, 0, 58, 100, 78, 0, 97, -100, 117, 0, 136, 100, 156, 0], "#ff0000", 5);
-            this.sp.graphics.drawRect(10, 166, 166, 90, "#ffff00");
-            this.sp.graphics.drawPoly(264, 166, [0, 0, 60, 0, 78.48, 57, 30, 93.48, -18.48, 57], "#ffff00");
-            this.sp.graphics.drawPoly(400, 166, [0, 100, 50, 0, 100, 100], "#ffff00");
-            this.sp.graphics.drawCircle(98, 332, 50, "#00ffff");
-            this.sp.graphics.drawPie(240, 290, 100, 10, 60, "#00ffff");
-            this.sp.graphics.drawPath(400, 310, [["moveTo", 5, 0], ["lineTo", 105, 0], ["arcTo", 110, 0, 110, 5, 5], ["lineTo", 110, 55], ["arcTo", 110, 60, 105, 60, 5], ["lineTo", 5, 60], ["arcTo", 0, 60, 0, 55, 5], ["lineTo", 0, 5], ["arcTo", 0, 0, 5, 0, 5], ["closePath"]], { fillStyle: "#00ffff" });
+        startFun() {
+            this.mAniPath = "res/spine/spineRes2/goblins.sk";
+            this.mFactory = new Templet$4();
+            this.mFactory.on(Event$4.COMPLETE, this, this.parseComplete);
+            this.mFactory.on(Event$4.ERROR, this, this.onError);
+            this.mFactory.loadAni(this.mAniPath);
+        }
+        onError() {
+            console.log("error");
+        }
+        parseComplete() {
+            this.mArmature = this.mFactory.buildArmature(1);
+            this.mArmature.x = this.mStartX;
+            this.mArmature.y = this.mStartY;
+            this.addChild(this.mArmature);
+            this.mArmature.on(Event$4.STOPPED, this, this.completeHandler);
+            this.play();
+            this.changeSkin();
+            Laya.timer.loop(1000, this, this.changeSkin);
+        }
+        changeSkin() {
+            this.mCurrSkinIndex++;
+            if (this.mCurrSkinIndex >= this.mSkinList.length) {
+                this.mCurrSkinIndex = 0;
+            }
+            this.mArmature.showSkinByName(this.mSkinList[this.mCurrSkinIndex]);
+        }
+        completeHandler() {
+            this.play();
+        }
+        play() {
+            this.mCurrIndex++;
+            if (this.mCurrIndex >= this.mArmature.getAnimNum()) {
+                this.mCurrIndex = 0;
+            }
+            this.mArmature.play(this.mCurrIndex, false);
         }
     }
 
-    var Sprite$7 = Laya.Sprite;
-    var Text = Laya.Text;
-    class Sprite_Cache extends SingletonScene {
-        constructor() {
-            super();
-            Laya.stage.addChild(this);
-            this.createApe();
-        }
-        createApe() {
-            var textBox = new Sprite$7();
-            var text;
-            for (var i = 0; i < 1000; i++) {
-                text = new Text();
-                text.fontSize = 20;
-                text.text = (Math.random() * 100).toFixed(0);
-                text.rotation = Math.random() * 360;
-                text.color = "#CCCCCC";
-                text.x = Math.random() * 600;
-                text.y = Math.random() * 800;
-                textBox.addChild(text);
-            }
-            textBox.cacheAs = "bitmap";
-            this.addChild(textBox);
-        }
-    }
-
-    var Sprite$8 = Laya.Sprite;
-    class Sprite_NodeControl extends SingletonScene {
-        constructor() {
-            super();
-            Laya.stage.addChild(this);
-            this.createApes();
-        }
-        createApes() {
-            this.ape1 = new Sprite$8();
-            this.ape2 = new Sprite$8();
-            this.ape1.loadImage("res/apes/monkey2.png");
-            this.ape2.loadImage("res/apes/monkey2.png");
-            this.ape1.pivot(55, 72);
-            this.ape2.pivot(55, 72);
-            this.ape1.pos(Laya.stage.width / 2, Laya.stage.height / 2);
-            this.ape2.pos(200, 0);
-            this.addChild(this.ape1);
-            this.ape1.addChild(this.ape2);
-            Laya.timer.frameLoop(1, this, this.animate);
-        }
-        animate(e) {
-            this.ape1.rotation += 2;
-            this.ape2.rotation -= 4;
-        }
-    }
-
-    var Sprite$9 = Laya.Sprite;
-    class Sprite_Pivot extends SingletonScene {
-        constructor() {
-            super();
-            Laya.stage.addChild(this);
-            this.createApes();
-        }
-        createApes() {
-            var gap = 300;
-            this.sp1 = new Sprite$9();
-            this.sp1.loadImage("res/apes/monkey2.png");
-            this.sp1.pos((Laya.stage.width - gap) / 2, Laya.stage.height / 2);
-            this.sp1.pivot(55, 72);
-            this.addChild(this.sp1);
-            this.sp2 = new Sprite$9();
-            this.sp2.loadImage("res/apes/monkey2.png");
-            this.sp2.pos((Laya.stage.width + gap) / 2, Laya.stage.height / 2);
-            this.addChild(this.sp2);
-            Laya.timer.frameLoop(1, this, this.animate);
-        }
-        animate(e) {
-            if (!this.isShow) {
-                return;
-            }
-            this.sp1.rotation += 2;
-            this.sp2.rotation += 2;
-        }
-    }
-
-    var Sprite$a = Laya.Sprite;
-    var Handler$2 = Laya.Handler;
-    class Sprite_SwitchTexture extends SingletonScene {
-        constructor() {
-            super();
-            this.texture1 = "res/apes/monkey2.png";
-            this.texture2 = "res/apes/monkey3.png";
-            this.flag = false;
-            Laya.stage.addChild(this);
-            Laya.loader.load([this.texture1, this.texture2], Handler$2.create(this, this.onAssetsLoaded));
-        }
-        onAssetsLoaded() {
-            this.ape = new Sprite$a();
-            this.addChild(this.ape);
-            this.ape.pivot(55, 72);
-            this.ape.pos(Laya.stage.width / 2, Laya.stage.height / 2);
-            this.switchTexture();
-            this.ape.on("click", this, this.switchTexture);
-        }
-        switchTexture() {
-            if (!this.isShow) {
-                return;
-            }
-            var textureUrl = (this.flag = !this.flag) ? this.texture1 : this.texture2;
-            this.ape.graphics.clear();
-            var texture = Laya.loader.getRes(textureUrl);
-            this.ape.graphics.drawTexture(texture, 0, 0);
-            this.ape.size(texture.width, texture.height);
-        }
-    }
-
-    var Sprite$b = Laya.Sprite;
-    var HitArea = Laya.HitArea;
-    class Sprite_Guide extends SingletonScene {
-        constructor() {
-            super();
-            this.guideSteps = [
-                { x: 40, y: 160, radius: 50, tip: "res/guide/help6.png", tipx: 50, tipy: 50 },
-                { x: 220, y: 150, radius: 20, tip: "res/guide/help4.png", tipx: 150, tipy: 100 },
-                { x: 280, y: 150, radius: 30, tip: "res/guide/help3.png", tipx: 200, tipy: 80 }
-            ];
-            this.guideStep = 0;
-            Laya.stage.addChild(this);
-        }
-        firstStep() {
-            this.gameContainer = new Sprite$b();
-            this.gameContainer.loadImage("res/guide/crazy_snowball.png");
-            this.addChild(this.gameContainer);
-            this.guideContainer = new Sprite$b();
-            this.guideContainer.cacheAs = "bitmap";
-            this.addChild(this.guideContainer);
-            this.gameContainer.on("click", this, this.nextStep);
-            var maskArea = new Sprite$b();
-            maskArea.alpha = 0.5;
-            maskArea.graphics.drawRect(0, 0, 321, 181, "#000000");
-            this.guideContainer.addChild(maskArea);
-            this.interactionArea = new Sprite$b();
-            this.interactionArea.blendMode = "destination-out";
-            this.guideContainer.addChild(this.interactionArea);
-            this.hitArea = new HitArea();
-            this.hitArea.hit.drawRect(0, 0, 321, 181, "#000000");
-            this.guideContainer.hitArea = this.hitArea;
-            this.guideContainer.mouseEnabled = true;
-            this.tipContainer = new Sprite$b();
-            this.addChild(this.tipContainer);
-        }
-        nextStep() {
-            if (!this.isShow) {
-                return;
-            }
-            if (this.guideStep == this.guideSteps.length) {
-                this.removeChild(this.guideContainer);
-                this.removeChild(this.tipContainer);
-            }
-            else {
-                var step = this.guideSteps[this.guideStep++];
-                this.hitArea.unHit.clear();
-                this.hitArea.unHit.drawCircle(step.x, step.y, step.radius, "#000000");
-                this.interactionArea.graphics.clear();
-                this.interactionArea.graphics.drawCircle(step.x, step.y, step.radius, "#000000");
-                this.tipContainer.graphics.clear();
-                this.tipContainer.loadImage(step.tip);
-                this.tipContainer.pos(step.tipx, step.tipy);
-            }
-        }
-        Start() {
-            this.firstStep();
-            this.nextStep();
-        }
-        End() {
-            this.removeChild(this.gameContainer);
-            this.removeChild(this.guideContainer);
-            this.removeChild(this.tipContainer);
-            this.guideStep = 0;
-        }
-        Show() {
-            this.visible = true;
-            this.Start();
-        }
-        Hide() {
-            this.visible = false;
-            this.End();
-        }
-    }
-
-    class SpriteMain extends Singleton {
+    class SkeletalAnimationMain extends Singleton {
         constructor() {
             super(...arguments);
             this.btnNameArr = [
-                "显示图片", "屏幕截图", "容器", "旋转缩放", "绘制路径", "遮罩_放大镜",
-                "绘制形状", "缓存静态图像", "节点控制", "轴心点", "切换纹理", "新手引导"
+                "多纹理", "Spine事件", "橡胶人", "藤蔓", "换装"
             ];
         }
         LoadExamples() {
@@ -482,40 +333,19 @@
         _onclick(name) {
             switch (name) {
                 case this.btnNameArr[0]:
-                    Sprite_DisplayImage.getInstance().Click();
+                    MultiTexture.getInstance().Click();
                     break;
                 case this.btnNameArr[1]:
-                    Sprite_ScreenShot.getInstance().Click();
+                    Skeleton_SpineEvent.getInstance().Click();
                     break;
                 case this.btnNameArr[2]:
-                    Sprite_Container.getInstance().Click();
+                    Skeleton_SpineStretchyman.getInstance().Click();
                     break;
                 case this.btnNameArr[3]:
-                    Sprite_RoateAndScale.getInstance().Click();
+                    Skeleton_SpineVine.getInstance().Click();
                     break;
                 case this.btnNameArr[4]:
-                    Sprite_DrawPath.getInstance().Click();
-                    break;
-                case this.btnNameArr[5]:
-                    Sprite_MagnifyingGlass.getInstance().Click();
-                    break;
-                case this.btnNameArr[6]:
-                    Sprite_DrawShapes.getInstance().Click();
-                    break;
-                case this.btnNameArr[7]:
-                    Sprite_Cache.getInstance().Click();
-                    break;
-                case this.btnNameArr[8]:
-                    Sprite_NodeControl.getInstance().Click();
-                    break;
-                case this.btnNameArr[9]:
-                    Sprite_Pivot.getInstance().Click();
-                    break;
-                case this.btnNameArr[10]:
-                    Sprite_SwitchTexture.getInstance().Click();
-                    break;
-                case this.btnNameArr[11]:
-                    Sprite_Guide.getInstance().Click();
+                    ChangeSkin.getInstance().Click();
                     break;
             }
             console.log(name + "按钮_被点击");
@@ -551,7 +381,7 @@
             GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
         }
         LoadExample() {
-            SpriteMain.getInstance().LoadExamples();
+            SkeletalAnimationMain.getInstance().LoadExamples();
         }
     }
     new Main().LoadExample();
