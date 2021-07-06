@@ -63,256 +63,134 @@
         }
     }
 
-    var Templet = Laya.Templet;
-    var Event = Laya.Event;
-    class MultiTexture extends SingletonScene {
-        constructor() {
-            super();
-            this.mStartX = 400;
-            this.mStartY = 500;
-            this.mActionIndex = 0;
-            this.mCurrIndex = 0;
-            this.mCurrSkinIndex = 0;
-            Laya.stage.addChild(this);
-            this.startFun();
-        }
-        startFun() {
-            this.mAniPath = "res/spine/spineRes1/dragon.sk";
-            this.mFactory = new Templet();
-            this.mFactory.on(Event.COMPLETE, this, this.parseComplete);
-            this.mFactory.on(Event.ERROR, this, this.onError);
-            this.mFactory.loadAni(this.mAniPath);
-        }
-        onError() {
-            console.log("error");
-        }
-        parseComplete() {
-            this.mArmature = this.mFactory.buildArmature(1);
-            this.mArmature.x = this.mStartX;
-            this.mArmature.y = this.mStartY;
-            this.mArmature.scale(0.5, 0.5);
-            this.addChild(this.mArmature);
-            this.mArmature.on(Event.STOPPED, this, this.completeHandler);
-            this.play();
-        }
-        completeHandler() {
-            this.play();
-        }
-        play() {
-            this.mCurrIndex++;
-            if (this.mCurrIndex >= this.mArmature.getAnimNum()) {
-                this.mCurrIndex = 0;
-            }
-            this.mArmature.play(this.mCurrIndex, false);
-        }
-    }
-
-    var Templet$1 = Laya.Templet;
     var Sprite = Laya.Sprite;
-    var Event$1 = Laya.Event;
+    var BlurFilter = Laya.BlurFilter;
     var Handler = Laya.Handler;
-    var Tween = Laya.Tween;
-    class Skeleton_SpineEvent extends SingletonScene {
+    class Filters_Blur extends SingletonScene {
         constructor() {
             super();
-            this.mStartX = 400;
-            this.mStartY = 500;
-            this.mActionIndex = 0;
-            this.mCurrIndex = 0;
-            this.mCurrSkinIndex = 0;
+            this.apePath = "res/apes/monkey2.png";
             Laya.stage.addChild(this);
-            this.mLabelSprite = new Sprite();
-            this.startFun();
+            Laya.loader.load(this.apePath, Handler.create(this, this.createApe));
         }
-        startFun() {
-            this.mAniPath = "res/spine/spineRes6/alien.sk";
-            this.mFactory = new Templet$1();
-            this.mFactory.on(Event$1.COMPLETE, this, this.parseComplete);
-            this.mFactory.on(Event$1.ERROR, this, this.onError);
-            this.mFactory.loadAni(this.mAniPath);
+        createApe() {
+            var ape = new Sprite();
+            ape.loadImage(this.apePath);
+            ape.x = (Laya.stage.width - ape.width) / 2;
+            ape.y = (Laya.stage.height - ape.height) / 2;
+            this.addChild(ape);
+            this.applayFilter(ape);
         }
-        onError() {
-            console.log("error");
+        applayFilter(ape) {
+            var blurFilter = new BlurFilter();
+            blurFilter.strength = 5;
+            ape.filters = [blurFilter];
         }
-        parseComplete() {
-            this.mArmature = this.mFactory.buildArmature(1);
-            this.mArmature.x = this.mStartX;
-            this.mArmature.y = this.mStartY;
-            this.mArmature.scale(0.5, 0.5);
-            this.addChild(this.mArmature);
-            this.mArmature.on(Event$1.LABEL, this, this.onEvent);
-            this.mArmature.on(Event$1.STOPPED, this, this.completeHandler);
-            this.play();
+        Show() {
+            this.visible = true;
         }
-        completeHandler() {
-            this.play();
-        }
-        play() {
-            this.mCurrIndex++;
-            if (this.mCurrIndex >= this.mArmature.getAnimNum()) {
-                this.mCurrIndex = 0;
-            }
-            this.mArmature.play(this.mCurrIndex, false);
-        }
-        onEvent(e) {
-            var tEventData = e;
-            this.addChild(this.mLabelSprite);
-            this.mLabelSprite.x = this.mStartX;
-            this.mLabelSprite.y = this.mStartY;
-            this.mLabelSprite.graphics.clear();
-            this.mLabelSprite.graphics.fillText(tEventData.name, 0, 0, "20px Arial", "#ff0000", "center");
-            Tween.to(this.mLabelSprite, { y: this.mStartY - 200 }, 1000, null, Handler.create(this, this.playEnd));
-        }
-        playEnd() {
-            this.mLabelSprite.removeSelf();
+        Hide() {
+            this.visible = false;
         }
     }
 
-    var Templet$2 = Laya.Templet;
-    var Event$2 = Laya.Event;
-    class Skeleton_SpineStretchyman extends SingletonScene {
+    var Sprite$1 = Laya.Sprite;
+    var ColorFilter = Laya.ColorFilter;
+    var Handler$1 = Laya.Handler;
+    class Filters_Color extends SingletonScene {
         constructor() {
             super();
-            this.mStartX = 200;
-            this.mStartY = 500;
-            this.mActionIndex = 0;
-            this.mCurrIndex = 0;
-            this.mCurrSkinIndex = 0;
+            this.ApePath = "res/apes/monkey2.png";
             Laya.stage.addChild(this);
-            this.startFun();
+            Laya.loader.load(this.ApePath, Handler$1.create(this, this.setup));
         }
-        startFun() {
-            this.mAniPath = "res/spine/spineRes4/stretchyman.sk";
-            this.mFactory = new Templet$2();
-            this.mFactory.on(Event$2.COMPLETE, this, this.parseComplete);
-            this.mFactory.on(Event$2.ERROR, this, this.onError);
-            this.mFactory.loadAni(this.mAniPath);
+        setup() {
+            this.normalizeApe();
+            this.makeRedApe();
+            this.grayingApe();
         }
-        onError() {
-            console.log("error");
+        normalizeApe() {
+            var originalApe = this.createApe();
+            this.apeTexture = Laya.loader.getRes(this.ApePath);
+            originalApe.x = (Laya.stage.width - this.apeTexture.width * 3) / 2;
+            originalApe.y = (Laya.stage.height - this.apeTexture.height) / 2;
         }
-        parseComplete() {
-            this.mArmature = this.mFactory.buildArmature(1);
-            this.mArmature.x = this.mStartX;
-            this.mArmature.y = this.mStartY;
-            this.addChild(this.mArmature);
-            this.mArmature.on(Event$2.STOPPED, this, this.completeHandler);
-            this.play();
+        makeRedApe() {
+            var redMat = [
+                1, 0, 0, 0, 0,
+                0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0,
+                0, 0, 0, 1, 0,
+            ];
+            var redFilter = new ColorFilter(redMat);
+            var redApe = this.createApe();
+            redApe.filters = [redFilter];
+            var firstChild = this.getChildAt(0);
+            redApe.x = firstChild.x + this.apeTexture.width;
+            redApe.y = firstChild.y;
         }
-        completeHandler() {
-            this.play();
+        grayingApe() {
+            var grayscaleMat = [0.3086, 0.6094, 0.0820, 0, 0, 0.3086, 0.6094, 0.0820, 0, 0, 0.3086, 0.6094, 0.0820, 0, 0, 0, 0, 0, 1, 0];
+            var grayscaleFilter = new ColorFilter(grayscaleMat);
+            var grayApe = this.createApe();
+            grayApe.filters = [grayscaleFilter];
+            var secondChild = this.getChildAt(1);
+            grayApe.x = secondChild.x + this.apeTexture.width;
+            grayApe.y = secondChild.y;
         }
-        play() {
-            this.mCurrIndex++;
-            if (this.mCurrIndex >= this.mArmature.getAnimNum()) {
-                this.mCurrIndex = 0;
-            }
-            this.mArmature.play(this.mCurrIndex, false);
+        createApe() {
+            var ape = new Sprite$1();
+            ape.loadImage("res/apes/monkey2.png");
+            this.addChild(ape);
+            return ape;
+        }
+        Show() {
+            this.visible = true;
+        }
+        Hide() {
+            this.visible = false;
         }
     }
 
-    var Templet$3 = Laya.Templet;
-    var Event$3 = Laya.Event;
-    class Skeleton_SpineVine extends SingletonScene {
+    var Sprite$2 = Laya.Sprite;
+    var GlowFilter = Laya.GlowFilter;
+    var Handler$2 = Laya.Handler;
+    class Filters_Glow extends SingletonScene {
         constructor() {
             super();
-            this.mStartX = 200;
-            this.mStartY = 500;
-            this.mActionIndex = 0;
-            this.mCurrIndex = 0;
-            this.mCurrSkinIndex = 0;
+            this.apePath = "res/apes/monkey2.png";
             Laya.stage.addChild(this);
-            this.startFun();
+            Laya.loader.load(this.apePath, Handler$2.create(this, this.setup));
         }
-        startFun() {
-            this.mAniPath = "res/spine/spineRes5/vine.sk";
-            this.mFactory = new Templet$3();
-            this.mFactory.on(Event$3.COMPLETE, this, this.parseComplete);
-            this.mFactory.on(Event$3.ERROR, this, this.onError);
-            this.mFactory.loadAni(this.mAniPath);
+        setup() {
+            this.createApe();
+            this.applayFilter();
         }
-        onError() {
-            console.log("error");
+        createApe() {
+            this.ape = new Sprite$2();
+            this.ape.loadImage(this.apePath);
+            var texture = Laya.loader.getRes(this.apePath);
+            this.ape.x = (600 - texture.width) / 2;
+            this.ape.y = (800 - texture.height) / 2;
+            this.addChild(this.ape);
         }
-        parseComplete() {
-            this.mArmature = this.mFactory.buildArmature(1);
-            this.mArmature.x = this.mStartX;
-            this.mArmature.y = this.mStartY;
-            this.mArmature.scale(0.5, 0.5);
-            this.addChild(this.mArmature);
-            this.mArmature.on(Event$3.STOPPED, this, this.completeHandler);
-            this.play();
+        applayFilter() {
+            var glowFilter = new GlowFilter("#ffff00", 10, 0, 0);
+            this.ape.filters = [glowFilter];
         }
-        completeHandler() {
-            this.play();
+        Show() {
+            this.visible = true;
         }
-        play() {
-            this.mCurrIndex++;
-            if (this.mCurrIndex >= this.mArmature.getAnimNum()) {
-                this.mCurrIndex = 0;
-            }
-            this.mArmature.play(this.mCurrIndex, false);
+        Hide() {
+            this.visible = false;
         }
     }
 
-    var Templet$4 = Laya.Templet;
-    var Event$4 = Laya.Event;
-    class ChangeSkin extends SingletonScene {
-        constructor() {
-            super();
-            this.mStartX = 400;
-            this.mStartY = 500;
-            this.mActionIndex = 0;
-            this.mCurrIndex = 0;
-            this.mCurrSkinIndex = 0;
-            this.mSkinList = ["goblin", "goblingirl"];
-            Laya.stage.addChild(this);
-            this.startFun();
-        }
-        startFun() {
-            this.mAniPath = "res/spine/spineRes2/goblins.sk";
-            this.mFactory = new Templet$4();
-            this.mFactory.on(Event$4.COMPLETE, this, this.parseComplete);
-            this.mFactory.on(Event$4.ERROR, this, this.onError);
-            this.mFactory.loadAni(this.mAniPath);
-        }
-        onError() {
-            console.log("error");
-        }
-        parseComplete() {
-            this.mArmature = this.mFactory.buildArmature(1);
-            this.mArmature.x = this.mStartX;
-            this.mArmature.y = this.mStartY;
-            this.addChild(this.mArmature);
-            this.mArmature.on(Event$4.STOPPED, this, this.completeHandler);
-            this.play();
-            this.changeSkin();
-            Laya.timer.loop(1000, this, this.changeSkin);
-        }
-        changeSkin() {
-            this.mCurrSkinIndex++;
-            if (this.mCurrSkinIndex >= this.mSkinList.length) {
-                this.mCurrSkinIndex = 0;
-            }
-            this.mArmature.showSkinByName(this.mSkinList[this.mCurrSkinIndex]);
-        }
-        completeHandler() {
-            this.play();
-        }
-        play() {
-            this.mCurrIndex++;
-            if (this.mCurrIndex >= this.mArmature.getAnimNum()) {
-                this.mCurrIndex = 0;
-            }
-            this.mArmature.play(this.mCurrIndex, false);
-        }
-    }
-
-    class SkeletalAnimationMain extends Singleton {
+    class FiltersMain extends Singleton {
         constructor() {
             super(...arguments);
             this.btnNameArr = [
-                "多纹理", "Spine事件", "橡胶人", "藤蔓", "换装"
+                "发光滤镜", "模糊滤镜", "颜色滤镜"
             ];
         }
         LoadExamples() {
@@ -333,19 +211,13 @@
         _onclick(name) {
             switch (name) {
                 case this.btnNameArr[0]:
-                    MultiTexture.getInstance().Click();
+                    Filters_Glow.getInstance().Click();
                     break;
                 case this.btnNameArr[1]:
-                    Skeleton_SpineEvent.getInstance().Click();
+                    Filters_Blur.getInstance().Click();
                     break;
                 case this.btnNameArr[2]:
-                    Skeleton_SpineStretchyman.getInstance().Click();
-                    break;
-                case this.btnNameArr[3]:
-                    Skeleton_SpineVine.getInstance().Click();
-                    break;
-                case this.btnNameArr[4]:
-                    ChangeSkin.getInstance().Click();
+                    Filters_Color.getInstance().Click();
                     break;
             }
             console.log(name + "按钮_被点击");
@@ -381,7 +253,7 @@
             GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
         }
         LoadExample() {
-            SkeletalAnimationMain.getInstance().LoadExamples();
+            FiltersMain.getInstance().LoadExamples();
         }
     }
     new Main().LoadExample();

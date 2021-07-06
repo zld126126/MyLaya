@@ -10,6 +10,7 @@ window.screenOrientation = "portrait";
 //-----libs-begin-----
 loadLib("libs/laya.core.js")
 loadLib("libs/laya.ani.js")
+loadLib("libs/laya.tiledmap.js")
 loadLib("libs/laya.ui.js")
 loadLib("libs/laya.physics.js")
 //-----libs-end-------

@@ -2,6 +2,10 @@ import GameConfig from "./GameConfig";
 import { SpriteMain } from "./Sprite/SpriteMain";
 import { AnimationMain } from "./Animation/AnimationMain";
 import { SkeletalAnimationMain } from "./SkeletalAnimation/SkeletalAnimationMain";
+import { BlendMode_Lighter } from "./BlendMode/BlendMode_Lighter";
+import { BlendModeMain } from "./BlendMode/BlendModeMain";
+import { TiledMapMain } from "./TiledMap/TiledMapMain";
+import { FiltersMain } from "./Filters/FiltersMain";
 class Main {
 	constructor() {
 		//根据IDE设置初始化引擎		
@@ -40,7 +44,10 @@ class Main {
 	public LoadExample() {
 		//SpriteMain.getInstance().LoadExamples();
 		//AnimationMain.getInstance().LoadExamples();
-		SkeletalAnimationMain.getInstance().LoadExamples();
+		//SkeletalAnimationMain.getInstance().LoadExamples();
+		//BlendModeMain.getInstance().LoadExamples();
+		//TiledMapMain.getInstance().LoadExamples();
+		FiltersMain.getInstance().LoadExamples();
 	}
 }
 
