@@ -6,6 +6,8 @@ import { BlendMode_Lighter } from "./BlendMode/BlendMode_Lighter";
 import { BlendModeMain } from "./BlendMode/BlendModeMain";
 import { TiledMapMain } from "./TiledMap/TiledMapMain";
 import { FiltersMain } from "./Filters/FiltersMain";
+import { ParticleMain } from "./Particle/ParticleMain";
+import { SoundMain } from "./Sound/SoundMain";
 class Main {
 	constructor() {
 		//根据IDE设置初始化引擎		
@@ -47,7 +49,9 @@ class Main {
 		//SkeletalAnimationMain.getInstance().LoadExamples();
 		//BlendModeMain.getInstance().LoadExamples();
 		//TiledMapMain.getInstance().LoadExamples();
-		FiltersMain.getInstance().LoadExamples();
+		//FiltersMain.getInstance().LoadExamples();
+		//ParticleMain.getInstance().LoadExamples();
+		SoundMain.getInstance().LoadExamples();
 	}
 }
 

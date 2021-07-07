@@ -64,133 +64,64 @@
     }
 
     var Sprite = Laya.Sprite;
-    var BlurFilter = Laya.BlurFilter;
+    var Event = Laya.Event;
+    var SoundManager = Laya.SoundManager;
     var Handler = Laya.Handler;
-    class Filters_Blur extends SingletonScene {
+    class Sound_SimpleDemo extends SingletonScene {
         constructor() {
             super();
-            this.apePath = "res/apes/monkey2.png";
             Laya.stage.addChild(this);
-            Laya.loader.load(this.apePath, Handler.create(this, this.createApe));
-        }
-        createApe() {
-            var ape = new Sprite();
-            ape.loadImage(this.apePath);
-            ape.x = (Laya.stage.width - ape.width) / 2;
-            ape.y = (Laya.stage.height - ape.height) / 2;
-            this.addChild(ape);
-            this.applayFilter(ape);
-        }
-        applayFilter(ape) {
-            var blurFilter = new BlurFilter();
-            blurFilter.strength = 5;
-            ape.filters = [blurFilter];
-        }
-        Show() {
-            this.visible = true;
-        }
-        Hide() {
-            this.visible = false;
-        }
-    }
-
-    var Sprite$1 = Laya.Sprite;
-    var ColorFilter = Laya.ColorFilter;
-    var Handler$1 = Laya.Handler;
-    class Filters_Color extends SingletonScene {
-        constructor() {
-            super();
-            this.ApePath = "res/apes/monkey2.png";
-            Laya.stage.addChild(this);
-            Laya.loader.load(this.ApePath, Handler$1.create(this, this.setup));
+            this.setup();
         }
         setup() {
-            this.normalizeApe();
-            this.makeRedApe();
-            this.grayingApe();
+            var gap = 10;
+            var soundButton = this.createButton("播放音效");
+            soundButton.x = (Laya.stage.width - soundButton.width * 2 + gap) / 2;
+            soundButton.y = (Laya.stage.height - soundButton.height) / 2;
+            this.addChild(soundButton);
+            var musicButton = this.createButton("播放音乐");
+            musicButton.x = soundButton.x + gap + soundButton.width;
+            musicButton.y = soundButton.y;
+            this.addChild(musicButton);
+            soundButton.on(Event.CLICK, this, this.onPlaySound);
+            musicButton.on(Event.CLICK, this, this.onPlayMusic);
         }
-        normalizeApe() {
-            var originalApe = this.createApe();
-            this.apeTexture = Laya.loader.getRes(this.ApePath);
-            originalApe.x = (Laya.stage.width - this.apeTexture.width * 3) / 2;
-            originalApe.y = (Laya.stage.height - this.apeTexture.height) / 2;
+        createButton(label) {
+            var w = 110;
+            var h = 40;
+            var button = new Sprite();
+            button.size(w, h);
+            button.graphics.drawRect(0, 0, w, h, "#FF7F50");
+            button.graphics.fillText(label, w / 2, 8, "25px SimHei", "#FFFFFF", "center");
+            this.addChild(button);
+            return button;
         }
-        makeRedApe() {
-            var redMat = [
-                1, 0, 0, 0, 0,
-                0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0,
-                0, 0, 0, 1, 0,
-            ];
-            var redFilter = new ColorFilter(redMat);
-            var redApe = this.createApe();
-            redApe.filters = [redFilter];
-            var firstChild = this.getChildAt(0);
-            redApe.x = firstChild.x + this.apeTexture.width;
-            redApe.y = firstChild.y;
+        onPlayMusic(e) {
+            console.log("播放音乐");
+            SoundManager.playMusic("res/sounds/bgm.mp3", 1, new Handler(this, this.onComplete));
         }
-        grayingApe() {
-            var grayscaleMat = [0.3086, 0.6094, 0.0820, 0, 0, 0.3086, 0.6094, 0.0820, 0, 0, 0.3086, 0.6094, 0.0820, 0, 0, 0, 0, 0, 1, 0];
-            var grayscaleFilter = new ColorFilter(grayscaleMat);
-            var grayApe = this.createApe();
-            grayApe.filters = [grayscaleFilter];
-            var secondChild = this.getChildAt(1);
-            grayApe.x = secondChild.x + this.apeTexture.width;
-            grayApe.y = secondChild.y;
+        onPlaySound(e) {
+            console.log("播放音效");
+            SoundManager.playSound("res/sounds/btn.mp3", 1, new Handler(this, this.onComplete));
         }
-        createApe() {
-            var ape = new Sprite$1();
-            ape.loadImage("res/apes/monkey2.png");
-            this.addChild(ape);
-            return ape;
+        onComplete() {
+            console.log("播放完成");
         }
         Show() {
             this.visible = true;
         }
         Hide() {
+            SoundManager.stopSound("res/sounds/btn.mp3");
+            SoundManager.stopSound("res/sounds/bgm.mp3");
             this.visible = false;
         }
     }
 
-    var Sprite$2 = Laya.Sprite;
-    var GlowFilter = Laya.GlowFilter;
-    var Handler$2 = Laya.Handler;
-    class Filters_Glow extends SingletonScene {
-        constructor() {
-            super();
-            this.apePath = "res/apes/monkey2.png";
-            Laya.stage.addChild(this);
-            Laya.loader.load(this.apePath, Handler$2.create(this, this.setup));
-        }
-        setup() {
-            this.createApe();
-            this.applayFilter();
-        }
-        createApe() {
-            this.ape = new Sprite$2();
-            this.ape.loadImage(this.apePath);
-            var texture = Laya.loader.getRes(this.apePath);
-            this.ape.x = (600 - texture.width) / 2;
-            this.ape.y = (800 - texture.height) / 2;
-            this.addChild(this.ape);
-        }
-        applayFilter() {
-            var glowFilter = new GlowFilter("#ffff00", 10, 0, 0);
-            this.ape.filters = [glowFilter];
-        }
-        Show() {
-            this.visible = true;
-        }
-        Hide() {
-            this.visible = false;
-        }
-    }
-
-    class FiltersMain extends Singleton {
+    class SoundMain extends Singleton {
         constructor() {
             super(...arguments);
             this.btnNameArr = [
-                "发光滤镜", "模糊滤镜", "颜色滤镜"
+                "音效演示",
             ];
         }
         LoadExamples() {
@@ -211,13 +142,7 @@
         _onclick(name) {
             switch (name) {
                 case this.btnNameArr[0]:
-                    Filters_Glow.getInstance().Click();
-                    break;
-                case this.btnNameArr[1]:
-                    Filters_Blur.getInstance().Click();
-                    break;
-                case this.btnNameArr[2]:
-                    Filters_Color.getInstance().Click();
+                    Sound_SimpleDemo.getInstance().Click();
                     break;
             }
             console.log(name + "按钮_被点击");
@@ -253,7 +178,7 @@
             GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
         }
         LoadExample() {
-            FiltersMain.getInstance().LoadExamples();
+            SoundMain.getInstance().LoadExamples();
         }
     }
     new Main().LoadExample();
