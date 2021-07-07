@@ -24,7 +24,6 @@
     class SingletonMainScene extends Laya.Scene {
         constructor() {
             super();
-            this.isShow = false;
         }
         static getInstance() {
             if (!this.instance) {

@@ -5,9 +5,7 @@ export default abstract class SingletonMainScene extends Laya.Scene {
     constructor() {
         super();
     }
-
-    // 是否展示
-    public isShow: boolean = false;
+    
     /**
      *
      * @param this 单例
