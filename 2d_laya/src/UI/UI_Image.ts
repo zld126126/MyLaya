@@ -11,6 +11,6 @@ export class UI_Image extends SingletonScene {
     private setup(): void {
         var dialog: Image = new Image("res/ui/dialog (3).png");
         dialog.pos(165, 62.5);
-        Laya.stage.addChild(dialog);
+        this.addChild(dialog);
     }
 }

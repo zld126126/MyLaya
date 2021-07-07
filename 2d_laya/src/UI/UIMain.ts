@@ -19,7 +19,6 @@ import { UI_Tab } from "./UI_Tab";
 import { UI_TextArea } from "./UI_TextArea";
 import { UI_Tree } from "./UI_Tree";
 
-// TODO:等待下载res资源
 export class UIMain extends SingletonMainScene {
     constructor() {
         super();

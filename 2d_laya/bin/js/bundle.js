@@ -2316,15 +2316,35 @@
             Laya.loader.load(this.assets, Handler$j.create(this, this.onSkinLoadComplete));
         }
         onSkinLoadComplete() {
-            var dialog = new Dialog();
+            this.dialog = new Dialog();
+            this.addChild(this.dialog);
             var bg = new Image$1(this.assets[0]);
-            dialog.addChild(bg);
+            this.dialog.addChild(bg);
             var button = new Button$3(this.assets[1]);
-            button.name = Dialog.CLOSE;
             button.pos(this.DIALOG_WIDTH - this.CLOSE_BTN_WIDTH - this.CLOSE_BTN_PADDING, this.CLOSE_BTN_PADDING);
-            dialog.addChild(button);
-            dialog.dragArea = "0,0," + this.DIALOG_WIDTH + "," + this.DIALOG_HEIGHT;
-            dialog.show();
+            button.on(Laya.Event.CLICK, this, this.DialogHide);
+            this.dialog.addChild(button);
+            this.dialog.dragArea = "0,0," + this.DIALOG_WIDTH + "," + this.DIALOG_HEIGHT;
+            this.dialog.show();
+        }
+        DialogHide() {
+            if (!this.isShow) {
+                return;
+            }
+            this.dialog.visible = false;
+            ;
+        }
+        Show() {
+            this.visible = true;
+            if (this.dialog) {
+                this.dialog.visible = true;
+            }
+        }
+        Hide() {
+            this.visible = false;
+            if (this.dialog) {
+                this.dialog.visible = false;
+            }
         }
     }
 
@@ -2385,7 +2405,7 @@
         setup() {
             var dialog = new Image$2("res/ui/dialog (3).png");
             dialog.pos(165, 62.5);
-            Laya.stage.addChild(dialog);
+            this.addChild(dialog);
         }
     }
 
@@ -2527,11 +2547,17 @@
             Laya.timer.loop(100, this, this.changeValue);
         }
         changeValue() {
+            if (!this.isShow) {
+                return;
+            }
             if (this.progressBar.value >= 1)
                 this.progressBar.value = 0;
             this.progressBar.value += 0.05;
         }
         onChange(value) {
+            if (!this.isShow) {
+                return;
+            }
             console.log("进度：" + Math.floor(value * 100) + "%");
         }
     }

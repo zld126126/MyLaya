@@ -5,6 +5,7 @@ import Image = Laya.Image;
 import Handler = Laya.Handler;
 
 export class UI_Dialog extends SingletonScene {
+    private dialog: Dialog;
     private DIALOG_WIDTH: number = 220;
     private DIALOG_HEIGHT: number = 275;
     private CLOSE_BTN_WIDTH: number = 43;
@@ -20,17 +21,40 @@ export class UI_Dialog extends SingletonScene {
     }
 
     private onSkinLoadComplete(): void {
-        var dialog: Dialog = new Dialog();
+        this.dialog = new Dialog();
+        this.addChild(this.dialog);
 
         var bg: Image = new Image(this.assets[0]);
-        dialog.addChild(bg);
+        this.dialog.addChild(bg);
 
         var button: Button = new Button(this.assets[1]);
-        button.name = Dialog.CLOSE;
+        //button.name = Dialog.CLOSE;
         button.pos(this.DIALOG_WIDTH - this.CLOSE_BTN_WIDTH - this.CLOSE_BTN_PADDING, this.CLOSE_BTN_PADDING);
-        dialog.addChild(button);
+        button.on(Laya.Event.CLICK, this, this.DialogHide);
+        this.dialog.addChild(button);
 
-        dialog.dragArea = "0,0," + this.DIALOG_WIDTH + "," + this.DIALOG_HEIGHT;
-        dialog.show();
+        this.dialog.dragArea = "0,0," + this.DIALOG_WIDTH + "," + this.DIALOG_HEIGHT;
+        this.dialog.show();
+    }
+
+    public DialogHide() {
+        if (!this.isShow) {
+            return;
+        }
+        this.dialog.visible = false;;
+    }
+
+    public Show() {
+        this.visible = true;
+        if (this.dialog) {
+            this.dialog.visible = true;
+        }
+    }
+
+    public Hide() {
+        this.visible = false;
+        if (this.dialog) {
+            this.dialog.visible = false;
+        }
     }
 }

@@ -27,13 +27,18 @@ export class UI_ProgressBar extends SingletonScene {
     }
 
     private changeValue(): void {
-
+        if (!this.isShow) {
+            return;
+        }
         if (this.progressBar.value >= 1)
             this.progressBar.value = 0;
         this.progressBar.value += 0.05;
     }
 
     private onChange(value: number): void {
+        if (!this.isShow) {
+            return;
+        }
         console.log("进度：" + Math.floor(value * 100) + "%");
     }
 }
