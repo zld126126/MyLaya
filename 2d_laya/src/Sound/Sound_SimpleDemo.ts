@@ -60,10 +60,6 @@ export class Sound_SimpleDemo extends SingletonScene {
         console.log("播放完成");
     }
 
-    public Show() {
-        this.visible = true;
-    }
-
     public Hide() {
         SoundManager.stopSound("res/sounds/btn.mp3");
         SoundManager.stopSound("res/sounds/bgm.mp3");

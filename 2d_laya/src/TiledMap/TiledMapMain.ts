@@ -1,12 +1,20 @@
-import Singleton from "../Singleton";
+import { EventManager, EventType } from "../EventManager";
+import SingletonMainScene from "../SingletonMainScene";
 import { TiledMap_AnimationTile } from "./TiledMap_AnimationTile";
 import { TiledMap_IsometricWorld } from "./TiledMap_IsometricWorld";
 import { TiledMap_PerspectiveWall } from "./TiledMap_PerspectiveWall";
 import { TiledMap_SimpleDemo } from "./TiledMap_SimpleDemo";
 
-export class TiledMapMain extends Singleton {
+export class TiledMapMain extends SingletonMainScene {
+    constructor() {
+        super();
+        Laya.stage.addChild(this);
+        this.LoadExamples();
+    }
+
+
     private btnNameArr: Array<string> = [
-        "带动画的地图", "等角地图", "区块地图", "滚动地图"];
+        "返回主页","带动画的地图", "等角地图", "区块地图", "滚动地图"];
 
     // 加载例子
     LoadExamples() {
@@ -24,13 +32,13 @@ export class TiledMapMain extends Singleton {
      */
     private createButton(name: string, cb: Function, index: number, skin: string = "res/threeDimen/ui/button.png"): Laya.Button {
         var btn: Laya.Button = new Laya.Button(skin, name);
-        // todo 等待后期优化 一个界面一个
-        Laya.stage.addChild(btn);
         btn.on(Laya.Event.CLICK, this, cb, [name]);
+        btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
         btn.size(50, 20);
         btn.name = name;
         btn.right = 5;
         btn.top = index * (btn.height + 5);
+        this.addChild(btn);
         return btn;
     }
 
@@ -38,15 +46,19 @@ export class TiledMapMain extends Singleton {
     private _onclick(name: string) {
         switch (name) {
             case this.btnNameArr[0]:
-                TiledMap_AnimationTile.getInstance().Click();
+                this.Hide();
+                EventManager.DispatchEvent(EventType.BACKTOMAIN);
                 break;
             case this.btnNameArr[1]:
-                TiledMap_IsometricWorld.getInstance().Click();
+                TiledMap_AnimationTile.getInstance().Click();
                 break;
             case this.btnNameArr[2]:
-                TiledMap_PerspectiveWall.getInstance().Click();
+                TiledMap_IsometricWorld.getInstance().Click();
                 break;
             case this.btnNameArr[3]:
+                TiledMap_PerspectiveWall.getInstance().Click();
+                break;
+            case this.btnNameArr[4]:
                 TiledMap_SimpleDemo.getInstance().Click();
                 break;
         }

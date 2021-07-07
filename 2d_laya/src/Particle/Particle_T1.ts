@@ -23,12 +23,4 @@ export class Particle_T1 extends SingletonScene {
         this.sp.x = Laya.stage.width / 2;
         this.sp.y = Laya.stage.height / 2;
     }
-
-    public Show(){
-        this.visible = true;
-    }
-
-    public Hide(){
-        this.visible = false;
-    }
 }

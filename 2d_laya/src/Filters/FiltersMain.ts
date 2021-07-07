@@ -1,11 +1,19 @@
-import Singleton from "../Singleton";
+import SingletonMainScene from "../SingletonMainScene";
 import { Filters_Blur } from "./Filters_Blur";
 import { Filters_Color } from "./Filters_Color";
 import { Filters_Glow } from "./Filters_Glow";
+import { EventManager, EventType } from "../EventManager";
 
-export class FiltersMain extends Singleton {
+export class FiltersMain extends SingletonMainScene {
+    constructor() {
+        super();
+        Laya.stage.addChild(this);
+        this.LoadExamples();
+    }
+
+
     private btnNameArr: Array<string> = [
-        "发光滤镜", "模糊滤镜", "颜色滤镜"];
+        "返回主页","发光滤镜", "模糊滤镜", "颜色滤镜"];
 
     // 加载例子
     LoadExamples() {
@@ -23,13 +31,13 @@ export class FiltersMain extends Singleton {
      */
     private createButton(name: string, cb: Function, index: number, skin: string = "res/threeDimen/ui/button.png"): Laya.Button {
         var btn: Laya.Button = new Laya.Button(skin, name);
-        // todo 等待后期优化 一个界面一个
-        Laya.stage.addChild(btn);
         btn.on(Laya.Event.CLICK, this, cb, [name]);
+        btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
         btn.size(50, 20);
         btn.name = name;
         btn.right = 5;
         btn.top = index * (btn.height + 5);
+        this.addChild(btn);
         return btn;
     }
 
@@ -37,12 +45,16 @@ export class FiltersMain extends Singleton {
     private _onclick(name: string) {
         switch (name) {
             case this.btnNameArr[0]:
-                Filters_Glow.getInstance().Click();
+                this.Hide();
+                EventManager.DispatchEvent(EventType.BACKTOMAIN);
                 break;
             case this.btnNameArr[1]:
-                Filters_Blur.getInstance().Click();
+                Filters_Glow.getInstance().Click();
                 break;
             case this.btnNameArr[2]:
+                Filters_Blur.getInstance().Click();
+                break;
+            case this.btnNameArr[3]:
                 Filters_Color.getInstance().Click();
                 break;
         }

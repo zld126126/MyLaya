@@ -74,12 +74,4 @@ export class Filters_Color extends SingletonScene {
 
         return ape;
     }
-
-    public Show() {
-        this.visible = true;
-    }
-
-    public Hide() {
-        this.visible = false;
-    }
 }

@@ -28,12 +28,4 @@ export class Filters_Blur extends SingletonScene {
         blurFilter.strength = 5;
         ape.filters = [blurFilter];
     }
-
-    public Show() {
-        this.visible = true;
-    }
-
-    public Hide() {
-        this.visible = false;
-    }
 }

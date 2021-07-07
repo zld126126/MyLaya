@@ -1,0 +1,39 @@
+import SingletonScene from "../SingletonScene";
+import ProgressBar = Laya.ProgressBar;
+import Handler = Laya.Handler;
+
+export class UI_ProgressBar extends SingletonScene {
+    private progressBar: ProgressBar;
+
+    constructor() {
+        super();
+        Laya.stage.addChild(this);
+        Laya.loader.load(["res/ui/progressBar.png", "res/ui/progressBar$bar.png"], Handler.create(this, this.onLoadComplete));
+    }
+
+    private onLoadComplete(): void {
+        this.progressBar = new ProgressBar("res/ui/progressBar.png");
+
+        this.progressBar.width = 400;
+
+        this.progressBar.x = (Laya.stage.width - this.progressBar.width) / 2;
+        this.progressBar.y = Laya.stage.height / 2;
+
+        this.progressBar.sizeGrid = "5,5,5,5";
+        this.progressBar.changeHandler = new Handler(this, this.onChange);
+        this.addChild(this.progressBar);
+
+        Laya.timer.loop(100, this, this.changeValue);
+    }
+
+    private changeValue(): void {
+
+        if (this.progressBar.value >= 1)
+            this.progressBar.value = 0;
+        this.progressBar.value += 0.05;
+    }
+
+    private onChange(value: number): void {
+        console.log("进度：" + Math.floor(value * 100) + "%");
+    }
+}

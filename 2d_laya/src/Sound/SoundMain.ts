@@ -1,9 +1,17 @@
-import Singleton from "../Singleton";
+import { EventManager, EventType } from "../EventManager";
+import SingletonMainScene from "../SingletonMainScene";
 import { Sound_SimpleDemo } from "./Sound_SimpleDemo";
 
-export class SoundMain extends Singleton {
+export class SoundMain extends SingletonMainScene {
+    constructor() {
+        super();
+        Laya.stage.addChild(this);
+        this.LoadExamples();
+    }
+
+
     private btnNameArr: Array<string> = [
-        "音效演示",];
+        "返回主页","音效演示",];
 
     // 加载例子
     LoadExamples() {
@@ -21,13 +29,13 @@ export class SoundMain extends Singleton {
      */
     private createButton(name: string, cb: Function, index: number, skin: string = "res/threeDimen/ui/button.png"): Laya.Button {
         var btn: Laya.Button = new Laya.Button(skin, name);
-        // todo 等待后期优化 一个界面一个
-        Laya.stage.addChild(btn);
         btn.on(Laya.Event.CLICK, this, cb, [name]);
+        btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
         btn.size(50, 20);
         btn.name = name;
         btn.right = 5;
         btn.top = index * (btn.height + 5);
+        this.addChild(btn);
         return btn;
     }
 
@@ -35,6 +43,10 @@ export class SoundMain extends Singleton {
     private _onclick(name: string) {
         switch (name) {
             case this.btnNameArr[0]:
+                this.Hide();
+                EventManager.DispatchEvent(EventType.BACKTOMAIN);
+                break;
+            case this.btnNameArr[1]:
                 Sound_SimpleDemo.getInstance().Click();
                 break;
         }

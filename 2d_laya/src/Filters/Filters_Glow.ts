@@ -37,12 +37,4 @@ export class Filters_Glow extends SingletonScene {
         //设置滤镜集合为发光滤镜
         this.ape.filters = [glowFilter];
     }
-
-    public Show(){
-        this.visible = true;
-    }
-
-    public Hide(){
-        this.visible = false;
-    }
 }
