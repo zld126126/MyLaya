@@ -12,6 +12,6 @@
 > 如图laya-baidumap.png所示
 
 ## 参考资料?
-> https://lbsyun.baidu.com/jsdemo.htm#a1_2
-> https://layaair.ldc.layabox.com/demo2/?language=ch&category=2d&group=InputDevice&name=Map
+> https://lbsyun.baidu.com/jsdemo.htm#a1_2<br/>
+> https://layaair.ldc.layabox.com/demo2/?language=ch&category=2d&group=InputDevice&name=Map<br/>
 
