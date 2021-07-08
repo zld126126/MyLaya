@@ -2921,6 +2921,1106 @@
         }
     }
 
+    var Text$9 = Laya.Text;
+    class Timer_CallLater extends SingletonScene {
+        constructor() {
+            super();
+            Laya.stage.addChild(this);
+            this.demonstrate();
+        }
+        demonstrate() {
+            for (var i = 0; i < 10; i++) {
+                Laya.timer.callLater(this, this.onCallLater);
+            }
+        }
+        onCallLater() {
+            console.log("onCallLater triggered");
+            var text = new Text$9();
+            text.font = "SimHei";
+            text.fontSize = 30;
+            text.color = "#FFFFFF";
+            text.text = "打开控制台可见该函数仅触发了一次";
+            text.size(Laya.stage.width, Laya.stage.height);
+            text.wordWrap = true;
+            text.valign = "middle";
+            text.align = "center";
+            this.addChild(text);
+        }
+    }
+
+    var Sprite$i = Laya.Sprite;
+    var Event$8 = Laya.Event;
+    class Timer_DelayExcute extends SingletonScene {
+        constructor() {
+            super();
+            Laya.stage.addChild(this);
+            this.setup();
+        }
+        setup() {
+            var vGap = 100;
+            this.button1 = this.createButton("点我3秒之后 alpha - 0.5");
+            this.button1.x = (Laya.stage.width - this.button1.width) / 2;
+            this.button1.y = (Laya.stage.height - this.button1.height - vGap) / 2;
+            this.addChild(this.button1);
+            this.button1.on(Event$8.CLICK, this, this.onDecreaseAlpha1);
+            this.button2 = this.createButton("点我60帧之后 alpha - 0.5");
+            this.button2.pos(this.button1.x, this.button1.y + vGap);
+            this.addChild(this.button2);
+            this.button2.on(Event$8.CLICK, this, this.onDecreaseAlpha2);
+        }
+        createButton(label) {
+            var w = 300, h = 60;
+            var button = new Sprite$i();
+            button.graphics.drawRect(0, 0, w, h, "#FF7F50");
+            button.size(w, h);
+            button.graphics.fillText(label, w / 2, 17, "20px simHei", "#ffffff", "center");
+            return button;
+        }
+        onDecreaseAlpha1(e) {
+            if (!this.isShow) {
+                return;
+            }
+            this.button1.off(Event$8.CLICK, this, this.onDecreaseAlpha1);
+            Laya.timer.once(3000, this, this.onComplete1);
+        }
+        onDecreaseAlpha2(e) {
+            if (!this.isShow) {
+                return;
+            }
+            this.button2.off(Event$8.CLICK, this, this.onDecreaseAlpha2);
+            Laya.timer.frameOnce(60, this, this.onComplete2);
+        }
+        onComplete1() {
+            if (!this.isShow) {
+                return;
+            }
+            this.button1.alpha -= 0.5;
+        }
+        onComplete2() {
+            if (!this.isShow) {
+                return;
+            }
+            this.button2.alpha -= 0.5;
+        }
+        Show() {
+            if (this.button1) {
+                this.button1.on(Event$8.CLICK, this, this.onDecreaseAlpha1);
+                this.button1.alpha = 1;
+            }
+            if (this.button2) {
+                this.button2.on(Event$8.CLICK, this, this.onDecreaseAlpha2);
+                this.button2.alpha = 1;
+            }
+            this.visible = true;
+        }
+    }
+
+    var Text$a = Laya.Text;
+    class Timer_Interval extends SingletonScene {
+        constructor() {
+            super();
+            Laya.stage.addChild(this);
+            this.setup();
+        }
+        setup() {
+            var vGap = 200;
+            this.rotateTimeBasedText = this.createText("基于时间旋转", Laya.stage.width / 2, (Laya.stage.height - vGap) / 2);
+            this.rotateFrameRateBasedText = this.createText("基于帧频旋转", this.rotateTimeBasedText.x, this.rotateTimeBasedText.y + vGap);
+            Laya.timer.loop(200, this, this.animateTimeBased);
+            Laya.timer.frameLoop(2, this, this.animateFrameRateBased);
+        }
+        createText(text, x, y) {
+            var t = new Text$a();
+            t.text = text;
+            t.fontSize = 30;
+            t.color = "white";
+            t.bold = true;
+            t.pivot(t.width / 2, t.height / 2);
+            t.pos(x, y);
+            this.addChild(t);
+            return t;
+        }
+        animateTimeBased() {
+            if (!this.isShow) {
+                return;
+            }
+            this.rotateTimeBasedText.rotation += 1;
+        }
+        animateFrameRateBased() {
+            if (!this.isShow) {
+                return;
+            }
+            this.rotateFrameRateBasedText.rotation += 1;
+        }
+    }
+
+    class TimerMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "延迟调用", "延迟执行", "间隔循环"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    Timer_CallLater.getInstance().Click();
+                    break;
+                case this.btnNameArr[2]:
+                    Timer_DelayExcute.getInstance().Click();
+                    break;
+                case this.btnNameArr[3]:
+                    Timer_Interval.getInstance().Click();
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
+    var Input$5 = Laya.Input;
+    var Sprite$j = Laya.Sprite;
+    var Text$b = Laya.Text;
+    var Event$9 = Laya.Event;
+    var List$1 = Laya.List;
+    var Ease = Laya.Ease;
+    var Handler$t = Laya.Handler;
+    var Tween$2 = Laya.Tween;
+    class Tween_EaseFunctionsDemo extends SingletonScene {
+        constructor() {
+            super();
+            this.duration = 2000;
+            Laya.stage.addChild(this);
+            this.setup();
+        }
+        setup() {
+            this.createCharacter();
+            this.createEaseFunctionList();
+            this.createDurationCrontroller();
+        }
+        createCharacter() {
+            this.character = new Sprite$j();
+            this.character.loadImage("res/cartoonCharacters/1.png");
+            this.character.pos(100, 50);
+            this.addChild(this.character);
+        }
+        createEaseFunctionList() {
+            var easeFunctionsList = new List$1();
+            easeFunctionsList.itemRender = ListItemRender;
+            easeFunctionsList.pos(5, 5);
+            easeFunctionsList.repeatX = 1;
+            easeFunctionsList.repeatY = 20;
+            easeFunctionsList.vScrollBarSkin = '';
+            easeFunctionsList.selectEnable = true;
+            easeFunctionsList.selectHandler = new Handler$t(this, this.onEaseFunctionChange, [easeFunctionsList]);
+            easeFunctionsList.renderHandler = new Handler$t(this, this.renderList);
+            this.addChild(easeFunctionsList);
+            var data = [];
+            data.push('backIn', 'backOut', 'backInOut');
+            data.push('bounceIn', 'bounceOut', 'bounceInOut');
+            data.push('circIn', 'circOut', 'circInOut');
+            data.push('cubicIn', 'cubicOut', 'cubicInOut');
+            data.push('elasticIn', 'elasticOut', 'elasticInOut');
+            data.push('expoIn', 'expoOut', 'expoInOut');
+            data.push('linearIn', 'linearOut', 'linearInOut');
+            data.push('linearNone');
+            data.push('QuadIn', 'QuadOut', 'QuadInOut');
+            data.push('quartIn', 'quartOut', 'quartInOut');
+            data.push('quintIn', 'quintOut', 'quintInOut');
+            data.push('sineIn', 'sineOut', 'sineInOut');
+            data.push('strongIn', 'strongOut', 'strongInOut');
+            easeFunctionsList.array = data;
+        }
+        renderList(item) {
+            item.setLabel(item.dataSource);
+        }
+        onEaseFunctionChange(list) {
+            this.character.pos(100, 50);
+            this.tween && this.tween.clear();
+            this.tween = Tween$2.to(this.character, { x: 350, y: 250 }, this.duration, Ease[list.selectedItem]);
+        }
+        createDurationCrontroller() {
+            var durationInput = this.createInputWidthLabel("Duration:", '2000', 400, 10);
+            durationInput.on(Event$9.INPUT, this, function () {
+                this.duration = parseInt(durationInput.text);
+            });
+        }
+        createInputWidthLabel(label, prompt, x, y) {
+            var text = new Text$b();
+            text.text = label;
+            text.color = "white";
+            this.addChild(text);
+            text.pos(x, y);
+            var input = new Input$5();
+            input.size(50, 20);
+            input.text = prompt;
+            input.align = 'center';
+            this.addChild(input);
+            input.color = "#FFFFFF";
+            input.borderColor = "#FFFFFF";
+            input.pos(text.x + text.width + 10, text.y - 3);
+            return input;
+        }
+    }
+    var Box$2 = Laya.Box;
+    var Label$2 = Laya.Label;
+    class ListItemRender extends Box$2 {
+        constructor() {
+            super();
+            this.size(100, 20);
+            this.label = new Label$2();
+            this.label.fontSize = 12;
+            this.label.color = "#FFFFFF";
+            this.addChild(this.label);
+        }
+        setLabel(value) {
+            this.label.text = value;
+        }
+    }
+
+    var Text$c = Laya.Text;
+    var Ease$1 = Laya.Ease;
+    var Tween$3 = Laya.Tween;
+    class Tween_Letters extends SingletonScene {
+        constructor() {
+            super();
+            this.letters = [];
+            Laya.stage.addChild(this);
+            this.setup();
+        }
+        setup() {
+            var demoString = "LayaBox";
+            for (var i = 0, len = demoString.length; i < len; ++i) {
+                var letterText = this.createLetter(demoString.charAt(i));
+                this.letters.push(letterText);
+            }
+        }
+        MoveLetter() {
+            var w = 400;
+            var offset = Laya.stage.width - w >> 1;
+            var endY = Laya.stage.height / 2 - 50;
+            for (var i = 0; i < this.letters.length; i++) {
+                this.letters[i].x = w / this.letters.length * i + offset;
+                this.letters[i].y = 0;
+                Tween$3.to(this.letters[i], { y: endY }, 1000, Ease$1.elasticOut, null, i * 1000);
+            }
+        }
+        createLetter(char) {
+            var letter = new Text$c();
+            letter.text = char;
+            letter.color = "#FFFFFF";
+            letter.font = "Impact";
+            letter.fontSize = 110;
+            this.addChild(letter);
+            return letter;
+        }
+        Show() {
+            this.visible = true;
+            this.MoveLetter();
+        }
+    }
+
+    var Sprite$k = Laya.Sprite;
+    var Tween$4 = Laya.Tween;
+    class Tween_SimpleSample extends SingletonScene {
+        constructor() {
+            super();
+            Laya.stage.addChild(this);
+            this.setup();
+        }
+        setup() {
+            this.terminalX = 200;
+            this.characterA = this.createCharacter("res/cartoonCharacters/1.png");
+            this.characterA.pivot(46.5, 50);
+            this.characterA.y = 100;
+            this.characterB = this.createCharacter("res/cartoonCharacters/2.png");
+            this.characterB.pivot(34, 50);
+            this.characterB.y = 250;
+            this.graphics.drawLine(this.terminalX, 0, this.terminalX, Laya.stage.height, "#FFFFFF");
+            this.TweenMove();
+        }
+        TweenMove() {
+            this.terminalX = 200;
+            if (this.characterA) {
+                this.characterA.pivot(46.5, 50);
+                this.characterA.y = 100;
+                this.characterA.x = 0;
+                Tween$4.to(this.characterA, { x: this.terminalX }, 1000);
+            }
+            if (this.characterB) {
+                this.characterB.pivot(34, 50);
+                this.characterB.y = 250;
+                this.characterB.x = this.terminalX;
+                Tween$4.from(this.characterB, { x: 0 }, 1000);
+            }
+        }
+        createCharacter(skin) {
+            var character = new Sprite$k();
+            character.loadImage(skin);
+            this.addChild(character);
+            return character;
+        }
+        Show() {
+            this.visible = true;
+            this.TweenMove();
+        }
+    }
+
+    var Sprite$l = Laya.Sprite;
+    var Event$a = Laya.Event;
+    var Keyboard = Laya.Keyboard;
+    var TimeLine = Laya.TimeLine;
+    class Tween_TimeLine extends SingletonScene {
+        constructor() {
+            super();
+            this.timeLine = new TimeLine();
+            Laya.stage.addChild(this);
+            this.setup();
+        }
+        setup() {
+            this.createApe();
+            this.createTimerLine();
+            this.on(Event$a.KEY_DOWN, this, this.keyDown);
+        }
+        createApe() {
+            this.target = new Sprite$l();
+            this.target.loadImage("res/apes/monkey2.png");
+            this.addChild(this.target);
+            this.target.pivot(55, 72);
+            this.target.pos(100, 100);
+        }
+        createTimerLine() {
+            this.timeLine.addLabel("turnRight", 0).to(this.target, { x: 450, y: 100, scaleX: 0.5, scaleY: 0.5 }, 2000, null, 0)
+                .addLabel("turnDown", 0).to(this.target, { x: 450, y: 300, scaleX: 0.2, scaleY: 1, alpha: 1 }, 2000, null, 0)
+                .addLabel("turnLeft", 0).to(this.target, { x: 100, y: 300, scaleX: 1, scaleY: 0.2, alpha: 0.1 }, 2000, null, 0)
+                .addLabel("turnUp", 0).to(this.target, { x: 100, y: 100, scaleX: 1, scaleY: 1, alpha: 1 }, 2000, null, 0);
+            this.timeLine.play(0, true);
+            this.timeLine.on(Event$a.COMPLETE, this, this.onComplete);
+            this.timeLine.on(Event$a.LABEL, this, this.onLabel);
+        }
+        onComplete() {
+            if (!this.isShow) {
+                return;
+            }
+            console.log("timeLine complete!!!!");
+        }
+        onLabel(label) {
+            if (!this.isShow) {
+                return;
+            }
+            console.log("LabelName:" + label);
+        }
+        keyDown(e) {
+            if (!this.isShow) {
+                return;
+            }
+            switch (e.keyCode) {
+                case Keyboard.LEFT:
+                    this.timeLine.play("turnLeft");
+                    break;
+                case Keyboard.RIGHT:
+                    this.timeLine.play("turnRight");
+                    break;
+                case Keyboard.UP:
+                    this.timeLine.play("turnUp");
+                    break;
+                case Keyboard.DOWN:
+                    this.timeLine.play("turnDown");
+                    break;
+                case Keyboard.P:
+                    this.timeLine.pause();
+                    break;
+                case Keyboard.R:
+                    this.timeLine.resume();
+                    break;
+            }
+        }
+    }
+
+    class TweenMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "简单的Tween", "逐字缓动", "缓动函数演示", "时间线"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    Tween_SimpleSample.getInstance().Click();
+                    break;
+                case this.btnNameArr[2]:
+                    Tween_Letters.getInstance().Click();
+                    break;
+                case this.btnNameArr[3]:
+                    Tween_EaseFunctionsDemo.getInstance().Click();
+                    break;
+                case this.btnNameArr[4]:
+                    Tween_TimeLine.getInstance().Click();
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
+    class PhysicsMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "复合碰撞器", "碰撞过滤器", "碰撞事件与传感器", "桥", "仿生机器人"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    break;
+                case this.btnNameArr[2]:
+                    break;
+                case this.btnNameArr[3]:
+                    break;
+                case this.btnNameArr[4]:
+                    break;
+                case this.btnNameArr[5]:
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
+    var Sprite$m = Laya.Sprite;
+    var Event$b = Laya.Event;
+    var Ease$2 = Laya.Ease;
+    var Handler$u = Laya.Handler;
+    var Tween$5 = Laya.Tween;
+    class Interaction_Hold extends SingletonScene {
+        constructor() {
+            super();
+            this.HOLD_TRIGGER_TIME = 1000;
+            this.apePath = "res/apes/monkey2.png";
+            Laya.stage.addChild(this);
+            Laya.loader.load(this.apePath, Handler$u.create(this, this.createApe));
+        }
+        createApe() {
+            this.ape = new Sprite$m();
+            this.ape.loadImage(this.apePath);
+            var texture = Laya.loader.getRes(this.apePath);
+            this.ape.pivot(texture.width / 2, texture.height / 2);
+            this.ape.pos(Laya.stage.width / 2, Laya.stage.height / 2);
+            this.ape.scale(0.8, 0.8);
+            this.addChild(this.ape);
+            this.ape.on(Event$b.MOUSE_DOWN, this, this.onApePress);
+        }
+        onApePress(e) {
+            Laya.timer.once(this.HOLD_TRIGGER_TIME, this, this.onHold);
+            Laya.stage.on(Event$b.MOUSE_UP, this, this.onApeRelease);
+        }
+        onHold() {
+            if (!this.isShow) {
+                return;
+            }
+            Tween$5.to(this.ape, { "scaleX": 1, "scaleY": 1 }, 500, Ease$2.bounceOut);
+            this.isApeHold = true;
+        }
+        onApeRelease() {
+            if (!this.isShow) {
+                return;
+            }
+            if (this.isApeHold) {
+                this.isApeHold = false;
+                Tween$5.to(this.ape, { "scaleX": 0.8, "scaleY": 0.8 }, 300);
+            }
+            else
+                Laya.timer.clear(this, this.onHold);
+            Laya.stage.off(Event$b.MOUSE_UP, this, this.onApeRelease);
+        }
+    }
+
+    var Sprite$n = Laya.Sprite;
+    var Event$c = Laya.Event;
+    var Rectangle$4 = Laya.Rectangle;
+    var Handler$v = Laya.Handler;
+    class Interaction_Drag extends SingletonScene {
+        constructor() {
+            super();
+            this.ApePath = "res/apes/monkey2.png";
+            Laya.stage.addChild(this);
+            Laya.loader.load(this.ApePath, Handler$v.create(this, this.setup));
+        }
+        setup() {
+            this.createApe();
+            this.showDragRegion();
+        }
+        createApe() {
+            this.ape = new Sprite$n();
+            this.ape.loadImage(this.ApePath);
+            this.addChild(this.ape);
+            var texture = Laya.loader.getRes(this.ApePath);
+            this.ape.pivot(texture.width / 2, texture.height / 2);
+            this.ape.x = Laya.stage.width / 2;
+            this.ape.y = Laya.stage.height / 2;
+            this.ape.on(Event$c.MOUSE_DOWN, this, this.onStartDrag);
+        }
+        showDragRegion() {
+            var dragWidthLimit = 350;
+            var dragHeightLimit = 200;
+            this.dragRegion = new Rectangle$4(Laya.stage.width - dragWidthLimit >> 1, Laya.stage.height - dragHeightLimit >> 1, dragWidthLimit, dragHeightLimit);
+            this.graphics.drawRect(this.dragRegion.x, this.dragRegion.y, this.dragRegion.width, this.dragRegion.height, null, "#FFFFFF", 2);
+        }
+        onStartDrag(e) {
+            this.ape.startDrag(this.dragRegion, true, 100);
+        }
+    }
+
+    var Sprite$o = Laya.Sprite;
+    var Event$d = Laya.Event;
+    class Interaction_Rotate extends SingletonScene {
+        constructor() {
+            super();
+            this.preRadian = 0;
+            Laya.stage.addChild(this);
+            this.setup();
+        }
+        setup() {
+            this.createSprite();
+            Laya.stage.on(Event$d.MOUSE_UP, this, this.onMouseUp);
+            Laya.stage.on(Event$d.MOUSE_OUT, this, this.onMouseUp);
+        }
+        createSprite() {
+            this.sp = new Sprite$o();
+            var w = 200, h = 300;
+            this.sp.graphics.drawRect(0, 0, w, h, "#FF7F50");
+            this.sp.size(w, h);
+            this.sp.pivot(w / 2, h / 2);
+            this.sp.pos(Laya.stage.width / 2, Laya.stage.height / 2);
+            this.addChild(this.sp);
+            this.sp.on(Event$d.MOUSE_DOWN, this, this.onMouseDown);
+        }
+        onMouseDown(e) {
+            if (!this.isShow) {
+                return;
+            }
+            var touches = e.touches;
+            if (touches && touches.length == 2) {
+                this.preRadian = Math.atan2(touches[0].stageY - touches[1].stageY, touches[0].stageX - touches[1].stageX);
+                Laya.stage.on(Event$d.MOUSE_MOVE, this, this.onMouseMove);
+            }
+        }
+        onMouseMove(e) {
+            if (!this.isShow) {
+                return;
+            }
+            var touches = e.touches;
+            if (touches && touches.length == 2) {
+                var nowRadian = Math.atan2(touches[0].stageY - touches[1].stageY, touches[0].stageX - touches[1].stageX);
+                this.sp.rotation += 180 / Math.PI * (nowRadian - this.preRadian);
+                this.preRadian = nowRadian;
+            }
+        }
+        onMouseUp(e) {
+            if (!this.isShow) {
+                return;
+            }
+            Laya.stage.off(Event$d.MOUSE_MOVE, this, this.onMouseMove);
+        }
+    }
+
+    var Sprite$p = Laya.Sprite;
+    var Event$e = Laya.Event;
+    class Interaction_Scale extends SingletonScene {
+        constructor() {
+            super();
+            this.lastDistance = 0;
+            Laya.stage.addChild(this);
+            this.setup();
+        }
+        setup() {
+            this.createSprite();
+            Laya.stage.on(Event$e.MOUSE_UP, this, this.onMouseUp);
+            Laya.stage.on(Event$e.MOUSE_OUT, this, this.onMouseUp);
+        }
+        createSprite() {
+            this.sp = new Sprite$p();
+            var w = 300, h = 300;
+            this.sp.graphics.drawRect(0, 0, w, h, "#FF7F50");
+            this.sp.size(w, h);
+            this.sp.pivot(w / 2, h / 2);
+            this.sp.pos(Laya.stage.width / 2, Laya.stage.height / 2);
+            this.addChild(this.sp);
+            this.sp.on(Event$e.MOUSE_DOWN, this, this.onMouseDown);
+        }
+        onMouseDown(e) {
+            var touches = e.touches;
+            if (touches && touches.length == 2) {
+                this.lastDistance = this.getDistance(touches);
+                Laya.stage.on(Event$e.MOUSE_MOVE, this, this.onMouseMove);
+            }
+        }
+        onMouseMove(e) {
+            if (!this.isShow) {
+                return;
+            }
+            var distance = this.getDistance(e.touches);
+            const factor = 0.01;
+            this.sp.scaleX += (distance - this.lastDistance) * factor;
+            this.sp.scaleY += (distance - this.lastDistance) * factor;
+            this.lastDistance = distance;
+        }
+        onMouseUp(e) {
+            if (!this.isShow) {
+                return;
+            }
+            Laya.stage.off(Event$e.MOUSE_MOVE, this, this.onMouseMove);
+        }
+        getDistance(points) {
+            var distance = 0;
+            if (points && points.length == 2) {
+                var dx = points[0].stageX - points[1].stageX;
+                var dy = points[0].stageY - points[1].stageY;
+                distance = Math.sqrt(dx * dx + dy * dy);
+            }
+            return distance;
+        }
+    }
+
+    var Sprite$q = Laya.Sprite;
+    var Event$f = Laya.Event;
+    var Tween$6 = Laya.Tween;
+    class Interaction_Swipe extends SingletonScene {
+        constructor() {
+            super();
+            this.TrackLength = 200;
+            this.TOGGLE_DIST = this.TrackLength / 2;
+            Laya.stage.addChild(this);
+            this.setup();
+        }
+        setup() {
+            this.createSprtie();
+            this.drawTrack();
+        }
+        createSprtie() {
+            const w = 50;
+            const h = 30;
+            this.button = new Sprite$q();
+            this.button.graphics.drawRect(0, 0, w, h, "#FF7F50");
+            this.button.pivot(w / 2, h / 2);
+            this.button.size(w, h);
+            this.button.x = (Laya.stage.width - this.TrackLength) / 2;
+            this.button.y = Laya.stage.height / 2;
+            this.button.on(Event$f.MOUSE_DOWN, this, this.onMouseDown);
+            this.addChild(this.button);
+            this.beginPosition = this.button.x;
+            this.endPosition = this.beginPosition + this.TrackLength;
+        }
+        drawTrack() {
+            var graph = new Sprite$q();
+            this.graphics.drawLine(this.beginPosition, Laya.stage.height / 2, this.endPosition, Laya.stage.height / 2, "#FFFFFF", 20);
+            this.addChild(graph);
+        }
+        onMouseDown(e) {
+            Laya.stage.on(Event$f.MOUSE_MOVE, this, this.onMouseMove);
+            this.buttonPosition = this.button.x;
+            Laya.stage.on(Event$f.MOUSE_UP, this, this.onMouseUp);
+            Laya.stage.on(Event$f.MOUSE_OUT, this, this.onMouseUp);
+        }
+        onMouseMove(e) {
+            if (!this.isShow) {
+                return;
+            }
+            this.button.x = Math.max(Math.min(Laya.stage.mouseX, this.endPosition), this.beginPosition);
+        }
+        onMouseUp(e) {
+            if (!this.isShow) {
+                return;
+            }
+            Laya.stage.off(Event$f.MOUSE_MOVE, this, this.onMouseMove);
+            Laya.stage.off(Event$f.MOUSE_UP, this, this.onMouseUp);
+            Laya.stage.off(Event$f.MOUSE_OUT, this, this.onMouseUp);
+            var dist = Laya.stage.mouseX - this.buttonPosition;
+            var targetX = this.beginPosition;
+            if (dist > this.TOGGLE_DIST)
+                targetX = this.endPosition;
+            Tween$6.to(this.button, { x: targetX }, 100);
+        }
+    }
+
+    var Sprite$r = Laya.Sprite;
+    var Event$g = Laya.Event;
+    var Ease$3 = Laya.Ease;
+    var Tween$7 = Laya.Tween;
+    class Interaction_CustomEvent extends SingletonScene {
+        constructor() {
+            super();
+            Laya.stage.addChild(this);
+            this.createSprite();
+        }
+        createSprite() {
+            this.sp = new Sprite$r();
+            this.sp.graphics.drawRect(0, 0, 200, 200, "#D2691E");
+            this.sp.pivot(100, 100);
+            this.sp.x = Laya.stage.width / 2;
+            this.sp.y = Laya.stage.height / 2;
+            this.sp.size(200, 200);
+            this.addChild(this.sp);
+            this.sp.on(Interaction_CustomEvent.ROTATE, this, this.onRotate);
+            this.sp.on(Event$g.CLICK, this, this.onSpriteClick);
+        }
+        onSpriteClick(e) {
+            if (!this.isShow) {
+                return;
+            }
+            var randomAngle = Math.random() * 180;
+            this.sp.event(Interaction_CustomEvent.ROTATE, [randomAngle]);
+        }
+        onRotate(newAngle) {
+            if (!this.isShow) {
+                return;
+            }
+            Tween$7.to(this.sp, { "rotation": newAngle }, 1000, Ease$3.elasticOut);
+        }
+    }
+    Interaction_CustomEvent.ROTATE = "rotate";
+
+    var Text$d = Laya.Text;
+    var Event$h = Laya.Event;
+    class Interaction_Keyboard extends SingletonScene {
+        constructor() {
+            super();
+            Laya.stage.addChild(this);
+            this.setup();
+        }
+        setup() {
+            this.listenKeyboard();
+            this.createLogger();
+            Laya.timer.frameLoop(1, this, this.keyboardInspector);
+        }
+        listenKeyboard() {
+            this.keyDownList = [];
+            Laya.stage.on(Event$h.KEY_DOWN, this, this.onKeyDown);
+            Laya.stage.on(Event$h.KEY_UP, this, this.onKeyUp);
+        }
+        onKeyDown(e) {
+            if (!this.isShow) {
+                return;
+            }
+            var keyCode = e["keyCode"];
+            this.keyDownList[keyCode] = true;
+        }
+        onKeyUp(e) {
+            if (!this.isShow) {
+                return;
+            }
+            delete this.keyDownList[e["keyCode"]];
+        }
+        keyboardInspector() {
+            if (!this.isShow) {
+                return;
+            }
+            var numKeyDown = this.keyDownList.length;
+            var newText = '[ ';
+            for (var i = 0; i < numKeyDown; i++) {
+                if (this.keyDownList[i]) {
+                    newText += i + " ";
+                }
+            }
+            newText += ']';
+            this.logger.changeText(newText);
+        }
+        createLogger() {
+            this.logger = new Text$d();
+            this.logger.size(Laya.stage.width, Laya.stage.height);
+            this.logger.fontSize = 30;
+            this.logger.font = "SimHei";
+            this.logger.wordWrap = true;
+            this.logger.color = "#FFFFFF";
+            this.logger.align = 'center';
+            this.logger.valign = 'middle';
+            this.addChild(this.logger);
+        }
+    }
+
+    var Sprite$s = Laya.Sprite;
+    var Text$e = Laya.Text;
+    var Event$i = Laya.Event;
+    class Interaction_Mouse extends SingletonScene {
+        constructor() {
+            super();
+            Laya.stage.addChild(this);
+            this.setup();
+        }
+        setup() {
+            this.createInteractiveTarget();
+            this.createLogger();
+        }
+        createInteractiveTarget() {
+            var rect = new Sprite$s();
+            rect.graphics.drawRect(0, 0, 200, 200, "#D2691E");
+            rect.size(200, 200);
+            rect.x = (Laya.stage.width - 200) / 2;
+            rect.y = (Laya.stage.height - 200) / 2;
+            this.addChild(rect);
+            rect.on(Event$i.MOUSE_DOWN, this, this.mouseHandler);
+            rect.on(Event$i.MOUSE_UP, this, this.mouseHandler);
+            rect.on(Event$i.CLICK, this, this.mouseHandler);
+            rect.on(Event$i.RIGHT_MOUSE_DOWN, this, this.mouseHandler);
+            rect.on(Event$i.RIGHT_MOUSE_UP, this, this.mouseHandler);
+            rect.on(Event$i.RIGHT_CLICK, this, this.mouseHandler);
+            rect.on(Event$i.MOUSE_MOVE, this, this.mouseHandler);
+            rect.on(Event$i.MOUSE_OVER, this, this.mouseHandler);
+            rect.on(Event$i.MOUSE_OUT, this, this.mouseHandler);
+            rect.on(Event$i.DOUBLE_CLICK, this, this.mouseHandler);
+            rect.on(Event$i.MOUSE_WHEEL, this, this.mouseHandler);
+        }
+        mouseHandler(e) {
+            if (!this.isShow) {
+                return;
+            }
+            switch (e.type) {
+                case Event$i.MOUSE_DOWN:
+                    this.appendText("\n————————\n左键按下");
+                    break;
+                case Event$i.MOUSE_UP:
+                    this.appendText("\n左键抬起");
+                    break;
+                case Event$i.CLICK:
+                    this.appendText("\n左键点击\n————————");
+                    break;
+                case Event$i.RIGHT_MOUSE_DOWN:
+                    this.appendText("\n————————\n右键按下");
+                    break;
+                case Event$i.RIGHT_MOUSE_UP:
+                    this.appendText("\n右键抬起");
+                    break;
+                case Event$i.RIGHT_CLICK:
+                    this.appendText("\n右键单击\n————————");
+                    break;
+                case Event$i.MOUSE_MOVE:
+                    if (/鼠标移动\.*$/.test(this.txt.text))
+                        this.appendText(".");
+                    else
+                        this.appendText("\n鼠标移动");
+                    break;
+                case Event$i.MOUSE_OVER:
+                    this.appendText("\n鼠标经过目标");
+                    break;
+                case Event$i.MOUSE_OUT:
+                    this.appendText("\n鼠标移出目标");
+                    break;
+                case Event$i.DOUBLE_CLICK:
+                    this.appendText("\n鼠标左键双击\n————————");
+                    break;
+                case Event$i.MOUSE_WHEEL:
+                    this.appendText("\n鼠标滚轮滚动");
+                    break;
+            }
+        }
+        appendText(value) {
+            this.txt.text += value;
+            this.txt.scrollY = this.txt.maxScrollY;
+        }
+        createLogger() {
+            this.txt = new Text$e();
+            this.txt.overflow = Text$e.SCROLL;
+            this.txt.text = "请把鼠标移到到矩形方块,左右键操作触发相应事件\n";
+            this.txt.size(Laya.stage.width - 100, Laya.stage.height - 100);
+            this.txt.pos(10, 50);
+            this.txt.fontSize = 20;
+            this.txt.wordWrap = true;
+            this.txt.color = "#FFFFFF";
+            this.addChild(this.txt);
+        }
+    }
+
+    var Sprite$t = Laya.Sprite;
+    var Text$f = Laya.Text;
+    var Event$j = Laya.Event;
+    class Interaction_FixInteractiveRegion extends SingletonScene {
+        constructor() {
+            super();
+            Laya.stage.addChild(this);
+            this.setup();
+        }
+        setup() {
+            this.buildWorld();
+            this.createLogger();
+        }
+        buildWorld() {
+            this.createCoralRect();
+            this.createDeepSkyblueRect();
+            this.createDarkOrchidRect();
+            this.name = "暗灰色舞台";
+            Laya.stage.on(Event$j.MOUSE_DOWN, this, this.onDown);
+        }
+        createCoralRect() {
+            var coralRect = new Sprite$t();
+            coralRect.graphics.drawRect(0, 0, Laya.stage.width - 100, Laya.stage.height / 2, "#FF7F50");
+            coralRect.name = "珊瑚色容器";
+            coralRect.size(Laya.stage.width - 100, Laya.stage.height / 2);
+            this.addChild(coralRect);
+            coralRect.on(Event$j.MOUSE_DOWN, this, this.onDown);
+        }
+        createDeepSkyblueRect() {
+            var deepSkyblueRect = new Sprite$t();
+            deepSkyblueRect.graphics.drawRect(0, 0, 100, 100, "#00BFFF");
+            deepSkyblueRect.name = "天蓝色矩形";
+            deepSkyblueRect.size(100, 100);
+            deepSkyblueRect.pos(10, 10);
+            this.addChild(deepSkyblueRect);
+            deepSkyblueRect.on(Event$j.MOUSE_DOWN, this, this.onDown);
+        }
+        createDarkOrchidRect() {
+            var darkOrchidRect = new Sprite$t();
+            darkOrchidRect.name = "暗紫色矩形容器";
+            darkOrchidRect.graphics.drawRect(-100, -100, 200, 200, "#9932CC");
+            darkOrchidRect.pos(Laya.stage.width / 2, Laya.stage.height / 2);
+            this.addChild(darkOrchidRect);
+            darkOrchidRect.mouseThrough = true;
+            darkOrchidRect.on(Event$j.MOUSE_DOWN, this, this.onDown);
+        }
+        createLogger() {
+            this.logger = new Text$f();
+            this.logger.size(Laya.stage.width - 100, Laya.stage.height - 100);
+            this.logger.align = 'right';
+            this.logger.fontSize = 20;
+            this.logger.color = "#FFFFFF";
+            this.addChild(this.logger);
+        }
+        onDown(e) {
+            if (!this.isShow) {
+                return;
+            }
+            this.logger.text += "点击 - " + e.target.name + "\n";
+        }
+    }
+
+    class InteractionMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "Hold", "拖动", "双指旋转", "双指缩放",
+                "滑动", "自定义事件", "键盘交互", "鼠标交互", "修正交互区域"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    Interaction_Hold.getInstance().Click();
+                    break;
+                case this.btnNameArr[2]:
+                    Interaction_Drag.getInstance().Click();
+                    break;
+                case this.btnNameArr[3]:
+                    Interaction_Rotate.getInstance().Click();
+                    break;
+                case this.btnNameArr[4]:
+                    Interaction_Scale.getInstance().Click();
+                    break;
+                case this.btnNameArr[5]:
+                    Interaction_Swipe.getInstance().Click();
+                    break;
+                case this.btnNameArr[6]:
+                    Interaction_CustomEvent.getInstance().Click();
+                    break;
+                case this.btnNameArr[7]:
+                    Interaction_Keyboard.getInstance().Click();
+                    break;
+                case this.btnNameArr[8]:
+                    Interaction_Mouse.getInstance().Click();
+                    break;
+                case this.btnNameArr[9]:
+                    Interaction_FixInteractiveRegion.getInstance().Click();
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
     class LayaMain2d extends SingletonMainScene {
         constructor() {
             super();
@@ -2985,12 +4085,16 @@
                     UIMain.getInstance().Show();
                     break;
                 case this.btnNameArr[10]:
+                    TimerMain.getInstance().Show();
                     break;
                 case this.btnNameArr[11]:
+                    TweenMain.getInstance().Show();
                     break;
                 case this.btnNameArr[12]:
+                    PhysicsMain.getInstance().Show();
                     break;
                 case this.btnNameArr[13]:
+                    InteractionMain.getInstance().Show();
                     break;
                 case this.btnNameArr[14]:
                     break;

@@ -10,6 +10,10 @@ import { TextMain } from "./Text/TextMain";
 import { UIMain } from "./UI/UIMain";
 import SingletonMainScene from "./SingletonMainScene";
 import { EventManager, EventType } from "./EventManager";
+import { TimerMain } from "./Timer/TimerMain";
+import { TweenMain } from "./Tween/TweenMain";
+import { PhysicsMain } from "./Physics/PhysicsMain";
+import { InteractionMain } from "./Interaction/InteractionMain";
 
 export class LayaMain2d extends SingletonMainScene {
     constructor() {
@@ -88,16 +92,16 @@ export class LayaMain2d extends SingletonMainScene {
                 UIMain.getInstance().Show();
                 break;
             case this.btnNameArr[10]:
-
+                TimerMain.getInstance().Show();
                 break;
             case this.btnNameArr[11]:
-
+                TweenMain.getInstance().Show();
                 break;
             case this.btnNameArr[12]:
-
+                PhysicsMain.getInstance().Show();
                 break;
             case this.btnNameArr[13]:
-
+                InteractionMain.getInstance().Show();
                 break;
             case this.btnNameArr[14]:
 
