@@ -1,7 +1,14 @@
 import GameConfig from "./GameConfig";
-import { LayaMain2d } from "./LayaMain2d";
+import { InputDevice_Map } from "./InputDevice_Map";
 class Main {
 	constructor() {
+		// 初始化官网百度地图例子
+		var baiduMap:InputDevice_Map = new InputDevice_Map();
+		window['baiduMap'] = baiduMap; //这步不能少
+
+		// 预加载百度地图相关资源
+		window['LoadBaiduMapScript']();
+
 		//根据IDE设置初始化引擎		
 		if (window["Laya3D"]) Laya3D.init(GameConfig.width, GameConfig.height);
 		else Laya.init(GameConfig.width, GameConfig.height, Laya["WebGL"]);
@@ -22,7 +29,6 @@ class Main {
 
 		//激活资源版本控制，version.json由IDE发布功能自动生成，如果没有也不影响后续流程
 		Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
-		window['LoadBaiduMapScript']();
 	}
 
 	onVersionLoaded(): void {
@@ -34,12 +40,6 @@ class Main {
 		//加载IDE指定的场景
 		GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
 	}
-
-	// 加载例子
-	public LoadExample() {
-		LayaMain2d.getInstance().Show();
-	}
 }
-
 //激活启动类
-new Main().LoadExample();
+new Main();

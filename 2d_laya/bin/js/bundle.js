@@ -10,9 +10,9 @@
     GameConfig.width = 640;
     GameConfig.height = 1136;
     GameConfig.scaleMode = "fixedwidth";
-    GameConfig.screenMode = "none";
-    GameConfig.alignV = "top";
-    GameConfig.alignH = "left";
+    GameConfig.screenMode = "horizontal";
+    GameConfig.alignV = "middle";
+    GameConfig.alignH = "middle";
     GameConfig.startScene = "";
     GameConfig.sceneRoot = "";
     GameConfig.debug = false;
@@ -4021,6 +4021,482 @@
         }
     }
 
+    var Sprite$u = Laya.Sprite;
+    var Animation$2 = Laya.Animation;
+    var Text$g = Laya.Text;
+    var Event$k = Laya.Event;
+    class Loader_ClearTextureRes extends SingletonScene {
+        constructor() {
+            super();
+            this.isDestroyed = false;
+            this.PathBg = "res/bg2.png";
+            this.PathFly = "res/fighter/fighter.atlas";
+            Laya.stage.addChild(this);
+            this.init();
+        }
+        init() {
+            this.spBg = Sprite$u.fromImage(this.PathBg);
+            this.addChild(this.spBg);
+            this.aniFly = new Animation$2();
+            this.aniFly.loadAtlas(this.PathFly);
+            this.aniFly.play();
+            this.aniFly.pos(250, 100);
+            this.addChild(this.aniFly);
+            this.btn = new Sprite$u().size(205, 55);
+            this.btn.graphics.drawRect(0, 0, this.btn.width, this.btn.height, "#057AFB");
+            this.txt = new Text$g();
+            this.txt.text = "销毁";
+            this.txt.pos(75, 15);
+            this.txt.fontSize = 25;
+            this.txt.color = "#FF0000";
+            this.btn.addChild(this.txt);
+            this.btn.pos(20, 160);
+            this.addChild(this.btn);
+            this.btn.on(Event$k.MOUSE_UP, this, this.onMouseUp);
+        }
+        onMouseUp(evt) {
+            if (this.isDestroyed) {
+                this.spBg.visible = true;
+                this.aniFly.visible = true;
+                this.isDestroyed = false;
+                this.txt.text = "销毁";
+            }
+            else {
+                this.spBg.visible = false;
+                this.aniFly.visible = false;
+                Laya.loader.clearTextureRes(this.PathBg);
+                Laya.loader.clearTextureRes(this.PathFly);
+                this.isDestroyed = true;
+                this.txt.text = "恢复";
+            }
+        }
+    }
+
+    var Image$4 = Laya.Image;
+    var Handler$w = Laya.Handler;
+    class Loader_SingleType extends SingletonScene {
+        constructor() {
+            super();
+            Laya.stage.addChild(this);
+            Laya.loader.load("res/apes/monkey0.png", Handler$w.create(this, this.onAssetLoaded1));
+            Laya.loader.load(["res/apes/monkey0.png", "res/apes/monkey1.png", "res/apes/monkey2.png"], Handler$w.create(this, this.onAssetLoaded2));
+        }
+        onAssetLoaded1() {
+            var pic1 = new Image$4("res/apes/monkey0.png");
+            pic1.x = 200;
+            pic1.y = 300;
+            this.addChild(pic1);
+        }
+        onAssetLoaded2() {
+            var pic1 = new Image$4("res/apes/monkey0.png");
+            pic1.x = 50;
+            var pic2 = new Image$4("res/apes/monkey1.png");
+            pic2.x = 100;
+            var pic3 = new Image$4("res/apes/monkey2.png");
+            pic3.x = 150;
+            this.addChild(pic1);
+            this.addChild(pic2);
+            this.addChild(pic3);
+        }
+    }
+
+    var Loader$3 = Laya.Loader;
+    var Handler$x = Laya.Handler;
+    var Image$5 = Laya.Image;
+    class Loader_MultipleType extends SingletonScene {
+        constructor() {
+            super();
+            this.ROBOT_DATA_PATH = "res/skeleton/robot/robot.bin";
+            this.ROBOT_TEXTURE_PATH = "res/skeleton/robot/texture.png";
+            Laya.stage.addChild(this);
+            var assets = [];
+            assets.push({ url: this.ROBOT_DATA_PATH, type: Loader$3.BUFFER });
+            assets.push({ url: this.ROBOT_TEXTURE_PATH, type: Loader$3.IMAGE });
+            Laya.loader.load(assets, Handler$x.create(this, this.onAssetsLoaded));
+        }
+        onAssetsLoaded() {
+            var robotData = Loader$3.getRes(this.ROBOT_DATA_PATH);
+            var robotTexture = Loader$3.getRes(this.ROBOT_TEXTURE_PATH);
+            var img = new Image$5(this.ROBOT_TEXTURE_PATH);
+            this.addChild(img);
+        }
+    }
+
+    var Handler$y = Laya.Handler;
+    class Loader_Sequence extends SingletonScene {
+        constructor() {
+            super();
+            this.numLoaded = 0;
+            this.resAmount = 3;
+            Laya.stage.addChild(this);
+            Laya.loader.maxLoader = 1;
+            Laya.loader.load("res/apes/monkey2.png", Handler$y.create(this, this.onAssetLoaded), null, null, 0, false);
+            Laya.loader.load("res/apes/monkey1.png", Handler$y.create(this, this.onAssetLoaded), null, null, 1, false);
+            Laya.loader.load("res/apes/monkey0.png", Handler$y.create(this, this.onAssetLoaded), null, null, 2, false);
+        }
+        onAssetLoaded(texture) {
+            if (!this.isShow) {
+                return;
+            }
+            if (++this.numLoaded == this.resAmount) {
+                Laya.loader.maxLoader = 5;
+                console.log("All done.");
+            }
+        }
+    }
+
+    var Event$l = Laya.Event;
+    var Loader$4 = Laya.Loader;
+    var Handler$z = Laya.Handler;
+    class Loader_ProgressAndErrorHandle extends SingletonScene {
+        constructor() {
+            super();
+            Laya.loader.retryNum = 0;
+            var urls = ["do not exist", "res/fighter/fighter.png", "res/legend/map.jpg"];
+            Laya.loader.load(urls, Handler$z.create(this, this.onAssetLoaded), Handler$z.create(this, this.onLoading, null, false), Loader$4.TEXT);
+            Laya.loader.on(Event$l.ERROR, this, this.onError);
+        }
+        onAssetLoaded(texture) {
+            if (!this.isShow) {
+                return;
+            }
+            console.log("加载结束");
+        }
+        onLoading(progress) {
+            if (!this.isShow) {
+                return;
+            }
+            console.log("加载进度: " + progress);
+        }
+        onError(err) {
+            if (!this.isShow) {
+                return;
+            }
+            console.log("加载失败: " + err);
+        }
+    }
+
+    class LoaderMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "销毁Texture", "单一资源加载", "多种资源加载", "加载序列", "错误处理和进度"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    Loader_ClearTextureRes.getInstance().Click();
+                    break;
+                case this.btnNameArr[2]:
+                    Loader_SingleType.getInstance().Click();
+                    break;
+                case this.btnNameArr[3]:
+                    Loader_MultipleType.getInstance().Click();
+                    break;
+                case this.btnNameArr[4]:
+                    Loader_Sequence.getInstance().Click();
+                    break;
+                case this.btnNameArr[5]:
+                    Loader_ProgressAndErrorHandle.getInstance().Click();
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
+    var Stage = Laya.Stage;
+    var Text$h = Laya.Text;
+    var Image$6 = Laya.Image;
+    var WebGL = Laya.WebGL;
+    class SmartScale_T extends SingletonScene {
+        constructor() {
+            super();
+            this.modes = ["noscale", "exactfit", "showall", "noborder", "full", "fixedwidth", "fixedheight"];
+            this.index = 0;
+            this.bg = new Image$6();
+            this.bg.skin = "res/bg.jpg";
+            Laya.stage.addChild(this.bg);
+            this.txt = new Text$h();
+            this.txt.text = "点击我切换适配模式(noscale)";
+            this.txt.bold = true;
+            this.txt.pos(0, 200);
+            this.txt.fontSize = 30;
+            this.txt.on("click", this, this.onTxtClick);
+            Laya.stage.addChild(this.txt);
+            this.boy1 = new Image$6();
+            this.boy1.skin = "res/cartoonCharacters/1.png";
+            this.boy1.top = 0;
+            this.boy1.right = 0;
+            this.boy1.on("click", this, this.onBoyClick);
+            Laya.stage.addChild(this.boy1);
+            this.boy2 = new Image$6();
+            this.boy2.skin = "res/cartoonCharacters/2.png";
+            this.boy2.bottom = 0;
+            this.boy2.right = 0;
+            this.boy2.on("click", this, this.onBoyClick);
+            Laya.stage.addChild(this.boy2);
+            Laya.stage.on("click", this, this.onClick);
+            Laya.stage.on("resize", this, this.onResize);
+        }
+        ChangeLayaConfig() {
+            Laya.init(1136, 640, WebGL);
+            Laya.stage.scaleMode = "noscale";
+            Laya.stage.screenMode = Stage.SCREEN_HORIZONTAL;
+            Laya.stage.alignH = "center";
+            Laya.stage.alignV = "middle";
+        }
+        SetLayaConfigDefault() {
+            if (window["Laya3D"])
+                Laya3D.init(GameConfig.width, GameConfig.height);
+            else
+                Laya.init(GameConfig.width, GameConfig.height, Laya["WebGL"]);
+            Laya["Physics"] && Laya["Physics"].enable();
+            Laya["DebugPanel"] && Laya["DebugPanel"].enable();
+            Laya.stage.scaleMode = GameConfig.scaleMode;
+            Laya.stage.screenMode = GameConfig.screenMode;
+            Laya.stage.alignV = GameConfig.alignV;
+            Laya.stage.alignH = GameConfig.alignH;
+            Laya.URL.exportSceneToJson = GameConfig.exportSceneToJson;
+            if (GameConfig.debug || Laya.Utils.getQueryString("debug") == "true")
+                Laya.enableDebugPanel();
+            if (GameConfig.physicsDebug && Laya["PhysicsDebugDraw"])
+                Laya["PhysicsDebugDraw"].enable();
+            if (GameConfig.stat)
+                Laya.Stat.show();
+            Laya.alertGlobalError = true;
+        }
+        onBoyClick(e) {
+            if (!this.isShow) {
+                return;
+            }
+            var boy = e.target;
+            if (boy.scaleX === 1) {
+                boy.scale(1.2, 1.2);
+            }
+            else {
+                boy.scale(1, 1);
+            }
+        }
+        onTxtClick(e) {
+            if (!this.isShow) {
+                return;
+            }
+            e.stopPropagation();
+            this.index++;
+            if (this.index >= this.modes.length)
+                this.index = 0;
+            Laya.stage.scaleMode = this.modes[this.index];
+            this.txt.text = "点击我切换适配模式" + "(" + this.modes[this.index] + ")";
+        }
+        onClick(e) {
+            if (!this.isShow) {
+                return;
+            }
+            console.log("mouse:", Laya.stage.mouseX, Laya.stage.mouseY);
+        }
+        onResize() {
+            if (!this.isShow) {
+                return;
+            }
+            console.log("size:", Laya.stage.width, Laya.stage.height);
+        }
+        Show() {
+            this.ChangeLayaConfig();
+            this.visible = true;
+        }
+        Hide() {
+            this.SetLayaConfigDefault();
+            this.visible = true;
+        }
+    }
+
+    class SmartScaleMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "屏幕适配"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    SmartScale_T.getInstance().Click();
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
+    var Stage$1 = Laya.Stage;
+    var Text$i = Laya.Text;
+    var Geolocation = Laya.Geolocation;
+    var Browser$2 = Laya.Browser;
+    var Handler$A = Laya.Handler;
+    class InputDevice_Map {
+        constructor() {
+            this.BMap = Browser$2.window.BMap;
+            this.convertor = new this.BMap.Convertor();
+            Laya.init(Browser$2.width, 255);
+            Laya.stage.scaleMode = Stage$1.SCALE_NOSCALE;
+            this.createDom();
+            this.initMap();
+            this.createInfoText();
+            var successHandler = new Handler$A(this, this.updatePosition);
+            var errorHandler = new Handler$A(this, this.onError);
+            Geolocation.enableHighAccuracy = true;
+            Geolocation.watchPosition(successHandler, errorHandler);
+            this.convertToBaiduCoord = this.convertToBaiduCoord.bind(this);
+        }
+        createDom() {
+            this.mapDiv = Browser$2.createElement("div");
+            var style = this.mapDiv.style;
+            style.position = "absolute";
+            style.top = Laya.stage.height / Browser$2.pixelRatio + "px";
+            style.left = "0px";
+            style.width = Browser$2.width / Browser$2.pixelRatio + "px";
+            style.height = (Browser$2.height - Laya.stage.height) / Browser$2.pixelRatio + "px";
+            Browser$2.document.body.appendChild(this.mapDiv);
+        }
+        initMap() {
+            this.map = new this.BMap.Map(this.mapDiv);
+            this.map.disableKeyboard();
+            this.map.disableScrollWheelZoom();
+            this.map.disableDoubleClickZoom();
+            this.map.disablePinchToZoom();
+            this.map.centerAndZoom(new this.BMap.Point(116.32715863448607, 39.990912172420714), 15);
+            this.marker = new this.BMap.Marker(new this.BMap.Point(0, 0));
+            this.map.addOverlay(this.marker);
+            var label = new this.BMap.Label("当前位置", { offset: new this.BMap.Size(-15, 30) });
+            this.marker.setLabel(label);
+        }
+        createInfoText() {
+            this.infoText = new Text$i();
+            Laya.stage.addChild(this.infoText);
+            this.infoText.fontSize = 15;
+            this.infoText.color = "#FFFFFF";
+            this.infoText.size(Laya.stage.width, Laya.stage.height);
+        }
+        updatePosition(p) {
+            var point = new this.BMap.Point(p.longitude, p.latitude);
+            this.convertor.translate([point], 1, 5, this.convertToBaiduCoord);
+            this.infoText.text =
+                "经度：" + p.longitude +
+                    "\t纬度：" + p.latitude +
+                    "\t精度：" + p.accuracy +
+                    "\n海拔：" + p.altitude +
+                    "\t海拔精度：" + p.altitudeAccuracy +
+                    "\n头：" + p.heading +
+                    "\n速度：" + p.speed +
+                    "\n时间戳：" + p.timestamp;
+        }
+        convertToBaiduCoord(data) {
+            if (data.status == 0) {
+                var position = data.points[0];
+                this.marker.setPosition(position);
+                this.map.panTo(position);
+                this.map.setZoom(17);
+            }
+        }
+        onError(e) {
+            if (e.code == Geolocation.TIMEOUT)
+                alert("获取位置超时");
+            else if (e.code == Geolocation.POSITION_UNAVAILABLE)
+                alert("位置不可用");
+            else if (e.code == Geolocation.PERMISSION_DENIED)
+                alert("无权限");
+        }
+    }
+
+    class InputDeviceMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "地图", "指南针", "摇一摇", "贪吃蛇"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    new InputDevice_Map();
+                    break;
+                case this.btnNameArr[2]:
+                    break;
+                case this.btnNameArr[3]:
+                    break;
+                case this.btnNameArr[4]:
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
     class LayaMain2d extends SingletonMainScene {
         constructor() {
             super();
@@ -4097,10 +4573,13 @@
                     InteractionMain.getInstance().Show();
                     break;
                 case this.btnNameArr[14]:
+                    LoaderMain.getInstance().Show();
                     break;
                 case this.btnNameArr[15]:
+                    SmartScaleMain.getInstance().Show();
                     break;
                 case this.btnNameArr[16]:
+                    InputDeviceMain.getInstance().Show();
                     break;
                 case this.btnNameArr[17]:
                     break;
@@ -4141,6 +4620,7 @@
                 Laya.Stat.show();
             Laya.alertGlobalError = true;
             Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
+            window['LoadBaiduMapScript']();
         }
         onVersionLoaded() {
             Laya.AtlasInfoManager.enable("fileconfig.json", Laya.Handler.create(this, this.onConfigLoaded));

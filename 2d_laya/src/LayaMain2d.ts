@@ -14,6 +14,9 @@ import { TimerMain } from "./Timer/TimerMain";
 import { TweenMain } from "./Tween/TweenMain";
 import { PhysicsMain } from "./Physics/PhysicsMain";
 import { InteractionMain } from "./Interaction/InteractionMain";
+import { LoaderMain } from "./Loader/LoaderMain";
+import { SmartScaleMain } from "./SmartScale/SmartScaleMain";
+import { InputDeviceMain } from "./InputDevice/InputDeviceMain";
 
 export class LayaMain2d extends SingletonMainScene {
     constructor() {
@@ -104,13 +107,13 @@ export class LayaMain2d extends SingletonMainScene {
                 InteractionMain.getInstance().Show();
                 break;
             case this.btnNameArr[14]:
-
+                LoaderMain.getInstance().Show();
                 break;
             case this.btnNameArr[15]:
-
+                SmartScaleMain.getInstance().Show();
                 break;
             case this.btnNameArr[16]:
-
+                InputDeviceMain.getInstance().Show();
                 break;
             case this.btnNameArr[17]:
 

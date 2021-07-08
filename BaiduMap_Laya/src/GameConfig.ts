@@ -7,9 +7,9 @@ export default class GameConfig{
     static width:number=640;
     static height:number=1136;
     static scaleMode:string="fixedwidth";
-    static screenMode:string="horizontal";
-    static alignV:string="middle";
-    static alignH:string="middle";
+    static screenMode:string="none";
+    static alignV:string="top";
+    static alignH:string="left";
     static startScene:any="";
     static sceneRoot:string="";
     static debug:boolean=false;
@@ -18,7 +18,6 @@ export default class GameConfig{
     static exportSceneToJson:boolean=true;
     constructor(){}
     static init(){
-        // 单例注册
         var reg: Function = Laya.ClassUtils.regClass;
 
     }
