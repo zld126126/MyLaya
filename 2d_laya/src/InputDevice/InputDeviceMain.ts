@@ -1,6 +1,9 @@
 import SingletonMainScene from "../SingletonMainScene";
 import { EventManager, EventType } from "../EventManager";
 import { InputDevice_Map } from "./InputDevice_Map";
+import { InputDevice_Compasss } from "./InputDevice_Compasss";
+import { InputDevice_Shake } from "./InputDevice_Shake";
+import { InputDevice_GluttonousSnake } from "./InputDevice_GluttonousSnake";
 
 export class InputDeviceMain extends SingletonMainScene {
     constructor() {
@@ -49,13 +52,13 @@ export class InputDeviceMain extends SingletonMainScene {
                 new InputDevice_Map();
                 break;
             case this.btnNameArr[2]:
-               
+                new InputDevice_Compasss();
                 break;
             case this.btnNameArr[3]:
-                
+                new InputDevice_Shake();
                 break;
             case this.btnNameArr[4]:
-                
+                new InputDevice_GluttonousSnake();
                 break;
         }
         console.log(name + "按钮_被点击");

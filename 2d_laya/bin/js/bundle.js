@@ -4452,6 +4452,253 @@
         }
     }
 
+    var Sprite$v = Laya.Sprite;
+    var Stage$2 = Laya.Stage;
+    var Text$j = Laya.Text;
+    var Gyroscope = Laya.Gyroscope;
+    var Browser$3 = Laya.Browser;
+    var Handler$B = Laya.Handler;
+    var WebGL$1 = Laya.WebGL;
+    var Event$m = Laya.Event;
+    class InputDevice_Compasss {
+        constructor() {
+            this.compassImgPath = "res/inputDevice/kd.png";
+            this.firstTime = true;
+            Laya.init(700, 1024, WebGL$1);
+            Laya.stage.scaleMode = Stage$2.SCALE_SHOWALL;
+            Laya.stage.alignH = Stage$2.ALIGN_CENTER;
+            Laya.stage.alignV = Stage$2.ALIGN_MIDDLE;
+            Laya.loader.load(this.compassImgPath, Handler$B.create(this, this.init));
+        }
+        init() {
+            this.createCompass();
+            this.createDirectionIndicator();
+            this.drawUI();
+            this.createDegreesText();
+            Gyroscope.instance.on(Event$m.CHANGE, this, this.onOrientationChange);
+        }
+        createCompass() {
+            this.compassImg = new Sprite$v();
+            Laya.stage.addChild(this.compassImg);
+            this.compassImg.loadImage(this.compassImgPath);
+            this.compassImg.pivot(this.compassImg.width / 2, this.compassImg.height / 2);
+            this.compassImg.pos(Laya.stage.width / 2, 400);
+        }
+        drawUI() {
+            var canvas = new Sprite$v();
+            Laya.stage.addChild(canvas);
+            canvas.graphics.drawLine(this.compassImg.x, 50, this.compassImg.x, 182, "#FFFFFF", 3);
+            canvas.graphics.drawLine(-140 + this.compassImg.x, this.compassImg.y, 140 + this.compassImg.x, this.compassImg.y, "#AAAAAA", 1);
+            canvas.graphics.drawLine(this.compassImg.x, -140 + this.compassImg.y, this.compassImg.x, 140 + this.compassImg.y, "#AAAAAA", 1);
+        }
+        createDegreesText() {
+            this.degreesText = new Text$j();
+            Laya.stage.addChild(this.degreesText);
+            this.degreesText.align = "center";
+            this.degreesText.size(Laya.stage.width, 100);
+            this.degreesText.pos(0, this.compassImg.y + 400);
+            this.degreesText.fontSize = 100;
+            this.degreesText.color = "#FFFFFF";
+        }
+        createDirectionIndicator() {
+            this.directionIndicator = new Sprite$v();
+            Laya.stage.addChild(this.directionIndicator);
+            this.directionIndicator.alpha = 0.8;
+            this.directionIndicator.graphics.drawCircle(0, 0, 70, "#343434");
+            this.directionIndicator.graphics.drawLine(-40, 0, 40, 0, "#FFFFFF", 3);
+            this.directionIndicator.graphics.drawLine(0, -40, 0, 40, "#FFFFFF", 3);
+            this.directionIndicator.x = this.compassImg.x;
+            this.directionIndicator.y = this.compassImg.y;
+        }
+        onOrientationChange(absolute, info) {
+            if (info.alpha === null) {
+                alert("当前设备不支持陀螺仪。");
+            }
+            else if (this.firstTime && !absolute && !Browser$3.onIOS) {
+                this.firstTime = false;
+                alert("在当前设备中无法获取地球坐标系，使用设备坐标系，你可以继续观赏，但是提供的方位并非正确方位。");
+            }
+            this.degreesText.text = 360 - Math.floor(info.alpha) + "°";
+            this.compassImg.rotation = info.alpha;
+            this.directionIndicator.x = -1 * Math.floor(info.gamma) / 90 * 70 + this.compassImg.x;
+            this.directionIndicator.y = -1 * Math.floor(info.beta) / 90 * 70 + this.compassImg.y;
+        }
+    }
+
+    var Sprite$w = Laya.Sprite;
+    var Stage$3 = Laya.Stage;
+    var Text$k = Laya.Text;
+    var Shake = Laya.Shake;
+    var Browser$4 = Laya.Browser;
+    var Event$n = Laya.Event;
+    class InputDevice_Shake {
+        constructor() {
+            this.picW = 484;
+            this.picH = 484;
+            this.shakeCount = 0;
+            Laya.init(this.picW, Browser$4.height * this.picW / Browser$4.width);
+            Laya.stage.scaleMode = Stage$3.SCALE_SHOWALL;
+            this.showShakePic();
+            this.showConsoleText();
+            this.startShake();
+        }
+        showShakePic() {
+            var shakePic = new Sprite$w();
+            shakePic.loadImage("res/inputDevice/shake.png");
+            Laya.stage.addChild(shakePic);
+        }
+        showConsoleText() {
+            this.console = new Text$k();
+            Laya.stage.addChild(this.console);
+            this.console.y = this.picH + 10;
+            this.console.width = Laya.stage.width;
+            this.console.height = Laya.stage.height - this.console.y;
+            this.console.color = "#FFFFFF";
+            this.console.fontSize = 50;
+            this.console.align = "center";
+            this.console.valign = 'middle';
+            this.console.leading = 10;
+        }
+        startShake() {
+            Shake.instance.start(5, 500);
+            Shake.instance.on(Event$n.CHANGE, this, this.callback);
+            this.console.text = '开始接收设备摇动\n';
+        }
+        callback() {
+            this.shakeCount++;
+            this.console.text += "设备摇晃了" + this.shakeCount + "次\n";
+            if (this.shakeCount >= 3) {
+                Shake.instance.stop();
+                this.console.text += "停止接收设备摇动";
+            }
+        }
+    }
+
+    var Sprite$x = Laya.Sprite;
+    var Accelerator = Laya.Accelerator;
+    var Point$1 = Laya.Point;
+    var Browser$5 = Laya.Browser;
+    var WebGL$2 = Laya.WebGL;
+    var Event$o = Laya.Event;
+    class InputDevice_GluttonousSnake {
+        constructor() {
+            this.segments = [];
+            this.foods = [];
+            this.initialSegmentsAmount = 5;
+            this.vx = 0;
+            this.vy = 0;
+            Laya.init(Browser$5.width, Browser$5.height, WebGL$2);
+            this.initSnake();
+            Accelerator.instance.on(Event$o.CHANGE, this, this.monitorAccelerator);
+            Laya.timer.frameLoop(1, this, this.animate);
+            Laya.timer.loop(3000, this, this.produceFood);
+            this.produceFood();
+        }
+        initSnake() {
+            for (var i = 0; i < this.initialSegmentsAmount; i++) {
+                this.addSegment();
+                if (i == 0) {
+                    var header = this.segments[0];
+                    header.rotation = 180;
+                    this.targetPosition = new Point$1();
+                    this.targetPosition.x = Laya.stage.width / 2;
+                    this.targetPosition.y = Laya.stage.height / 2;
+                    header.pos(this.targetPosition.x + header.width, this.targetPosition.y);
+                    header.graphics.drawCircle(header.width, 5, 3, "#000000");
+                    header.graphics.drawCircle(header.width, -5, 3, "#000000");
+                }
+            }
+        }
+        monitorAccelerator(acceleration, accelerationIncludingGravity, rotationRate, interval) {
+            this.vx = accelerationIncludingGravity.x;
+            this.vy = accelerationIncludingGravity.y;
+        }
+        addSegment() {
+            var seg = new Segment(40, 30);
+            Laya.stage.addChildAt(seg, 0);
+            if (this.segments.length > 0) {
+                var prevSeg = this.segments[this.segments.length - 1];
+                seg.rotation = prevSeg.rotation;
+                var point = seg.getPinPosition();
+                seg.x = prevSeg.x - point.x;
+                seg.y = prevSeg.y - point.y;
+            }
+            this.segments.push(seg);
+        }
+        animate() {
+            var seg = this.segments[0];
+            this.targetPosition.x += this.vx;
+            this.targetPosition.y += this.vy;
+            this.limitMoveRange();
+            this.checkEatFood();
+            var targetX = this.targetPosition.x;
+            var targetY = this.targetPosition.y;
+            for (var i = 0, len = this.segments.length; i < len; i++) {
+                seg = this.segments[i];
+                var dx = targetX - seg.x;
+                var dy = targetY - seg.y;
+                var radian = Math.atan2(dy, dx);
+                seg.rotation = radian * 180 / Math.PI;
+                var pinPosition = seg.getPinPosition();
+                var w = pinPosition.x - seg.x;
+                var h = pinPosition.y - seg.y;
+                seg.x = targetX - w;
+                seg.y = targetY - h;
+                targetX = seg.x;
+                targetY = seg.y;
+            }
+        }
+        limitMoveRange() {
+            if (this.targetPosition.x < 0)
+                this.targetPosition.x = 0;
+            else if (this.targetPosition.x > Laya.stage.width)
+                this.targetPosition.x = Laya.stage.width;
+            if (this.targetPosition.y < 0)
+                this.targetPosition.y = 0;
+            else if (this.targetPosition.y > Laya.stage.height)
+                this.targetPosition.y = Laya.stage.height;
+        }
+        checkEatFood() {
+            var food;
+            for (var i = this.foods.length - 1; i >= 0; i--) {
+                food = this.foods[i];
+                if (food.hitTestPoint(this.targetPosition.x, this.targetPosition.y)) {
+                    this.addSegment();
+                    Laya.stage.removeChild(food);
+                    this.foods.splice(i, 1);
+                }
+            }
+        }
+        produceFood() {
+            if (this.foods.length == 5)
+                return;
+            var food = new Sprite$x();
+            Laya.stage.addChild(food);
+            this.foods.push(food);
+            const foodSize = 40;
+            food.size(foodSize, foodSize);
+            food.graphics.drawRect(0, 0, foodSize, foodSize, "#00BFFF");
+            food.x = Math.random() * Laya.stage.width;
+            food.y = Math.random() * Laya.stage.height;
+        }
+    }
+    class Segment extends Sprite$x {
+        constructor(width, height) {
+            super();
+            this.size(width, height);
+            this.init();
+        }
+        init() {
+            this.graphics.drawRect(-this.height / 2, -this.height / 2, this.width + this.height, this.height, "#FF7F50");
+        }
+        getPinPosition() {
+            var radian = this.rotation * Math.PI / 180;
+            var tx = this.x + Math.cos(radian) * this.width;
+            var ty = this.y + Math.sin(radian) * this.width;
+            return new Point$1(tx, ty);
+        }
+    }
+
     class InputDeviceMain extends SingletonMainScene {
         constructor() {
             super();
@@ -4487,10 +4734,13 @@
                     new InputDevice_Map();
                     break;
                 case this.btnNameArr[2]:
+                    new InputDevice_Compasss();
                     break;
                 case this.btnNameArr[3]:
+                    new InputDevice_Shake();
                     break;
                 case this.btnNameArr[4]:
+                    new InputDevice_GluttonousSnake();
                     break;
             }
             console.log(name + "按钮_被点击");
