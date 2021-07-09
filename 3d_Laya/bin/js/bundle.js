@@ -21,29 +21,6 @@
     GameConfig.exportSceneToJson = true;
     GameConfig.init();
 
-    class SingletonMainScene extends Laya.Scene {
-        constructor() {
-            super();
-        }
-        static getInstance() {
-            if (!this.instance) {
-                this.instance = new this();
-            }
-            return this.instance;
-        }
-        Show() {
-            this.visible = true;
-        }
-        Hide() {
-            this.visible = false;
-        }
-        Destroy() {
-            if (this != null) {
-                this.destroy();
-            }
-        }
-    }
-
     class EventExtra {
         constructor() {
             this._handerList = new Array();
@@ -106,6 +83,33 @@
         }
     }
     EventManager.eventMap = new Map();
+
+    class SingletonMainScene extends Laya.Scene {
+        constructor() {
+            super();
+            EventManager.RegistEvent("BACKTOMAIN", Laya.Handler.create(this, this.Back2Main));
+        }
+        static getInstance() {
+            if (!this.instance) {
+                this.instance = new this();
+            }
+            return this.instance;
+        }
+        Show() {
+            this.visible = true;
+        }
+        Hide() {
+            this.visible = false;
+        }
+        Destroy() {
+            if (this != null) {
+                this.destroy();
+            }
+        }
+        Back2Main() {
+            this.Hide();
+        }
+    }
 
     class CameraMoveScript extends Laya.Script3D {
         constructor() {
@@ -411,6 +415,126 @@
         }
     }
 
+    class SingletonScene {
+        constructor() {
+            this.isShow = false;
+            EventManager.RegistEvent("SETSCENE3D", Laya.Handler.create(this, this.SetScene3d));
+        }
+        static getInstance() {
+            if (!this.instance) {
+                this.instance = new this();
+            }
+            return this.instance;
+        }
+        addButton(x, y, width, height, text, clickFun) {
+            Laya.loader.load([GlobalConfig.ResPath + "res/threeDimen/ui/button.png"], Laya.Handler.create(this, function () {
+                this.backbtn = new Laya.Button(GlobalConfig.ResPath + "res/threeDimen/ui/button.png", text);
+                var changeActionButton = Laya.stage.addChild(this.backbtn);
+                changeActionButton.size(width, height);
+                changeActionButton.pos(x, y);
+                changeActionButton.on(Laya.Event.CLICK, this, clickFun);
+            }));
+        }
+        SetScene3d(scene) {
+            if (!this.CurrentScene) {
+                this.CurrentScene = scene;
+                Laya.stage.addChild(this.CurrentScene);
+                this.Show();
+            }
+        }
+        AddReturn() {
+            this.addButton(50, 50, 100, 40, "返回主页", function (e) {
+                this.Hide();
+                this.backbtn.visible = false;
+                this.backbtn.destroy();
+                EventManager.DispatchEvent("BACKTOMAIN");
+                this.isShow = false;
+            });
+        }
+        Show() {
+            if (this.CurrentScene) {
+                this.CurrentScene.visible = true;
+                this.AddReturn();
+            }
+            Laya.Stat.show();
+        }
+        Hide() {
+            if (this.CurrentScene) {
+                this.CurrentScene.visible = false;
+            }
+            Laya.Stat.hide();
+        }
+        Click() {
+            this.isShow = !this.isShow;
+            if (this.isShow) {
+                this.Show();
+            }
+            else {
+                this.Hide();
+            }
+        }
+        Destroy() {
+            if (this.CurrentScene) {
+                this.CurrentScene.destroy();
+            }
+        }
+    }
+
+    class SceneLoad1 extends SingletonScene {
+        constructor() {
+            super();
+            Laya.Scene3D.load(GlobalConfig.ResPath + "res/threeDimen/scene/LayaScene_dudeScene/Conventional/dudeScene.ls", Laya.Handler.create(this, function (scene) {
+                EventManager.DispatchEvent("BACKTOMAIN");
+                EventManager.DispatchEvent("SETSCENE3D", scene);
+                var camera = scene.getChildByName("Camera");
+                camera.addComponent(CameraMoveScript);
+            }));
+        }
+    }
+
+    class Scene3DMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "场景加载1", "场景加载2", "环境反射", "光照贴图"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    SceneLoad1.getInstance().Click();
+                    break;
+                case this.btnNameArr[2]:
+                    break;
+                case this.btnNameArr[3]:
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
     class LayaMain3d extends SingletonMainScene {
         constructor() {
             super();
@@ -423,7 +547,6 @@
             ];
             Laya.stage.addChild(this);
             this.LoadExamples();
-            EventManager.RegistEvent("BACKTOMAIN", Laya.Handler.create(this, this.Back2Main));
         }
         LoadExamples() {
             for (let index = 0; index < this.btnNameArr.length; index++) {
@@ -448,6 +571,7 @@
                     ResourceMain.getInstance().Show();
                     break;
                 case this.btnNameArr[1]:
+                    Scene3DMain.getInstance().Show();
                     break;
                 case this.btnNameArr[2]:
                     break;

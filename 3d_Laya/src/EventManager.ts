@@ -3,6 +3,8 @@ export const enum EventType {
     TESTEVENT = "TEST_EVENT",
     /**返回主页 */
     BACKTOMAIN = "BACKTOMAIN",
+    /**设置scene */
+    SETSCENE3D = "SETSCENE3D",
 }
 
 export class EventExtra {

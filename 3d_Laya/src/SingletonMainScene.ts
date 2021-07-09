@@ -1,9 +1,12 @@
+import { EventManager, EventType } from "./EventManager";
+
 export default abstract class SingletonMainScene extends Laya.Scene {
     /**
      * 构造函数
      */
     constructor() {
         super();
+        EventManager.RegistEvent(EventType.BACKTOMAIN, Laya.Handler.create(this, this.Back2Main));
     }
     
     /**
@@ -39,5 +42,9 @@ export default abstract class SingletonMainScene extends Laya.Scene {
         if (this != null) {
             this.destroy();
         }
+    }
+
+    public Back2Main() {
+        this.Hide();
     }
 }

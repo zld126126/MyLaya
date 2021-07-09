@@ -2,13 +2,13 @@ import SingletonMainScene from "./SingletonMainScene";
 import { EventManager, EventType } from "./EventManager";
 import { ResourceMain } from "./Resource/ResourceMain";
 import { GlobalConfig } from "./GlobalConfig";
+import { Scene3DMain } from "./Scene3D/Scene3DMain";
 
 export class LayaMain3d extends SingletonMainScene {
     constructor() {
         super();
         Laya.stage.addChild(this);
         this.LoadExamples();
-        EventManager.RegistEvent(EventType.BACKTOMAIN, Laya.Handler.create(this, this.Back2Main));
     }
 
     private btnNameArr: Array<string> = [
@@ -53,6 +53,7 @@ export class LayaMain3d extends SingletonMainScene {
                 ResourceMain.getInstance().Show();
                 break;
             case this.btnNameArr[1]:
+                Scene3DMain.getInstance().Show();
                 break;
             case this.btnNameArr[2]:
                 break;
