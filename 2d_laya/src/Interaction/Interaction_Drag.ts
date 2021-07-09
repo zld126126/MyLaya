@@ -4,9 +4,10 @@ import Event = Laya.Event;
 import Rectangle = Laya.Rectangle;
 import Texture = Laya.Texture;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Interaction_Drag extends SingletonScene {
-    private ApePath: string = "res/apes/monkey2.png";
+    private ApePath: string = GlobalConfig.ResPath + "res/apes/monkey2.png";
 
     private ape: Sprite;
     private dragRegion: Rectangle;

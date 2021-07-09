@@ -1,9 +1,10 @@
 import SingletonScene from "../SingletonScene";
 import ColorPicker = Laya.ColorPicker;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class UI_ColorPicker extends SingletonScene {
-    private skin: string = "res/ui/colorPicker.png";
+    private skin: string = GlobalConfig.ResPath + "res/ui/colorPicker.png";
 
     constructor() {
         super();

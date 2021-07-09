@@ -6,6 +6,7 @@ import Text = Laya.Text;
 import Event = Laya.Event;
 import Image = Laya.Image;
 import WebGL = Laya.WebGL;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class SmartScale_T extends SingletonScene {
 
@@ -26,7 +27,7 @@ export class SmartScale_T extends SingletonScene {
 
         //实例一个背景
         this.bg = new Image();
-        this.bg.skin = "res/bg.jpg";
+        this.bg.skin = GlobalConfig.ResPath + "res/bg.jpg";
         Laya.stage.addChild(this.bg);
 
         //实例一个文本
@@ -40,7 +41,7 @@ export class SmartScale_T extends SingletonScene {
 
         //实例一个小人，放到右上角，并相对布局
         this.boy1 = new Image();
-        this.boy1.skin = "res/cartoonCharacters/1.png";
+        this.boy1.skin = GlobalConfig.ResPath + "res/cartoonCharacters/1.png";
         this.boy1.top = 0;
         this.boy1.right = 0;
         this.boy1.on("click", this, this.onBoyClick);
@@ -48,7 +49,7 @@ export class SmartScale_T extends SingletonScene {
 
         //实例一个小人，放到右下角，并相对布局
         this.boy2 = new Image();
-        this.boy2.skin = "res/cartoonCharacters/2.png";
+        this.boy2.skin = GlobalConfig.ResPath + "res/cartoonCharacters/2.png";
         this.boy2.bottom = 0;
         this.boy2.right = 0;
         this.boy2.on("click", this, this.onBoyClick);

@@ -1,9 +1,10 @@
 import SingletonScene from "../SingletonScene";
 import Tab = Laya.Tab;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class UI_Tab extends SingletonScene {
-    private skins: Array<string> = ["res/ui/tab1.png", "res/ui/tab2.png"];
+    private skins: Array<string> = [GlobalConfig.ResPath + "res/ui/tab1.png", GlobalConfig.ResPath + "res/ui/tab2.png"];
 
     constructor() {
         super();

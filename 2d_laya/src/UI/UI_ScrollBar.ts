@@ -2,14 +2,15 @@ import SingletonScene from "../SingletonScene";
 import HScrollBar = Laya.HScrollBar;
 import VScrollBar = Laya.VScrollBar;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class UI_ScrollBar extends SingletonScene{
     constructor() {
         super();
         Laya.stage.addChild(this);
         var skins: Array<string> = [];
-        skins.push("res/ui/hscroll.png", "res/ui/hscroll$bar.png", "res/ui/hscroll$down.png", "res/ui/hscroll$up.png");
-        skins.push("res/ui/vscroll.png", "res/ui/vscroll$bar.png", "res/ui/vscroll$down.png", "res/ui/vscroll$up.png");
+        skins.push(GlobalConfig.ResPath + "res/ui/hscroll.png", GlobalConfig.ResPath + "res/ui/hscroll$bar.png", GlobalConfig.ResPath + "res/ui/hscroll$down.png", GlobalConfig.ResPath + "res/ui/hscroll$up.png");
+        skins.push(GlobalConfig.ResPath + "res/ui/vscroll.png", GlobalConfig.ResPath + "res/ui/vscroll$bar.png", GlobalConfig.ResPath + "res/ui/vscroll$down.png", GlobalConfig.ResPath + "res/ui/vscroll$up.png");
         Laya.loader.load(skins, Handler.create(this, this.onSkinLoadComplete));
     }
 
@@ -20,7 +21,7 @@ export class UI_ScrollBar extends SingletonScene{
 
     private placeHScroller(): void {
         var hs: HScrollBar = new HScrollBar();
-        hs.skin = "res/ui/hscroll.png";
+        hs.skin = GlobalConfig.ResPath + "res/ui/hscroll.png";
         hs.width = 300;
         hs.pos(50, 170);
 
@@ -33,7 +34,7 @@ export class UI_ScrollBar extends SingletonScene{
 
     private placeVScroller(): void {
         var vs: VScrollBar = new VScrollBar();
-        vs.skin = "res/ui/vscroll.png";
+        vs.skin = GlobalConfig.ResPath + "res/ui/vscroll.png";
         vs.height = 300;
         vs.pos(400, 50);
 

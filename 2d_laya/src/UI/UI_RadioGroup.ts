@@ -1,6 +1,7 @@
 import SingletonScene from "../SingletonScene";
 import RadioGroup = Laya.RadioGroup;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class UI_RadioGroup extends SingletonScene{
     private SPACING: number = 150;
@@ -12,7 +13,7 @@ export class UI_RadioGroup extends SingletonScene{
     constructor() {
         super();
         Laya.stage.addChild(this);
-        this.skins = ["res/ui/radioButton (1).png", "res/ui/radioButton (2).png", "res/ui/radioButton (3).png"];
+        this.skins = [GlobalConfig.ResPath + "res/ui/radioButton (1).png", GlobalConfig.ResPath + "res/ui/radioButton (2).png", GlobalConfig.ResPath + "res/ui/radioButton (3).png"];
         Laya.loader.load(this.skins, Handler.create(this, this.initRadioGroups));
     }
 

@@ -1,9 +1,10 @@
 import Animation = Laya.Animation;
 import Rectangle = Laya.Rectangle;
 import SingletonScene from "../SingletonScene";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Animation_Altas extends SingletonScene {
-    private AniConfPath: string = "res/fighter/fighter.atlas";
+    private AniConfPath: string = GlobalConfig.ResPath + "res/fighter/fighter.atlas";
 
     constructor() {
         super();

@@ -4,9 +4,10 @@ import Handler = Laya.Handler;
 import Stat = Laya.Stat;
 import Rectangle = Laya.Rectangle;
 import WebGL = Laya.WebGL;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class PerformanceTest_Maggots {
-    private texturePath: string = "res/tinyMaggot.png";
+    private texturePath: string = GlobalConfig.ResPath + "res/tinyMaggot.png";
 
     private padding: number = 100;
     private maggotAmount: number = 5000;

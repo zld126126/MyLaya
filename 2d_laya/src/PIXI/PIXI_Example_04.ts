@@ -2,6 +2,7 @@ import Sprite = Laya.Sprite;
 import Text = Laya.Text;
 import Browser = Laya.Browser;
 import WebGL = Laya.WebGL;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class PIXI_Example_04 {
     private starCount: number = 2500;
@@ -25,7 +26,7 @@ export class PIXI_Example_04 {
     private start(): void {
         for (var i: number = 0; i < this.starCount; i++) {
             var tempBall: Sprite = new Sprite();
-            tempBall.loadImage("res/pixi/bubble_32x32.png");
+            tempBall.loadImage(GlobalConfig.ResPath + "res/pixi/bubble_32x32.png");
 
             tempBall.x = (Math.random() * this.w) - this.slideX;
             tempBall.y = (Math.random() * this.h) - this.slideY;

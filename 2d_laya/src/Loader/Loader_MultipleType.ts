@@ -2,10 +2,11 @@ import SingletonScene from "../SingletonScene";
 import Loader = Laya.Loader;
 import Handler = Laya.Handler;
 import Image = Laya.Image;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Loader_MultipleType extends SingletonScene {
-    private ROBOT_DATA_PATH: string = "res/skeleton/robot/robot.bin";
-    private ROBOT_TEXTURE_PATH: string = "res/skeleton/robot/texture.png";
+    private ROBOT_DATA_PATH: string = GlobalConfig.ResPath + "res/skeleton/robot/robot.bin";
+    private ROBOT_TEXTURE_PATH: string = GlobalConfig.ResPath + "res/skeleton/robot/texture.png";
 
     constructor() {
         super();

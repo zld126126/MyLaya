@@ -1,6 +1,7 @@
 import SingletonScene from "../SingletonScene";
 import ProgressBar = Laya.ProgressBar;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class UI_ProgressBar extends SingletonScene {
     private progressBar: ProgressBar;
@@ -8,11 +9,11 @@ export class UI_ProgressBar extends SingletonScene {
     constructor() {
         super();
         Laya.stage.addChild(this);
-        Laya.loader.load(["res/ui/progressBar.png", "res/ui/progressBar$bar.png"], Handler.create(this, this.onLoadComplete));
+        Laya.loader.load([GlobalConfig.ResPath + "res/ui/progressBar.png", GlobalConfig.ResPath + "res/ui/progressBar$bar.png"], Handler.create(this, this.onLoadComplete));
     }
 
     private onLoadComplete(): void {
-        this.progressBar = new ProgressBar("res/ui/progressBar.png");
+        this.progressBar = new ProgressBar(GlobalConfig.ResPath + "res/ui/progressBar.png");
 
         this.progressBar.width = 400;
 

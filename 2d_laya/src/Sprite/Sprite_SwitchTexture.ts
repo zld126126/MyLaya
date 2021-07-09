@@ -5,10 +5,11 @@ import Handler = Laya.Handler;
 import Browser = Laya.Browser;
 import WebGL = Laya.WebGL;
 import SingletonScene from "../SingletonScene";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Sprite_SwitchTexture extends SingletonScene {
-    private texture1: string = "res/apes/monkey2.png";
-    private texture2: string = "res/apes/monkey3.png";
+    private texture1: string = GlobalConfig.ResPath + "res/apes/monkey2.png";
+    private texture2: string = GlobalConfig.ResPath + "res/apes/monkey3.png";
     private flag: boolean = false;
 
     private ape: Sprite;

@@ -2,9 +2,10 @@ import SingletonScene from "../SingletonScene";
 import Sprite = Laya.Sprite;
 import BlurFilter = Laya.BlurFilter;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Filters_Blur extends SingletonScene {
-    private apePath: string = "res/apes/monkey2.png";
+    private apePath: string = GlobalConfig.ResPath + "res/apes/monkey2.png";
 
     constructor() {
         super();

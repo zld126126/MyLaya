@@ -2,6 +2,7 @@ import Animation = Laya.Animation;
 import Handler = Laya.Handler;
 import Tween = Laya.Tween;
 import SingletonScene from "../SingletonScene";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class BlendMode_Lighter extends SingletonScene {
     // 一只凤凰的分辨率是550 * 400
@@ -47,7 +48,7 @@ export class BlendMode_Lighter extends SingletonScene {
     private createAnimation(): Animation {
         var frames: Array<string> = [];
         for (var i: number = 1; i <= 25; ++i) {
-            frames.push("res/phoenix/phoenix" + this.preFixNumber(i, 4) + ".jpg");
+            frames.push(GlobalConfig.ResPath + "res/phoenix/phoenix" + this.preFixNumber(i, 4) + ".jpg");
         }
 
         var animation: Animation = new Animation();

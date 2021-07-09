@@ -13,6 +13,7 @@ import { Text_Restrict } from "./Text_Restrict";
 import { Text_Scroll } from "./Text_Scroll";
 import { Text_Underline } from "./Text_Underline";
 import { Text_WordWrap } from "./Text_WordWrap";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class TextMain extends SingletonMainScene {
     constructor() {
@@ -40,7 +41,7 @@ export class TextMain extends SingletonMainScene {
      * @param index index游标
      * @param skin 按钮皮肤
      */
-    private createButton(name: string, cb: Function, index: number, skin: string = "res/threeDimen/ui/button.png"): Laya.Button {
+    private createButton(name: string, cb: Function, index: number, skin: string = GlobalConfig.ResPath + "res/threeDimen/ui/button.png"): Laya.Button {
         var btn: Laya.Button = new Laya.Button(skin, name);
         btn.on(Laya.Event.CLICK, this, cb, [name]);
         btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);

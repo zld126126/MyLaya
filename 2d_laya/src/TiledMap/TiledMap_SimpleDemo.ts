@@ -3,6 +3,7 @@ import Rectangle = Laya.Rectangle;
 import Browser = Laya.Browser;
 import Handler = Laya.Handler;
 import SingletonScene from "../SingletonScene";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class TiledMap_SimpleDemo extends SingletonScene {
     private tiledMap: TiledMap;
@@ -27,7 +28,7 @@ export class TiledMap_SimpleDemo extends SingletonScene {
 
         this.mX = this.mY = 0;
         //创建地图，适当的时候调用destory销毁地图
-        this.tiledMap.createMap("res/tiledMap/desert.json", new Rectangle(0, 0, Browser.width, Browser.height), new Handler(this, this.completeHandler));
+        this.tiledMap.createMap(GlobalConfig.ResPath + "res/tiledMap/desert.json", new Rectangle(0, 0, Browser.width, Browser.height), new Handler(this, this.completeHandler));
     }
 
     /**

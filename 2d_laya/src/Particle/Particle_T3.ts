@@ -3,6 +3,7 @@ import Loader = Laya.Loader;
 import Particle2D = Laya.Particle2D;
 import ParticleSetting = Laya.ParticleSetting;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Particle_T3 extends SingletonScene {
     private sp: Particle2D;
@@ -10,7 +11,7 @@ export class Particle_T3 extends SingletonScene {
     constructor() {
         super();
         Laya.stage.addChild(this);
-        Laya.loader.load("res/particles/particleNew.part", Handler.create(this, this.onAssetsLoaded), null, Loader.JSON);
+        Laya.loader.load(GlobalConfig.ResPath + "res/particles/particleNew.part", Handler.create(this, this.onAssetsLoaded), null, Loader.JSON);
     }
 
     public onAssetsLoaded(settings: ParticleSetting): void {

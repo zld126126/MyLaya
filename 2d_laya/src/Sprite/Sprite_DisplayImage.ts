@@ -2,6 +2,7 @@ import SingletonScene from "../SingletonScene";
 import Sprite = Laya.Sprite;
 import Texture = Laya.Texture;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Sprite_DisplayImage extends SingletonScene {
     constructor() {
@@ -14,11 +15,11 @@ export class Sprite_DisplayImage extends SingletonScene {
         // 方法1：使用loadImage
         var ape1 = new Sprite();
         this.addChild(ape1);
-        ape1.loadImage("res/apes/monkey3.png");
+        ape1.loadImage(GlobalConfig.ResPath + "res/apes/monkey3.png");
 
         // 方法2：使用drawTexture
-        Laya.loader.load("res/apes/monkey2.png", new Handler(this, function (): void {
-            var t: Texture = Laya.loader.getRes("res/apes/monkey2.png");
+        Laya.loader.load(GlobalConfig.ResPath + "res/apes/monkey2.png", new Handler(this, function (): void {
+            var t: Texture = Laya.loader.getRes(GlobalConfig.ResPath + "res/apes/monkey2.png");
             var ape2 = new Sprite();
             ape2.graphics.drawTexture(t, 0, 0);
             this.addChild(ape2);

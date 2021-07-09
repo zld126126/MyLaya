@@ -1,5 +1,6 @@
 import SingletonScene from "../SingletonScene";
 import Image = Laya.Image;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class UI_Image extends SingletonScene {
     constructor() {
@@ -9,7 +10,7 @@ export class UI_Image extends SingletonScene {
     }
 
     private setup(): void {
-        var dialog: Image = new Image("res/ui/dialog (3).png");
+        var dialog: Image = new Image(GlobalConfig.ResPath + "res/ui/dialog (3).png");
         dialog.pos(165, 62.5);
         this.addChild(dialog);
     }

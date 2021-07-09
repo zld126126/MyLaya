@@ -4,49 +4,50 @@ import Stat = Laya.Stat;
 import WebGL = Laya.WebGL;
 import Animation = Laya.Animation;
 import Sprite = Laya.Sprite;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class PerformanceTest_Cartoon2 {
     private amount: number = 500;
 
     private character1: Array<string> = [
-        "res/cartoon2/yd-6_01.png",
-        "res/cartoon2/yd-6_02.png",
-        "res/cartoon2/yd-6_03.png",
-        "res/cartoon2/yd-6_04.png",
-        "res/cartoon2/yd-6_05.png",
-        "res/cartoon2/yd-6_06.png",
-        "res/cartoon2/yd-6_07.png",
-        "res/cartoon2/yd-6_08.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-6_01.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-6_02.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-6_03.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-6_04.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-6_05.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-6_06.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-6_07.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-6_08.png",
     ];
     private character2: Array<string> = [
-        "res/cartoon2/yd-3_01.png",
-        "res/cartoon2/yd-3_02.png",
-        "res/cartoon2/yd-3_03.png",
-        "res/cartoon2/yd-3_04.png",
-        "res/cartoon2/yd-3_05.png",
-        "res/cartoon2/yd-3_06.png",
-        "res/cartoon2/yd-3_07.png",
-        "res/cartoon2/yd-3_08.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-3_01.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-3_02.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-3_03.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-3_04.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-3_05.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-3_06.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-3_07.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-3_08.png",
     ];
     private character3: Array<string> = [
-        "res/cartoon2/yd-2_01.png",
-        "res/cartoon2/yd-2_02.png",
-        "res/cartoon2/yd-2_03.png",
-        "res/cartoon2/yd-2_04.png",
-        "res/cartoon2/yd-2_05.png",
-        "res/cartoon2/yd-2_06.png",
-        "res/cartoon2/yd-2_07.png",
-        "res/cartoon2/yd-2_08.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-2_01.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-2_02.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-2_03.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-2_04.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-2_05.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-2_06.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-2_07.png",
+        GlobalConfig.ResPath + "res/cartoon2/yd-2_08.png",
     ];
     private character4: Array<string> = [
-        "res/cartoon2/wyd-1_01.png",
-        "res/cartoon2/wyd-1_02.png",
-        "res/cartoon2/wyd-1_03.png",
-        "res/cartoon2/wyd-1_04.png",
-        "res/cartoon2/wyd-1_05.png",
-        "res/cartoon2/wyd-1_06.png",
-        "res/cartoon2/wyd-1_07.png",
-        "res/cartoon2/wyd-1_08.png",
+        GlobalConfig.ResPath + "res/cartoon2/wyd-1_01.png",
+        GlobalConfig.ResPath + "res/cartoon2/wyd-1_02.png",
+        GlobalConfig.ResPath + "res/cartoon2/wyd-1_03.png",
+        GlobalConfig.ResPath + "res/cartoon2/wyd-1_04.png",
+        GlobalConfig.ResPath + "res/cartoon2/wyd-1_05.png",
+        GlobalConfig.ResPath + "res/cartoon2/wyd-1_06.png",
+        GlobalConfig.ResPath + "res/cartoon2/wyd-1_07.png",
+        GlobalConfig.ResPath + "res/cartoon2/wyd-1_08.png",
     ];
 
     private characterSkins: Array<Array<string>> = [this.character1, this.character2, this.character3, this.character4];
@@ -58,7 +59,7 @@ export class PerformanceTest_Cartoon2 {
         Laya.init(1280, 720, WebGL);
         Laya.stage.screenMode = Stage.SCREEN_HORIZONTAL;
         Stat.enable();
-        Laya.stage.loadImage("res/cartoon2/background.jpg");
+        Laya.stage.loadImage(GlobalConfig.ResPath + "res/cartoon2/background.jpg");
 
         this.createCharacters();
 
@@ -127,7 +128,7 @@ class Character extends Sprite {
 
     private createBloodBar(): void {
         this.bloodBar = new Sprite();
-        this.bloodBar.loadImage("res/cartoon2/blood_1_r.png");
+        this.bloodBar.loadImage(GlobalConfig.ResPath + "res/cartoon2/blood_1_r.png");
         this.bloodBar.x = 20;
         this.addChild(this.bloodBar);
     }

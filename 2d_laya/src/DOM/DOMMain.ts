@@ -2,6 +2,7 @@ import SingletonMainScene from "../SingletonMainScene";
 import { EventManager, EventType } from "../EventManager";
 import { DOM_Form } from "./DOM_Form";
 import { DOM_Video } from "./DOM_Video";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class DOMMain extends SingletonMainScene {
     constructor() {
@@ -27,7 +28,7 @@ export class DOMMain extends SingletonMainScene {
      * @param index index游标
      * @param skin 按钮皮肤
      */
-    private createButton(name: string, cb: Function, index: number, skin: string = "res/threeDimen/ui/button.png"): Laya.Button {
+    private createButton(name: string, cb: Function, index: number, skin: string = GlobalConfig.ResPath + "res/threeDimen/ui/button.png"): Laya.Button {
         var btn: Laya.Button = new Laya.Button(skin, name);
         btn.on(Laya.Event.CLICK, this, cb, [name]);
         btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);

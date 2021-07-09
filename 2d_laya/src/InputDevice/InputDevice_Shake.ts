@@ -5,6 +5,7 @@ import Shake = Laya.Shake;
 import Browser = Laya.Browser;
 import Handler = Laya.Handler;
 import Event = Laya.Event;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class InputDevice_Shake {
     private picW: number = 484;
@@ -22,7 +23,7 @@ export class InputDevice_Shake {
     }
     private showShakePic(): void {
         var shakePic: Sprite = new Sprite();
-        shakePic.loadImage("res/inputDevice/shake.png");
+        shakePic.loadImage(GlobalConfig.ResPath + "res/inputDevice/shake.png");
         Laya.stage.addChild(shakePic);
     }
 

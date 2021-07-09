@@ -4,9 +4,10 @@ import TextArea = Laya.TextArea;
 import Browser = Laya.Browser;
 import Handler = Laya.Handler;
 import WebGL = Laya.WebGL;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class UI_TextArea extends SingletonScene {
-    private skin: string = "res/ui/textarea.png";
+    private skin: string = GlobalConfig.ResPath + "res/ui/textarea.png";
 
     constructor() {
         super();

@@ -2,6 +2,7 @@ import TiledMap = Laya.TiledMap;
 import Rectangle = Laya.Rectangle;
 import Browser = Laya.Browser;
 import SingletonScene from "../SingletonScene";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class TiledMap_AnimationTile extends SingletonScene {
     private tiledMap: TiledMap;
@@ -13,7 +14,7 @@ export class TiledMap_AnimationTile extends SingletonScene {
 
     private createMap(): void {
         this.tiledMap = new TiledMap();
-        this.tiledMap.createMap("res/tiledMap/orthogonal-test-movelayer.json", new Rectangle(0, 0, 300, 400), null);
+        this.tiledMap.createMap(GlobalConfig.ResPath + "res/tiledMap/orthogonal-test-movelayer.json", new Rectangle(0, 0, 300, 400), null);
     }
 
     public Show() {

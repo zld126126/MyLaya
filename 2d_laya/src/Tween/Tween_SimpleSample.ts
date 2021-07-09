@@ -1,6 +1,7 @@
 import SingletonScene from "../SingletonScene";
 import Sprite = Laya.Sprite;
 import Tween = Laya.Tween;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Tween_SimpleSample extends SingletonScene {
     characterA: Sprite;
@@ -15,11 +16,11 @@ export class Tween_SimpleSample extends SingletonScene {
     private setup(): void {
         this.terminalX = 200;
 
-        this.characterA = this.createCharacter("res/cartoonCharacters/1.png");
+        this.characterA = this.createCharacter(GlobalConfig.ResPath + "res/cartoonCharacters/1.png");
         this.characterA.pivot(46.5, 50);
         this.characterA.y = 100;
 
-        this.characterB = this.createCharacter("res/cartoonCharacters/2.png");
+        this.characterB = this.createCharacter(GlobalConfig.ResPath + "res/cartoonCharacters/2.png");
         this.characterB.pivot(34, 50);
         this.characterB.y = 250;
 

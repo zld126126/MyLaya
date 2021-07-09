@@ -1,6 +1,7 @@
 import Sprite = Laya.Sprite;
 import Event = Laya.Event;
 import SingletonScene from "../SingletonScene";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Sprite_Pivot extends SingletonScene {
     private sp1: Sprite;
@@ -16,7 +17,7 @@ export class Sprite_Pivot extends SingletonScene {
         var gap: number = 300;
 
         this.sp1 = new Sprite();
-        this.sp1.loadImage("res/apes/monkey2.png");
+        this.sp1.loadImage(GlobalConfig.ResPath + "res/apes/monkey2.png");
 
         this.sp1.pos((Laya.stage.width - gap) / 2, Laya.stage.height / 2);
         //设置轴心点为中心
@@ -25,7 +26,7 @@ export class Sprite_Pivot extends SingletonScene {
 
         //不设置轴心点默认为左上角
         this.sp2 = new Sprite();
-        this.sp2.loadImage("res/apes/monkey2.png");
+        this.sp2.loadImage(GlobalConfig.ResPath + "res/apes/monkey2.png");
         this.sp2.pos((Laya.stage.width + gap) / 2, Laya.stage.height / 2);
         this.addChild(this.sp2);
 

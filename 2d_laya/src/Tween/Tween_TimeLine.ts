@@ -3,6 +3,7 @@ import Sprite = Laya.Sprite;
 import Event = Laya.Event;
 import Keyboard = Laya.Keyboard;
 import TimeLine = Laya.TimeLine;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Tween_TimeLine extends SingletonScene {
     private target: Sprite;
@@ -20,7 +21,7 @@ export class Tween_TimeLine extends SingletonScene {
     }
     private createApe(): void {
         this.target = new Sprite();
-        this.target.loadImage("res/apes/monkey2.png");
+        this.target.loadImage(GlobalConfig.ResPath + "res/apes/monkey2.png");
         this.addChild(this.target);
         this.target.pivot(55, 72);
         this.target.pos(100, 100);

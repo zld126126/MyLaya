@@ -1,6 +1,7 @@
 import Sprite = Laya.Sprite;
 import HitArea = Laya.HitArea;
 import SingletonScene from "../SingletonScene";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Sprite_Guide extends SingletonScene {
     private guideContainer: Sprite;
@@ -9,9 +10,9 @@ export class Sprite_Guide extends SingletonScene {
 
     private guideSteps: Array<any> =
         [
-            { x: 40, y: 160, radius: 50, tip: "res/guide/help6.png", tipx: 50, tipy: 50 },
-            { x: 220, y: 150, radius: 20, tip: "res/guide/help4.png", tipx: 150, tipy: 100 },
-            { x: 280, y: 150, radius: 30, tip: "res/guide/help3.png", tipx: 200, tipy: 80 }
+            { x: 40, y: 160, radius: 50, tip: GlobalConfig.ResPath + "res/guide/help6.png", tipx: 50, tipy: 50 },
+            { x: 220, y: 150, radius: 20, tip: GlobalConfig.ResPath + "res/guide/help4.png", tipx: 150, tipy: 100 },
+            { x: 280, y: 150, radius: 30, tip: GlobalConfig.ResPath + "res/guide/help3.png", tipx: 200, tipy: 80 }
         ];
     private guideStep: number = 0;
     public hitArea: HitArea;
@@ -25,7 +26,7 @@ export class Sprite_Guide extends SingletonScene {
     private firstStep(): void {
         //绘制一个蓝色方块，不被抠图
         this.gameContainer = new Sprite();
-        this.gameContainer.loadImage("res/guide/crazy_snowball.png");
+        this.gameContainer.loadImage(GlobalConfig.ResPath + "res/guide/crazy_snowball.png");
         this.addChild(this.gameContainer);
 
         // 引导所在容器

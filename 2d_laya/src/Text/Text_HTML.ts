@@ -2,6 +2,7 @@
 import SingletonScene from "../SingletonScene";
 import HTMLDivElement = Laya.HTMLDivElement;
 import HTMLIframeElement = Laya.HTMLIframeElement;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Text_HTML extends SingletonScene {
     constructor() {
@@ -33,7 +34,7 @@ export class Text_HTML extends SingletonScene {
     private showExternalHTML(): void {
         var p: HTMLIframeElement = new HTMLIframeElement();
         this.addChild(p);
-        p.href = "res/html/test.html";
+        p.href = GlobalConfig.ResPath + "res/html/test.html";
         p.y = 200;
     }
 }

@@ -2,14 +2,15 @@ import SingletonScene from "../SingletonScene";
 import HSlider = Laya.HSlider;
 import VSlider = Laya.VSlider;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class UI_Slider extends SingletonScene {
     constructor() {
         super();
         Laya.stage.addChild(this);
         var skins: Array<string> = [];
-        skins.push("res/ui/hslider.png", "res/ui/hslider$bar.png");
-        skins.push("res/ui/vslider.png", "res/ui/vslider$bar.png");
+        skins.push(GlobalConfig.ResPath + "res/ui/hslider.png", GlobalConfig.ResPath + "res/ui/hslider$bar.png");
+        skins.push(GlobalConfig.ResPath + "res/ui/vslider.png", GlobalConfig.ResPath + "res/ui/vslider$bar.png");
         Laya.loader.load(skins, Handler.create(this, this.onLoadComplete));
     }
 
@@ -20,7 +21,7 @@ export class UI_Slider extends SingletonScene {
 
     private placeHSlider(): void {
         var hs: HSlider = new HSlider();
-        hs.skin = "res/ui/hslider.png";
+        hs.skin = GlobalConfig.ResPath + "res/ui/hslider.png";
 
         hs.width = 300;
         hs.pos(50, 170);
@@ -36,7 +37,7 @@ export class UI_Slider extends SingletonScene {
     private placeVSlider(): void {
         var vs: VSlider = new VSlider();
 
-        vs.skin = "res/ui/vslider.png";
+        vs.skin = GlobalConfig.ResPath + "res/ui/vslider.png";
 
         vs.height = 300;
         vs.pos(400, 50);

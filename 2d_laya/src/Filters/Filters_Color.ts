@@ -3,9 +3,10 @@ import Sprite = Laya.Sprite;
 import ColorFilter = Laya.ColorFilter;
 import Texture = Laya.Texture;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Filters_Color extends SingletonScene {
-    private ApePath: string = "res/apes/monkey2.png";
+    private ApePath: string = GlobalConfig.ResPath + "res/apes/monkey2.png";
 
     private apeTexture: Texture;
 
@@ -69,7 +70,7 @@ export class Filters_Color extends SingletonScene {
 
     private createApe(): Sprite {
         var ape: Sprite = new Sprite();
-        ape.loadImage("res/apes/monkey2.png");
+        ape.loadImage(GlobalConfig.ResPath + "res/apes/monkey2.png");
         this.addChild(ape);
 
         return ape;

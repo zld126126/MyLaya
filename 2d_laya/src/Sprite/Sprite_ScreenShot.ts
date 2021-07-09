@@ -4,9 +4,10 @@ import Texture = Laya.Texture;
 import Handler = Laya.Handler;
 import Button = Laya.Button;
 import Event = Laya.Event;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Sprite_ScreenShot extends SingletonScene {
-    private btnArr: Array<string> = ["res/threeDimen/ui/button.png", "res/threeDimen/ui/button.png"];
+    private btnArr: Array<string> = [GlobalConfig.ResPath + "res/threeDimen/ui/button.png", GlobalConfig.ResPath + "res/threeDimen/ui/button.png"];
     // TODO 暂时只展示sprite截图  canvas截图后期处理
     private nameArr: Array<string> = ["截图", "清理"];
     private drawSp: Sprite;
@@ -20,7 +21,7 @@ export class Sprite_ScreenShot extends SingletonScene {
     private createApes(): void {
         var ape1 = new Sprite();
         this.addChild(ape1);
-        ape1.loadImage("res/apes/monkey3.png", Handler.create(this, this.onLoaded));
+        ape1.loadImage(GlobalConfig.ResPath + "res/apes/monkey3.png", Handler.create(this, this.onLoaded));
     }
 
     private createButton(skin: string, name: string, cb: Function, index: number): Button {

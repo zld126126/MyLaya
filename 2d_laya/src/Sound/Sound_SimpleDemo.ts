@@ -4,6 +4,7 @@ import Text = Laya.Text;
 import Event = Laya.Event;
 import SoundManager = Laya.SoundManager;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Sound_SimpleDemo extends SingletonScene {
     //声明一个信息文本
@@ -48,12 +49,12 @@ export class Sound_SimpleDemo extends SingletonScene {
 
     private onPlayMusic(e: Event): void {
         console.log("播放音乐");
-        SoundManager.playMusic("res/sounds/bgm.mp3", 1, new Handler(this, this.onComplete));
+        SoundManager.playMusic(GlobalConfig.ResPath + "res/sounds/bgm.mp3", 1, new Handler(this, this.onComplete));
     }
 
     private onPlaySound(e: Event): void {
         console.log("播放音效");
-        SoundManager.playSound("res/sounds/btn.mp3", 1, new Handler(this, this.onComplete));
+        SoundManager.playSound(GlobalConfig.ResPath + "res/sounds/btn.mp3", 1, new Handler(this, this.onComplete));
     }
 
     private onComplete(): void {
@@ -61,8 +62,8 @@ export class Sound_SimpleDemo extends SingletonScene {
     }
 
     public Hide() {
-        SoundManager.stopSound("res/sounds/btn.mp3");
-        SoundManager.stopSound("res/sounds/bgm.mp3");
+        SoundManager.stopSound(GlobalConfig.ResPath + "res/sounds/btn.mp3");
+        SoundManager.stopSound(GlobalConfig.ResPath + "res/sounds/bgm.mp3");
         this.visible = false;
     }
 }

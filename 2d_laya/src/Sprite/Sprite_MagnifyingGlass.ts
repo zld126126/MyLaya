@@ -4,6 +4,7 @@ import Browser = Laya.Browser;
 import Handler = Laya.Handler;
 import WebGL = Laya.WebGL;
 import SingletonScene from "../SingletonScene";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Sprite_MagnifyingGlass extends SingletonScene {
     private maskSp: Sprite;
@@ -17,17 +18,17 @@ export class Sprite_MagnifyingGlass extends SingletonScene {
 
     private createApe(): void {
         var bg: Sprite = new Sprite();
-        bg.loadImage("res/bg2.png");
+        bg.loadImage(GlobalConfig.ResPath + "res/bg2.png");
         this.addChild(bg);
 
         this.bg2 = new Sprite();
-        this.bg2.loadImage("res/bg2.png");
+        this.bg2.loadImage(GlobalConfig.ResPath + "res/bg2.png");
         this.addChild(this.bg2);
         this.bg2.scale(3, 3);
 
         //创建mask
         this.maskSp = new Sprite();
-        this.maskSp.loadImage("res/mask.png");
+        this.maskSp.loadImage(GlobalConfig.ResPath + "res/mask.png");
         this.maskSp.pivot(50, 50);
 
         //设置mask

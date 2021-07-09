@@ -2,6 +2,7 @@ import Skeleton = Laya.Skeleton;
 import Templet = Laya.Templet;
 import Event = Laya.Event;
 import SingletonScene from "../SingletonScene";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Skeleton_SpineVine extends SingletonScene {
     private mAniPath: string;
@@ -20,7 +21,7 @@ export class Skeleton_SpineVine extends SingletonScene {
     }
 
     public startFun(): void {
-        this.mAniPath = "res/spine/spineRes5/vine.sk";
+        this.mAniPath = GlobalConfig.ResPath + "res/spine/spineRes5/vine.sk";
         this.mFactory = new Templet();
         this.mFactory.on(Event.COMPLETE, this, this.parseComplete);
         this.mFactory.on(Event.ERROR, this, this.onError);

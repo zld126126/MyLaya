@@ -77,6 +77,11 @@
         }
     }
 
+    var GlobalConfig;
+    (function (GlobalConfig) {
+        GlobalConfig.ResPath = "https://layaair.ldc.layabox.com/demo2/h5/";
+    })(GlobalConfig || (GlobalConfig = {}));
+
     var Sprite = Laya.Sprite;
     var Handler = Laya.Handler;
     class Sprite_DisplayImage extends SingletonScene {
@@ -88,9 +93,9 @@
         createApes() {
             var ape1 = new Sprite();
             this.addChild(ape1);
-            ape1.loadImage("res/apes/monkey3.png");
-            Laya.loader.load("res/apes/monkey2.png", new Handler(this, function () {
-                var t = Laya.loader.getRes("res/apes/monkey2.png");
+            ape1.loadImage(GlobalConfig.ResPath + "res/apes/monkey3.png");
+            Laya.loader.load(GlobalConfig.ResPath + "res/apes/monkey2.png", new Handler(this, function () {
+                var t = Laya.loader.getRes(GlobalConfig.ResPath + "res/apes/monkey2.png");
                 var ape2 = new Sprite();
                 ape2.graphics.drawTexture(t, 0, 0);
                 this.addChild(ape2);
@@ -106,7 +111,7 @@
     class Sprite_ScreenShot extends SingletonScene {
         constructor() {
             super();
-            this.btnArr = ["res/threeDimen/ui/button.png", "res/threeDimen/ui/button.png"];
+            this.btnArr = [GlobalConfig.ResPath + "res/threeDimen/ui/button.png", GlobalConfig.ResPath + "res/threeDimen/ui/button.png"];
             this.nameArr = ["截图", "清理"];
             Laya.stage.addChild(this);
             this.createApes();
@@ -114,7 +119,7 @@
         createApes() {
             var ape1 = new Sprite$1();
             this.addChild(ape1);
-            ape1.loadImage("res/apes/monkey3.png", Handler$1.create(this, this.onLoaded));
+            ape1.loadImage(GlobalConfig.ResPath + "res/apes/monkey3.png", Handler$1.create(this, this.onLoaded));
         }
         createButton(skin, name, cb, index) {
             var btn = new Button(skin, name);
@@ -164,7 +169,7 @@
             this.addChild(this.apesCtn);
             for (var i = 0; i < 4; i++) {
                 var ape = new Sprite$2();
-                ape.loadImage("res/apes/monkey" + i + ".png");
+                ape.loadImage(GlobalConfig.ResPath + "res/apes/monkey" + i + ".png");
                 ape.pivot(55, 72);
                 ape.pos(Math.cos(radianUnit * i) * layoutRadius, Math.sin(radianUnit * i) * layoutRadius);
                 this.apesCtn.addChild(ape);
@@ -187,7 +192,7 @@
         }
         createApe() {
             this.ape = new Sprite$3();
-            this.ape.loadImage("res/apes/monkey2.png");
+            this.ape.loadImage(GlobalConfig.ResPath + "res/apes/monkey2.png");
             this.addChild(this.ape);
             this.ape.pivot(55, 72);
             this.ape.x = Laya.stage.width / 2;
@@ -239,14 +244,14 @@
         }
         createApe() {
             var bg = new Sprite$5();
-            bg.loadImage("res/bg2.png");
+            bg.loadImage(GlobalConfig.ResPath + "res/bg2.png");
             this.addChild(bg);
             this.bg2 = new Sprite$5();
-            this.bg2.loadImage("res/bg2.png");
+            this.bg2.loadImage(GlobalConfig.ResPath + "res/bg2.png");
             this.addChild(this.bg2);
             this.bg2.scale(3, 3);
             this.maskSp = new Sprite$5();
-            this.maskSp.loadImage("res/mask.png");
+            this.maskSp.loadImage(GlobalConfig.ResPath + "res/mask.png");
             this.maskSp.pivot(50, 50);
             this.bg2.mask = this.maskSp;
             Laya.stage.on("mousemove", this, this.onMouseMove);
@@ -320,8 +325,8 @@
         createApes() {
             this.ape1 = new Sprite$8();
             this.ape2 = new Sprite$8();
-            this.ape1.loadImage("res/apes/monkey2.png");
-            this.ape2.loadImage("res/apes/monkey2.png");
+            this.ape1.loadImage(GlobalConfig.ResPath + "res/apes/monkey2.png");
+            this.ape2.loadImage(GlobalConfig.ResPath + "res/apes/monkey2.png");
             this.ape1.pivot(55, 72);
             this.ape2.pivot(55, 72);
             this.ape1.pos(Laya.stage.width / 2, Laya.stage.height / 2);
@@ -346,12 +351,12 @@
         createApes() {
             var gap = 300;
             this.sp1 = new Sprite$9();
-            this.sp1.loadImage("res/apes/monkey2.png");
+            this.sp1.loadImage(GlobalConfig.ResPath + "res/apes/monkey2.png");
             this.sp1.pos((Laya.stage.width - gap) / 2, Laya.stage.height / 2);
             this.sp1.pivot(55, 72);
             this.addChild(this.sp1);
             this.sp2 = new Sprite$9();
-            this.sp2.loadImage("res/apes/monkey2.png");
+            this.sp2.loadImage(GlobalConfig.ResPath + "res/apes/monkey2.png");
             this.sp2.pos((Laya.stage.width + gap) / 2, Laya.stage.height / 2);
             this.addChild(this.sp2);
             Laya.timer.frameLoop(1, this, this.animate);
@@ -370,8 +375,8 @@
     class Sprite_SwitchTexture extends SingletonScene {
         constructor() {
             super();
-            this.texture1 = "res/apes/monkey2.png";
-            this.texture2 = "res/apes/monkey3.png";
+            this.texture1 = GlobalConfig.ResPath + "res/apes/monkey2.png";
+            this.texture2 = GlobalConfig.ResPath + "res/apes/monkey3.png";
             this.flag = false;
             Laya.stage.addChild(this);
             Laya.loader.load([this.texture1, this.texture2], Handler$2.create(this, this.onAssetsLoaded));
@@ -402,16 +407,16 @@
         constructor() {
             super();
             this.guideSteps = [
-                { x: 40, y: 160, radius: 50, tip: "res/guide/help6.png", tipx: 50, tipy: 50 },
-                { x: 220, y: 150, radius: 20, tip: "res/guide/help4.png", tipx: 150, tipy: 100 },
-                { x: 280, y: 150, radius: 30, tip: "res/guide/help3.png", tipx: 200, tipy: 80 }
+                { x: 40, y: 160, radius: 50, tip: GlobalConfig.ResPath + "res/guide/help6.png", tipx: 50, tipy: 50 },
+                { x: 220, y: 150, radius: 20, tip: GlobalConfig.ResPath + "res/guide/help4.png", tipx: 150, tipy: 100 },
+                { x: 280, y: 150, radius: 30, tip: GlobalConfig.ResPath + "res/guide/help3.png", tipx: 200, tipy: 80 }
             ];
             this.guideStep = 0;
             Laya.stage.addChild(this);
         }
         firstStep() {
             this.gameContainer = new Sprite$b();
-            this.gameContainer.loadImage("res/guide/crazy_snowball.png");
+            this.gameContainer.loadImage(GlobalConfig.ResPath + "res/guide/crazy_snowball.png");
             this.addChild(this.gameContainer);
             this.guideContainer = new Sprite$b();
             this.guideContainer.cacheAs = "bitmap";
@@ -548,7 +553,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -610,7 +615,7 @@
     class Animation_SWF extends SingletonScene {
         constructor() {
             super();
-            this.SWFPath = "res/swf/dragon.swf";
+            this.SWFPath = GlobalConfig.ResPath + "res/swf/dragon.swf";
             this.MCWidth = 318;
             this.MCHeight = 406;
             Laya.stage.addChild(this);
@@ -629,7 +634,7 @@
     class Animation_Altas extends SingletonScene {
         constructor() {
             super();
-            this.AniConfPath = "res/fighter/fighter.atlas";
+            this.AniConfPath = GlobalConfig.ResPath + "res/fighter/fighter.atlas";
             Laya.stage.addChild(this);
             this.createAnimation();
         }
@@ -660,7 +665,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -702,7 +707,7 @@
             this.startFun();
         }
         startFun() {
-            this.mAniPath = "res/spine/spineRes1/dragon.sk";
+            this.mAniPath = GlobalConfig.ResPath + "res/spine/spineRes1/dragon.sk";
             this.mFactory = new Templet();
             this.mFactory.on(Event$1.COMPLETE, this, this.parseComplete);
             this.mFactory.on(Event$1.ERROR, this, this.onError);
@@ -750,7 +755,7 @@
             this.startFun();
         }
         startFun() {
-            this.mAniPath = "res/spine/spineRes6/alien.sk";
+            this.mAniPath = GlobalConfig.ResPath + "res/spine/spineRes6/alien.sk";
             this.mFactory = new Templet$1();
             this.mFactory.on(Event$2.COMPLETE, this, this.parseComplete);
             this.mFactory.on(Event$2.ERROR, this, this.onError);
@@ -807,7 +812,7 @@
             this.startFun();
         }
         startFun() {
-            this.mAniPath = "res/spine/spineRes4/stretchyman.sk";
+            this.mAniPath = GlobalConfig.ResPath + "res/spine/spineRes4/stretchyman.sk";
             this.mFactory = new Templet$2();
             this.mFactory.on(Event$3.COMPLETE, this, this.parseComplete);
             this.mFactory.on(Event$3.ERROR, this, this.onError);
@@ -850,7 +855,7 @@
             this.startFun();
         }
         startFun() {
-            this.mAniPath = "res/spine/spineRes5/vine.sk";
+            this.mAniPath = GlobalConfig.ResPath + "res/spine/spineRes5/vine.sk";
             this.mFactory = new Templet$3();
             this.mFactory.on(Event$4.COMPLETE, this, this.parseComplete);
             this.mFactory.on(Event$4.ERROR, this, this.onError);
@@ -895,7 +900,7 @@
             this.startFun();
         }
         startFun() {
-            this.mAniPath = "res/spine/spineRes2/goblins.sk";
+            this.mAniPath = GlobalConfig.ResPath + "res/spine/spineRes2/goblins.sk";
             this.mFactory = new Templet$4();
             this.mFactory.on(Event$5.COMPLETE, this, this.parseComplete);
             this.mFactory.on(Event$5.ERROR, this, this.onError);
@@ -947,7 +952,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -1017,7 +1022,7 @@
         createAnimation() {
             var frames = [];
             for (var i = 1; i <= 25; ++i) {
-                frames.push("res/phoenix/phoenix" + this.preFixNumber(i, 4) + ".jpg");
+                frames.push(GlobalConfig.ResPath + "res/phoenix/phoenix" + this.preFixNumber(i, 4) + ".jpg");
             }
             var animation = new Animation$1();
             animation.loadImages(frames);
@@ -1081,7 +1086,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -1115,7 +1120,7 @@
         }
         createMap() {
             this.tiledMap = new TiledMap();
-            this.tiledMap.createMap("res/tiledMap/orthogonal-test-movelayer.json", new Rectangle(0, 0, 300, 400), null);
+            this.tiledMap.createMap(GlobalConfig.ResPath + "res/tiledMap/orthogonal-test-movelayer.json", new Rectangle(0, 0, 300, 400), null);
         }
         Show() {
             this.createMap();
@@ -1138,7 +1143,7 @@
         }
         createMap() {
             this.tiledMap = new TiledMap$1();
-            this.tiledMap.createMap("res/tiledMap/isometric_grass_and_water.json", new Rectangle$1(0, 0, 300, 400), Handler$5.create(this, this.mapLoaded), null, new Point(800, 400));
+            this.tiledMap.createMap(GlobalConfig.ResPath + "res/tiledMap/isometric_grass_and_water.json", new Rectangle$1(0, 0, 300, 400), Handler$5.create(this, this.mapLoaded), null, new Point(800, 400));
         }
         onStageClick() {
             if (!this.isShow) {
@@ -1177,7 +1182,7 @@
         }
         createMap() {
             this.tiledMap = new TiledMap$2();
-            this.tiledMap.createMap("res/tiledMap/perspective_walls.json", new Rectangle$2(0, 0, 300, 400), null);
+            this.tiledMap.createMap(GlobalConfig.ResPath + "res/tiledMap/perspective_walls.json", new Rectangle$2(0, 0, 300, 400), null);
         }
         Show() {
             this.createMap();
@@ -1205,7 +1210,7 @@
         createMap() {
             this.tiledMap = new TiledMap$3();
             this.mX = this.mY = 0;
-            this.tiledMap.createMap("res/tiledMap/desert.json", new Rectangle$3(0, 0, Browser.width, Browser.height), new Handler$6(this, this.completeHandler));
+            this.tiledMap.createMap(GlobalConfig.ResPath + "res/tiledMap/desert.json", new Rectangle$3(0, 0, Browser.width, Browser.height), new Handler$6(this, this.completeHandler));
         }
         completeHandler() {
             console.log("地图创建完成");
@@ -1260,7 +1265,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -1300,7 +1305,7 @@
     class Filters_Blur extends SingletonScene {
         constructor() {
             super();
-            this.apePath = "res/apes/monkey2.png";
+            this.apePath = GlobalConfig.ResPath + "res/apes/monkey2.png";
             Laya.stage.addChild(this);
             Laya.loader.load(this.apePath, Handler$7.create(this, this.createApe));
         }
@@ -1325,7 +1330,7 @@
     class Filters_Color extends SingletonScene {
         constructor() {
             super();
-            this.ApePath = "res/apes/monkey2.png";
+            this.ApePath = GlobalConfig.ResPath + "res/apes/monkey2.png";
             Laya.stage.addChild(this);
             Laya.loader.load(this.ApePath, Handler$8.create(this, this.setup));
         }
@@ -1365,7 +1370,7 @@
         }
         createApe() {
             var ape = new Sprite$f();
-            ape.loadImage("res/apes/monkey2.png");
+            ape.loadImage(GlobalConfig.ResPath + "res/apes/monkey2.png");
             this.addChild(ape);
             return ape;
         }
@@ -1377,7 +1382,7 @@
     class Filters_Glow extends SingletonScene {
         constructor() {
             super();
-            this.apePath = "res/apes/monkey2.png";
+            this.apePath = GlobalConfig.ResPath + "res/apes/monkey2.png";
             Laya.stage.addChild(this);
             Laya.loader.load(this.apePath, Handler$9.create(this, this.setup));
         }
@@ -1413,7 +1418,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -1451,7 +1456,7 @@
         constructor() {
             super();
             Laya.stage.addChild(this);
-            Laya.loader.load("res/particles/GravityMode.part", Handler$a.create(this, this.onAssetsLoaded), null, Loader.JSON);
+            Laya.loader.load(GlobalConfig.ResPath + "res/particles/GravityMode.part", Handler$a.create(this, this.onAssetsLoaded), null, Loader.JSON);
         }
         onAssetsLoaded(settings) {
             this.sp = new Particle2D(settings);
@@ -1470,7 +1475,7 @@
         constructor() {
             super();
             Laya.stage.addChild(this);
-            Laya.loader.load("res/particles/RadiusMode.part", Handler$b.create(this, this.onAssetsLoaded), null, Loader$1.JSON);
+            Laya.loader.load(GlobalConfig.ResPath + "res/particles/RadiusMode.part", Handler$b.create(this, this.onAssetsLoaded), null, Loader$1.JSON);
         }
         onAssetsLoaded(settings) {
             this.sp = new Particle2D$1(settings);
@@ -1489,7 +1494,7 @@
         constructor() {
             super();
             Laya.stage.addChild(this);
-            Laya.loader.load("res/particles/particleNew.part", Handler$c.create(this, this.onAssetsLoaded), null, Loader$2.JSON);
+            Laya.loader.load(GlobalConfig.ResPath + "res/particles/particleNew.part", Handler$c.create(this, this.onAssetsLoaded), null, Loader$2.JSON);
         }
         onAssetsLoaded(settings) {
             this.sp = new Particle2D$2(settings);
@@ -1515,7 +1520,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -1581,18 +1586,18 @@
         }
         onPlayMusic(e) {
             console.log("播放音乐");
-            SoundManager.playMusic("res/sounds/bgm.mp3", 1, new Handler$d(this, this.onComplete));
+            SoundManager.playMusic(GlobalConfig.ResPath + "res/sounds/bgm.mp3", 1, new Handler$d(this, this.onComplete));
         }
         onPlaySound(e) {
             console.log("播放音效");
-            SoundManager.playSound("res/sounds/btn.mp3", 1, new Handler$d(this, this.onComplete));
+            SoundManager.playSound(GlobalConfig.ResPath + "res/sounds/btn.mp3", 1, new Handler$d(this, this.onComplete));
         }
         onComplete() {
             console.log("播放完成");
         }
         Hide() {
-            SoundManager.stopSound("res/sounds/btn.mp3");
-            SoundManager.stopSound("res/sounds/bgm.mp3");
+            SoundManager.stopSound(GlobalConfig.ResPath + "res/sounds/btn.mp3");
+            SoundManager.stopSound(GlobalConfig.ResPath + "res/sounds/bgm.mp3");
             this.visible = false;
         }
     }
@@ -1611,7 +1616,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -1680,7 +1685,7 @@
         }
         loadFont() {
             var bitmapFont = new BitmapFont();
-            bitmapFont.loadFont("res/bitmapFont/test.fnt", new Handler$e(this, this.onFontLoaded, [bitmapFont]));
+            bitmapFont.loadFont(GlobalConfig.ResPath + "res/bitmapFont/test.fnt", new Handler$e(this, this.onFontLoaded, [bitmapFont]));
         }
         onFontLoaded(bitmapFont) {
             bitmapFont.setSpaceWidth(10);
@@ -1774,7 +1779,7 @@
         showExternalHTML() {
             var p = new HTMLIframeElement();
             this.addChild(p);
-            p.href = "res/html/test.html";
+            p.href = GlobalConfig.ResPath + "res/html/test.html";
             p.y = 200;
         }
     }
@@ -2040,7 +2045,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -2113,8 +2118,8 @@
             this.VERTICAL_SPACING = 100;
             Laya.stage.addChild(this);
             this.skins = [
-                "res/ui/button-1.png", "res/ui/button-2.png", "res/ui/button-3.png",
-                "res/ui/button-4.png", "res/ui/button-5.png", "res/ui/button-6.png"
+                GlobalConfig.ResPath + "res/ui/button-1.png", GlobalConfig.ResPath + "res/ui/button-2.png", GlobalConfig.ResPath + "res/ui/button-3.png",
+                GlobalConfig.ResPath + "res/ui/button-4.png", GlobalConfig.ResPath + "res/ui/button-5.png", GlobalConfig.ResPath + "res/ui/button-6.png"
             ];
             this.xOffset = (Laya.stage.width - this.HORIZONTAL_SPACING * (this.COLUMNS - 1) - this.BUTTON_WIDTH) / 2;
             this.yOffset = (Laya.stage.height - this.VERTICAL_SPACING * (this.skins.length / this.COLUMNS - 1) - this.BUTTON_HEIGHT) / 2;
@@ -2147,7 +2152,7 @@
             this.X_OFFSET = 100;
             this.Y_OFFSET = 50;
             Laya.stage.addChild(this);
-            this.skins = ["res/ui/checkbox (1).png", "res/ui/checkbox (2).png", "res/ui/checkbox (3).png", "res/ui/checkbox (4).png", "res/ui/checkbox (5).png", "res/ui/checkbox (6).png"];
+            this.skins = [GlobalConfig.ResPath + "res/ui/checkbox (1).png", GlobalConfig.ResPath + "res/ui/checkbox (2).png", GlobalConfig.ResPath + "res/ui/checkbox (3).png", GlobalConfig.ResPath + "res/ui/checkbox (4).png", GlobalConfig.ResPath + "res/ui/checkbox (5).png", GlobalConfig.ResPath + "res/ui/checkbox (6).png"];
             Laya.loader.load(this.skins, Handler$g.create(this, this.onCheckBoxSkinLoaded));
         }
         onCheckBoxSkinLoaded() {
@@ -2186,9 +2191,9 @@
     class UI_Clip extends SingletonScene {
         constructor() {
             super();
-            this.buttonSkin = "res/ui/button-7.png";
-            this.clipSkin = "res/ui/num0-9.png";
-            this.bgSkin = "res/ui/coutDown.png";
+            this.buttonSkin = GlobalConfig.ResPath + "res/ui/button-7.png";
+            this.clipSkin = GlobalConfig.ResPath + "res/ui/num0-9.png";
+            this.bgSkin = GlobalConfig.ResPath + "res/ui/coutDown.png";
             Laya.stage.addChild(this);
             Laya.loader.load([this.buttonSkin, this.clipSkin, this.bgSkin], Laya.Handler.create(this, this.onSkinLoaded));
         }
@@ -2250,7 +2255,7 @@
     class UI_ColorPicker extends SingletonScene {
         constructor() {
             super();
-            this.skin = "res/ui/colorPicker.png";
+            this.skin = GlobalConfig.ResPath + "res/ui/colorPicker.png";
             Laya.stage.addChild(this);
             Laya.loader.load(this.skin, Handler$h.create(this, this.onColorPickerSkinLoaded));
         }
@@ -2276,7 +2281,7 @@
     class UI_ComboBox extends SingletonScene {
         constructor() {
             super();
-            this.skin = "res/ui/combobox.png";
+            this.skin = GlobalConfig.ResPath + "res/ui/combobox.png";
             Laya.stage.addChild(this);
             Laya.loader.load(this.skin, Handler$i.create(this, this.onLoadComplete));
         }
@@ -2311,7 +2316,7 @@
             this.CLOSE_BTN_WIDTH = 43;
             this.CLOSE_BTN_PADDING = 5;
             Laya.stage.addChild(this);
-            this.assets = ["res/ui/dialog (1).png", "res/ui/close.png"];
+            this.assets = [GlobalConfig.ResPath + "res/ui/dialog (1).png", GlobalConfig.ResPath + "res/ui/close.png"];
             Laya.loader.load(this.assets, Handler$j.create(this, this.onSkinLoadComplete));
         }
         onSkinLoadComplete() {
@@ -2351,11 +2356,11 @@
     class UI_Font_Clip extends SingletonScene {
         constructor() {
             super();
-            this.TestClipNum = "res/comp/fontClip_num.png";
-            this._ClipNum = "res/comp/fontClip_num.png";
-            this._ClipNum1 = "res/comp/fontClip_num.png";
-            this.TestFontClip = "res/comp/fontClip.png";
-            this._FontClip = "res/comp/fontClip.png";
+            this.TestClipNum = GlobalConfig.ResPath + "res/comp/fontClip_num.png";
+            this._ClipNum = GlobalConfig.ResPath + "res/comp/fontClip_num.png";
+            this._ClipNum1 = GlobalConfig.ResPath + "res/comp/fontClip_num.png";
+            this.TestFontClip = GlobalConfig.ResPath + "res/comp/fontClip.png";
+            this._FontClip = GlobalConfig.ResPath + "res/comp/fontClip.png";
             Laya.stage.addChild(this);
             Laya.loader.load([this.TestClipNum, this.TestFontClip,
                 this._ClipNum, this._FontClip, this._ClipNum1], Laya.Handler.create(this, this.ShowContent));
@@ -2402,7 +2407,7 @@
             this.setup();
         }
         setup() {
-            var dialog = new Image$2("res/ui/dialog (3).png");
+            var dialog = new Image$2(GlobalConfig.ResPath + "res/ui/dialog (3).png");
             dialog.pos(165, 62.5);
             this.addChild(dialog);
         }
@@ -2418,7 +2423,7 @@
             this.INPUT_HEIGHT = 50;
             this.Y_OFFSET = 50;
             Laya.stage.addChild(this);
-            this.skins = ["res/ui/input (1).png", "res/ui/input (2).png", "res/ui/input (3).png", "res/ui/input (4).png"];
+            this.skins = [GlobalConfig.ResPath + "res/ui/input (1).png", GlobalConfig.ResPath + "res/ui/input (2).png", GlobalConfig.ResPath + "res/ui/input (3).png", GlobalConfig.ResPath + "res/ui/input (4).png"];
             Laya.loader.load(this.skins, Handler$k.create(this, this.onLoadComplete));
         }
         onLoadComplete() {
@@ -2496,11 +2501,11 @@
             this.addChild(list);
             var data = [];
             for (var i = 0; i < 10; ++i) {
-                data.push("res/ui/listskins/1.jpg");
-                data.push("res/ui/listskins/2.jpg");
-                data.push("res/ui/listskins/3.jpg");
-                data.push("res/ui/listskins/4.jpg");
-                data.push("res/ui/listskins/5.jpg");
+                data.push(GlobalConfig.ResPath + "res/ui/listskins/1.jpg");
+                data.push(GlobalConfig.ResPath + "res/ui/listskins/2.jpg");
+                data.push(GlobalConfig.ResPath + "res/ui/listskins/3.jpg");
+                data.push(GlobalConfig.ResPath + "res/ui/listskins/4.jpg");
+                data.push(GlobalConfig.ResPath + "res/ui/listskins/5.jpg");
             }
             list.array = data;
         }
@@ -2533,10 +2538,10 @@
         constructor() {
             super();
             Laya.stage.addChild(this);
-            Laya.loader.load(["res/ui/progressBar.png", "res/ui/progressBar$bar.png"], Handler$m.create(this, this.onLoadComplete));
+            Laya.loader.load([GlobalConfig.ResPath + "res/ui/progressBar.png", GlobalConfig.ResPath + "res/ui/progressBar$bar.png"], Handler$m.create(this, this.onLoadComplete));
         }
         onLoadComplete() {
-            this.progressBar = new ProgressBar("res/ui/progressBar.png");
+            this.progressBar = new ProgressBar(GlobalConfig.ResPath + "res/ui/progressBar.png");
             this.progressBar.width = 400;
             this.progressBar.x = (Laya.stage.width - this.progressBar.width) / 2;
             this.progressBar.y = Laya.stage.height / 2;
@@ -2570,7 +2575,7 @@
             this.X_OFFSET = 200;
             this.Y_OFFSET = 200;
             Laya.stage.addChild(this);
-            this.skins = ["res/ui/radioButton (1).png", "res/ui/radioButton (2).png", "res/ui/radioButton (3).png"];
+            this.skins = [GlobalConfig.ResPath + "res/ui/radioButton (1).png", GlobalConfig.ResPath + "res/ui/radioButton (2).png", GlobalConfig.ResPath + "res/ui/radioButton (3).png"];
             Laya.loader.load(this.skins, Handler$n.create(this, this.initRadioGroups));
         }
         initRadioGroups() {
@@ -2611,8 +2616,8 @@
             super();
             Laya.stage.addChild(this);
             var skins = [];
-            skins.push("res/ui/hscroll.png", "res/ui/hscroll$bar.png", "res/ui/hscroll$down.png", "res/ui/hscroll$up.png");
-            skins.push("res/ui/vscroll.png", "res/ui/vscroll$bar.png", "res/ui/vscroll$down.png", "res/ui/vscroll$up.png");
+            skins.push(GlobalConfig.ResPath + "res/ui/hscroll.png", GlobalConfig.ResPath + "res/ui/hscroll$bar.png", GlobalConfig.ResPath + "res/ui/hscroll$down.png", GlobalConfig.ResPath + "res/ui/hscroll$up.png");
+            skins.push(GlobalConfig.ResPath + "res/ui/vscroll.png", GlobalConfig.ResPath + "res/ui/vscroll$bar.png", GlobalConfig.ResPath + "res/ui/vscroll$down.png", GlobalConfig.ResPath + "res/ui/vscroll$up.png");
             Laya.loader.load(skins, Handler$o.create(this, this.onSkinLoadComplete));
         }
         onSkinLoadComplete() {
@@ -2621,7 +2626,7 @@
         }
         placeHScroller() {
             var hs = new HScrollBar();
-            hs.skin = "res/ui/hscroll.png";
+            hs.skin = GlobalConfig.ResPath + "res/ui/hscroll.png";
             hs.width = 300;
             hs.pos(50, 170);
             hs.min = 0;
@@ -2631,7 +2636,7 @@
         }
         placeVScroller() {
             var vs = new VScrollBar();
-            vs.skin = "res/ui/vscroll.png";
+            vs.skin = GlobalConfig.ResPath + "res/ui/vscroll.png";
             vs.height = 300;
             vs.pos(400, 50);
             vs.min = 0;
@@ -2652,8 +2657,8 @@
             super();
             Laya.stage.addChild(this);
             var skins = [];
-            skins.push("res/ui/hslider.png", "res/ui/hslider$bar.png");
-            skins.push("res/ui/vslider.png", "res/ui/vslider$bar.png");
+            skins.push(GlobalConfig.ResPath + "res/ui/hslider.png", GlobalConfig.ResPath + "res/ui/hslider$bar.png");
+            skins.push(GlobalConfig.ResPath + "res/ui/vslider.png", GlobalConfig.ResPath + "res/ui/vslider$bar.png");
             Laya.loader.load(skins, Handler$p.create(this, this.onLoadComplete));
         }
         onLoadComplete() {
@@ -2662,7 +2667,7 @@
         }
         placeHSlider() {
             var hs = new HSlider();
-            hs.skin = "res/ui/hslider.png";
+            hs.skin = GlobalConfig.ResPath + "res/ui/hslider.png";
             hs.width = 300;
             hs.pos(50, 170);
             hs.min = 0;
@@ -2674,7 +2679,7 @@
         }
         placeVSlider() {
             var vs = new VSlider();
-            vs.skin = "res/ui/vslider.png";
+            vs.skin = GlobalConfig.ResPath + "res/ui/vslider.png";
             vs.height = 300;
             vs.pos(400, 50);
             vs.min = 0;
@@ -2694,7 +2699,7 @@
     class UI_Tab extends SingletonScene {
         constructor() {
             super();
-            this.skins = ["res/ui/tab1.png", "res/ui/tab2.png"];
+            this.skins = [GlobalConfig.ResPath + "res/ui/tab1.png", GlobalConfig.ResPath + "res/ui/tab2.png"];
             Laya.stage.addChild(this);
             Laya.loader.load(this.skins, Handler$q.create(this, this.onSkinLoaded));
         }
@@ -2731,7 +2736,7 @@
     class UI_TextArea extends SingletonScene {
         constructor() {
             super();
-            this.skin = "res/ui/textarea.png";
+            this.skin = GlobalConfig.ResPath + "res/ui/textarea.png";
             Laya.stage.addChild(this);
             Laya.loader.load(this.skin, Handler$r.create(this, this.onLoadComplete));
         }
@@ -2758,13 +2763,13 @@
             super();
             Laya.stage.addChild(this);
             var res = [
-                "res/ui/vscroll.png",
-                "res/ui/vscroll$bar.png",
-                "res/ui/vscroll$down.png",
-                "res/ui/vscroll$up.png",
-                "res/ui/tree/clip_selectBox.png",
-                "res/ui/tree/clip_tree_folder.png",
-                "res/ui/tree/clip_tree_arrow.png"
+                GlobalConfig.ResPath + "res/ui/vscroll.png",
+                GlobalConfig.ResPath + "res/ui/vscroll$bar.png",
+                GlobalConfig.ResPath + "res/ui/vscroll$down.png",
+                GlobalConfig.ResPath + "res/ui/vscroll$up.png",
+                GlobalConfig.ResPath + "res/ui/tree/clip_selectBox.png",
+                GlobalConfig.ResPath + "res/ui/tree/clip_tree_folder.png",
+                GlobalConfig.ResPath + "res/ui/tree/clip_tree_arrow.png"
             ];
             Laya.loader.load(res, new Handler$s(this, this.onLoadComplete));
         }
@@ -2780,7 +2785,7 @@
             treeData += "</data>";
             var xml = Utils.parseXMLFromString(treeData);
             var tree = new Tree();
-            tree.scrollBarSkin = "res/ui/vscroll.png";
+            tree.scrollBarSkin = GlobalConfig.ResPath + "res/ui/vscroll.png";
             tree.itemRender = Item$1;
             tree.xml = xml;
             tree.size(300, 300);
@@ -2797,13 +2802,13 @@
             super();
             this.right = 0;
             this.left = 0;
-            var selectBox = new Clip$1("res/ui/tree/clip_selectBox.png", 1, 2);
+            var selectBox = new Clip$1(GlobalConfig.ResPath + "res/ui/tree/clip_selectBox.png", 1, 2);
             selectBox.name = "selectBox";
             selectBox.height = 32;
             selectBox.x = 13;
             selectBox.left = 12;
             this.addChild(selectBox);
-            var folder = new Clip$1("res/ui/tree/clip_tree_folder.png", 1, 3);
+            var folder = new Clip$1(GlobalConfig.ResPath + "res/ui/tree/clip_tree_folder.png", 1, 3);
             folder.name = "folder";
             folder.x = 14;
             folder.y = 4;
@@ -2820,7 +2825,7 @@
             label.left = 33;
             label.right = 0;
             this.addChild(label);
-            var arrow = new Clip$1("res/ui/tree/clip_tree_arrow.png", 1, 2);
+            var arrow = new Clip$1(GlobalConfig.ResPath + "res/ui/tree/clip_tree_arrow.png", 1, 2);
             arrow.name = "arrow";
             arrow.x = 0;
             arrow.y = 5;
@@ -2845,7 +2850,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -3068,7 +3073,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -3121,7 +3126,7 @@
         }
         createCharacter() {
             this.character = new Sprite$j();
-            this.character.loadImage("res/cartoonCharacters/1.png");
+            this.character.loadImage(GlobalConfig.ResPath + "res/cartoonCharacters/1.png");
             this.character.pos(100, 50);
             this.addChild(this.character);
         }
@@ -3251,10 +3256,10 @@
         }
         setup() {
             this.terminalX = 200;
-            this.characterA = this.createCharacter("res/cartoonCharacters/1.png");
+            this.characterA = this.createCharacter(GlobalConfig.ResPath + "res/cartoonCharacters/1.png");
             this.characterA.pivot(46.5, 50);
             this.characterA.y = 100;
-            this.characterB = this.createCharacter("res/cartoonCharacters/2.png");
+            this.characterB = this.createCharacter(GlobalConfig.ResPath + "res/cartoonCharacters/2.png");
             this.characterB.pivot(34, 50);
             this.characterB.y = 250;
             this.graphics.drawLine(this.terminalX, 0, this.terminalX, Laya.stage.height, "#FFFFFF");
@@ -3305,7 +3310,7 @@
         }
         createApe() {
             this.target = new Sprite$l();
-            this.target.loadImage("res/apes/monkey2.png");
+            this.target.loadImage(GlobalConfig.ResPath + "res/apes/monkey2.png");
             this.addChild(this.target);
             this.target.pivot(55, 72);
             this.target.pos(100, 100);
@@ -3372,7 +3377,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -3420,7 +3425,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -3461,7 +3466,7 @@
         constructor() {
             super();
             this.HOLD_TRIGGER_TIME = 1000;
-            this.apePath = "res/apes/monkey2.png";
+            this.apePath = GlobalConfig.ResPath + "res/apes/monkey2.png";
             Laya.stage.addChild(this);
             Laya.loader.load(this.apePath, Handler$u.create(this, this.createApe));
         }
@@ -3507,7 +3512,7 @@
     class Interaction_Drag extends SingletonScene {
         constructor() {
             super();
-            this.ApePath = "res/apes/monkey2.png";
+            this.ApePath = GlobalConfig.ResPath + "res/apes/monkey2.png";
             Laya.stage.addChild(this);
             Laya.loader.load(this.ApePath, Handler$v.create(this, this.setup));
         }
@@ -3972,7 +3977,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -4029,8 +4034,8 @@
         constructor() {
             super();
             this.isDestroyed = false;
-            this.PathBg = "res/bg2.png";
-            this.PathFly = "res/fighter/fighter.atlas";
+            this.PathBg = GlobalConfig.ResPath + "res/bg2.png";
+            this.PathFly = GlobalConfig.ResPath + "res/fighter/fighter.atlas";
             Laya.stage.addChild(this);
             this.init();
         }
@@ -4078,21 +4083,21 @@
         constructor() {
             super();
             Laya.stage.addChild(this);
-            Laya.loader.load("res/apes/monkey0.png", Handler$w.create(this, this.onAssetLoaded1));
-            Laya.loader.load(["res/apes/monkey0.png", "res/apes/monkey1.png", "res/apes/monkey2.png"], Handler$w.create(this, this.onAssetLoaded2));
+            Laya.loader.load(GlobalConfig.ResPath + "res/apes/monkey0.png", Handler$w.create(this, this.onAssetLoaded1));
+            Laya.loader.load([GlobalConfig.ResPath + "res/apes/monkey0.png", GlobalConfig.ResPath + "res/apes/monkey1.png", GlobalConfig.ResPath + "res/apes/monkey2.png"], Handler$w.create(this, this.onAssetLoaded2));
         }
         onAssetLoaded1() {
-            var pic1 = new Image$4("res/apes/monkey0.png");
+            var pic1 = new Image$4(GlobalConfig.ResPath + "res/apes/monkey0.png");
             pic1.x = 200;
             pic1.y = 300;
             this.addChild(pic1);
         }
         onAssetLoaded2() {
-            var pic1 = new Image$4("res/apes/monkey0.png");
+            var pic1 = new Image$4(GlobalConfig.ResPath + "res/apes/monkey0.png");
             pic1.x = 50;
-            var pic2 = new Image$4("res/apes/monkey1.png");
+            var pic2 = new Image$4(GlobalConfig.ResPath + "res/apes/monkey1.png");
             pic2.x = 100;
-            var pic3 = new Image$4("res/apes/monkey2.png");
+            var pic3 = new Image$4(GlobalConfig.ResPath + "res/apes/monkey2.png");
             pic3.x = 150;
             this.addChild(pic1);
             this.addChild(pic2);
@@ -4106,8 +4111,8 @@
     class Loader_MultipleType extends SingletonScene {
         constructor() {
             super();
-            this.ROBOT_DATA_PATH = "res/skeleton/robot/robot.bin";
-            this.ROBOT_TEXTURE_PATH = "res/skeleton/robot/texture.png";
+            this.ROBOT_DATA_PATH = GlobalConfig.ResPath + "res/skeleton/robot/robot.bin";
+            this.ROBOT_TEXTURE_PATH = GlobalConfig.ResPath + "res/skeleton/robot/texture.png";
             Laya.stage.addChild(this);
             var assets = [];
             assets.push({ url: this.ROBOT_DATA_PATH, type: Loader$3.BUFFER });
@@ -4130,9 +4135,9 @@
             this.resAmount = 3;
             Laya.stage.addChild(this);
             Laya.loader.maxLoader = 1;
-            Laya.loader.load("res/apes/monkey2.png", Handler$y.create(this, this.onAssetLoaded), null, null, 0, false);
-            Laya.loader.load("res/apes/monkey1.png", Handler$y.create(this, this.onAssetLoaded), null, null, 1, false);
-            Laya.loader.load("res/apes/monkey0.png", Handler$y.create(this, this.onAssetLoaded), null, null, 2, false);
+            Laya.loader.load(GlobalConfig.ResPath + "res/apes/monkey2.png", Handler$y.create(this, this.onAssetLoaded), null, null, 0, false);
+            Laya.loader.load(GlobalConfig.ResPath + "res/apes/monkey1.png", Handler$y.create(this, this.onAssetLoaded), null, null, 1, false);
+            Laya.loader.load(GlobalConfig.ResPath + "res/apes/monkey0.png", Handler$y.create(this, this.onAssetLoaded), null, null, 2, false);
         }
         onAssetLoaded(texture) {
             if (!this.isShow) {
@@ -4152,7 +4157,7 @@
         constructor() {
             super();
             Laya.loader.retryNum = 0;
-            var urls = ["do not exist", "res/fighter/fighter.png", "res/legend/map.jpg"];
+            var urls = ["do not exist", GlobalConfig.ResPath + "res/fighter/fighter.png", GlobalConfig.ResPath + "res/legend/map.jpg"];
             Laya.loader.load(urls, Handler$z.create(this, this.onAssetLoaded), Handler$z.create(this, this.onLoading, null, false), Loader$4.TEXT);
             Laya.loader.on(Event$l.ERROR, this, this.onError);
         }
@@ -4190,7 +4195,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -4237,7 +4242,7 @@
             this.modes = ["noscale", "exactfit", "showall", "noborder", "full", "fixedwidth", "fixedheight"];
             this.index = 0;
             this.bg = new Image$6();
-            this.bg.skin = "res/bg.jpg";
+            this.bg.skin = GlobalConfig.ResPath + "res/bg.jpg";
             Laya.stage.addChild(this.bg);
             this.txt = new Text$h();
             this.txt.text = "点击我切换适配模式(noscale)";
@@ -4247,13 +4252,13 @@
             this.txt.on("click", this, this.onTxtClick);
             Laya.stage.addChild(this.txt);
             this.boy1 = new Image$6();
-            this.boy1.skin = "res/cartoonCharacters/1.png";
+            this.boy1.skin = GlobalConfig.ResPath + "res/cartoonCharacters/1.png";
             this.boy1.top = 0;
             this.boy1.right = 0;
             this.boy1.on("click", this, this.onBoyClick);
             Laya.stage.addChild(this.boy1);
             this.boy2 = new Image$6();
-            this.boy2.skin = "res/cartoonCharacters/2.png";
+            this.boy2.skin = GlobalConfig.ResPath + "res/cartoonCharacters/2.png";
             this.boy2.bottom = 0;
             this.boy2.right = 0;
             this.boy2.on("click", this, this.onBoyClick);
@@ -4347,7 +4352,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -4462,7 +4467,7 @@
     var Event$m = Laya.Event;
     class InputDevice_Compasss {
         constructor() {
-            this.compassImgPath = "res/inputDevice/kd.png";
+            this.compassImgPath = GlobalConfig.ResPath + "res/inputDevice/kd.png";
             this.firstTime = true;
             Laya.init(700, 1024, WebGL$1);
             Laya.stage.scaleMode = Stage$2.SCALE_SHOWALL;
@@ -4544,7 +4549,7 @@
         }
         showShakePic() {
             var shakePic = new Sprite$w();
-            shakePic.loadImage("res/inputDevice/shake.png");
+            shakePic.loadImage(GlobalConfig.ResPath + "res/inputDevice/shake.png");
             Laya.stage.addChild(shakePic);
         }
         showConsoleText() {
@@ -4713,7 +4718,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -4916,7 +4921,7 @@
             this.ProtoBuf = Browser$6.window.protobuf;
             Laya.stage.addChild(this);
             console.log(Browser$6.window.protobuf);
-            this.ProtoBuf.load("res/protobuf/user.proto", this.onAssetsLoaded);
+            this.ProtoBuf.load(GlobalConfig.ResPath + "res/protobuf/user.proto", this.onAssetsLoaded);
         }
         onAssetsLoaded(err, root) {
             if (err)
@@ -4939,7 +4944,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -5063,7 +5068,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -5114,7 +5119,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -5147,7 +5152,7 @@
     var WebGL$3 = Laya.WebGL;
     class PerformanceTest_Maggots {
         constructor() {
-            this.texturePath = "res/tinyMaggot.png";
+            this.texturePath = GlobalConfig.ResPath + "res/tinyMaggot.png";
             this.padding = 100;
             this.maggotAmount = 5000;
             this.tick = 0;
@@ -5238,7 +5243,7 @@
             Laya.init(Browser$9.width, Browser$9.height, WebGL$4);
             Laya.stage.bgColor = "#232628";
             Stat$2.show();
-            Laya.loader.load("res/cartoonCharacters/cartoonCharactors.json", Handler$D.create(this, this.createCharacters), null, Loader$5.ATLAS);
+            Laya.loader.load(GlobalConfig.ResPath + "res/cartoonCharacters/cartoonCharactors.json", Handler$D.create(this, this.createCharacters), null, Loader$5.ATLAS);
         }
         createCharacters() {
             this.characterGroup = [];
@@ -5287,51 +5292,51 @@
         constructor() {
             this.amount = 500;
             this.character1 = [
-                "res/cartoon2/yd-6_01.png",
-                "res/cartoon2/yd-6_02.png",
-                "res/cartoon2/yd-6_03.png",
-                "res/cartoon2/yd-6_04.png",
-                "res/cartoon2/yd-6_05.png",
-                "res/cartoon2/yd-6_06.png",
-                "res/cartoon2/yd-6_07.png",
-                "res/cartoon2/yd-6_08.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-6_01.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-6_02.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-6_03.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-6_04.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-6_05.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-6_06.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-6_07.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-6_08.png",
             ];
             this.character2 = [
-                "res/cartoon2/yd-3_01.png",
-                "res/cartoon2/yd-3_02.png",
-                "res/cartoon2/yd-3_03.png",
-                "res/cartoon2/yd-3_04.png",
-                "res/cartoon2/yd-3_05.png",
-                "res/cartoon2/yd-3_06.png",
-                "res/cartoon2/yd-3_07.png",
-                "res/cartoon2/yd-3_08.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-3_01.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-3_02.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-3_03.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-3_04.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-3_05.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-3_06.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-3_07.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-3_08.png",
             ];
             this.character3 = [
-                "res/cartoon2/yd-2_01.png",
-                "res/cartoon2/yd-2_02.png",
-                "res/cartoon2/yd-2_03.png",
-                "res/cartoon2/yd-2_04.png",
-                "res/cartoon2/yd-2_05.png",
-                "res/cartoon2/yd-2_06.png",
-                "res/cartoon2/yd-2_07.png",
-                "res/cartoon2/yd-2_08.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-2_01.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-2_02.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-2_03.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-2_04.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-2_05.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-2_06.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-2_07.png",
+                GlobalConfig.ResPath + "res/cartoon2/yd-2_08.png",
             ];
             this.character4 = [
-                "res/cartoon2/wyd-1_01.png",
-                "res/cartoon2/wyd-1_02.png",
-                "res/cartoon2/wyd-1_03.png",
-                "res/cartoon2/wyd-1_04.png",
-                "res/cartoon2/wyd-1_05.png",
-                "res/cartoon2/wyd-1_06.png",
-                "res/cartoon2/wyd-1_07.png",
-                "res/cartoon2/wyd-1_08.png",
+                GlobalConfig.ResPath + "res/cartoon2/wyd-1_01.png",
+                GlobalConfig.ResPath + "res/cartoon2/wyd-1_02.png",
+                GlobalConfig.ResPath + "res/cartoon2/wyd-1_03.png",
+                GlobalConfig.ResPath + "res/cartoon2/wyd-1_04.png",
+                GlobalConfig.ResPath + "res/cartoon2/wyd-1_05.png",
+                GlobalConfig.ResPath + "res/cartoon2/wyd-1_06.png",
+                GlobalConfig.ResPath + "res/cartoon2/wyd-1_07.png",
+                GlobalConfig.ResPath + "res/cartoon2/wyd-1_08.png",
             ];
             this.characterSkins = [this.character1, this.character2, this.character3, this.character4];
             this.characters = [];
             Laya.init(1280, 720, WebGL$5);
             Laya.stage.screenMode = Stage$4.SCREEN_HORIZONTAL;
             Stat$3.enable();
-            Laya.stage.loadImage("res/cartoon2/background.jpg");
+            Laya.stage.loadImage(GlobalConfig.ResPath + "res/cartoon2/background.jpg");
             this.createCharacters();
             this.text = new Text$n();
             this.text.zOrder = 10000;
@@ -5381,7 +5386,7 @@
         }
         createBloodBar() {
             this.bloodBar = new Sprite$A();
-            this.bloodBar.loadImage("res/cartoon2/blood_1_r.png");
+            this.bloodBar.loadImage(GlobalConfig.ResPath + "res/cartoon2/blood_1_r.png");
             this.bloodBar.x = 20;
             this.addChild(this.bloodBar);
         }
@@ -5429,8 +5434,8 @@
             this.mSpacingY = Browser$a.height / this.rowCount;
             Laya.init(Browser$a.width, Browser$a.height, WebGL$6);
             Stat$4.show();
-            this.mTexturePath = "res/skeleton/" + this.fileName + "/" + this.fileName + ".png";
-            this.mAniPath = "res/skeleton/" + this.fileName + "/" + this.fileName + ".sk";
+            this.mTexturePath = GlobalConfig.ResPath + "res/skeleton/" + this.fileName + "/" + this.fileName + ".png";
+            this.mAniPath = GlobalConfig.ResPath + "res/skeleton/" + this.fileName + "/" + this.fileName + ".sk";
             Laya.loader.load([{ url: this.mTexturePath, type: Loader$6.IMAGE }, { url: this.mAniPath, type: Loader$6.BUFFER }], Handler$E.create(this, this.onAssetsLoaded));
         }
         onAssetsLoaded() {
@@ -5479,7 +5484,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -5534,7 +5539,7 @@
         start() {
             for (var i = 0; i < this.starCount; i++) {
                 var tempBall = new Sprite$B();
-                tempBall.loadImage("res/pixi/bubble_32x32.png");
+                tempBall.loadImage(GlobalConfig.ResPath + "res/pixi/bubble_32x32.png");
                 tempBall.x = (Math.random() * this.w) - this.slideX;
                 tempBall.y = (Math.random() * this.h) - this.slideY;
                 tempBall.pivot(16, 16);
@@ -5895,14 +5900,14 @@
             Laya.init(this.viewWidth, this.viewHeight, WebGL$a);
             Laya.stage.screenMode = Stage$6.SCREEN_HORIZONTAL;
             Laya.stage.scaleMode = Stage$6.SCALE_NOBORDER;
-            Laya.stage.loadImage("res/pixi/laserBG.jpg");
+            Laya.stage.loadImage(GlobalConfig.ResPath + "res/pixi/laserBG.jpg");
             Laya.stage.frameLoop(1, this, this.animate);
         }
         animate() {
             if (this.tick > this.frequency) {
                 this.tick = 0;
                 var laser = new Laser();
-                laser.loadImage("res/pixi/laser0" + ((this.type % 5) + 1) + ".png");
+                laser.loadImage(GlobalConfig.ResPath + "res/pixi/laser0" + ((this.type % 5) + 1) + ".png");
                 this.type++;
                 laser.life = 0;
                 var pos1;
@@ -5960,7 +5965,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
@@ -6013,7 +6018,7 @@
                 this.createButton(this.btnNameArr[index], this._onclick, index);
             }
         }
-        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
             var btn = new Laya.Button(skin, name);
             btn.on(Laya.Event.CLICK, this, cb, [name]);
             btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);

@@ -7,9 +7,10 @@ import Browser = Laya.Browser;
 import Handler = Laya.Handler;
 import WebGL = Laya.WebGL;
 import Event = Laya.Event;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class InputDevice_Compasss {
-    private compassImgPath: string = "res/inputDevice/kd.png";
+    private compassImgPath: string = GlobalConfig.ResPath + "res/inputDevice/kd.png";
     private compassImg: Sprite;
     private degreesText: Text;
     private directionIndicator: Sprite;

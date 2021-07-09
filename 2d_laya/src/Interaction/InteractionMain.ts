@@ -9,6 +9,7 @@ import { Interaction_CustomEvent } from "./Interaction_CustomEvent";
 import { Interaction_Keyboard } from "./Interaction_Keyboard";
 import { Interaction_Mouse } from "./Interaction_Mouse";
 import { Interaction_FixInteractiveRegion } from "./Interaction_FixInteractiveRegion";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class InteractionMain extends SingletonMainScene {
     constructor() {
@@ -37,7 +38,7 @@ export class InteractionMain extends SingletonMainScene {
      * @param index index游标
      * @param skin 按钮皮肤
      */
-    private createButton(name: string, cb: Function, index: number, skin: string = "res/threeDimen/ui/button.png"): Laya.Button {
+    private createButton(name: string, cb: Function, index: number, skin: string = GlobalConfig.ResPath + "res/threeDimen/ui/button.png"): Laya.Button {
         var btn: Laya.Button = new Laya.Button(skin, name);
         btn.on(Laya.Event.CLICK, this, cb, [name]);
         btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);

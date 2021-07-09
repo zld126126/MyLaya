@@ -7,6 +7,7 @@ import List = Laya.List;
 import Ease = Laya.Ease;
 import Handler = Laya.Handler;
 import Tween = Laya.Tween;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Tween_EaseFunctionsDemo extends SingletonScene {
     private character: Sprite;
@@ -27,7 +28,7 @@ export class Tween_EaseFunctionsDemo extends SingletonScene {
 
     private createCharacter(): void {
         this.character = new Sprite();
-        this.character.loadImage("res/cartoonCharacters/1.png");
+        this.character.loadImage(GlobalConfig.ResPath + "res/cartoonCharacters/1.png");
         this.character.pos(100, 50);
         this.addChild(this.character);
     }

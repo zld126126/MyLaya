@@ -1,12 +1,13 @@
 import SingletonScene from "../SingletonScene";
 import FontClip = Laya.FontClip;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class UI_Font_Clip extends SingletonScene {
-    private TestClipNum: string = "res/comp/fontClip_num.png";
-    private _ClipNum: string = "res/comp/fontClip_num.png";
-    private _ClipNum1: string = "res/comp/fontClip_num.png";
-    private TestFontClip: string = "res/comp/fontClip.png";
-    private _FontClip: string = "res/comp/fontClip.png";
+    private TestClipNum: string = GlobalConfig.ResPath + "res/comp/fontClip_num.png";
+    private _ClipNum: string = GlobalConfig.ResPath + "res/comp/fontClip_num.png";
+    private _ClipNum1: string = GlobalConfig.ResPath + "res/comp/fontClip_num.png";
+    private TestFontClip: string = GlobalConfig.ResPath + "res/comp/fontClip.png";
+    private _FontClip: string = GlobalConfig.ResPath + "res/comp/fontClip.png";
 
     constructor() {
         super();

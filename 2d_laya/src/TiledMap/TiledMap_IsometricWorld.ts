@@ -5,6 +5,7 @@ import Point = Laya.Point;
 import Rectangle = Laya.Rectangle;
 import Handler = Laya.Handler;
 import SingletonScene from "../SingletonScene";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class TiledMap_IsometricWorld extends SingletonScene {
     private tiledMap: TiledMap;
@@ -19,7 +20,7 @@ export class TiledMap_IsometricWorld extends SingletonScene {
 
     private createMap(): void {
         this.tiledMap = new TiledMap();
-        this.tiledMap.createMap("res/tiledMap/isometric_grass_and_water.json", new Rectangle(0, 0, 300, 400), Handler.create(this, this.mapLoaded), null, new Point(800, 400));
+        this.tiledMap.createMap(GlobalConfig.ResPath + "res/tiledMap/isometric_grass_and_water.json", new Rectangle(0, 0, 300, 400), Handler.create(this, this.mapLoaded), null, new Point(800, 400));
     }
 
     private onStageClick(): void {

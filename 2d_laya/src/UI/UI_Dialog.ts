@@ -3,6 +3,7 @@ import Button = Laya.Button;
 import Dialog = Laya.Dialog;
 import Image = Laya.Image;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class UI_Dialog extends SingletonScene {
     private dialog: Dialog;
@@ -16,7 +17,7 @@ export class UI_Dialog extends SingletonScene {
     constructor() {
         super();
         Laya.stage.addChild(this);
-        this.assets = ["res/ui/dialog (1).png", "res/ui/close.png"];
+        this.assets = [GlobalConfig.ResPath + "res/ui/dialog (1).png", GlobalConfig.ResPath + "res/ui/close.png"];
         Laya.loader.load(this.assets, Handler.create(this, this.onSkinLoadComplete));
     }
 

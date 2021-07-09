@@ -4,6 +4,7 @@ import { PIXI_Example_04 } from "./PIXI_Example_04";
 import { PIXI_Example_05 } from "./PIXI_Example_05";
 import { PIXI_Example_21 } from "./PIXI_Example_21";
 import { PIXI_Example_23 } from "./PIXI_Example_23";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class PIXIMain extends SingletonMainScene {
     constructor() {
@@ -29,7 +30,7 @@ export class PIXIMain extends SingletonMainScene {
      * @param index index游标
      * @param skin 按钮皮肤
      */
-    private createButton(name: string, cb: Function, index: number, skin: string = "res/threeDimen/ui/button.png"): Laya.Button {
+    private createButton(name: string, cb: Function, index: number, skin: string = GlobalConfig.ResPath + "res/threeDimen/ui/button.png"): Laya.Button {
         var btn: Laya.Button = new Laya.Button(skin, name);
         btn.on(Laya.Event.CLICK, this, cb, [name]);
         btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);

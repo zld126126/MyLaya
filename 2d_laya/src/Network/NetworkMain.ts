@@ -5,6 +5,7 @@ import { Network_GET } from "./Network_GET";
 import { Network_XML } from "./Network_XML";
 import { NetWork_Socket } from "./NetWork_Socket";
 import { Network_ProtocolBuffer } from "./Network_ProtocolBuffer";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class NetworkMain extends SingletonMainScene {
     constructor() {
@@ -30,7 +31,7 @@ export class NetworkMain extends SingletonMainScene {
      * @param index index游标
      * @param skin 按钮皮肤
      */
-    private createButton(name: string, cb: Function, index: number, skin: string = "res/threeDimen/ui/button.png"): Laya.Button {
+    private createButton(name: string, cb: Function, index: number, skin: string = GlobalConfig.ResPath + "res/threeDimen/ui/button.png"): Laya.Button {
         var btn: Laya.Button = new Laya.Button(skin, name);
         btn.on(Laya.Event.CLICK, this, cb, [name]);
         btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);

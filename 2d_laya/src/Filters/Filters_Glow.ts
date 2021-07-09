@@ -3,9 +3,10 @@ import Sprite = Laya.Sprite;
 import GlowFilter = Laya.GlowFilter;
 import Texture = Laya.Texture;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Filters_Glow extends SingletonScene {
-    private apePath: string = "res/apes/monkey2.png";
+    private apePath: string = GlobalConfig.ResPath + "res/apes/monkey2.png";
 
     private ape: Sprite;
 

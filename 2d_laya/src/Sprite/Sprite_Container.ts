@@ -1,6 +1,7 @@
 import SingletonScene from "../SingletonScene";
 import Sprite = Laya.Sprite;
 import Event = Laya.Event;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Sprite_Container extends SingletonScene {
     constructor() {
@@ -23,7 +24,7 @@ export class Sprite_Container extends SingletonScene {
         // 添加4张猩猩图片
         for (var i: number = 0; i < 4; i++) {
             var ape: Sprite = new Sprite();
-            ape.loadImage("res/apes/monkey" + i + ".png");
+            ape.loadImage(GlobalConfig.ResPath + "res/apes/monkey" + i + ".png");
 
             ape.pivot(55, 72);
 

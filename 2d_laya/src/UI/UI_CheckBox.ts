@@ -1,6 +1,7 @@
 import SingletonScene from "../SingletonScene";
 import CheckBox = Laya.CheckBox;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class UI_CheckBox extends SingletonScene{
     private COL_AMOUNT: number = 2;
@@ -16,7 +17,7 @@ export class UI_CheckBox extends SingletonScene{
     constructor() {
         super();
         Laya.stage.addChild(this);
-        this.skins = ["res/ui/checkbox (1).png", "res/ui/checkbox (2).png", "res/ui/checkbox (3).png", "res/ui/checkbox (4).png", "res/ui/checkbox (5).png", "res/ui/checkbox (6).png"];
+        this.skins = [GlobalConfig.ResPath + "res/ui/checkbox (1).png", GlobalConfig.ResPath + "res/ui/checkbox (2).png", GlobalConfig.ResPath + "res/ui/checkbox (3).png", GlobalConfig.ResPath + "res/ui/checkbox (4).png", GlobalConfig.ResPath + "res/ui/checkbox (5).png", GlobalConfig.ResPath + "res/ui/checkbox (6).png"];
         Laya.loader.load(this.skins, Handler.create(this, this.onCheckBoxSkinLoaded));
     }
 

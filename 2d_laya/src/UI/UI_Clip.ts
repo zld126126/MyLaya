@@ -2,11 +2,12 @@ import SingletonScene from "../SingletonScene";
 import Button = Laya.Button;
 import Clip = Laya.Clip;
 import Image = Laya.Image;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class UI_Clip extends SingletonScene {
-    private buttonSkin: string = "res/ui/button-7.png";
-    private clipSkin: string = "res/ui/num0-9.png";
-    private bgSkin: string = "res/ui/coutDown.png";
+    private buttonSkin: string = GlobalConfig.ResPath + "res/ui/button-7.png";
+    private clipSkin: string = GlobalConfig.ResPath + "res/ui/num0-9.png";
+    private bgSkin: string = GlobalConfig.ResPath + "res/ui/coutDown.png";
 
     private counter: Clip;
     private currFrame: number;

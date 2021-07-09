@@ -1,9 +1,10 @@
 import SingletonScene from "../SingletonScene";
 import ComboBox = Laya.ComboBox;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class UI_ComboBox extends SingletonScene {
-    private skin: string = "res/ui/combobox.png";
+    private skin: string = GlobalConfig.ResPath + "res/ui/combobox.png";
 
     constructor() {
         super();

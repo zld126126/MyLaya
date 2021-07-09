@@ -3,6 +3,7 @@ import Sprite = Laya.Sprite;
 import Animation = Laya.Animation;
 import Text = Laya.Text;
 import Event = Laya.Event;
+import { GlobalConfig } from "../GlobalConfig";
 
 /**
  * Tips:
@@ -15,8 +16,8 @@ export class Loader_ClearTextureRes extends SingletonScene {
     private btn: Sprite;
     private txt: Text;
     private isDestroyed: Boolean = false;
-    private readonly PathBg: string = "res/bg2.png";
-    private readonly PathFly: string = "res/fighter/fighter.atlas";
+    private readonly PathBg: string = GlobalConfig.ResPath + "res/bg2.png";
+    private readonly PathFly: string = GlobalConfig.ResPath + "res/fighter/fighter.atlas";
 
     constructor() {
         super();

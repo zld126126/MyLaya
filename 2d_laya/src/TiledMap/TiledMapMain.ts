@@ -4,6 +4,7 @@ import { TiledMap_AnimationTile } from "./TiledMap_AnimationTile";
 import { TiledMap_IsometricWorld } from "./TiledMap_IsometricWorld";
 import { TiledMap_PerspectiveWall } from "./TiledMap_PerspectiveWall";
 import { TiledMap_SimpleDemo } from "./TiledMap_SimpleDemo";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class TiledMapMain extends SingletonMainScene {
     constructor() {
@@ -30,7 +31,7 @@ export class TiledMapMain extends SingletonMainScene {
      * @param index index游标
      * @param skin 按钮皮肤
      */
-    private createButton(name: string, cb: Function, index: number, skin: string = "res/threeDimen/ui/button.png"): Laya.Button {
+    private createButton(name: string, cb: Function, index: number, skin: string = GlobalConfig.ResPath + "res/threeDimen/ui/button.png"): Laya.Button {
         var btn: Laya.Button = new Laya.Button(skin, name);
         btn.on(Laya.Event.CLICK, this, cb, [name]);
         btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);

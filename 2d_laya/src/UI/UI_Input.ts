@@ -1,6 +1,7 @@
 import SingletonScene from "../SingletonScene";
 import TextInput = Laya.TextInput;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class UI_Input extends SingletonScene {
     private SPACING: number = 100;
@@ -12,7 +13,7 @@ export class UI_Input extends SingletonScene {
     constructor() {
         super();
         Laya.stage.addChild(this);
-        this.skins = ["res/ui/input (1).png", "res/ui/input (2).png", "res/ui/input (3).png", "res/ui/input (4).png"];
+        this.skins = [GlobalConfig.ResPath + "res/ui/input (1).png", GlobalConfig.ResPath + "res/ui/input (2).png", GlobalConfig.ResPath + "res/ui/input (3).png", GlobalConfig.ResPath + "res/ui/input (4).png"];
         Laya.loader.load(this.skins, Handler.create(this, this.onLoadComplete));//加载资源。
     }
 

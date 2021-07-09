@@ -5,10 +5,11 @@ import Texture = Laya.Texture;
 import Ease = Laya.Ease;
 import Handler = Laya.Handler;
 import Tween = Laya.Tween;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Interaction_Hold extends SingletonScene {
     private HOLD_TRIGGER_TIME: number = 1000;
-    private apePath: string = "res/apes/monkey2.png";
+    private apePath: string = GlobalConfig.ResPath + "res/apes/monkey2.png";
 
     //触发hold事件时间为1秒
     private ape: Sprite;

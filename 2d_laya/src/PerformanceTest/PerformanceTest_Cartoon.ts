@@ -4,6 +4,7 @@ import Browser = Laya.Browser;
 import Handler = Laya.Handler;
 import Stat = Laya.Stat;
 import WebGL = Laya.WebGL;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class PerformanceTest_Cartoon {
     private colAmount = 100;
@@ -20,7 +21,7 @@ export class PerformanceTest_Cartoon {
 
         Stat.show();
 
-        Laya.loader.load("res/cartoonCharacters/cartoonCharactors.json", Handler.create(this, this.createCharacters), null, Loader.ATLAS);
+        Laya.loader.load(GlobalConfig.ResPath + "res/cartoonCharacters/cartoonCharactors.json", Handler.create(this, this.createCharacters), null, Loader.ATLAS);
     }
 
     private createCharacters(): void {

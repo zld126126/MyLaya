@@ -2,6 +2,7 @@ import SingletonScene from "../SingletonScene";
 import BitmapFont = Laya.BitmapFont;
 import Text = Laya.Text;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Text_BitmapFont extends SingletonScene {
     private fontName: string = "diyFont";
@@ -14,7 +15,7 @@ export class Text_BitmapFont extends SingletonScene {
 
     private loadFont(): void {
         var bitmapFont: BitmapFont = new BitmapFont();
-        bitmapFont.loadFont("res/bitmapFont/test.fnt", new Handler(this, this.onFontLoaded, [bitmapFont]));
+        bitmapFont.loadFont(GlobalConfig.ResPath + "res/bitmapFont/test.fnt", new Handler(this, this.onFontLoaded, [bitmapFont]));
     }
 
     private onFontLoaded(bitmapFont: BitmapFont): void {

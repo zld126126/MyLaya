@@ -1,6 +1,7 @@
 import Sprite = Laya.Sprite;
 import Event = Laya.Event;
 import SingletonScene from "../SingletonScene";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Sprite_NodeControl extends SingletonScene {
     private ape1: Sprite;
@@ -16,8 +17,8 @@ export class Sprite_NodeControl extends SingletonScene {
         //显示两只猩猩
         this.ape1 = new Sprite();
         this.ape2 = new Sprite();
-        this.ape1.loadImage("res/apes/monkey2.png");
-        this.ape2.loadImage("res/apes/monkey2.png");
+        this.ape1.loadImage(GlobalConfig.ResPath + "res/apes/monkey2.png");
+        this.ape2.loadImage(GlobalConfig.ResPath + "res/apes/monkey2.png");
 
         this.ape1.pivot(55, 72);
         this.ape2.pivot(55, 72);

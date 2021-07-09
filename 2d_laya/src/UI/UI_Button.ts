@@ -2,6 +2,7 @@
 import SingletonScene from "../SingletonScene";
 import Button = Laya.Button;
 import Handler = Laya.Handler;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class UI_Button extends SingletonScene {
     private COLUMNS: number = 2;
@@ -20,8 +21,8 @@ export class UI_Button extends SingletonScene {
         Laya.stage.addChild(this);
 
         this.skins = [
-            "res/ui/button-1.png", "res/ui/button-2.png", "res/ui/button-3.png",
-            "res/ui/button-4.png", "res/ui/button-5.png", "res/ui/button-6.png"
+            GlobalConfig.ResPath + "res/ui/button-1.png", GlobalConfig.ResPath + "res/ui/button-2.png", GlobalConfig.ResPath + "res/ui/button-3.png",
+            GlobalConfig.ResPath + "res/ui/button-4.png", GlobalConfig.ResPath + "res/ui/button-5.png", GlobalConfig.ResPath + "res/ui/button-6.png"
         ];
 
         // 计算将Button至于舞台中心的偏移量

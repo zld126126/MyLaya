@@ -1,5 +1,6 @@
 import SingletonScene from "../SingletonScene";
 import Browser = Laya.Browser;
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Network_ProtocolBuffer extends SingletonScene {
     private ProtoBuf: any = Browser.window.protobuf;
@@ -8,7 +9,7 @@ export class Network_ProtocolBuffer extends SingletonScene {
         super();
         Laya.stage.addChild(this);
         console.log(Browser.window.protobuf);
-        this.ProtoBuf.load("res/protobuf/user.proto", this.onAssetsLoaded);
+        this.ProtoBuf.load(GlobalConfig.ResPath + "res/protobuf/user.proto", this.onAssetsLoaded);
     }
 
     private onAssetsLoaded(err:any, root:any):void

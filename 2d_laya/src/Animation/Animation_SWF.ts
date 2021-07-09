@@ -1,8 +1,9 @@
 import MovieClip = Laya.MovieClip;
 import SingletonScene from "../SingletonScene";
+import { GlobalConfig } from "../GlobalConfig";
 
 export class Animation_SWF extends SingletonScene {
-    private SWFPath: string = "res/swf/dragon.swf";
+    private SWFPath: string = GlobalConfig.ResPath + "res/swf/dragon.swf";
     private MCWidth: number = 318;
     private MCHeight: number = 406;
 
