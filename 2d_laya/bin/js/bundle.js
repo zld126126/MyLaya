@@ -4976,6 +4976,1024 @@
         }
     }
 
+    class DOM_Form {
+        constructor() {
+            this.rowHeight = 30;
+            this.rowSpacing = 10;
+            Laya.init(600, 400);
+            Laya.stage.alignH = Laya.Stage.ALIGN_CENTER;
+            Laya.stage.alignV = Laya.Stage.ALIGN_MIDDLE;
+            Laya.stage.scaleMode = Laya.Stage.SCALE_SHOWALL;
+            Laya.stage.screenMode = Laya.Stage.SCREEN_HORIZONTAL;
+            Laya.stage.bgColor = "#FFFFFF";
+            this.form = new Laya.Sprite();
+            this.form.size(250, 120);
+            this.form.pos((Laya.stage.width - this.form.width) / 2, (Laya.stage.height - this.form.height) / 2);
+            Laya.stage.addChild(this.form);
+            var rowHeightDelta = this.rowSpacing + this.rowHeight;
+            this.showLabel("邮箱", 0, rowHeightDelta * 0);
+            this.showLabel("出生日期", 0, rowHeightDelta * 1);
+            this.showLabel("密码", 0, rowHeightDelta * 2);
+            var emailInput = this.createInputElement();
+            var birthdayInput = this.createInputElement();
+            var passwordInput = this.createInputElement();
+            birthdayInput.type = "date";
+            passwordInput.type = "password";
+            Laya.stage.on(Laya.Event.RESIZE, this, this.fitDOMElements, [emailInput, birthdayInput, passwordInput]);
+        }
+        showLabel(label, x, y) {
+            var t = new Laya.Text();
+            t.height = this.rowHeight;
+            t.valign = "middle";
+            t.fontSize = 15;
+            t.font = "SimHei";
+            t.text = label;
+            t.pos(x, y);
+            this.form.addChild(t);
+        }
+        createInputElement() {
+            var input = Laya.Browser.createElement("input");
+            input.style.zIndex = Laya.Render.canvas.zIndex + 1;
+            input.style.width = "100px";
+            Laya.Browser.document.body.appendChild(input);
+            return input;
+        }
+        fitDOMElements() {
+            var dom;
+            for (var i = 0; i < arguments.length; i++) {
+                dom = arguments[i];
+                Laya.Utils.fitDOMElementInArea(dom, this.form, 100, i * (this.rowSpacing + this.rowHeight), 150, this.rowHeight);
+            }
+        }
+    }
+
+    class DOM_Video {
+        constructor() {
+            Laya.init(800, 600);
+            Laya.stage.bgColor = "#FFFFFF";
+            Laya.stage.alignH = Laya.Stage.ALIGN_CENTER;
+            Laya.stage.alignV = Laya.Stage.ALIGN_MIDDLE;
+            var videoElement = Laya.Browser.createElement("video");
+            Laya.Browser.document.body.appendChild(videoElement);
+            videoElement.style.zIndex = Laya.Render.canvas.style.zIndex + 1;
+            videoElement.src = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+            videoElement.controls = true;
+            videoElement.setAttribute("webkit-playsinline", true);
+            videoElement.setAttribute("playsinline", true);
+            var reference = new Laya.Sprite();
+            Laya.stage.addChild(reference);
+            reference.pos(100, 100);
+            reference.size(600, 400);
+            reference.graphics.drawRect(0, 0, reference.width, reference.height, "#CCCCCC");
+            Laya.stage.on(Laya.Event.RESIZE, this, Laya.Utils.fitDOMElementInArea, [videoElement, reference, 0, 0, reference.width, reference.height]);
+        }
+    }
+
+    class DOMMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "视频", "表单输入"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    new DOM_Video();
+                    break;
+                case this.btnNameArr[2]:
+                    new DOM_Form();
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
+    var Browser$7 = Laya.Browser;
+    var Stat = Laya.Stat;
+    class Debug_FPSStats {
+        constructor() {
+            Laya.init(Browser$7.clientWidth, Browser$7.clientHeight);
+            Stat.show(Browser$7.clientWidth - 120 >> 1, Browser$7.clientHeight - 100 >> 1);
+        }
+    }
+
+    class DebugMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "帧率统计"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    new Debug_FPSStats();
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
+    var Sprite$y = Laya.Sprite;
+    var Browser$8 = Laya.Browser;
+    var Handler$C = Laya.Handler;
+    var Stat$1 = Laya.Stat;
+    var Rectangle$5 = Laya.Rectangle;
+    var WebGL$3 = Laya.WebGL;
+    class PerformanceTest_Maggots {
+        constructor() {
+            this.texturePath = "res/tinyMaggot.png";
+            this.padding = 100;
+            this.maggotAmount = 5000;
+            this.tick = 0;
+            this.maggots = [];
+            Laya.init(Browser$8.width, Browser$8.height, WebGL$3);
+            Laya.stage.bgColor = "#000000";
+            Stat$1.show();
+            this.wrapBounds = new Rectangle$5(-this.padding, -this.padding, Laya.stage.width + this.padding * 2, Laya.stage.height + this.padding * 2);
+            Laya.loader.load(this.texturePath, Handler$C.create(this, this.onTextureLoaded));
+        }
+        onTextureLoaded() {
+            this.maggotTexture = Laya.loader.getRes(this.texturePath);
+            this.initMaggots();
+            Laya.timer.frameLoop(1, this, this.animate);
+        }
+        initMaggots() {
+            var maggotContainer;
+            for (var i = 0; i < this.maggotAmount; i++) {
+                if (i % 16000 == 0)
+                    maggotContainer = this.createNewContainer();
+                var maggot = this.newMaggot();
+                maggotContainer.addChild(maggot);
+                this.maggots.push(maggot);
+            }
+        }
+        createNewContainer() {
+            var container = new Sprite$y();
+            container.size(Browser$8.clientWidth, Browser$8.clientHeight);
+            Laya.stage.addChild(container);
+            return container;
+        }
+        newMaggot() {
+            var maggot = new Sprite$y();
+            maggot.graphics.drawTexture(this.maggotTexture, 0, 0);
+            maggot.pivot(16.5, 35);
+            var rndScale = 0.8 + Math.random() * 0.3;
+            maggot.scale(rndScale, rndScale);
+            maggot.rotation = 0.1;
+            maggot.x = Math.random() * Laya.stage.width;
+            maggot.y = Math.random() * Laya.stage.height;
+            maggot.direction = Math.random() * Math.PI;
+            maggot.turningSpeed = Math.random() - 0.8;
+            maggot.speed = (2 + Math.random() * 2) * 0.2;
+            maggot.offset = Math.random() * 100;
+            return maggot;
+        }
+        animate() {
+            var maggot;
+            var wb = this.wrapBounds;
+            var angleUnit = 180 / Math.PI;
+            var dir, x = 0.0, y = 0.0;
+            for (var i = 0; i < this.maggotAmount; i++) {
+                maggot = this.maggots[i];
+                maggot.scaleY = 0.90 + Math.sin(this.tick + maggot.offset) * 0.1;
+                maggot.direction += maggot.turningSpeed * 0.01;
+                dir = maggot.direction;
+                x = maggot.x;
+                y = maggot.y;
+                x += Math.sin(dir) * (maggot.speed * maggot.scaleY);
+                y += Math.cos(dir) * (maggot.speed * maggot.scaleY);
+                maggot.rotation = (-dir + Math.PI) * angleUnit;
+                if (x < wb.x)
+                    x += wb.width;
+                else if (x > wb.x + wb.width)
+                    x -= wb.width;
+                if (y < wb.y)
+                    y += wb.height;
+                else if (y > wb.y + wb.height)
+                    y -= wb.height;
+                maggot.pos(x, y);
+            }
+            this.tick += 0.1;
+        }
+    }
+
+    var Sprite$z = Laya.Sprite;
+    var Loader$5 = Laya.Loader;
+    var Browser$9 = Laya.Browser;
+    var Handler$D = Laya.Handler;
+    var Stat$2 = Laya.Stat;
+    var WebGL$4 = Laya.WebGL;
+    class PerformanceTest_Cartoon {
+        constructor() {
+            this.colAmount = 100;
+            this.extraSpace = 50;
+            this.moveSpeed = 2;
+            this.rotateSpeed = 2;
+            Laya.init(Browser$9.width, Browser$9.height, WebGL$4);
+            Laya.stage.bgColor = "#232628";
+            Stat$2.show();
+            Laya.loader.load("res/cartoonCharacters/cartoonCharactors.json", Handler$D.create(this, this.createCharacters), null, Loader$5.ATLAS);
+        }
+        createCharacters() {
+            this.characterGroup = [];
+            for (var i = 0; i < this.colAmount; ++i) {
+                var tx = (Laya.stage.width + this.extraSpace * 2) / this.colAmount * i - this.extraSpace;
+                var tr = 360 / this.colAmount * i;
+                var startY = (Laya.stage.height - 500) / 2;
+                this.createCharacter("cartoonCharactors/1.png", 46, 50, tr).pos(tx, 50 + startY);
+                this.createCharacter("cartoonCharactors/2.png", 34, 50, tr).pos(tx, 150 + startY);
+                this.createCharacter("cartoonCharactors/3.png", 42, 50, tr).pos(tx, 250 + startY);
+                this.createCharacter("cartoonCharactors/4.png", 48, 50, tr).pos(tx, 350 + startY);
+                this.createCharacter("cartoonCharactors/5.png", 36, 50, tr).pos(tx, 450 + startY);
+            }
+            Laya.timer.frameLoop(1, this, this.animate);
+        }
+        createCharacter(skin, pivotX, pivotY, rotation) {
+            var charactor = new Sprite$z();
+            charactor.loadImage(skin);
+            charactor.rotation = rotation;
+            charactor.pivot(pivotX, pivotY);
+            Laya.stage.addChild(charactor);
+            this.characterGroup.push(charactor);
+            return charactor;
+        }
+        animate() {
+            for (var i = this.characterGroup.length - 1; i >= 0; --i) {
+                this.animateCharactor(this.characterGroup[i]);
+            }
+        }
+        animateCharactor(charactor) {
+            charactor.x += this.moveSpeed;
+            charactor.rotation += this.rotateSpeed;
+            if (charactor.x > Laya.stage.width + this.extraSpace) {
+                charactor.x = -this.extraSpace;
+            }
+        }
+    }
+
+    var Stage$4 = Laya.Stage;
+    var Text$n = Laya.Text;
+    var Stat$3 = Laya.Stat;
+    var WebGL$5 = Laya.WebGL;
+    var Animation$3 = Laya.Animation;
+    var Sprite$A = Laya.Sprite;
+    class PerformanceTest_Cartoon2 {
+        constructor() {
+            this.amount = 500;
+            this.character1 = [
+                "res/cartoon2/yd-6_01.png",
+                "res/cartoon2/yd-6_02.png",
+                "res/cartoon2/yd-6_03.png",
+                "res/cartoon2/yd-6_04.png",
+                "res/cartoon2/yd-6_05.png",
+                "res/cartoon2/yd-6_06.png",
+                "res/cartoon2/yd-6_07.png",
+                "res/cartoon2/yd-6_08.png",
+            ];
+            this.character2 = [
+                "res/cartoon2/yd-3_01.png",
+                "res/cartoon2/yd-3_02.png",
+                "res/cartoon2/yd-3_03.png",
+                "res/cartoon2/yd-3_04.png",
+                "res/cartoon2/yd-3_05.png",
+                "res/cartoon2/yd-3_06.png",
+                "res/cartoon2/yd-3_07.png",
+                "res/cartoon2/yd-3_08.png",
+            ];
+            this.character3 = [
+                "res/cartoon2/yd-2_01.png",
+                "res/cartoon2/yd-2_02.png",
+                "res/cartoon2/yd-2_03.png",
+                "res/cartoon2/yd-2_04.png",
+                "res/cartoon2/yd-2_05.png",
+                "res/cartoon2/yd-2_06.png",
+                "res/cartoon2/yd-2_07.png",
+                "res/cartoon2/yd-2_08.png",
+            ];
+            this.character4 = [
+                "res/cartoon2/wyd-1_01.png",
+                "res/cartoon2/wyd-1_02.png",
+                "res/cartoon2/wyd-1_03.png",
+                "res/cartoon2/wyd-1_04.png",
+                "res/cartoon2/wyd-1_05.png",
+                "res/cartoon2/wyd-1_06.png",
+                "res/cartoon2/wyd-1_07.png",
+                "res/cartoon2/wyd-1_08.png",
+            ];
+            this.characterSkins = [this.character1, this.character2, this.character3, this.character4];
+            this.characters = [];
+            Laya.init(1280, 720, WebGL$5);
+            Laya.stage.screenMode = Stage$4.SCREEN_HORIZONTAL;
+            Stat$3.enable();
+            Laya.stage.loadImage("res/cartoon2/background.jpg");
+            this.createCharacters();
+            this.text = new Text$n();
+            this.text.zOrder = 10000;
+            this.text.fontSize = 60;
+            this.text.color = "#ff0000";
+            Laya.stage.addChild(this.text);
+            Laya.timer.frameLoop(1, this, this.gameLoop);
+        }
+        createCharacters() {
+            var char;
+            var charSkin;
+            for (var i = 0; i < this.amount; i++) {
+                charSkin = this.characterSkins[Math.floor(Math.random() * this.characterSkins.length)];
+                char = new Character(charSkin);
+                char.x = Math.random() * (Laya.stage.width + Character.WIDTH * 2);
+                char.y = Math.random() * (Laya.stage.height - Character.HEIGHT);
+                char.zOrder = char.y;
+                char.setSpeed(Math.floor(Math.random() * 2 + 3));
+                char.setName(i.toString());
+                Laya.stage.addChild(char);
+                this.characters.push(char);
+            }
+        }
+        gameLoop() {
+            for (var i = this.characters.length - 1; i >= 0; i--) {
+                this.characters[i].update();
+            }
+            if (Laya.timer.currFrame % 60 === 0) {
+                this.text.text = Stat$3.FPS.toString();
+            }
+        }
+    }
+    class Character extends Sprite$A {
+        constructor(images) {
+            super();
+            this.speed = 5;
+            this.createAnimation(images);
+            this.createBloodBar();
+            this.createNameLabel();
+        }
+        createAnimation(images) {
+            this.animation = new Animation$3();
+            this.animation.loadImages(images);
+            this.animation.interval = 70;
+            this.animation.play(0);
+            this.addChild(this.animation);
+        }
+        createBloodBar() {
+            this.bloodBar = new Sprite$A();
+            this.bloodBar.loadImage("res/cartoon2/blood_1_r.png");
+            this.bloodBar.x = 20;
+            this.addChild(this.bloodBar);
+        }
+        createNameLabel() {
+            this.nameLabel = new Text$n();
+            this.nameLabel.color = "#FFFFFF";
+            this.nameLabel.text = "Default";
+            this.nameLabel.fontSize = 13;
+            this.nameLabel.width = Character.WIDTH;
+            this.nameLabel.align = "center";
+            this.addChild(this.nameLabel);
+        }
+        setSpeed(value) {
+            this.speed = value;
+        }
+        setName(value) {
+            this.nameLabel.text = value;
+        }
+        update() {
+            this.x += this.speed;
+            if (this.x >= Laya.stage.width + Character.WIDTH)
+                this.x = -Character.WIDTH;
+        }
+    }
+    Character.WIDTH = 110;
+    Character.HEIGHT = 110;
+
+    var Templet$5 = Laya.Templet;
+    var Event$s = Laya.Event;
+    var Loader$6 = Laya.Loader;
+    var Browser$a = Laya.Browser;
+    var Handler$E = Laya.Handler;
+    var Stat$4 = Laya.Stat;
+    var WebGL$6 = Laya.WebGL;
+    class PerformanceTest_Skeleton {
+        constructor() {
+            this.fileName = "Dragon";
+            this.rowCount = 10;
+            this.colCount = 10;
+            this.xOff = 50;
+            this.yOff = 100;
+            this.mAnimationArray = [];
+            this.mActionIndex = 0;
+            this.mSpacingX = Browser$a.width / this.colCount;
+            this.mSpacingY = Browser$a.height / this.rowCount;
+            Laya.init(Browser$a.width, Browser$a.height, WebGL$6);
+            Stat$4.show();
+            this.mTexturePath = "res/skeleton/" + this.fileName + "/" + this.fileName + ".png";
+            this.mAniPath = "res/skeleton/" + this.fileName + "/" + this.fileName + ".sk";
+            Laya.loader.load([{ url: this.mTexturePath, type: Loader$6.IMAGE }, { url: this.mAniPath, type: Loader$6.BUFFER }], Handler$E.create(this, this.onAssetsLoaded));
+        }
+        onAssetsLoaded() {
+            var tTexture = Loader$6.getRes(this.mTexturePath);
+            var arraybuffer = Loader$6.getRes(this.mAniPath);
+            this.mFactory = new Templet$5();
+            this.mFactory.on(Event$s.COMPLETE, this, this.parseComplete);
+            this.mFactory.parseData(tTexture, arraybuffer, 10);
+        }
+        parseComplete() {
+            for (var i = 0; i < this.rowCount; i++) {
+                for (var j = 0; j < this.colCount; j++) {
+                    this.mArmature = this.mFactory.buildArmature();
+                    this.mArmature.x = this.xOff + j * this.mSpacingX;
+                    this.mArmature.y = this.yOff + i * this.mSpacingY;
+                    this.mArmature.play(0, true);
+                    this.mAnimationArray.push(this.mArmature);
+                    Laya.stage.addChild(this.mArmature);
+                }
+            }
+            Laya.stage.on(Event$s.CLICK, this, this.toggleAction);
+        }
+        toggleAction(e) {
+            this.mActionIndex++;
+            var tAnimNum = this.mArmature.getAnimNum();
+            if (this.mActionIndex >= tAnimNum) {
+                this.mActionIndex = 0;
+            }
+            for (var i = 0, n = this.mAnimationArray.length; i < n; i++) {
+                this.mAnimationArray[i].play(this.mActionIndex, true);
+            }
+        }
+    }
+
+    class PerformanceTestMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "虫子", "卡通人物", "卡通人物2", "骨骼"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    new PerformanceTest_Maggots();
+                    break;
+                case this.btnNameArr[2]:
+                    new PerformanceTest_Cartoon();
+                    break;
+                case this.btnNameArr[3]:
+                    new PerformanceTest_Cartoon2();
+                    break;
+                case this.btnNameArr[4]:
+                    new PerformanceTest_Skeleton();
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
+    var Sprite$B = Laya.Sprite;
+    var Text$o = Laya.Text;
+    var Browser$b = Laya.Browser;
+    var WebGL$7 = Laya.WebGL;
+    class PIXI_Example_04 {
+        constructor() {
+            this.starCount = 2500;
+            this.sx = 1.0 + (Math.random() / 20);
+            this.sy = 1.0 + (Math.random() / 20);
+            this.stars = [];
+            this.w = Browser$b.width;
+            this.h = Browser$b.height;
+            this.slideX = this.w / 2;
+            this.slideY = this.h / 2;
+            Laya.init(this.w, this.h, WebGL$7);
+            this.createText();
+            this.start();
+        }
+        start() {
+            for (var i = 0; i < this.starCount; i++) {
+                var tempBall = new Sprite$B();
+                tempBall.loadImage("res/pixi/bubble_32x32.png");
+                tempBall.x = (Math.random() * this.w) - this.slideX;
+                tempBall.y = (Math.random() * this.h) - this.slideY;
+                tempBall.pivot(16, 16);
+                this.stars.push({ sprite: tempBall, x: tempBall.x, y: tempBall.y });
+                Laya.stage.addChild(tempBall);
+            }
+            Laya.stage.on('click', this, this.newWave);
+            this.speedInfo.text = 'SX: ' + this.sx + '\nSY: ' + this.sy;
+            this.resize();
+            Laya.timer.frameLoop(1, this, this.update);
+        }
+        createText() {
+            this.speedInfo = new Text$o();
+            this.speedInfo.color = "#FFFFFF";
+            this.speedInfo.pos(this.w - 160, 20);
+            this.speedInfo.zOrder = 1;
+            Laya.stage.addChild(this.speedInfo);
+        }
+        newWave() {
+            this.sx = 1.0 + (Math.random() / 20);
+            this.sy = 1.0 + (Math.random() / 20);
+            this.speedInfo.text = 'SX: ' + this.sx + '\nSY: ' + this.sy;
+        }
+        resize() {
+            this.w = Laya.stage.width;
+            this.h = Laya.stage.height;
+            this.slideX = this.w / 2;
+            this.slideY = this.h / 2;
+        }
+        update() {
+            for (var i = 0; i < this.starCount; i++) {
+                this.stars[i].sprite.x = this.stars[i].x + this.slideX;
+                this.stars[i].sprite.y = this.stars[i].y + this.slideY;
+                this.stars[i].x = this.stars[i].x * this.sx;
+                this.stars[i].y = this.stars[i].y * this.sy;
+                if (this.stars[i].x > this.w) {
+                    this.stars[i].x = this.stars[i].x - this.w;
+                }
+                else if (this.stars[i].x < -this.w) {
+                    this.stars[i].x = this.stars[i].x + this.w;
+                }
+                if (this.stars[i].y > this.h) {
+                    this.stars[i].y = this.stars[i].y - this.h;
+                }
+                else if (this.stars[i].y < -this.h) {
+                    this.stars[i].y = this.stars[i].y + this.h;
+                }
+            }
+        }
+    }
+
+    var Sprite$C = Laya.Sprite;
+    var Stage$5 = Laya.Stage;
+    var Event$t = Laya.Event;
+    var Browser$c = Laya.Browser;
+    var Stat$5 = Laya.Stat;
+    var WebGL$8 = Laya.WebGL;
+    class PIXI_Example_05 {
+        constructor() {
+            this.n = 2000;
+            this.d = 1;
+            this.current = 0;
+            this.objs = 17;
+            this.vx = 0;
+            this.vy = 0;
+            this.vz = 0;
+            this.points1 = [];
+            this.points2 = [];
+            this.points3 = [];
+            this.tpoint1 = [];
+            this.tpoint2 = [];
+            this.tpoint3 = [];
+            this.balls = [];
+            Laya.init(Browser$c.width, Browser$c.height, WebGL$8);
+            Stat$5.show();
+            Laya.stage.scaleMode = Stage$5.SCALE_FULL;
+            this.setup();
+        }
+        setup() {
+            Laya.stage.on(Event$t.RESIZE, this, this.onResize);
+            this.makeObject(0);
+            for (var i = 0; i < this.n; i++) {
+                this.tpoint1[i] = this.points1[i];
+                this.tpoint2[i] = this.points2[i];
+                this.tpoint3[i] = this.points3[i];
+                var tempBall = new Sprite$C();
+                tempBall.loadImage('res/pixi/pixel.png');
+                tempBall.pivot(3, 3);
+                tempBall.alpha = 0.5;
+                this.balls[i] = tempBall;
+                Laya.stage.addChild(tempBall);
+            }
+            this.onResize();
+            Laya.timer.loop(5000, this, this.nextObject);
+            Laya.timer.frameLoop(1, this, this.update);
+        }
+        nextObject() {
+            this.current++;
+            if (this.current > this.objs) {
+                this.current = 0;
+            }
+            this.makeObject(this.current);
+        }
+        makeObject(t) {
+            var xd;
+            var i;
+            switch (t) {
+                case 0:
+                    for (i = 0; i < this.n; i++) {
+                        this.points1[i] = -50 + Math.round(Math.random() * 100);
+                        this.points2[i] = 0;
+                        this.points3[i] = 0;
+                    }
+                    break;
+                case 1:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + Math.round(Math.random() * 180);
+                        this.points1[i] = (Math.cos(xd) * 10) * (Math.cos(t * 360 / this.n) * 10);
+                        this.points2[i] = (Math.cos(xd) * 10) * (Math.sin(t * 360 / this.n) * 10);
+                        this.points3[i] = Math.sin(xd) * 100;
+                    }
+                    break;
+                case 2:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + (Math.random() * 180);
+                        this.points1[i] = (Math.cos(xd) * 10) * (Math.cos(t * 360 / this.n) * 10);
+                        this.points2[i] = (Math.cos(xd) * 10) * (Math.sin(t * 360 / this.n) * 10);
+                        this.points3[i] = Math.sin(i * 360 / this.n) * 100;
+                    }
+                    break;
+                case 3:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + Math.round(Math.random() * 180);
+                        this.points1[i] = (Math.cos(xd) * 10) * (Math.cos(xd) * 10);
+                        this.points2[i] = (Math.cos(xd) * 10) * (Math.sin(xd) * 10);
+                        this.points3[i] = Math.sin(xd) * 100;
+                    }
+                    break;
+                case 4:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + Math.round(Math.random() * 180);
+                        this.points1[i] = (Math.cos(xd) * 10) * (Math.cos(xd) * 10);
+                        this.points2[i] = (Math.cos(xd) * 10) * (Math.sin(xd) * 10);
+                        this.points3[i] = Math.sin(i * 360 / this.n) * 100;
+                    }
+                    break;
+                case 5:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + Math.round(Math.random() * 180);
+                        this.points1[i] = (Math.cos(xd) * 10) * (Math.cos(xd) * 10);
+                        this.points2[i] = (Math.cos(i * 360 / this.n) * 10) * (Math.sin(xd) * 10);
+                        this.points3[i] = Math.sin(i * 360 / this.n) * 100;
+                    }
+                    break;
+                case 6:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + Math.round(Math.random() * 180);
+                        this.points1[i] = (Math.cos(i * 360 / this.n) * 10) * (Math.cos(i * 360 / this.n) * 10);
+                        this.points2[i] = (Math.cos(i * 360 / this.n) * 10) * (Math.sin(xd) * 10);
+                        this.points3[i] = Math.sin(i * 360 / this.n) * 100;
+                    }
+                    break;
+                case 7:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + Math.round(Math.random() * 180);
+                        this.points1[i] = (Math.cos(i * 360 / this.n) * 10) * (Math.cos(i * 360 / this.n) * 10);
+                        this.points2[i] = (Math.cos(i * 360 / this.n) * 10) * (Math.sin(i * 360 / this.n) * 10);
+                        this.points3[i] = Math.sin(i * 360 / this.n) * 100;
+                    }
+                    break;
+                case 8:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + Math.round(Math.random() * 180);
+                        this.points1[i] = (Math.cos(xd) * 10) * (Math.cos(i * 360 / this.n) * 10);
+                        this.points2[i] = (Math.cos(i * 360 / this.n) * 10) * (Math.sin(i * 360 / this.n) * 10);
+                        this.points3[i] = Math.sin(xd) * 100;
+                    }
+                    break;
+                case 9:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + Math.round(Math.random() * 180);
+                        this.points1[i] = (Math.cos(xd) * 10) * (Math.cos(i * 360 / this.n) * 10);
+                        this.points2[i] = (Math.cos(i * 360 / this.n) * 10) * (Math.sin(xd) * 10);
+                        this.points3[i] = Math.sin(xd) * 100;
+                    }
+                    break;
+                case 10:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + Math.round(Math.random() * 180);
+                        this.points1[i] = (Math.cos(i * 360 / this.n) * 10) * (Math.cos(i * 360 / this.n) * 10);
+                        this.points2[i] = (Math.cos(xd) * 10) * (Math.sin(xd) * 10);
+                        this.points3[i] = Math.sin(i * 360 / this.n) * 100;
+                    }
+                    break;
+                case 11:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + Math.round(Math.random() * 180);
+                        this.points1[i] = (Math.cos(xd) * 10) * (Math.cos(i * 360 / this.n) * 10);
+                        this.points2[i] = (Math.sin(xd) * 10) * (Math.sin(i * 360 / this.n) * 10);
+                        this.points3[i] = Math.sin(xd) * 100;
+                    }
+                    break;
+                case 12:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + Math.round(Math.random() * 180);
+                        this.points1[i] = (Math.cos(xd) * 10) * (Math.cos(xd) * 10);
+                        this.points2[i] = (Math.sin(xd) * 10) * (Math.sin(xd) * 10);
+                        this.points3[i] = Math.sin(i * 360 / this.n) * 100;
+                    }
+                    break;
+                case 13:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + Math.round(Math.random() * 180);
+                        this.points1[i] = (Math.cos(xd) * 10) * (Math.cos(i * 360 / this.n) * 10);
+                        this.points2[i] = (Math.sin(i * 360 / this.n) * 10) * (Math.sin(xd) * 10);
+                        this.points3[i] = Math.sin(i * 360 / this.n) * 100;
+                    }
+                    break;
+                case 14:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + Math.round(Math.random() * 180);
+                        this.points1[i] = (Math.sin(xd) * 10) * (Math.cos(xd) * 10);
+                        this.points2[i] = (Math.sin(xd) * 10) * (Math.sin(i * 360 / this.n) * 10);
+                        this.points3[i] = Math.sin(i * 360 / this.n) * 100;
+                    }
+                    break;
+                case 15:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + Math.round(Math.random() * 180);
+                        this.points1[i] = (Math.cos(i * 360 / this.n) * 10) * (Math.cos(i * 360 / this.n) * 10);
+                        this.points2[i] = (Math.sin(i * 360 / this.n) * 10) * (Math.sin(xd) * 10);
+                        this.points3[i] = Math.sin(i * 360 / this.n) * 100;
+                    }
+                    break;
+                case 16:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + Math.round(Math.random() * 180);
+                        this.points1[i] = (Math.cos(xd) * 10) * (Math.cos(i * 360 / this.n) * 10);
+                        this.points2[i] = (Math.sin(i * 360 / this.n) * 10) * (Math.sin(xd) * 10);
+                        this.points3[i] = Math.sin(xd) * 100;
+                    }
+                    break;
+                case 17:
+                    for (i = 0; i < this.n; i++) {
+                        xd = -90 + Math.round(Math.random() * 180);
+                        this.points1[i] = (Math.cos(xd) * 10) * (Math.cos(xd) * 10);
+                        this.points2[i] = (Math.cos(i * 360 / this.n) * 10) * (Math.sin(i * 360 / this.n) * 10);
+                        this.points3[i] = Math.sin(i * 360 / this.n) * 100;
+                    }
+                    break;
+            }
+        }
+        onResize() {
+        }
+        update() {
+            var x3d, y3d, z3d, tx, ty, tz, ox;
+            if (this.d < 200) {
+                this.d++;
+            }
+            this.vx += 0.0075;
+            this.vy += 0.0075;
+            this.vz += 0.0075;
+            for (var i = 0; i < this.n; i++) {
+                if (this.points1[i] > this.tpoint1[i]) {
+                    this.tpoint1[i] = this.tpoint1[i] + 1;
+                }
+                if (this.points1[i] < this.tpoint1[i]) {
+                    this.tpoint1[i] = this.tpoint1[i] - 1;
+                }
+                if (this.points2[i] > this.tpoint2[i]) {
+                    this.tpoint2[i] = this.tpoint2[i] + 1;
+                }
+                if (this.points2[i] < this.tpoint2[i]) {
+                    this.tpoint2[i] = this.tpoint2[i] - 1;
+                }
+                if (this.points3[i] > this.tpoint3[i]) {
+                    this.tpoint3[i] = this.tpoint3[i] + 1;
+                }
+                if (this.points3[i] < this.tpoint3[i]) {
+                    this.tpoint3[i] = this.tpoint3[i] - 1;
+                }
+                x3d = this.tpoint1[i];
+                y3d = this.tpoint2[i];
+                z3d = this.tpoint3[i];
+                ty = (y3d * Math.cos(this.vx)) - (z3d * Math.sin(this.vx));
+                tz = (y3d * Math.sin(this.vx)) + (z3d * Math.cos(this.vx));
+                tx = (x3d * Math.cos(this.vy)) - (tz * Math.sin(this.vy));
+                tz = (x3d * Math.sin(this.vy)) + (tz * Math.cos(this.vy));
+                ox = tx;
+                tx = (tx * Math.cos(this.vz)) - (ty * Math.sin(this.vz));
+                ty = (ox * Math.sin(this.vz)) + (ty * Math.cos(this.vz));
+                this.balls[i].x = (512 * tx) / (this.d - tz) + Laya.stage.width / 2;
+                this.balls[i].y = (Laya.stage.height / 2) - (512 * ty) / (this.d - tz);
+            }
+        }
+    }
+
+    var Sprite$D = Laya.Sprite;
+    var Browser$d = Laya.Browser;
+    var WebGL$9 = Laya.WebGL;
+    class PIXI_Example_21 {
+        constructor() {
+            this.colors = ["#5D0776", "#EC8A49", "#AF3666", "#F6C84C", "#4C779A"];
+            this.colorCount = 0;
+            this.isDown = false;
+            this.path = [];
+            this.color = this.colors[0];
+            Laya.init(Browser$d.width, Browser$d.height, WebGL$9);
+            Laya.stage.bgColor = "#3da8bb";
+            this.createCanvases();
+            Laya.timer.frameLoop(1, this, this.animate);
+            Laya.stage.on('mousedown', this, this.onMouseDown);
+            Laya.stage.on('mousemove', this, this.onMouseMove);
+            Laya.stage.on('mouseup', this, this.onMouseUp);
+        }
+        createCanvases() {
+            var graphicsCanvas = new Sprite$D();
+            Laya.stage.addChild(graphicsCanvas);
+            var liveGraphicsCanvas = new Sprite$D();
+            Laya.stage.addChild(liveGraphicsCanvas);
+            this.liveGraphics = liveGraphicsCanvas.graphics;
+            this.canvasGraphics = graphicsCanvas.graphics;
+        }
+        onMouseDown() {
+            this.isDown = true;
+            this.color = this.colors[this.colorCount++ % this.colors.length];
+            this.path.length = 0;
+        }
+        onMouseMove() {
+            if (!this.isDown)
+                return;
+            this.path.push(Laya.stage.mouseX);
+            this.path.push(Laya.stage.mouseY);
+        }
+        onMouseUp() {
+            this.isDown = false;
+            this.canvasGraphics.drawPoly(0, 0, this.path.concat(), this.color);
+        }
+        animate() {
+            this.liveGraphics.clear();
+            this.liveGraphics.drawPoly(0, 0, this.path, this.color);
+        }
+    }
+
+    var Sprite$E = Laya.Sprite;
+    var Stage$6 = Laya.Stage;
+    var Point$2 = Laya.Point;
+    var Browser$e = Laya.Browser;
+    var WebGL$a = Laya.WebGL;
+    class PIXI_Example_23 {
+        constructor() {
+            this.viewWidth = Browser$e.width;
+            this.viewHeight = Browser$e.height;
+            this.lasers = [];
+            this.tick = 0;
+            this.frequency = 80;
+            this.type = 0;
+            Laya.init(this.viewWidth, this.viewHeight, WebGL$a);
+            Laya.stage.screenMode = Stage$6.SCREEN_HORIZONTAL;
+            Laya.stage.scaleMode = Stage$6.SCALE_NOBORDER;
+            Laya.stage.loadImage("res/pixi/laserBG.jpg");
+            Laya.stage.frameLoop(1, this, this.animate);
+        }
+        animate() {
+            if (this.tick > this.frequency) {
+                this.tick = 0;
+                var laser = new Laser();
+                laser.loadImage("res/pixi/laser0" + ((this.type % 5) + 1) + ".png");
+                this.type++;
+                laser.life = 0;
+                var pos1;
+                var pos2;
+                if (this.type % 2) {
+                    pos1 = new Point$2(-20, Math.random() * this.viewHeight);
+                    pos2 = new Point$2(this.viewWidth, Math.random() * this.viewHeight + 20);
+                }
+                else {
+                    pos1 = new Point$2(Math.random() * this.viewWidth, -20);
+                    pos2 = new Point$2(Math.random() * this.viewWidth, this.viewHeight + 20);
+                }
+                var distX = pos1.x - pos2.x;
+                var distY = pos1.y - pos2.y;
+                var dist = Math.sqrt(distX * distX + distY * distY) + 40;
+                laser.scaleX = dist / 20;
+                laser.pos(pos1.x, pos1.y);
+                laser.pivotY = 43 / 2;
+                laser.blendMode = "lighter";
+                laser.rotation = (Math.atan2(distY, distX) + Math.PI) * 180 / Math.PI;
+                this.lasers.push(laser);
+                Laya.stage.addChild(laser);
+                this.frequency *= 0.9;
+            }
+            for (var i = 0; i < this.lasers.length; i++) {
+                laser = this.lasers[i];
+                laser.life++;
+                if (laser.life > 60 * 0.3) {
+                    laser.alpha *= 0.9;
+                    laser.scaleY = laser.alpha;
+                    if (laser.alpha < 0.01) {
+                        this.lasers.splice(i, 1);
+                        Laya.stage.removeChild(laser);
+                        i--;
+                    }
+                }
+            }
+            this.tick += 1;
+        }
+    }
+    class Laser extends Sprite$E {
+    }
+
+    class PIXIMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "Example04", "Example05", "Example21", "Example23"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    new PIXI_Example_04();
+                    break;
+                case this.btnNameArr[2]:
+                    new PIXI_Example_05();
+                    break;
+                case this.btnNameArr[3]:
+                    new PIXI_Example_21();
+                    break;
+                case this.btnNameArr[4]:
+                    new PIXI_Example_23();
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
     class LayaMain2d extends SingletonMainScene {
         constructor() {
             super();
@@ -5064,12 +6082,16 @@
                     NetworkMain.getInstance().Show();
                     break;
                 case this.btnNameArr[18]:
+                    DOMMain.getInstance().Show();
                     break;
                 case this.btnNameArr[19]:
+                    DebugMain.getInstance().Show();
                     break;
                 case this.btnNameArr[20]:
+                    PerformanceTestMain.getInstance().Show();
                     break;
                 case this.btnNameArr[21]:
+                    PIXIMain.getInstance().Show();
                     break;
             }
             console.log(name + "按钮_被点击");

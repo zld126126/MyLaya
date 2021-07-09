@@ -18,6 +18,10 @@ import { LoaderMain } from "./Loader/LoaderMain";
 import { SmartScaleMain } from "./SmartScale/SmartScaleMain";
 import { InputDeviceMain } from "./InputDevice/InputDeviceMain";
 import { NetworkMain } from "./Network/NetworkMain";
+import { DOMMain } from "./DOM/DOMMain";
+import { DebugMain } from "./Debug/DebugMain";
+import { PerformanceTestMain } from "./PerformanceTest/PerformanceTestMain";
+import { PIXIMain } from "./PIXI/PIXIMain";
 
 export class LayaMain2d extends SingletonMainScene {
     constructor() {
@@ -120,16 +124,16 @@ export class LayaMain2d extends SingletonMainScene {
                 NetworkMain.getInstance().Show();
                 break;
             case this.btnNameArr[18]:
-
+                DOMMain.getInstance().Show();
                 break;
             case this.btnNameArr[19]:
-
+                DebugMain.getInstance().Show();
                 break;
             case this.btnNameArr[20]:
-
+                PerformanceTestMain.getInstance().Show();
                 break;
             case this.btnNameArr[21]:
-
+                PIXIMain.getInstance().Show();
                 break;
         }
         console.log(name + "按钮_被点击");
