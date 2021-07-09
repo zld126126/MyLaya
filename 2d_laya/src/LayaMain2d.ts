@@ -17,6 +17,7 @@ import { InteractionMain } from "./Interaction/InteractionMain";
 import { LoaderMain } from "./Loader/LoaderMain";
 import { SmartScaleMain } from "./SmartScale/SmartScaleMain";
 import { InputDeviceMain } from "./InputDevice/InputDeviceMain";
+import { NetworkMain } from "./Network/NetworkMain";
 
 export class LayaMain2d extends SingletonMainScene {
     constructor() {
@@ -116,7 +117,7 @@ export class LayaMain2d extends SingletonMainScene {
                 InputDeviceMain.getInstance().Show();
                 break;
             case this.btnNameArr[17]:
-
+                NetworkMain.getInstance().Show();
                 break;
             case this.btnNameArr[18]:
 

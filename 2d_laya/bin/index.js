@@ -17,5 +17,7 @@ loadLib("libs/laya.ui.js")
 loadLib("libs/laya.device.js")
 loadLib("libs/laya.physics.js")
 loadLib("libs/bmap_helper.js");
+loadLib("libs/protobuf-library.min.js")
+loadLib("libs/protobuf-bundles.min.js")
 //-----libs-end-------
 loadLib("js/bundle.js");

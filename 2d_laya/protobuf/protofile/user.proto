@@ -1,0 +1,31 @@
+package template;
+
+message Login{
+    required int32 cmd = 1;
+    required string name = 2;
+}
+
+message LoginSuccess{
+    required int32 cmd = 1;
+    required string name = 2;
+}
+
+message Login2{
+    required int32 cmd = 1;
+    required string name = 2;
+}
+
+message LoginSuccess2{
+    required int32 cmd = 1;
+    required string name = 2;
+}
+
+message Login3{
+    required int32 cmd = 1;
+    required string name = 2;
+}
+
+message LoginSuccess3{
+    required int32 cmd = 1;
+    required string name = 2;
+}

@@ -4747,6 +4747,235 @@
         }
     }
 
+    var Text$l = Laya.Text;
+    var Event$p = Laya.Event;
+    var HttpRequest = Laya.HttpRequest;
+    class Network_POST extends SingletonScene {
+        constructor() {
+            super();
+            Laya.stage.addChild(this);
+            this.connect();
+            this.showLogger();
+        }
+        connect() {
+            this.hr = new HttpRequest();
+            this.hr.once(Event$p.PROGRESS, this, this.onHttpRequestProgress);
+            this.hr.once(Event$p.COMPLETE, this, this.onHttpRequestComplete);
+            this.hr.once(Event$p.ERROR, this, this.onHttpRequestError);
+            this.hr.send('https://www.baidu.com/', '', 'post', 'Content-Type:application/json');
+        }
+        showLogger() {
+            this.logger = new Text$l();
+            this.logger.fontSize = 30;
+            this.logger.color = "#FFFFFF";
+            this.logger.align = 'center';
+            this.logger.valign = 'middle';
+            this.logger.size(Laya.stage.width, Laya.stage.height);
+            this.logger.text = "等待响应...\n";
+            this.addChild(this.logger);
+        }
+        onHttpRequestError(e) {
+            console.log(e);
+        }
+        onHttpRequestProgress(e) {
+            console.log(e);
+        }
+        onHttpRequestComplete(e) {
+            this.logger.text += "收到数据：" + this.hr.data;
+        }
+    }
+
+    var Text$m = Laya.Text;
+    var Event$q = Laya.Event;
+    var HttpRequest$1 = Laya.HttpRequest;
+    class Network_GET extends SingletonScene {
+        constructor() {
+            super();
+            Laya.stage.addChild(this);
+            this.connect();
+            this.showLogger();
+        }
+        connect() {
+            this.hr = new HttpRequest$1();
+            this.hr.once(Event$q.PROGRESS, this, this.onHttpRequestProgress);
+            this.hr.once(Event$q.COMPLETE, this, this.onHttpRequestComplete);
+            this.hr.once(Event$q.ERROR, this, this.onHttpRequestError);
+            this.hr.send('https://www.baidu.com/', null, 'get', 'Content-Type:application/json');
+        }
+        showLogger() {
+            this.logger = new Text$m();
+            this.logger.fontSize = 30;
+            this.logger.color = "#FFFFFF";
+            this.logger.align = 'center';
+            this.logger.valign = 'middle';
+            this.logger.size(Laya.stage.width, Laya.stage.height);
+            this.logger.text = "等待响应...\n";
+            this.addChild(this.logger);
+        }
+        onHttpRequestError(e) {
+            console.log(e);
+        }
+        onHttpRequestProgress(e) {
+            console.log(e);
+        }
+        onHttpRequestComplete(e) {
+            this.logger.text += "收到数据：" + this.hr.data;
+        }
+    }
+
+    var Utils$1 = Laya.Utils;
+    class Network_XML extends SingletonScene {
+        constructor() {
+            super();
+            Laya.stage.addChild(this);
+            this.setup();
+        }
+        setup() {
+            var xmlValueContainsError = "<root><item>item a</item><item>item b</item>somethis...</root1>";
+            var xmlValue = "<root><item>item a</item><item>item b</item>somethings...</root>";
+            this.proessXML(xmlValueContainsError);
+            console.log("\n");
+            this.proessXML(xmlValue);
+        }
+        proessXML(source) {
+            try {
+                var xml = Utils$1.parseXMLFromString(source);
+            }
+            catch (e) {
+                console.log(e.massage);
+                return;
+            }
+            this.printDirectChildren(xml);
+        }
+        printDirectChildren(xml) {
+            var rootNode = xml.firstChild;
+            var nodes = rootNode.childNodes;
+            for (var i = 0; i < nodes.length; i++) {
+                var node = nodes[i];
+                if (node.nodeType == 1) {
+                    console.log("节点名称: " + node.nodeName);
+                    console.log("元素节点，第一个子节点值为：" + node.firstChild.nodeValue);
+                }
+                else if (node.nodeType == 3) {
+                    console.log("文本节点：" + node.nodeValue);
+                }
+                console.log("\n");
+            }
+        }
+    }
+
+    var Event$r = Laya.Event;
+    var Socket = Laya.Socket;
+    var Byte = Laya.Byte;
+    class NetWork_Socket extends SingletonScene {
+        constructor() {
+            super();
+            Laya.stage.addChild(this);
+            this.connect();
+        }
+        connect() {
+            this.socket = new Socket();
+            this.socket.connectByUrl("ws://echo.websocket.org:80");
+            this.output = this.socket.output;
+            this.socket.on(Event$r.OPEN, this, this.onSocketOpen);
+            this.socket.on(Event$r.CLOSE, this, this.onSocketClose);
+            this.socket.on(Event$r.MESSAGE, this, this.onMessageReveived);
+            this.socket.on(Event$r.ERROR, this, this.onConnectError);
+        }
+        onSocketOpen() {
+            console.log("Connected");
+            this.socket.send("demonstrate <sendString>");
+            var message = "demonstrate <output.writeByte>";
+            for (var i = 0; i < message.length; ++i) {
+                this.output.writeByte(message.charCodeAt(i));
+            }
+            this.socket.flush();
+        }
+        onSocketClose() {
+            console.log("Socket closed");
+        }
+        onMessageReveived(message) {
+            console.log("Message from server:");
+            if (typeof message == "string") {
+                console.log(message);
+            }
+            else if (message instanceof ArrayBuffer) {
+                console.log(new Byte(message).readUTFBytes());
+            }
+            this.socket.input.clear();
+        }
+        onConnectError(e) {
+            console.log("error");
+        }
+    }
+
+    var Browser$6 = Laya.Browser;
+    class Network_ProtocolBuffer extends SingletonScene {
+        constructor() {
+            super();
+            this.ProtoBuf = Browser$6.window.protobuf;
+            Laya.stage.addChild(this);
+            console.log(Browser$6.window.protobuf);
+            this.ProtoBuf.load("res/protobuf/user.proto", this.onAssetsLoaded);
+        }
+        onAssetsLoaded(err, root) {
+            if (err)
+                throw err;
+            console.log("proto name:", root.nested.template.Login.name);
+        }
+    }
+
+    class NetworkMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "POST", "GET", "XML", "Socket", "ProtoBuffer"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    Network_POST.getInstance().Click();
+                    break;
+                case this.btnNameArr[2]:
+                    Network_GET.getInstance().Click();
+                    break;
+                case this.btnNameArr[3]:
+                    Network_XML.getInstance().Click();
+                    break;
+                case this.btnNameArr[4]:
+                    NetWork_Socket.getInstance().Click();
+                    break;
+                case this.btnNameArr[5]:
+                    Network_ProtocolBuffer.getInstance().Click();
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
     class LayaMain2d extends SingletonMainScene {
         constructor() {
             super();
@@ -4832,6 +5061,7 @@
                     InputDeviceMain.getInstance().Show();
                     break;
                 case this.btnNameArr[17]:
+                    NetworkMain.getInstance().Show();
                     break;
                 case this.btnNameArr[18]:
                     break;
