@@ -4,6 +4,8 @@ import { ResourceMain } from "./Resource/ResourceMain";
 import { GlobalConfig } from "./GlobalConfig";
 import { Scene3DMain } from "./Scene3D/Scene3DMain";
 import { CameraMain } from "./Camera/CameraMain";
+import { PostProcessMain } from "./PostProcess/PostProcessMain";
+import { LightingMain } from "./Lighting/LightingMain";
 
 export class LayaMain3d extends SingletonMainScene {
     constructor() {
@@ -60,8 +62,10 @@ export class LayaMain3d extends SingletonMainScene {
                 CameraMain.getInstance().Show();
                 break;
             case this.btnNameArr[3]:
+                PostProcessMain.getInstance().Show();
                 break;
             case this.btnNameArr[4]:
+                LightingMain.getInstance().Show();
                 break;
             case this.btnNameArr[5]:
                 break;
