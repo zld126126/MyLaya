@@ -121,11 +121,15 @@ export class CameraLookAt extends SingletonScene {
 
     public Show() {
         super.Show();
-        this.changeActionButton.visible = true;
+        if (this.changeActionButton) {
+            this.changeActionButton.visible = true;
+        }
     }
 
     public Hide() {
         super.Hide();
-        this.changeActionButton.visible = false;
+        if (this.changeActionButton) {
+            this.changeActionButton.visible = false;
+        }
     }
 }

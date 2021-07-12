@@ -24,10 +24,11 @@ export default abstract class SingletonScene {
     private addButton(x: number, y: number, width: number, height: number, text: string, clickFun: Function): void {
         Laya.loader.load([GlobalConfig.ResPath + "res/threeDimen/ui/button.png"], Laya.Handler.create(this, function () {
             this.backbtn = new Laya.Button(GlobalConfig.ResPath + "res/threeDimen/ui/button.png", text);
-            var changeActionButton: Laya.Button = Laya.stage.addChild(this.backbtn) as Laya.Button;
-            changeActionButton.size(width, height);
-            changeActionButton.pos(x, y);
-            changeActionButton.on(Laya.Event.CLICK, this, clickFun);
+            Laya.stage.addChild(this.backbtn);
+            //var changeActionButton: Laya.Button = Laya.stage.addChild(this.backbtn) as Laya.Button;
+            this.backbtn.size(width, height);
+            this.backbtn.pos(x, y);
+            this.backbtn.on(Laya.Event.CLICK, this, clickFun);
         }));
     }
 
@@ -46,8 +47,11 @@ export default abstract class SingletonScene {
     AddReturn() {
         this.addButton(50, 50, 100, 40, "返回主页", function (e) {
             this.Hide();
-            this.backbtn.visible = false;
-            this.backbtn.destroy();
+            if (this.backbtn) {
+                this.backbtn.visible = false;
+                this.backbtn.destroy();
+                this.backbtn = null;
+            }
             EventManager.DispatchEvent(EventType.BACKTOMAIN);
             this.isShow = false;
         });

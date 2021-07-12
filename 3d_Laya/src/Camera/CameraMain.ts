@@ -3,6 +3,15 @@ import { EventManager, EventType } from "../EventManager";
 import { GlobalConfig } from "../GlobalConfig";
 import { CameraDemo } from "./CameraDemo";
 import { CameraLookAt } from "./CameraLookAt";
+import { MultiCamera } from "./MultiCamera";
+import { CameraRay } from "./CameraRay";
+import { CameraLayer } from "./CameraLayer";
+import { OrthographicCamera } from "./OrthographicCamera";
+import { D3SpaceToD2Space } from "./D3SpaceToD2Space";
+import { RenderTarget3DTo2DSprite } from "./RenderTarget3DTo2DSprite";
+import { RenderTargetCamera } from "./RenderTargetCamera";
+import { RenderTargetTo2DSprite } from "./RenderTargetTo2DSprite";
+import { PickPixel } from "./PickPixel";
 
 export class CameraMain extends SingletonMainScene {
     private btnNameArr: Array<string> = [
@@ -56,22 +65,31 @@ export class CameraMain extends SingletonMainScene {
                 CameraLookAt.getInstance().Click();
                 break;
             case this.btnNameArr[3]:
+                MultiCamera.getInstance().Click();
                 break;
             case this.btnNameArr[4]:
+                CameraRay.getInstance().Click();
                 break;
             case this.btnNameArr[5]:
+                CameraLayer.getInstance().Click();
                 break;
             case this.btnNameArr[6]:
+                OrthographicCamera.getInstance().Click();
                 break;
             case this.btnNameArr[7]:
+                D3SpaceToD2Space.getInstance().Click();
                 break;
             case this.btnNameArr[8]:
+                RenderTarget3DTo2DSprite.getInstance().Click();
                 break;
             case this.btnNameArr[9]:
+                RenderTargetCamera.getInstance().Click();
                 break;
             case this.btnNameArr[10]:
+                RenderTargetTo2DSprite.getInstance().Click();
                 break;
             case this.btnNameArr[11]:
+                PickPixel.getInstance().Click();
                 break;
         }
         console.log(name + "按钮_被点击");
