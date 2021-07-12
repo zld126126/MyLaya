@@ -1,24 +1,20 @@
-import SingletonMainScene from "./SingletonMainScene";
-import { EventManager, EventType } from "./EventManager";
-import { ResourceMain } from "./Resource/ResourceMain";
-import { GlobalConfig } from "./GlobalConfig";
-import { Scene3DMain } from "./Scene3D/Scene3DMain";
-import { CameraMain } from "./Camera/CameraMain";
+import SingletonMainScene from "../SingletonMainScene";
+import { EventManager, EventType } from "../EventManager";
+import { GlobalConfig } from "../GlobalConfig";
+import { CameraDemo } from "./CameraDemo";
+import { CameraLookAt } from "./CameraLookAt";
 
-export class LayaMain3d extends SingletonMainScene {
+export class CameraMain extends SingletonMainScene {
+    private btnNameArr: Array<string> = [
+        "返回主页", "摄像机示例", "摄像机捕捉目标", "多照相机", "创建射线",
+        "可视遮罩层", "正交摄像机", "3D空间转2D空间", "渲染3D到2DSprite", "渲染到纹理",
+        "渲染到2DSprite", "拾取像素"];
+
     constructor() {
         super();
         Laya.stage.addChild(this);
         this.LoadExamples();
     }
-
-    private btnNameArr: Array<string> = [
-        "Resource", "Scene3D", "摄像机", "后处理", "光照",
-        "3D精灵", "Mesh网格", "材质", "纹理", "动画",
-        "物理系统", "canoon物理", "鼠标交互", "脚本", "天空",
-        "粒子系统", "拖尾系统", "自定义Shader", "性能测试", "高级应用",
-        "展示案例",
-    ];
 
     // 加载例子
     LoadExamples() {
@@ -48,16 +44,16 @@ export class LayaMain3d extends SingletonMainScene {
 
     // 绑定点击事件
     private _onclick(name: string) {
-        this.Hide();
         switch (name) {
             case this.btnNameArr[0]:
-                ResourceMain.getInstance().Show();
+                this.Hide();
+                EventManager.DispatchEvent(EventType.BACKTOMAIN);
                 break;
             case this.btnNameArr[1]:
-                Scene3DMain.getInstance().Show();
+                CameraDemo.getInstance().Click();
                 break;
             case this.btnNameArr[2]:
-                CameraMain.getInstance().Show();
+                CameraLookAt.getInstance().Click();
                 break;
             case this.btnNameArr[3]:
                 break;
@@ -77,29 +73,7 @@ export class LayaMain3d extends SingletonMainScene {
                 break;
             case this.btnNameArr[11]:
                 break;
-            case this.btnNameArr[12]:
-                break;
-            case this.btnNameArr[13]:
-                break;
-            case this.btnNameArr[14]:
-                break;
-            case this.btnNameArr[15]:
-                break;
-            case this.btnNameArr[16]:
-                break;
-            case this.btnNameArr[17]:
-                break;
-            case this.btnNameArr[18]:
-                break;
-            case this.btnNameArr[19]:
-                break;
-            case this.btnNameArr[20]:
-                break;
         }
         console.log(name + "按钮_被点击");
-    }
-
-    public Back2Main() {
-        this.Show();
     }
 }

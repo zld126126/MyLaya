@@ -31,15 +31,19 @@ export default abstract class SingletonScene {
         }));
     }
 
-    SetScene3d(scene: Laya.Scene3D) {
-        if (!this.CurrentScene){
+    public SetScene3d(scene: Laya.Scene3D) {
+        if (!this.CurrentScene) {
             this.CurrentScene = scene;
             Laya.stage.addChild(this.CurrentScene);
             this.Show();
         }
     }
 
-    AddReturn(){
+    public GetScene3d(): Laya.Scene3D {
+        return this.CurrentScene;
+    }
+
+    AddReturn() {
         this.addButton(50, 50, 100, 40, "返回主页", function (e) {
             this.Hide();
             this.backbtn.visible = false;

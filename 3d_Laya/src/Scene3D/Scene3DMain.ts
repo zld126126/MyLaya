@@ -2,6 +2,9 @@ import SingletonMainScene from "../SingletonMainScene";
 import { EventManager, EventType } from "../EventManager";
 import { GlobalConfig } from "../GlobalConfig";
 import { SceneLoad1 } from "./SceneLoad1";
+import { SceneLoad2 } from "./SceneLoad2";
+import { EnvironmentalReflection } from "./EnvironmentalReflection";
+import { LightmapScene } from "./LightmapScene";
 
 export class Scene3DMain extends SingletonMainScene {
     private btnNameArr: Array<string> = [
@@ -50,8 +53,13 @@ export class Scene3DMain extends SingletonMainScene {
                 SceneLoad1.getInstance().Click();
                 break;
             case this.btnNameArr[2]:
+                SceneLoad2.getInstance().Click();
                 break;
             case this.btnNameArr[3]:
+                EnvironmentalReflection.getInstance().Click();
+                break;
+            case this.btnNameArr[4]:
+                LightmapScene.getInstance().Click();
                 break;
         }
         console.log(name + "按钮_被点击");
