@@ -6,6 +6,8 @@ import { Scene3DMain } from "./Scene3D/Scene3DMain";
 import { CameraMain } from "./Camera/CameraMain";
 import { PostProcessMain } from "./PostProcess/PostProcessMain";
 import { LightingMain } from "./Lighting/LightingMain";
+import { Sprite3DMain } from "./Sprite3D/Sprite3DMain";
+import { MeshMain } from "./Mesh/MeshMain";
 
 export class LayaMain3d extends SingletonMainScene {
     constructor() {
@@ -68,8 +70,10 @@ export class LayaMain3d extends SingletonMainScene {
                 LightingMain.getInstance().Show();
                 break;
             case this.btnNameArr[5]:
+                Sprite3DMain.getInstance().Show();
                 break;
             case this.btnNameArr[6]:
+                MeshMain.getInstance().Show();
                 break;
             case this.btnNameArr[7]:
                 break;
