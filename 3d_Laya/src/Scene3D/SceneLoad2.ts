@@ -14,8 +14,7 @@ export class SceneLoad2 extends SingletonScene {
         Laya.Stat.show();
 
         Laya.Scene3D.load(GlobalConfig.ResPath + "res/threeDimen/scene/XunLongShi/XunLongShi.ls", Laya.Handler.create(this, function (scene: Laya.Scene3D): void {
-            EventManager.DispatchEvent(EventType.BACKTOMAIN);
-            EventManager.DispatchEvent(EventType.SETSCENE3D, scene);
+            this.AutoSetScene3d(scene);
             //Laya.stage.addChild(scene);
             //开启雾化效果
             scene.enableFog = true;

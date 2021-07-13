@@ -49,8 +49,7 @@ export class CameraLayer extends SingletonScene {
         ], Laya.Handler.create(this, this.onComplete));
     }
     onComplete() {
-        EventManager.DispatchEvent(EventType.BACKTOMAIN);
-        EventManager.DispatchEvent(EventType.SETSCENE3D, this.s_scene);
+        this.AutoSetScene3d(this.s_scene);
         //添加地面
         var grid: Laya.Sprite3D = this.s_scene.addChild(Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/staticModel/grid/plane.lh")) as Laya.Sprite3D;
         //地面接收阴影

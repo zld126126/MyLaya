@@ -96,8 +96,7 @@ export class CustomMesh extends SingletonScene {
 
     private loadUI(): void {
         Laya.loader.load([GlobalConfig.ResPath + "/res/threeDimen/ui/button.png"], Laya.Handler.create(this, function (): void {
-            EventManager.DispatchEvent(EventType.BACKTOMAIN);
-            EventManager.DispatchEvent(EventType.SETSCENE3D, this.s_scene);
+            this.AutoSetScene3d(this.s_scene);
             this.changeActionButton = new Laya.Button(GlobalConfig.ResPath + "/res/threeDimen/ui/button.png", "正常模式");
             Laya.stage.addChild(this.changeActionButton);
             this.changeActionButton.size(160, 40);

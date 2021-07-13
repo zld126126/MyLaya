@@ -49,8 +49,7 @@ export class MultiLight extends SingletonScene {
 
         Scene3D.load(GlobalConfig.ResPath + "res/threeDimen/scene/MultiLightScene/InventoryScene_Forest.ls", Handler.create(this, function (scene: Scene3D): void {
             this.s_scene = scene;
-            EventManager.DispatchEvent(EventType.BACKTOMAIN);
-            EventManager.DispatchEvent(EventType.SETSCENE3D, this.s_scene);
+            this.AutoSetScene3d(this.s_scene);
 
             var camera: Camera = <Camera>scene.getChildByName("Main Camera");
             camera.addComponent(CameraMoveScript);

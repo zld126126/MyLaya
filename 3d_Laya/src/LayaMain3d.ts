@@ -8,6 +8,9 @@ import { PostProcessMain } from "./PostProcess/PostProcessMain";
 import { LightingMain } from "./Lighting/LightingMain";
 import { Sprite3DMain } from "./Sprite3D/Sprite3DMain";
 import { MeshMain } from "./Mesh/MeshMain";
+import { MaterialMain } from "./Material/MaterialMain";
+import { TextureMain } from "./Texture/TextureMain";
+import { Animation3DMain } from "./Animation3D/Animation3DMain";
 
 export class LayaMain3d extends SingletonMainScene {
     constructor() {
@@ -76,10 +79,13 @@ export class LayaMain3d extends SingletonMainScene {
                 MeshMain.getInstance().Show();
                 break;
             case this.btnNameArr[7]:
+                MaterialMain.getInstance().Show();
                 break;
             case this.btnNameArr[8]:
+                TextureMain.getInstance().Show();
                 break;
             case this.btnNameArr[9]:
+                Animation3DMain.getInstance().Show();
                 break;
             case this.btnNameArr[10]:
                 break;

@@ -29,8 +29,7 @@ export class OrthographicCamera extends SingletonScene {
         var directionLight: Laya.DirectionLight = scene.addChild(new Laya.DirectionLight()) as Laya.DirectionLight;
 
         Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh", Laya.Handler.create(this, function (layaMonkey: Laya.Sprite3D): void {
-            EventManager.DispatchEvent(EventType.BACKTOMAIN);
-            EventManager.DispatchEvent(EventType.SETSCENE3D, scene);
+            this.AutoSetScene3d(scene);
 
             scene.addChild(layaMonkey);
             layaMonkey.transform.localScale = new Laya.Vector3(0.3, 0.3, 0.3);

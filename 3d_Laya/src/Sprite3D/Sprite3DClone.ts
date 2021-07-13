@@ -22,8 +22,7 @@ export class Sprite3DClone extends SingletonScene {
     }
 
     public onComplete(): void {
-        EventManager.DispatchEvent(EventType.BACKTOMAIN);
-        EventManager.DispatchEvent(EventType.SETSCENE3D, this.s_scene);
+        this.AutoSetScene3d(this.s_scene);
 
         var layaMonkey: Laya.Sprite3D = this.s_scene.addChild(Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh")) as Laya.Sprite3D;
         //克隆sprite3d

@@ -39,8 +39,7 @@ export class RenderTargetTo2DSprite extends SingletonScene {
     private onComplete(): void {
         //加载场景
         var scene: Scene3D = (<Scene3D>Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/scene/LayaScene_city01/Conventional/city01.ls"));
-        EventManager.DispatchEvent(EventType.BACKTOMAIN);
-        EventManager.DispatchEvent(EventType.SETSCENE3D, scene);
+        this.AutoSetScene3d(scene);
         //添加相机
         var camera: Camera = <Camera>scene.getChildByName("Main Camera");
         //相机添加视角控制组件(脚本)

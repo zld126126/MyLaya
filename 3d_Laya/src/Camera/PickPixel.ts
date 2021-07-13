@@ -42,8 +42,7 @@ export class PickPixel extends SingletonScene {
     private onComplete(): void {
         //加载场景
         var scene = Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/scene/CourtyardScene/Courtyard.ls") as Laya.Scene3D;
-        EventManager.DispatchEvent(EventType.BACKTOMAIN);
-        EventManager.DispatchEvent(EventType.SETSCENE3D, scene);
+        this.AutoSetScene3d(scene);
         //添加相机
         var camera = scene.addChild(new Laya.Camera(0, 0.1, 1000)) as Laya.Camera;
         camera.transform.translate(new Laya.Vector3(57, 2.5, 58));

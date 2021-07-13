@@ -55,8 +55,7 @@ export class TransformDemo extends SingletonScene {
     }
 
     onComplete() {
-        EventManager.DispatchEvent(EventType.BACKTOMAIN);
-        EventManager.DispatchEvent(EventType.SETSCENE3D, this.s_scene);
+        this.AutoSetScene3d(this.s_scene);
         //加载地面
         var grid = this.s_scene.addChild(Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/staticModel/grid/plane.lh")) as Laya.Sprite3D;
         //加载静态小猴子

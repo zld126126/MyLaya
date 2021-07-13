@@ -26,8 +26,7 @@ export class MultiCamera extends SingletonScene{
         this.camera2.addComponent(CameraMoveScript);
         this.camera2.clearFlag = Laya.BaseCamera.CLEARFLAG_SKY;
         Laya.BaseMaterial.load(GlobalConfig.ResPath + "res/threeDimen/skyBox/skyBox2/skyBox2.lmat", Laya.Handler.create(this, function (mat: Laya.SkyBoxMaterial): void {
-            EventManager.DispatchEvent(EventType.BACKTOMAIN);
-            EventManager.DispatchEvent(EventType.SETSCENE3D, scene);
+            this.AutoSetScene3d(scene);
             var skyRenderer: Laya.SkyRenderer = this.camera2.skyRenderer;
             skyRenderer.mesh = Laya.SkyBox.instance;
             skyRenderer.material = mat;

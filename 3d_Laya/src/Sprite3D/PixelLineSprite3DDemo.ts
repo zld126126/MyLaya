@@ -40,8 +40,7 @@ export class PixelLineSprite3DDemo extends SingletonScene{
 		this.sprite3D.active = false;;
 		this.lineSprite3D.active = true;
 
-		EventManager.DispatchEvent(EventType.BACKTOMAIN);
-        EventManager.DispatchEvent(EventType.SETSCENE3D, this.s_scene);
+		this.AutoSetScene3d(this.s_scene);
 	}
 
 

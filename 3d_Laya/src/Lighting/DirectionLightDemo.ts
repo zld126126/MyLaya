@@ -30,8 +30,7 @@ export class DirectionLightDemo extends SingletonScene {
         directionLight.transform.worldMatrix = mat;
 
         Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/staticModel/grid/plane.lh", Laya.Handler.create(this, function (sprite: Laya.Sprite3D): void {
-            EventManager.DispatchEvent(EventType.BACKTOMAIN);
-            EventManager.DispatchEvent(EventType.SETSCENE3D, this.s_scene);
+            this.AutoSetScene3d(this.s_scene);
             var grid: Laya.Sprite3D = this.s_scene.addChild(sprite) as Laya.Sprite3D;
 
             Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh", Laya.Handler.create(this, function (layaMonkey: Laya.Sprite3D): void {

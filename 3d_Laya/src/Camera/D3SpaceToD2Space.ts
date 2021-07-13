@@ -30,8 +30,7 @@ export class D3SpaceToD2Space extends SingletonScene {
     }
     public onComplete(): void {
         Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh", Laya.Handler.create(this, function (layaMonkey3D: Laya.Sprite3D): void {
-            EventManager.DispatchEvent(EventType.BACKTOMAIN);
-            EventManager.DispatchEvent(EventType.SETSCENE3D, this.s_scene);
+            this.AutoSetScene3d(this.s_scene);
             this.layaMonkey3D = layaMonkey3D;
             this.s_scene.addChild(layaMonkey3D);
 

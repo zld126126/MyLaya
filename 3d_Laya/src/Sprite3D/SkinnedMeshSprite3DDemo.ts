@@ -36,8 +36,7 @@ export class SkinnedMeshSprite3DDemo extends SingletonScene {
 
     }
     public onComplete() {
-        EventManager.DispatchEvent(EventType.BACKTOMAIN);
-        EventManager.DispatchEvent(EventType.SETSCENE3D, this.s_scene);
+        this.AutoSetScene3d(this.s_scene);
 
         //添加父级猴子
         var dude = this.s_scene.addChild(Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/dude/dude.lh")) as Laya.Sprite3D;

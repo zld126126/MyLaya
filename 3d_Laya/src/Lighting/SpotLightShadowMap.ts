@@ -23,8 +23,7 @@ export class SpotLightShadowMap extends SingletonScene {
 
         Scene3D.load(GlobalConfig.ResPath + "res/threeDimen/testNewFunction/LayaScene_depthScene/Conventional/depthScene.ls", Handler.create(this, function (scene: Scene3D): void {
             this.demoScene = scene;
-            EventManager.DispatchEvent(EventType.BACKTOMAIN);
-            EventManager.DispatchEvent(EventType.SETSCENE3D, this.demoScene);
+            this.AutoSetScene3d(this.demoScene);
             this.camera = (<Camera>scene.getChildByName("Camera"));
             this.camera.addComponent(CameraMoveScript);
             this.camera.active = true;

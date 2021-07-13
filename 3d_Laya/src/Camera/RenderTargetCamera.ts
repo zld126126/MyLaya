@@ -23,8 +23,7 @@ export class RenderTargetCamera extends SingletonScene {
         //加载场景
         var scene = Laya.loader.getRes(GlobalConfig.ResPath + "res/threeDimen/scene/CourtyardScene/Courtyard.ls");
         //Laya.stage.addChild(scene);
-        EventManager.DispatchEvent(EventType.BACKTOMAIN);
-        EventManager.DispatchEvent(EventType.SETSCENE3D, scene);
+        this.AutoSetScene3d(scene);
         //添加相机
         var camera = scene.addChild(new Laya.Camera(0, 0.1, 1000));
         camera.transform.translate(new Laya.Vector3(57, 2.5, 58));

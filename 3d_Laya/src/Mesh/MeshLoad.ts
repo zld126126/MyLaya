@@ -30,8 +30,7 @@ export class MeshLoad extends SingletonScene {
         this.lineSprite3D = this.s_scene.addChild(new Laya.Sprite3D()) as Laya.Sprite3D;
 
         Laya.Mesh.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/Assets/LayaMonkey/LayaMonkey-LayaMonkey.lm", Laya.Handler.create(this, function (mesh: Laya.Mesh): void {
-            EventManager.DispatchEvent(EventType.BACKTOMAIN);
-            EventManager.DispatchEvent(EventType.SETSCENE3D, this.s_scene);
+            this.AutoSetScene3d(this.s_scene);
 
             var layaMonkey: Laya.MeshSprite3D = this.sprite3D.addChild(new Laya.MeshSprite3D(mesh)) as Laya.MeshSprite3D;
             layaMonkey.transform.localScale = new Laya.Vector3(0.3, 0.3, 0.3);

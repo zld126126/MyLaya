@@ -445,6 +445,10 @@
         GetScene3d() {
             return this.CurrentScene;
         }
+        AutoSetScene3d(scene) {
+            EventManager.DispatchEvent("BACKTOMAIN");
+            EventManager.DispatchEvent("SETSCENE3D", scene);
+        }
         AddReturn() {
             this.addButton(50, 50, 100, 40, "返回主页", function (e) {
                 this.Hide();
@@ -490,8 +494,7 @@
         constructor() {
             super();
             Laya.Scene3D.load(GlobalConfig.ResPath + "res/threeDimen/scene/LayaScene_dudeScene/Conventional/dudeScene.ls", Laya.Handler.create(this, function (scene) {
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", scene);
+                this.AutoSetScene3d(scene);
                 var camera = scene.getChildByName("Camera");
                 camera.addComponent(CameraMoveScript);
             }));
@@ -506,8 +509,7 @@
             Laya.stage.screenMode = Laya.Stage.SCREEN_NONE;
             Laya.Stat.show();
             Laya.Scene3D.load(GlobalConfig.ResPath + "res/threeDimen/scene/XunLongShi/XunLongShi.ls", Laya.Handler.create(this, function (scene) {
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", scene);
+                this.AutoSetScene3d(scene);
                 scene.enableFog = true;
                 scene.fogColor = new Laya.Vector3(0, 0, 0.6);
                 scene.fogStart = 10;
@@ -555,8 +557,7 @@
             camera.addComponent(CameraMoveScript);
             camera.clearFlag = Laya.BaseCamera.CLEARFLAG_SKY;
             Laya.BaseMaterial.load(GlobalConfig.ResPath + "res/threeDimen/skyBox/DawnDusk/SkyBox.lmat", Laya.Handler.create(null, function (mat) {
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", scene);
+                this.AutoSetScene3d(scene);
                 var skyRenderer = camera.skyRenderer;
                 skyRenderer.mesh = Laya.SkyBox.instance;
                 skyRenderer.material = mat;
@@ -586,8 +587,7 @@
         constructor() {
             super();
             Laya.Scene3D.load(GlobalConfig.ResPath + "res/threeDimen/scene/ParticleScene/Example_01.ls", Laya.Handler.create(this, function (scene) {
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", scene);
+                this.AutoSetScene3d(scene);
                 var camera = scene.addChild(new Laya.Camera(0, 0.1, 100));
                 camera.transform.translate(new Laya.Vector3(0, 1, 0));
                 camera.addComponent(CameraMoveScript);
@@ -655,8 +655,7 @@
         }
         onPreLoadFinish() {
             var scene = new Laya.Scene3D();
-            EventManager.DispatchEvent("BACKTOMAIN");
-            EventManager.DispatchEvent("SETSCENE3D", scene);
+            this.AutoSetScene3d(scene);
             this.camera = new Laya.Camera(0, 0.1, 100);
             this.camera.transform.translate(new Laya.Vector3(0, 0.7, 5));
             this.camera.transform.rotate(new Laya.Vector3(-15, 0, 0), true, false);
@@ -760,8 +759,7 @@
         }
         onPreLoadFinish() {
             var scene = new Laya.Scene3D();
-            EventManager.DispatchEvent("BACKTOMAIN");
-            EventManager.DispatchEvent("SETSCENE3D", scene);
+            this.AutoSetScene3d(scene);
             this.camera = new Laya.Camera(0, 0.1, 100);
             this.camera.transform.translate(new Laya.Vector3(0, 0.7, 5));
             this.camera.transform.rotate(new Laya.Vector3(-15, 0, 0), true, false);
@@ -845,8 +843,7 @@
             this.camera2.addComponent(CameraMoveScript);
             this.camera2.clearFlag = Laya.BaseCamera.CLEARFLAG_SKY;
             Laya.BaseMaterial.load(GlobalConfig.ResPath + "res/threeDimen/skyBox/skyBox2/skyBox2.lmat", Laya.Handler.create(this, function (mat) {
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", scene);
+                this.AutoSetScene3d(scene);
                 var skyRenderer = this.camera2.skyRenderer;
                 skyRenderer.mesh = Laya.SkyBox.instance;
                 skyRenderer.material = mat;
@@ -885,8 +882,7 @@
             var planeMat = new Laya.BlinnPhongMaterial();
             Laya.Texture2D.load(GlobalConfig.ResPath + "res/threeDimen/Physics/grass.png", Laya.Handler.create(this, function (tex) {
                 planeMat.albedoTexture = tex;
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", this.s_scene);
+                this.AutoSetScene3d(this.s_scene);
             }));
             planeMat.tilingOffset = new Laya.Vector4(10, 10, 0, 0);
             plane.meshRenderer.material = planeMat;
@@ -960,8 +956,7 @@
             ], Laya.Handler.create(this, this.onComplete));
         }
         onComplete() {
-            EventManager.DispatchEvent("BACKTOMAIN");
-            EventManager.DispatchEvent("SETSCENE3D", this.s_scene);
+            this.AutoSetScene3d(this.s_scene);
             var grid = this.s_scene.addChild(Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/staticModel/grid/plane.lh"));
             grid.getChildAt(0).meshRenderer.receiveShadow = true;
             grid.getChildAt(0).layer = 5;
@@ -1035,8 +1030,7 @@
             camera.clearFlag = Laya.BaseCamera.CLEARFLAG_DEPTHONLY;
             var directionLight = scene.addChild(new Laya.DirectionLight());
             Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh", Laya.Handler.create(this, function (layaMonkey) {
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", scene);
+                this.AutoSetScene3d(scene);
                 scene.addChild(layaMonkey);
                 layaMonkey.transform.localScale = new Laya.Vector3(0.3, 0.3, 0.3);
                 camera.convertScreenCoordToOrthographicCoord(this.pos, this._translate);
@@ -1078,8 +1072,7 @@
         }
         onComplete() {
             Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh", Laya.Handler.create(this, function (layaMonkey3D) {
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", this.s_scene);
+                this.AutoSetScene3d(this.s_scene);
                 this.layaMonkey3D = layaMonkey3D;
                 this.s_scene.addChild(layaMonkey3D);
                 this.layaMonkey2D = new Laya.Image(GlobalConfig.ResPath + "res/threeDimen/monkey.png");
@@ -1137,8 +1130,7 @@
             camera.orthographicVerticalSize = 10;
             this.s_scene.addChild(new Laya.DirectionLight());
             Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh", Laya.Handler.create(this, function (layaMonkey) {
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", this.s_scene);
+                this.AutoSetScene3d(this.s_scene);
                 this.s_scene.addChild(layaMonkey);
                 this._layaMonkey = layaMonkey;
                 var transform = layaMonkey.transform;
@@ -1190,8 +1182,7 @@
         }
         onComplete() {
             var scene = Laya.loader.getRes(GlobalConfig.ResPath + "res/threeDimen/scene/CourtyardScene/Courtyard.ls");
-            EventManager.DispatchEvent("BACKTOMAIN");
-            EventManager.DispatchEvent("SETSCENE3D", scene);
+            this.AutoSetScene3d(scene);
             var camera = scene.addChild(new Laya.Camera(0, 0.1, 1000));
             camera.transform.translate(new Laya.Vector3(57, 2.5, 58));
             camera.transform.rotate(new Laya.Vector3(-10, 150, 0), true, false);
@@ -1252,8 +1243,7 @@
         }
         onComplete() {
             var scene = Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/scene/LayaScene_city01/Conventional/city01.ls");
-            EventManager.DispatchEvent("BACKTOMAIN");
-            EventManager.DispatchEvent("SETSCENE3D", scene);
+            this.AutoSetScene3d(scene);
             var camera = scene.getChildByName("Main Camera");
             camera.addComponent(CameraMoveScript);
             Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh", Handler.create(this, function (layaMonkey) {
@@ -1329,8 +1319,7 @@
         }
         onComplete() {
             var scene = Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/scene/CourtyardScene/Courtyard.ls");
-            EventManager.DispatchEvent("BACKTOMAIN");
-            EventManager.DispatchEvent("SETSCENE3D", scene);
+            this.AutoSetScene3d(scene);
             var camera = scene.addChild(new Laya.Camera(0, 0.1, 1000));
             camera.transform.translate(new Laya.Vector3(57, 2.5, 58));
             camera.transform.rotate(new Laya.Vector3(-10, 150, 0), true, false);
@@ -1482,8 +1471,7 @@
             super();
             this.camera = null;
             Scene3D.load(GlobalConfig.ResPath + "res/threeDimen/scene/LayaScene_BloomScene/Conventional/BloomScene.ls", Handler$1.create(this, function (scene) {
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", scene);
+                this.AutoSetScene3d(scene);
                 this.camera = scene.getChildByName("Main Camera");
                 this.camera.addComponent(CameraMoveScript);
                 var postProcess = new PostProcess();
@@ -1602,8 +1590,7 @@
             mat.setForward(new Laya.Vector3(-1.0, -1.0, -1.0));
             directionLight.transform.worldMatrix = mat;
             Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/staticModel/grid/plane.lh", Laya.Handler.create(this, function (sprite) {
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", this.s_scene);
+                this.AutoSetScene3d(this.s_scene);
                 var grid = this.s_scene.addChild(sprite);
                 Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh", Laya.Handler.create(this, function (layaMonkey) {
                     var layaMonkey = this.s_scene.addChild(layaMonkey);
@@ -1647,8 +1634,7 @@
             pointLight.range = 3.0;
             Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/staticModel/grid/plane.lh", Laya.Handler.create(this, function (sprite) {
                 var grid = this.s_scene.addChild(sprite);
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", this.s_scene);
+                this.AutoSetScene3d(this.s_scene);
                 Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh", Laya.Handler.create(this, function (layaMonkey) {
                     this.s_scene.addChild(layaMonkey);
                     var aniSprite3d = layaMonkey.getChildAt(0);
@@ -1689,8 +1675,7 @@
             spotLight.range = 6.0;
             spotLight.spotAngle = 32;
             Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/staticModel/grid/plane.lh", Laya.Handler.create(this, function (sprite) {
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", this.s_scene);
+                this.AutoSetScene3d(this.s_scene);
                 this.s_scene.addChild(sprite);
                 Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh", Laya.Handler.create(this, function (layaMonkey) {
                     this.s_scene.addChild(layaMonkey);
@@ -1825,8 +1810,7 @@
             Shader3D.debugMode = true;
             Scene3D$2.load(GlobalConfig.ResPath + "res/threeDimen/testNewFunction/LayaScene_depthScene/Conventional/depthScene.ls", Handler$3.create(this, function (scene) {
                 this.demoScene = scene;
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", this.demoScene);
+                this.AutoSetScene3d(this.demoScene);
                 this.camera = scene.getChildByName("Camera");
                 this.camera.addComponent(CameraMoveScript);
                 this.camera.active = true;
@@ -1885,8 +1869,7 @@
             c.maxLightCount = 16;
             Scene3D$3.load(GlobalConfig.ResPath + "res/threeDimen/scene/MultiLightScene/InventoryScene_Forest.ls", Handler$4.create(this, function (scene) {
                 this.s_scene = scene;
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", this.s_scene);
+                this.AutoSetScene3d(this.s_scene);
                 var camera = scene.getChildByName("Main Camera");
                 camera.addComponent(CameraMoveScript);
                 camera.transform.localPosition = new Vector3$2(8.937199060699333, 61.364798067809126, -66.77836086472654);
@@ -1985,8 +1968,7 @@
             Laya.loader.create(GlobalConfig.ResPath + "res/threeDimen/skinModel/dude/dude.lh", Laya.Handler.create(this, this.onComplete));
         }
         onComplete() {
-            EventManager.DispatchEvent("BACKTOMAIN");
-            EventManager.DispatchEvent("SETSCENE3D", this.s_scene);
+            this.AutoSetScene3d(this.s_scene);
             var dude = this.s_scene.addChild(Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/dude/dude.lh"));
             var scale = new Laya.Vector3(0.1, 0.1, 0.1);
             dude.transform.localScale = scale;
@@ -2015,8 +1997,7 @@
             Laya.loader.create(resource, Laya.Handler.create(this, this.onPreLoadFinish));
         }
         onPreLoadFinish() {
-            EventManager.DispatchEvent("BACKTOMAIN");
-            EventManager.DispatchEvent("SETSCENE3D", this.s_scene);
+            this.AutoSetScene3d(this.s_scene);
             var layaMonkeyParent = this.s_scene.addChild(Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh"));
             var layaMonkeySon = Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey2/LayaMonkey.lh");
             layaMonkeySon.transform.translate(new Laya.Vector3(2.5, 0, 0));
@@ -2097,8 +2078,7 @@
             ], Laya.Handler.create(this, this.onComplete));
         }
         onComplete() {
-            EventManager.DispatchEvent("BACKTOMAIN");
-            EventManager.DispatchEvent("SETSCENE3D", this.s_scene);
+            this.AutoSetScene3d(this.s_scene);
             var grid = this.s_scene.addChild(Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/staticModel/grid/plane.lh"));
             var staticLayaMonkey = this.s_scene.addChild(new Laya.MeshSprite3D(Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/Assets/LayaMonkey/LayaMonkey-LayaMonkey.lm")));
             staticLayaMonkey.meshRenderer.material = Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/Assets/LayaMonkey/Materials/T_Diffuse.lmat");
@@ -2193,8 +2173,7 @@
             this.sprite3D.active = false;
             ;
             this.lineSprite3D.active = true;
-            EventManager.DispatchEvent("BACKTOMAIN");
-            EventManager.DispatchEvent("SETSCENE3D", this.s_scene);
+            this.AutoSetScene3d(this.s_scene);
         }
     }
 
@@ -2209,8 +2188,7 @@
             Laya.loader.create(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh", Laya.Handler.create(this, this.onComplete));
         }
         onComplete() {
-            EventManager.DispatchEvent("BACKTOMAIN");
-            EventManager.DispatchEvent("SETSCENE3D", this.s_scene);
+            this.AutoSetScene3d(this.s_scene);
             var layaMonkey = this.s_scene.addChild(Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh"));
             var layaMonkey_clone1 = Laya.Sprite3D.instantiate(layaMonkey, this.s_scene, false, new Laya.Vector3(0.6, 0, 0));
             var layaMonkey_clone2 = this.s_scene.addChild(Laya.Sprite3D.instantiate(layaMonkey, null, false, new Laya.Vector3(-0.6, 0, 0)));
@@ -2282,8 +2260,7 @@
             this.sprite3D = this.s_scene.addChild(new Laya.Sprite3D());
             this.lineSprite3D = this.s_scene.addChild(new Laya.Sprite3D());
             Laya.Mesh.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/Assets/LayaMonkey/LayaMonkey-LayaMonkey.lm", Laya.Handler.create(this, function (mesh) {
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", this.s_scene);
+                this.AutoSetScene3d(this.s_scene);
                 var layaMonkey = this.sprite3D.addChild(new Laya.MeshSprite3D(mesh));
                 layaMonkey.transform.localScale = new Laya.Vector3(0.3, 0.3, 0.3);
                 layaMonkey.transform.rotation = new Laya.Quaternion(0.7071068, 0, 0, -0.7071067);
@@ -2398,8 +2375,7 @@
         }
         loadUI() {
             Laya.loader.load([GlobalConfig.ResPath + "/res/threeDimen/ui/button.png"], Laya.Handler.create(this, function () {
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", this.s_scene);
+                this.AutoSetScene3d(this.s_scene);
                 this.changeActionButton = new Laya.Button(GlobalConfig.ResPath + "/res/threeDimen/ui/button.png", "正常模式");
                 Laya.stage.addChild(this.changeActionButton);
                 this.changeActionButton.size(160, 40);
@@ -2464,8 +2440,7 @@
         }
         loadUI() {
             Laya.loader.load([GlobalConfig.ResPath + "res/threeDimen/ui/button.png"], Laya.Handler.create(this, function () {
-                EventManager.DispatchEvent("BACKTOMAIN");
-                EventManager.DispatchEvent("SETSCENE3D", this.s_scene);
+                this.AutoSetScene3d(this.s_scene);
                 this.changeActionButton = Laya.stage.addChild(new Laya.Button(GlobalConfig.ResPath + "res/threeDimen/ui/button.png", "切换Mesh"));
                 this.changeActionButton.size(160, 40);
                 this.changeActionButton.labelBold = true;
@@ -2552,6 +2527,980 @@
         }
     }
 
+    class MaterialDemo extends SingletonScene {
+        constructor() {
+            super();
+            this.index = 0;
+            this.sphere = null;
+            this.pbrStandardMaterial = null;
+            this.pbrTexture = null;
+            this.billinMaterial = null;
+            this.changeActionButton = null;
+            this.index = 0;
+            var resource = [
+                GlobalConfig.ResPath + "res/threeDimen/scene/ChangeMaterialDemo/Conventional/scene.ls",
+                GlobalConfig.ResPath + "res/threeDimen/texture/earth.png",
+            ];
+            Laya.loader.create(resource, Laya.Handler.create(this, this.onPreLoadFinish));
+        }
+        onPreLoadFinish() {
+            this.s_scene = Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/scene/ChangeMaterialDemo/Conventional/scene.ls");
+            var camera = this.s_scene.getChildByName("Main Camera");
+            camera.addComponent(CameraMoveScript);
+            this.sphere = this.s_scene.getChildByName("Sphere");
+            this.billinMaterial = this.sphere.meshRenderer.material;
+            this.pbrStandardMaterial = new Laya.PBRStandardMaterial();
+            this.pbrTexture = Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/texture/earth.png");
+            this.pbrStandardMaterial.albedoTexture = this.pbrTexture;
+            this.loadUI();
+        }
+        loadUI() {
+            Laya.loader.load([GlobalConfig.ResPath + "res/threeDimen/ui/button.png"], Laya.Handler.create(this, function () {
+                this.AutoSetScene3d(this.s_scene);
+                this.changeActionButton = Laya.stage.addChild(new Laya.Button(GlobalConfig.ResPath + "res/threeDimen/ui/button.png", "切换材质"));
+                this.changeActionButton.size(160, 40);
+                this.changeActionButton.labelBold = true;
+                this.changeActionButton.labelSize = 30;
+                this.changeActionButton.sizeGrid = "4,4,4,4";
+                this.changeActionButton.scale(Laya.Browser.pixelRatio, Laya.Browser.pixelRatio);
+                this.changeActionButton.pos(Laya.stage.width / 2 - this.changeActionButton.width * Laya.Browser.pixelRatio / 2, Laya.stage.height - 100 * Laya.Browser.pixelRatio);
+                this.changeActionButton.on(Laya.Event.CLICK, this, function () {
+                    this.index++;
+                    if (this.index % 2 === 1) {
+                        this.sphere.meshRenderer.material = this.pbrStandardMaterial;
+                    }
+                    else {
+                        this.sphere.meshRenderer.material = this.billinMaterial;
+                    }
+                });
+            }));
+        }
+        Show() {
+            super.Show();
+            if (this.changeActionButton) {
+                this.changeActionButton.visible = true;
+            }
+        }
+        Hide() {
+            super.Hide();
+            if (this.changeActionButton) {
+                this.changeActionButton.visible = false;
+            }
+        }
+    }
+
+    class BlinnPhongMaterialLoad extends SingletonScene {
+        constructor() {
+            super();
+            this.rotation = new Laya.Vector3(0, 0.01, 0);
+            this.s_scene = new Laya.Scene3D();
+            var camera = this.s_scene.addChild(new Laya.Camera(0, 0.1, 100));
+            camera.transform.translate(new Laya.Vector3(0, 0.9, 1.5));
+            camera.transform.rotate(new Laya.Vector3(-15, 0, 0), true, false);
+            var directionLight = this.s_scene.addChild(new Laya.DirectionLight());
+            directionLight.color = new Laya.Vector3(0.6, 0.6, 0.6);
+            Laya.Mesh.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/Assets/LayaMonkey/LayaMonkey-LayaMonkey.lm", Laya.Handler.create(this, function (mesh) {
+                this.AutoSetScene3d(this.s_scene);
+                var layaMonkey = this.s_scene.addChild(new Laya.MeshSprite3D(mesh));
+                Laya.Material.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/Assets/LayaMonkey/Materials/T_Diffuse.lmat", Laya.Handler.create(null, function (mat) {
+                    layaMonkey.meshRenderer.material = mat;
+                }));
+                layaMonkey.transform.localScale = new Laya.Vector3(0.3, 0.3, 0.3);
+                layaMonkey.transform.rotation = new Laya.Quaternion(0.7071068, 0, 0, -0.7071067);
+                Laya.timer.frameLoop(1, this, function () {
+                    layaMonkey.transform.rotate(this.rotation, false);
+                });
+            }));
+        }
+    }
+
+    class BlinnPhong_DiffuseMap extends SingletonScene {
+        constructor() {
+            super();
+            this.rotation = new Laya.Vector3(0, 0.01, 0);
+            this.s_scene = new Laya.Scene3D();
+            var camera = (this.s_scene.addChild(new Laya.Camera(0, 0.1, 100)));
+            camera.transform.translate(new Laya.Vector3(0, 0.5, 1.5));
+            camera.transform.rotate(new Laya.Vector3(-15, 0, 0), true, false);
+            camera.clearFlag = Laya.BaseCamera.CLEARFLAG_SKY;
+            var directionLight = this.s_scene.addChild(new Laya.DirectionLight());
+            directionLight.color = new Laya.Vector3(1, 1, 1);
+            var sphereMesh = Laya.PrimitiveMesh.createSphere();
+            var earth1 = this.s_scene.addChild(new Laya.MeshSprite3D(sphereMesh));
+            earth1.transform.position = new Laya.Vector3(-0.6, 0, 0);
+            var earth2 = this.s_scene.addChild(new Laya.MeshSprite3D(sphereMesh));
+            earth2.transform.position = new Laya.Vector3(0.6, 0, 0);
+            var material = new Laya.BlinnPhongMaterial();
+            Laya.Texture2D.load(GlobalConfig.ResPath + "res/threeDimen/texture/earth.png", Laya.Handler.create(this, function (texture) {
+                this.AutoSetScene3d(this.s_scene);
+                material.albedoTexture = texture;
+            }));
+            earth2.meshRenderer.material = material;
+            Laya.timer.frameLoop(1, this, function () {
+                earth1.transform.rotate(this.rotation, false);
+                earth2.transform.rotate(this.rotation, false);
+            });
+        }
+    }
+
+    class BlinnPhong_NormalMap extends SingletonScene {
+        constructor() {
+            super();
+            this.rotation = new Laya.Vector3(0, 0.01, 0);
+            this.normalMapUrl = [
+                GlobalConfig.ResPath + "res/threeDimen/staticModel/lizard/Assets/Lizard/lizardeye_norm.png",
+                GlobalConfig.ResPath + "res/threeDimen/staticModel/lizard/Assets/Lizard/lizard_norm.png",
+                GlobalConfig.ResPath + "res/threeDimen/staticModel/lizard/Assets/Lizard/rock_norm.png"
+            ];
+            this.s_scene = new Laya.Scene3D();
+            var camera = (this.s_scene.addChild(new Laya.Camera(0, 0.1, 100)));
+            camera.transform.translate(new Laya.Vector3(0, 0.6, 1.1));
+            camera.transform.rotate(new Laya.Vector3(-30, 0, 0), true, false);
+            var directionLight = this.s_scene.addChild(new Laya.DirectionLight());
+            var mat = directionLight.transform.worldMatrix;
+            mat.setForward(new Laya.Vector3(0.0, -0.8, -1.0));
+            directionLight.transform.worldMatrix = mat;
+            directionLight.color = new Laya.Vector3(1, 1, 1);
+            Laya.loader.create(GlobalConfig.ResPath + "res/threeDimen/staticModel/lizard/lizard.lh", Laya.Handler.create(this, this.onComplete), null, Laya3D.HIERARCHY);
+        }
+        onComplete(s) {
+            this.AutoSetScene3d(this.s_scene);
+            Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/staticModel/lizard/lizard.lh", Laya.Handler.create(this, function (sprite) {
+                var monster1 = this.s_scene.addChild(sprite);
+                monster1.transform.position = new Laya.Vector3(-0.6, 0, 0);
+                monster1.transform.localScale = new Laya.Vector3(0.075, 0.075, 0.075);
+                var monster2 = Laya.Sprite3D.instantiate(monster1, this.s_scene, false, new Laya.Vector3(0.6, 0, 0));
+                monster2.transform.localScale = new Laya.Vector3(0.075, 0.075, 0.075);
+                for (var i = 0; i < monster2.getChildByName("lizard").numChildren; i++) {
+                    var meshSprite3D = monster2.getChildByName("lizard").getChildAt(i);
+                    var material = meshSprite3D.meshRenderer.material;
+                    Laya.Texture2D.load(this.normalMapUrl[i], Laya.Handler.create(this, function (mat, texture) {
+                        mat.normalTexture = texture;
+                    }, [material]));
+                }
+                Laya.timer.frameLoop(1, this, function () {
+                    monster1.transform.rotate(this.rotation);
+                    monster2.transform.rotate(this.rotation);
+                });
+            }));
+        }
+    }
+
+    class BlinnPhong_SpecularMap extends SingletonScene {
+        constructor() {
+            super();
+            this.rotation = new Laya.Vector3(0, 0.01, 0);
+            this.specularMapUrl = [
+                GlobalConfig.ResPath + "res/threeDimen/skinModel/dude/Assets/dude/headS.png",
+                GlobalConfig.ResPath + "res/threeDimen/skinModel/dude/Assets/dude/jacketS.png",
+                GlobalConfig.ResPath + "res/threeDimen/skinModel/dude/Assets/dude/pantsS.png",
+                GlobalConfig.ResPath + "res/threeDimen/skinModel/dude/Assets/dude/upBodyS.png",
+                GlobalConfig.ResPath + "res/threeDimen/skinModel/dude/Assets/dude/upBodyS.png"
+            ];
+            this.s_scene = new Laya.Scene3D();
+            var camera = (this.s_scene.addChild(new Laya.Camera(0, 0.1, 1000)));
+            camera.transform.translate(new Laya.Vector3(0, 3, 5));
+            camera.transform.rotate(new Laya.Vector3(-15, 0, 0), true, false);
+            camera.addComponent(CameraMoveScript);
+            var directionLight = this.s_scene.addChild(new Laya.DirectionLight());
+            directionLight.color = new Laya.Vector3(1, 1, 1);
+            Laya.loader.create(GlobalConfig.ResPath + "res/threeDimen/skinModel/dude/dude.lh", Laya.Handler.create(this, this.onComplete));
+        }
+        onComplete() {
+            this.AutoSetScene3d(this.s_scene);
+            Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/dude/dude.lh", Laya.Handler.create(this, function (sprite) {
+                var dude1 = this.s_scene.addChild(sprite);
+                dude1.transform.position = new Laya.Vector3(-1.5, 0, 0);
+                var dude2 = Laya.Sprite3D.instantiate(dude1, this.scene, false, new Laya.Vector3(1.5, 0, 0));
+                var skinnedMeshSprite3d = dude2.getChildAt(0).getChildAt(0);
+                for (var i = 0; i < skinnedMeshSprite3d.skinnedMeshRenderer.materials.length; i++) {
+                    var material = skinnedMeshSprite3d.skinnedMeshRenderer.materials[i];
+                    Laya.Texture2D.load(this.specularMapUrl[i], Laya.Handler.create(this, function (mat, tex) {
+                        mat.specularTexture = tex;
+                    }, [material]));
+                }
+                Laya.timer.frameLoop(1, this, function () {
+                    dude1.transform.rotate(this.rotation);
+                    dude2.transform.rotate(this.rotation);
+                });
+            }));
+        }
+    }
+
+    class Blinnphong_Transmission extends SingletonScene {
+        constructor() {
+            super();
+            this.resource = [
+                GlobalConfig.ResPath + "res/threeDimen/LayaScene_TransmissionScene/Conventional/Assets/monkeyThinkness.png",
+                GlobalConfig.ResPath + "res/threeDimen/LayaScene_TransmissionScene/Conventional/Assets/rabbitthickness.jpg"
+            ];
+            Laya.Scene3D.load(GlobalConfig.ResPath + "res/threeDimen/LayaScene_TransmissionScene/Conventional/TransmissionScene.ls", Laya.Handler.create(this, function (scene) {
+                this.s_scene = scene;
+                this.AutoSetScene3d(this.s_scene);
+                var camera = scene.getChildByName("Main Camera");
+                camera.addComponent(CameraMoveScript);
+                this.rabbitModel = scene.getChildByName("rabbit");
+                this.monkeyModel = scene.getChildByName("monkey");
+                this.rabbitMaterial = this.rabbitModel.meshRenderer.sharedMaterial;
+                this.monkeyMaterial = this.monkeyModel.meshRenderer.sharedMaterial;
+                this.loadThinkNessTexture();
+            }));
+        }
+        loadThinkNessTexture() {
+            Laya.loader.create(this.resource, Laya.Handler.create(this, this.onPreLoadFinish));
+        }
+        onPreLoadFinish() {
+            this.monkeyMaterial.normalTexture = Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/LayaScene_TransmissionScene/Conventional/Assets/monkeyThinkness.png");
+            this.rabbitMaterial.normalTexture = Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/LayaScene_TransmissionScene/Conventional/Assets/rabbitthickness.jpg");
+        }
+    }
+
+    var Vector3$3 = Laya.Vector3;
+    var Shader3D$1 = Laya.Shader3D;
+    var Scene3D$4 = Laya.Scene3D;
+    var Handler$5 = Laya.Handler;
+    var PrimitiveMesh$1 = Laya.PrimitiveMesh;
+    var Vector4 = Laya.Vector4;
+    var PBRStandardMaterial$1 = Laya.PBRStandardMaterial;
+    var MeshSprite3D$2 = Laya.MeshSprite3D;
+    class PBRMaterialDemo extends SingletonScene {
+        constructor() {
+            super();
+            Shader3D$1.debugMode = true;
+            Scene3D$4.load(GlobalConfig.ResPath + "res/threeDimen/scene/LayaScene_EmptyScene/Conventional/EmptyScene.ls", Handler$5.create(this, function (scene) {
+                this.s_scene = scene;
+                this.AutoSetScene3d(this.s_scene);
+                var camera = scene.getChildByName("Main Camera");
+                var moveScript = camera.addComponent(CameraMoveScript);
+                moveScript.rotaionSpeed = 0.005;
+                var sphereMesh = PrimitiveMesh$1.createSphere(0.25, 32, 32);
+                const row = 6;
+                this.addSpheresSpecialMetallic(sphereMesh, new Vector3$3(0, 1.5, 0), scene, row, new Vector4(186 / 255, 110 / 255, 64 / 255, 1.0), 1.0);
+                this.addSpheresSmoothnessMetallic(sphereMesh, new Vector3$3(0, 0, 0), scene, 3, row, new Vector4(1.0, 1.0, 1.0, 1.0));
+                this.addSpheresSpecialMetallic(sphereMesh, new Vector3$3(0, -1.5, 0), scene, row, new Vector4(0.0, 0.0, 0.0, 1.0), 0.0);
+            }));
+        }
+        addPBRSphere(sphereMesh, position, scene, color, smoothness, metallic) {
+            var mat = new PBRStandardMaterial$1();
+            mat.albedoColor = color;
+            mat.smoothness = smoothness;
+            mat.metallic = metallic;
+            var meshSprite = new MeshSprite3D$2(sphereMesh);
+            meshSprite.meshRenderer.sharedMaterial = mat;
+            var transform = meshSprite.transform;
+            transform.localPosition = position;
+            scene.addChild(meshSprite);
+            return mat;
+        }
+        addSpheresSmoothnessMetallic(sphereMesh, offset, scene, row, col, color) {
+            const width = col * 0.5;
+            const height = row * 0.5;
+            for (var i = 0, n = col; i < n; i++) {
+                for (var j = 0, m = row; j < m; j++) {
+                    var smoothness = i / (n - 1);
+                    var metallic = 1.0 - j / (m - 1);
+                    var pos = PBRMaterialDemo._tempPos;
+                    pos.setValue(-width / 2 + i * width / (n - 1), height / 2 - j * height / (m - 1), 3.0);
+                    Vector3$3.add(offset, pos, pos);
+                    this.addPBRSphere(sphereMesh, pos, scene, color, smoothness, metallic);
+                }
+            }
+        }
+        addSpheresSpecialMetallic(sphereMesh, offset, scene, col, color, metallic = 0) {
+            const width = col * 0.5;
+            for (var i = 0, n = col; i < n; i++) {
+                var smoothness = i / (n - 1);
+                var metallic = metallic;
+                var pos = PBRMaterialDemo._tempPos;
+                pos.setValue(-width / 2 + i * width / (n - 1), 0, 3.0);
+                Vector3$3.add(offset, pos, pos);
+                this.addPBRSphere(sphereMesh, pos, scene, color, smoothness, metallic);
+            }
+        }
+    }
+    PBRMaterialDemo._tempPos = new Vector3$3();
+
+    class EffectMaterialDemo extends SingletonScene {
+        constructor() {
+            super();
+            this.s_scene = new Laya.Scene3D();
+            this.rotation = new Laya.Vector3(0, 0.01, 0);
+            var camera = new Laya.Camera(0, 0.1, 100);
+            this.s_scene.addChild(camera);
+            camera.transform.translate(new Laya.Vector3(0, 0.5, 1.5));
+            camera.transform.rotate(new Laya.Vector3(-15, 0, 0), true, false);
+            camera.clearFlag = Laya.BaseCamera.CLEARFLAG_SKY;
+            var directionLight = new Laya.DirectionLight();
+            this.s_scene.addChild(directionLight);
+            directionLight.color = new Laya.Vector3(1, 1, 1);
+            var earth = this.s_scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createSphere()));
+            earth.transform.position = new Laya.Vector3(0, 0, 0);
+            var material = new Laya.EffectMaterial();
+            Laya.Texture2D.load(GlobalConfig.ResPath + "res/threeDimen/texture/earth.png", Laya.Handler.create(this, function (texture) {
+                this.AutoSetScene3d(this.s_scene);
+                material.texture = texture;
+                material.color = new Laya.Vector4(0, 0, 0.6, 1);
+            }));
+            earth.meshRenderer.material = material;
+            Laya.timer.frameLoop(1, this, function () {
+                earth.transform.rotate(this.rotation, false);
+            });
+        }
+    }
+
+    class UnlitMaterialDemo extends SingletonScene {
+        constructor() {
+            super();
+            this.s_scene = new Laya.Scene3D();
+            var camera = new Laya.Camera(0, 0.1, 100);
+            this.s_scene.addChild(camera);
+            camera.transform.translate(new Laya.Vector3(0, 0.5, 1.5));
+            camera.transform.rotate(new Laya.Vector3(-15, 0, 0), true, false);
+            camera.clearFlag = Laya.BaseCamera.CLEARFLAG_SKY;
+            var directionLight = new Laya.DirectionLight();
+            this.s_scene.addChild(directionLight);
+            directionLight.color = new Laya.Vector3(1, 1, 1);
+            this.rotation = new Laya.Vector3(0, 0.01, 0);
+            var sphereMesh = Laya.PrimitiveMesh.createSphere();
+            var earth1 = this.s_scene.addChild(new Laya.MeshSprite3D(sphereMesh));
+            earth1.transform.position = new Laya.Vector3(-0.6, 0, 0);
+            var earth2 = this.s_scene.addChild(new Laya.MeshSprite3D(sphereMesh));
+            earth2.transform.position = new Laya.Vector3(0.6, 0, 0);
+            var material = new Laya.BlinnPhongMaterial();
+            Laya.Texture2D.load(GlobalConfig.ResPath + "res/threeDimen/texture/earth.png", Laya.Handler.create(this, function (texture) {
+                this.AutoSetScene3d(this.s_scene);
+                material.albedoTexture = texture;
+                material.albedoIntensity = 1;
+            }));
+            earth1.meshRenderer.material = material;
+            var material2 = new Laya.UnlitMaterial();
+            Laya.Texture2D.load(GlobalConfig.ResPath + "res/threeDimen/texture/earth.png", Laya.Handler.create(this, function (texture) {
+                material2.albedoTexture = texture;
+                material2.albedoIntensity = 1;
+                material2.albedoColor = new Laya.Vector4(0, 0, 0.6, 1);
+            }));
+            earth2.meshRenderer.material = material2;
+            Laya.timer.frameLoop(1, this, function () {
+                earth1.transform.rotate(this.rotation, false);
+                earth2.transform.rotate(this.rotation, false);
+            });
+        }
+    }
+
+    class WaterPrimaryMaterialDemo extends SingletonScene {
+        constructor() {
+            super();
+            Laya.Scene3D.load(GlobalConfig.ResPath + "res/threeDimen/scene/LayaScene_water/Conventional/Default.ls", Laya.Handler.create(this, function (scene) {
+                this.s_scene = scene;
+                this.AutoSetScene3d(this.s_scene);
+                var camera = scene.getChildByName("Main Camera");
+                camera.addComponent(CameraMoveScript);
+            }));
+        }
+    }
+
+    class MaterialMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页",
+                "材质示例", "BP材质加载", "BP漫反射贴图", "BP法线贴图", "BP高光贴图",
+                "BP透射", "PBR材质", "Effect材质", "Unlit材质", "WaterPrimary材质"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    MaterialDemo.getInstance().Click();
+                    break;
+                case this.btnNameArr[2]:
+                    BlinnPhongMaterialLoad.getInstance().Click();
+                    break;
+                case this.btnNameArr[3]:
+                    BlinnPhong_DiffuseMap.getInstance().Click();
+                    break;
+                case this.btnNameArr[4]:
+                    BlinnPhong_NormalMap.getInstance().Click();
+                    break;
+                case this.btnNameArr[5]:
+                    BlinnPhong_SpecularMap.getInstance().Click();
+                    break;
+                case this.btnNameArr[6]:
+                    Blinnphong_Transmission.getInstance().Click();
+                    break;
+                case this.btnNameArr[7]:
+                    PBRMaterialDemo.getInstance().Click();
+                    break;
+                case this.btnNameArr[8]:
+                    EffectMaterialDemo.getInstance().Click();
+                    break;
+                case this.btnNameArr[9]:
+                    UnlitMaterialDemo.getInstance().Click();
+                    break;
+                case this.btnNameArr[10]:
+                    WaterPrimaryMaterialDemo.getInstance().Click();
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
+    class TextureDemo extends SingletonScene {
+        constructor() {
+            super();
+            this.s_scene = new Laya.Scene3D();
+            var camera = this.s_scene.addChild(new Laya.Camera(0, 0.1, 100));
+            camera.transform.translate(new Laya.Vector3(0, 2, 5));
+            camera.transform.rotate(new Laya.Vector3(-15, 0, 0), true, false);
+            camera.addComponent(CameraMoveScript);
+            camera.clearColor = new Laya.Vector4(0.2, 0.2, 0.2, 1.0);
+            var directionLight = this.s_scene.addChild(new Laya.DirectionLight());
+            var mat = directionLight.transform.worldMatrix;
+            mat.setForward(new Laya.Vector3(-1.0, -1.0, -1.0));
+            directionLight.transform.worldMatrix = mat;
+            this.sprite3D = this.s_scene.addChild(new Laya.Sprite3D());
+            var box = this.sprite3D.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(0.5, 0.5, 0.5)));
+            box.transform.position = new Laya.Vector3(0.0, 1.0, 2.5);
+            box.transform.rotate(new Laya.Vector3(0, 0, 0), false, false);
+            var mater = new Laya.BlinnPhongMaterial();
+            Laya.Texture2D.load(GlobalConfig.ResPath + "res/threeDimen/texture/layabox.png", Laya.Handler.create(this, function (texture) {
+                this.AutoSetScene3d(this.s_scene);
+                texture.wrapModeU = Laya.BaseTexture.WARPMODE_CLAMP;
+                texture.wrapModeV = Laya.BaseTexture.WARPMODE_REPEAT;
+                texture.filterMode = Laya.BaseTexture.FILTERMODE_BILINEAR;
+                texture.anisoLevel = 2;
+                mater.albedoTexture = texture;
+                var tilingOffset = mater.tilingOffset;
+                tilingOffset.setValue(2, 2, 0, 0);
+                mater.tilingOffset = tilingOffset;
+                box.meshRenderer.material = mater;
+            }));
+        }
+    }
+
+    class TextureGPUCompression extends SingletonScene {
+        constructor() {
+            super();
+            if (Laya.Browser.onAndroid) {
+                Laya.Scene3D.load(GlobalConfig.ResPath + "res/threeDimen/scene/LayaScene_TextureGPUCompression/Android/scene.ls", Laya.Handler.create(this, function (scene) {
+                    Laya.stage.addChild(scene);
+                    var camera = scene.getChildByName("Main Camera");
+                    camera.addComponent(CameraMoveScript);
+                }));
+            }
+            else if (Laya.Browser.onIOS) {
+                Laya.Scene3D.load(GlobalConfig.ResPath + "res/threeDimen/scene/LayaScene_TextureGPUCompression/IOS/scene.ls", Laya.Handler.create(this, function (scene) {
+                    Laya.stage.addChild(scene);
+                    var camera = scene.getChildByName("Main Camera");
+                    camera.addComponent(CameraMoveScript);
+                }));
+            }
+            else {
+                Laya.Scene3D.load(GlobalConfig.ResPath + "res/threeDimen/scene/LayaScene_TextureGPUCompression/Conventional/scene.ls", Laya.Handler.create(this, function (scene) {
+                    this.AutoSetScene3d(scene);
+                    var camera = scene.getChildByName("Main Camera");
+                    camera.addComponent(CameraMoveScript);
+                }));
+            }
+        }
+    }
+
+    var Sprite3D$1 = Laya.Sprite3D;
+    var Scene3D$5 = Laya.Scene3D;
+    var Camera$2 = Laya.Camera;
+    var Vector3$4 = Laya.Vector3;
+    var Vector4$1 = Laya.Vector4;
+    var MeshSprite3D$3 = Laya.MeshSprite3D;
+    var PrimitiveMesh$2 = Laya.PrimitiveMesh;
+    var DirectionLight$1 = Laya.DirectionLight;
+    var Texture2D$1 = Laya.Texture2D;
+    var BlinnPhongMaterial = Laya.BlinnPhongMaterial;
+    var TextureFormat = Laya.TextureFormat;
+    var HalfFloatUtils = Laya.HalfFloatUtils;
+    var FilterMode = Laya.FilterMode;
+    class HalfFloatTexture extends SingletonScene {
+        constructor() {
+            super();
+            var scene = new Scene3D$5();
+            var camera = scene.addChild(new Camera$2(0, 0.1, 100));
+            camera.transform.translate(new Vector3$4(0, 2, 5));
+            camera.transform.rotate(new Vector3$4(-15, 0, 0), true, false);
+            camera.addComponent(CameraMoveScript);
+            camera.clearColor = new Vector4$1(0.2, 0.2, 0.2, 1.0);
+            var directionLight = scene.addChild(new DirectionLight$1());
+            var mat = directionLight.transform.worldMatrix;
+            mat.setForward(new Vector3$4(-1.0, -1.0, -1.0));
+            directionLight.transform.worldMatrix = mat;
+            this.sprite3D = scene.addChild(new Sprite3D$1());
+            var box = this.sprite3D.addChild(new MeshSprite3D$3(PrimitiveMesh$2.createPlane(1, 1)));
+            box.transform.position = new Vector3$4(0.0, 1.0, 2.5);
+            box.transform.rotate(new Vector3$4(90, 0, 0), false, false);
+            var material = new BlinnPhongMaterial();
+            material.albedoTexture = this.createHalfFloatTexture();
+            box.meshRenderer.sharedMaterial = material;
+            this.AutoSetScene3d(scene);
+        }
+        createHalfFloatTexture() {
+            var texture = new Texture2D$1(50, 50, TextureFormat.R32G32B32A32, false, true);
+            var pixelData = new Uint16Array(50 * 50 * 4);
+            var pixelIndex;
+            var step = 1.0 / 50;
+            for (var x = 0, n = 50; x < n; x++) {
+                for (var y = 0, m = 50; y < m; y++) {
+                    pixelIndex = (x + y * 50) * 4;
+                    pixelData[pixelIndex] = HalfFloatUtils.roundToFloat16Bits(1.0);
+                    pixelData[pixelIndex + 1] = HalfFloatUtils.roundToFloat16Bits(x * step);
+                    pixelData[pixelIndex + 2] = HalfFloatUtils.roundToFloat16Bits(y * step);
+                    pixelData[pixelIndex + 3] = HalfFloatUtils.roundToFloat16Bits(1.0);
+                }
+            }
+            texture.setPixels(pixelData, 0);
+            texture.filterMode = FilterMode.Bilinear;
+            return texture;
+        }
+    }
+
+    var UnlitMaterial = Laya.UnlitMaterial;
+    var Scene3D$6 = Laya.Scene3D;
+    var Camera$3 = Laya.Camera;
+    var Vector3$5 = Laya.Vector3;
+    var Vector4$2 = Laya.Vector4;
+    var MeshSprite3D$4 = Laya.MeshSprite3D;
+    var PrimitiveMesh$3 = Laya.PrimitiveMesh;
+    var Browser$3 = Laya.Browser;
+    var Texture2D$2 = Laya.Texture2D;
+    var Handler$6 = Laya.Handler;
+    class GPUCompression_ASTC extends SingletonScene {
+        constructor() {
+            super();
+            this.s_scene = new Scene3D$6();
+            var camera = this.s_scene.addChild(new Camera$3(0, 0.1, 100));
+            camera.transform.translate(new Vector3$5(0, 2, 5));
+            camera.transform.rotate(new Vector3$5(-15, 0, 0), true, false);
+            camera.addComponent(CameraMoveScript);
+            camera.clearColor = new Vector4$2(0.2, 0.2, 0.2, 1.0);
+            let meshSprite = new MeshSprite3D$4(PrimitiveMesh$3.createBox());
+            this.mat = new UnlitMaterial();
+            this.s_scene.addChild(meshSprite);
+            meshSprite.meshRenderer.sharedMaterial = this.mat;
+            if (!Browser$3.onAndroid && !Browser$3.onIOS) {
+                console.log("PC不支持ASTC纹理");
+                return;
+            }
+            Texture2D$2.load(GlobalConfig.ResPath + "res/threeDimen/texture/ASTC4x4Test.ktx", Handler$6.create(this, function (texture) {
+                this.mat.albedoTexture = texture;
+                this.AutoSetScene3d(this.s_scene);
+            }));
+        }
+    }
+
+    var UnlitMaterial$1 = Laya.UnlitMaterial;
+    var Scene3D$7 = Laya.Scene3D;
+    var Camera$4 = Laya.Camera;
+    var Vector3$6 = Laya.Vector3;
+    var Vector4$3 = Laya.Vector4;
+    var MeshSprite3D$5 = Laya.MeshSprite3D;
+    var PrimitiveMesh$4 = Laya.PrimitiveMesh;
+    var Browser$4 = Laya.Browser;
+    var Texture2D$3 = Laya.Texture2D;
+    var Handler$7 = Laya.Handler;
+    class GPUCompression_ETC2 extends SingletonScene {
+        constructor() {
+            super();
+            this.s_scene = new Scene3D$7();
+            var camera = this.s_scene.addChild(new Camera$4(0, 0.1, 100));
+            camera.transform.translate(new Vector3$6(0, 2, 5));
+            camera.transform.rotate(new Vector3$6(-15, 0, 0), true, false);
+            camera.addComponent(CameraMoveScript);
+            camera.clearColor = new Vector4$3(0.2, 0.2, 0.2, 1.0);
+            let meshSprite = new MeshSprite3D$5(PrimitiveMesh$4.createBox());
+            this.mat = new UnlitMaterial$1();
+            this.s_scene.addChild(meshSprite);
+            meshSprite.meshRenderer.sharedMaterial = this.mat;
+            if (!Browser$4.onAndroid) {
+                console.log("只有安卓支持ETC");
+                return;
+            }
+            Texture2D$3.load(GlobalConfig.ResPath + "res/threeDimen/texture/ETC2Test.ktx", Handler$7.create(this, function (texture) {
+                this.mat.albedoTexture = texture;
+                this.AutoSetScene3d(this.s_scene);
+            }));
+        }
+    }
+
+    class TextureMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "纹理示例", "纹理压缩", "半浮点数纹理", "GPU压缩ASTC", "GPU压缩ETC2"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    TextureDemo.getInstance().Click();
+                    break;
+                case this.btnNameArr[2]:
+                    TextureGPUCompression.getInstance().Click();
+                    break;
+                case this.btnNameArr[3]:
+                    HalfFloatTexture.getInstance().Click();
+                    break;
+                case this.btnNameArr[4]:
+                    GPUCompression_ASTC.getInstance().Click();
+                    break;
+                case this.btnNameArr[5]:
+                    GPUCompression_ETC2.getInstance().Click();
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
+    class AnimatorDemo extends SingletonScene {
+        constructor() {
+            super();
+            this.PlayStopIndex = 0;
+            this.curStateIndex = 0;
+            this.text = new Laya.Text();
+            this.textName = new Laya.Text();
+            this.curActionName = null;
+            var resource = [
+                GlobalConfig.ResPath + "res/threeDimen/skinModel/BoneLinkScene/R_kl_H_001.lh",
+                GlobalConfig.ResPath + "res/threeDimen/skinModel/BoneLinkScene/R_kl_S_009.lh",
+                GlobalConfig.ResPath + "res/threeDimen/skinModel/BoneLinkScene/PangZi.lh"
+            ];
+            Laya.loader.create(resource, Laya.Handler.create(this, this.onLoadFinish));
+        }
+        onLoadFinish() {
+            this.s_scene = new Laya.Scene3D();
+            this.s_scene.ambientColor = new Laya.Vector3(0.5, 0.5, 0.5);
+            var camera = new Laya.Camera(0, 0.1, 100);
+            this.s_scene.addChild(camera);
+            camera.transform.translate(new Laya.Vector3(0, 3, 5));
+            camera.transform.rotate(new Laya.Vector3(-15, 0, 0), true, false);
+            camera.addComponent(CameraMoveScript);
+            var directionLight = new Laya.DirectionLight();
+            this.s_scene.addChild(directionLight);
+            var mat = directionLight.transform.worldMatrix;
+            mat.setForward(new Laya.Vector3(-1.0, -1.0, -1.0));
+            directionLight.transform.worldMatrix = mat;
+            var role = new Laya.Sprite3D();
+            this.s_scene.addChild(role);
+            var pangzi = role.addChild(Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/BoneLinkScene/PangZi.lh"));
+            this.animator = pangzi.getChildAt(0).getComponent(Laya.Animator);
+            var state1 = new Laya.AnimatorState();
+            state1.name = "hello";
+            state1.clipStart = 296 / 581;
+            state1.clipEnd = 346 / 581;
+            state1.clip = this.animator.getDefaultState().clip;
+            state1.clip.islooping = true;
+            state1.addScript(AnimatorStateScriptDemo);
+            this.animator.addState(state1);
+            this.AutoSetScene3d(this.s_scene);
+            var state2 = new Laya.AnimatorState();
+            state2.name = "ride";
+            state2.clipStart = 0 / 581;
+            state2.clipEnd = 33 / 581;
+            state2.clip = this.animator.getDefaultState().clip;
+            state2.clip.islooping = true;
+            state2.addScript(AnimatorStateScriptDemo);
+            this.animator.addState(state2);
+            this.animator.speed = 0.0;
+            var state3 = new Laya.AnimatorState();
+            state3.name = "动作状态三";
+            state3.clipStart = 34 / 581;
+            state3.clipEnd = 100 / 581;
+            state3.clip = this.animator.getDefaultState().clip;
+            state3.clip.islooping = true;
+            state3.addScript(AnimatorStateScriptDemo);
+            this.animator.addState(state3);
+            this.animator.speed = 0.0;
+            var state4 = new Laya.AnimatorState();
+            state4.name = "动作状态四";
+            state4.clipStart = 101 / 581;
+            state4.clipEnd = 200 / 581;
+            state4.clip = this.animator.getDefaultState().clip;
+            state4.clip.islooping = true;
+            state4.addScript(AnimatorStateScriptDemo);
+            this.animator.addState(state4);
+            this.animator.speed = 0.0;
+            var state5 = new Laya.AnimatorState();
+            state5.name = "动作状态五";
+            state5.clipStart = 201 / 581;
+            state5.clipEnd = 295 / 581;
+            state5.clip = this.animator.getDefaultState().clip;
+            state5.clip.islooping = true;
+            state5.addScript(AnimatorStateScriptDemo);
+            this.animator.addState(state5);
+            this.animator.speed = 0.0;
+            var state6 = new Laya.AnimatorState();
+            state6.name = "动作状态六";
+            state6.clipStart = 345 / 581;
+            state6.clipEnd = 581 / 581;
+            state6.clip = this.animator.getDefaultState().clip;
+            state6.clip.islooping = true;
+            state6.addScript(AnimatorStateScriptDemo);
+            this.animator.addState(state6);
+            this.animator.speed = 0.0;
+            this.loadUI();
+            this.textName.x = Laya.stage.width / 2 - 50;
+            this.text.x = Laya.stage.width / 2 - 50;
+            this.text.y = 50;
+            this.textName.overflow = Laya.Text.HIDDEN;
+            this.textName.color = "#FFFFFF";
+            this.textName.font = "Impact";
+            this.textName.fontSize = 20;
+            this.textName.borderColor = "#FFFF00";
+            this.textName.x = Laya.stage.width / 2;
+            this.textName.text = "当前动作状态名称：";
+            Laya.stage.addChild(this.textName);
+            this.text.overflow = Laya.Text.HIDDEN;
+            this.text.color = "#FFFFFF";
+            this.text.font = "Impact";
+            this.text.fontSize = 20;
+            this.text.borderColor = "#FFFF00";
+            this.text.x = Laya.stage.width / 2;
+            this.text.text = "当前动作状态进度：";
+            Laya.stage.addChild(this.text);
+            Laya.timer.frameLoop(1, this, this.onFrame);
+        }
+        loadUI() {
+            Laya.loader.load([GlobalConfig.ResPath + "res/threeDimen/ui/button.png"], Laya.Handler.create(this, function () {
+                this.changeActionButton = new Laya.Button(GlobalConfig.ResPath + "res/threeDimen/ui/button.png", "播放动画");
+                Laya.stage.addChild(this.changeActionButton);
+                this.changeActionButton.size(160, 40);
+                this.changeActionButton.labelBold = true;
+                this.changeActionButton.labelSize = 30;
+                this.changeActionButton.sizeGrid = "4,4,4,4";
+                this.changeActionButton.scale(Laya.Browser.pixelRatio, Laya.Browser.pixelRatio);
+                this.changeActionButton.pos(Laya.stage.width / 2 - this.changeActionButton.width * Laya.Browser.pixelRatio / 2 - 100, Laya.stage.height - 100 * Laya.Browser.pixelRatio);
+                this.changeActionButton.on(Laya.Event.CLICK, this, function () {
+                    this.PlayStopIndex++;
+                    if (this.changeActionButton.label === "暂停动画") {
+                        this.changeActionButton.label = "播放动画";
+                        this.animator.speed = 0.0;
+                    }
+                    else if (this.changeActionButton.label === "播放动画") {
+                        this.changeActionButton.label = "暂停动画";
+                        this.animator.play(this.curActionName);
+                        this.animator.speed = 1.0;
+                    }
+                });
+                this.changeActionButton2 = new Laya.Button(GlobalConfig.ResPath + "res/threeDimen/ui/button.png", "切换动作状态");
+                Laya.stage.addChild(this.changeActionButton2);
+                this.changeActionButton2.size(200, 40);
+                this.changeActionButton2.labelBold = true;
+                this.changeActionButton2.labelSize = 30;
+                this.changeActionButton2.sizeGrid = "4,4,4,4";
+                this.changeActionButton2.scale(Laya.Browser.pixelRatio, Laya.Browser.pixelRatio);
+                this.changeActionButton2.pos(Laya.stage.width / 2 - this.changeActionButton2.width * Laya.Browser.pixelRatio / 2 + 100, Laya.stage.height - 100 * Laya.Browser.pixelRatio);
+                this.changeActionButton2.on(Laya.Event.CLICK, this, function () {
+                    this.curStateIndex++;
+                    if (this.curStateIndex % 6 == 0) {
+                        this.changeActionButton.label = "暂停动画";
+                        this.animator.speed = 0.0;
+                        this.animator.play("hello");
+                        this.curActionName = "hello";
+                        this.textName.text = "当前动作状态名称:" + "hello";
+                        this.animator.speed = 1.0;
+                    }
+                    else if (this.curStateIndex % 6 == 1) {
+                        this.changeActionButton.label = "暂停动画";
+                        this.animator.speed = 0.0;
+                        this.animator.play("ride");
+                        this.curActionName = "ride";
+                        this.textName.text = "当前动作状态名称:" + "ride";
+                        this.animator.speed = 1.0;
+                    }
+                    else if (this.curStateIndex % 6 == 2) {
+                        this.changeActionButton.label = "暂停动画";
+                        this.animator.speed = 0.0;
+                        this.animator.play("动作状态三");
+                        this.curActionName = "动作状态三";
+                        this.textName.text = "当前动作状态名称:" + "动作状态三";
+                        this.animator.speed = 1.0;
+                    }
+                    else if (this.curStateIndex % 6 == 3) {
+                        this.changeActionButton.label = "暂停动画";
+                        this.animator.speed = 0.0;
+                        this.animator.play("动作状态四");
+                        this.curActionName = "动作状态四";
+                        this.textName.text = "当前动作状态名称:" + "动作状态四";
+                        this.animator.speed = 1.0;
+                    }
+                    else if (this.curStateIndex % 6 == 4) {
+                        this.changeActionButton.label = "暂停动画";
+                        this.animator.speed = 0.0;
+                        this.animator.play("动作状态五");
+                        this.curActionName = "动作状态五";
+                        this.textName.text = "当前动作状态名称:" + "动作状态五";
+                        this.animator.speed = 1.0;
+                    }
+                    else if (this.curStateIndex % 6 == 5) {
+                        this.changeActionButton.label = "暂停动画";
+                        this.animator.speed = 0.0;
+                        this.animator.play("动作状态六");
+                        this.curActionName = "动作状态六";
+                        this.textName.text = "当前动作状态名称:" + "动作状态六";
+                        this.animator.speed = 1.0;
+                    }
+                });
+            }));
+        }
+        onFrame() {
+            if (this.animator.speed > 0.0) {
+                var curNormalizedTime = this.animator.getCurrentAnimatorPlayState(0).normalizedTime;
+                this.text.text = "当前动画状态进度：" + curNormalizedTime;
+            }
+        }
+        Show() {
+            super.Show();
+            if (this.textName) {
+                this.textName.visible = true;
+            }
+            if (this.text) {
+                this.text.visible = true;
+            }
+            if (this.changeActionButton2) {
+                this.changeActionButton2.visible = true;
+            }
+            if (this.changeActionButton) {
+                this.changeActionButton.visible = true;
+            }
+        }
+        Hide() {
+            super.Hide();
+            if (this.textName) {
+                this.textName.visible = false;
+            }
+            if (this.text) {
+                this.text.visible = false;
+            }
+            if (this.changeActionButton2) {
+                this.changeActionButton2.visible = false;
+            }
+            if (this.changeActionButton) {
+                this.changeActionButton.visible = false;
+            }
+        }
+    }
+    class AnimatorStateScriptDemo extends Laya.AnimatorStateScript {
+        constructor() {
+            super();
+        }
+        onStateEnter() {
+            console.log("动画开始播放了");
+        }
+        onStateUpdate() {
+            console.log("动画状态更新了");
+        }
+        onStateExit() {
+            console.log("动画退出了");
+        }
+    }
+
+    class Animation3DMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页",
+                "动画示例", "动画过渡和混合", "动画状态脚本", "蒙皮动画挂点", "材质动画",
+                "刚体动画", "摄像机动画", "预烘焙动画", "骨骼动画遮罩",
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    AnimatorDemo.getInstance().Click();
+                    break;
+                case this.btnNameArr[2]:
+                    break;
+                case this.btnNameArr[3]:
+                    break;
+                case this.btnNameArr[4]:
+                    break;
+                case this.btnNameArr[5]:
+                    break;
+                case this.btnNameArr[6]:
+                    break;
+                case this.btnNameArr[7]:
+                    break;
+                case this.btnNameArr[8]:
+                    break;
+                case this.btnNameArr[9]:
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
     class LayaMain3d extends SingletonMainScene {
         constructor() {
             super();
@@ -2606,10 +3555,13 @@
                     MeshMain.getInstance().Show();
                     break;
                 case this.btnNameArr[7]:
+                    MaterialMain.getInstance().Show();
                     break;
                 case this.btnNameArr[8]:
+                    TextureMain.getInstance().Show();
                     break;
                 case this.btnNameArr[9]:
+                    Animation3DMain.getInstance().Show();
                     break;
                 case this.btnNameArr[10]:
                     break;

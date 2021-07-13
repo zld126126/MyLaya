@@ -29,8 +29,7 @@ export class PostProcessBloom extends SingletonScene {
         // Laya.stage.screenMode = Stage.SCREEN_NONE;
         //加载场景
         Scene3D.load(GlobalConfig.ResPath + "res/threeDimen/scene/LayaScene_BloomScene/Conventional/BloomScene.ls", Handler.create(this, function (scene: Scene3D): void {
-            EventManager.DispatchEvent(EventType.BACKTOMAIN);
-            EventManager.DispatchEvent(EventType.SETSCENE3D, scene);
+            this.AutoSetScene3d(scene);
             //Laya.stage.addChild(scene);
             //获取场景中的相机
             this.camera = <Camera>(scene.getChildByName("Main Camera") as any);

@@ -1,18 +1,15 @@
-import { CameraMoveScript } from "../common/CameraMoveScript";
+import { CameraMoveScript } from "../common/CameraMoveScript"
 import { EventManager, EventType } from "../EventManager";
 import { GlobalConfig } from "../GlobalConfig";
 import SingletonScene from "../SingletonScene";
-
-export class ChangeMesh extends SingletonScene {
-    private s_scene: Laya.Scene3D;
+export class MaterialDemo extends SingletonScene {
     private sphere: Laya.MeshSprite3D;
+    private pbrStandardMaterial: Laya.PBRStandardMaterial;
+    private pbrTexture: Laya.Texture2D;
+    private billinMaterial: Laya.BlinnPhongMaterial;
     private changeActionButton: Laya.Button;
     private index = 0;
-    private sphereMesh: Laya.Mesh;
-    private box: Laya.Mesh;
-    private capsule: Laya.Mesh;
-    private cylinder: Laya.Mesh;
-    private cone: Laya.Mesh;
+    private s_scene: Laya.Scene3D;
     constructor() {
         super();
         // //初始化引擎
@@ -22,17 +19,17 @@ export class ChangeMesh extends SingletonScene {
         // //显示性能面板
         // Laya.Stat.show();
 
-        //初始化变量
         this.sphere = null;
-        this.box = null;
-        this.capsule = null;
-        this.cylinder = null;
-        this.cone = null;
+        this.pbrStandardMaterial = null;
+        this.pbrTexture = null;
+        this.billinMaterial = null;
         this.changeActionButton = null;
         this.index = 0;
 
         //预加载所有资源
-        var resource = [GlobalConfig.ResPath + "res/threeDimen/scene/ChangeMaterialDemo/Conventional/scene.ls"];
+        var resource = [
+            GlobalConfig.ResPath + "res/threeDimen/scene/ChangeMaterialDemo/Conventional/scene.ls",
+            GlobalConfig.ResPath + "res/threeDimen/texture/earth.png",];
         Laya.loader.create(resource, Laya.Handler.create(this, this.onPreLoadFinish));
     }
     onPreLoadFinish() {
@@ -44,21 +41,21 @@ export class ChangeMesh extends SingletonScene {
         camera.addComponent(CameraMoveScript);
         //获取球型精灵
         this.sphere = this.s_scene.getChildByName("Sphere") as Laya.MeshSprite3D;
-        //获取精灵的mesh
-        this.sphereMesh = this.sphere.meshFilter.sharedMesh;
-        //新建四个mesh
-        this.box = Laya.PrimitiveMesh.createBox(0.5, 0.5, 0.5);
-        this.capsule = Laya.PrimitiveMesh.createCapsule(0.25, 1, 10, 20);
-        this.cylinder = Laya.PrimitiveMesh.createCylinder(0.25, 1, 20);
-        this.cone = Laya.PrimitiveMesh.createCone(0.25, 0.75);
+        //获取球型精灵自带的BlinnPhong材质
+        this.billinMaterial = this.sphere.meshRenderer.material as Laya.BlinnPhongMaterial;
+        //创建一个新的PBRStandard材质
+        this.pbrStandardMaterial = new Laya.PBRStandardMaterial();
+        //获取新的纹理
+        this.pbrTexture = Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/texture/earth.png");
+        //为PBRStandard材质设置漫反射贴图
+        this.pbrStandardMaterial.albedoTexture = this.pbrTexture;
         //加载UI
         this.loadUI();
     }
     loadUI() {
-
         Laya.loader.load([GlobalConfig.ResPath + "res/threeDimen/ui/button.png"], Laya.Handler.create(this, function () {
             this.AutoSetScene3d(this.s_scene);
-            this.changeActionButton = Laya.stage.addChild(new Laya.Button(GlobalConfig.ResPath + "res/threeDimen/ui/button.png", "切换Mesh"));
+            this.changeActionButton = Laya.stage.addChild(new Laya.Button(GlobalConfig.ResPath + "res/threeDimen/ui/button.png", "切换材质"));
             this.changeActionButton.size(160, 40);
             this.changeActionButton.labelBold = true;
             this.changeActionButton.labelSize = 30;
@@ -68,28 +65,15 @@ export class ChangeMesh extends SingletonScene {
 
             this.changeActionButton.on(Laya.Event.CLICK, this, function () {
                 this.index++;
-                if (this.index % 5 === 1) {
-                    //切换mesh
-                    this.sphere.meshFilter.sharedMesh = this.box;
-                }
-                else if (this.index % 5 === 2) {
-                    //切换mesh
-                    this.sphere.meshFilter.sharedMesh = this.capsule;
-                }
-                else if (this.index % 5 === 3) {
-                    //切换mesh
-                    this.sphere.meshFilter.sharedMesh = this.cylinder;
-                }
-                else if (this.index % 5 === 3) {
-                    //切换mesh
-                    this.sphere.meshFilter.sharedMesh = this.cone;
+                if (this.index % 2 === 1) {
+                    //切换至PBRStandard材质
+                    this.sphere.meshRenderer.material = this.pbrStandardMaterial;
                 }
                 else {
-                    //切换mesh
-                    this.sphere.meshFilter.sharedMesh = this.sphereMesh;
+                    //切换至BlinnPhong材质
+                    this.sphere.meshRenderer.material = this.billinMaterial;
                 }
             });
-
         }));
     }
 

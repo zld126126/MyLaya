@@ -44,6 +44,11 @@ export default abstract class SingletonScene {
         return this.CurrentScene;
     }
 
+    public AutoSetScene3d(scene: Laya.Scene3D) {
+        EventManager.DispatchEvent(EventType.BACKTOMAIN);
+        EventManager.DispatchEvent(EventType.SETSCENE3D, scene);
+    }
+
     AddReturn() {
         this.addButton(50, 50, 100, 40, "返回主页", function (e) {
             this.Hide();

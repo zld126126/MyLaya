@@ -54,8 +54,7 @@ export class CameraRay extends SingletonScene {
         var planeMat = new Laya.BlinnPhongMaterial();
         Laya.Texture2D.load(GlobalConfig.ResPath + "res/threeDimen/Physics/grass.png", Laya.Handler.create(this, function (tex): void {
             planeMat.albedoTexture = tex;
-            EventManager.DispatchEvent(EventType.BACKTOMAIN);
-            EventManager.DispatchEvent(EventType.SETSCENE3D, this.s_scene);
+            this.AutoSetScene3d(this.s_scene);
         }));
         //设置纹理平铺和偏移
         planeMat.tilingOffset = new Laya.Vector4(10, 10, 0, 0);

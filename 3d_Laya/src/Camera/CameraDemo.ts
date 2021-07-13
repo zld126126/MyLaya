@@ -28,8 +28,7 @@ export class CameraDemo extends SingletonScene {
         //创建场景
         var scene = new Laya.Scene3D();
         // Laya.stage.addChild(scene);
-        EventManager.DispatchEvent(EventType.BACKTOMAIN);
-        EventManager.DispatchEvent(EventType.SETSCENE3D, scene);
+        this.AutoSetScene3d(scene);
 
         //创建相机，构造函数的三个参数为相机横纵比，近距裁剪，远距裁剪
         this.camera = new Laya.Camera(0, 0.1, 100);

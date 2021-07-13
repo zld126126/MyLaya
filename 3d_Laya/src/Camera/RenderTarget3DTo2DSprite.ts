@@ -44,8 +44,7 @@ export class RenderTarget3DTo2DSprite extends SingletonScene {
         this.s_scene.addChild(new Laya.DirectionLight());
 
         Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh", Laya.Handler.create(this, function (layaMonkey: Laya.Sprite3D): void {
-            EventManager.DispatchEvent(EventType.BACKTOMAIN);
-            EventManager.DispatchEvent(EventType.SETSCENE3D, this.s_scene);
+            this.AutoSetScene3d(this.s_scene);
             this.s_scene.addChild(layaMonkey);
             this._layaMonkey = layaMonkey;
             var transform: Laya.Transform3D = layaMonkey.transform;

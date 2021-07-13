@@ -39,8 +39,7 @@ export class Sprite3DParent extends SingletonScene {
         Laya.loader.create(resource, Laya.Handler.create(this, this.onPreLoadFinish));
     }
     public onPreLoadFinish() {
-        EventManager.DispatchEvent(EventType.BACKTOMAIN);
-        EventManager.DispatchEvent(EventType.SETSCENE3D, this.s_scene);
+        this.AutoSetScene3d(this.s_scene);
 
         //添加父级猴子
         var layaMonkeyParent = this.s_scene.addChild(Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh")) as Laya.Sprite3D;
