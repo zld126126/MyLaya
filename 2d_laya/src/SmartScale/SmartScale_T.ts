@@ -91,7 +91,7 @@ export class SmartScale_T extends SingletonScene {
         if (GameConfig.debug || Laya.Utils.getQueryString("debug") == "true") Laya.enableDebugPanel();
         if (GameConfig.physicsDebug && Laya["PhysicsDebugDraw"]) Laya["PhysicsDebugDraw"].enable();
         if (GameConfig.stat) Laya.Stat.show();
-        Laya.alertGlobalError = true;
+        Laya.alertGlobalError(true);
     }
 
     private onBoyClick(e: Event): void {

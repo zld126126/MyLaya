@@ -5,7 +5,7 @@
  * sensor_landscape    横屏(双方向)
  * sensor_portrait     竖屏(双方向)
  */
-window.screenOrientation = "portrait";
+window.screenOrientation = "landscape";
 
 //-----libs-begin-----
 loadLib("libs/laya.core.js")
@@ -15,9 +15,12 @@ loadLib("libs/laya.particle.js")
 loadLib("libs/laya.tiledmap.js")
 loadLib("libs/laya.ui.js")
 loadLib("libs/laya.device.js")
+loadLib("libs/laya.d3.js")
 loadLib("libs/laya.physics.js")
-loadLib("libs/bmap_helper.js");
-loadLib("libs/protobuf-library.min.js")
-loadLib("libs/protobuf-bundles.min.js")
+loadLib("libs/laya.cannonPhysics.js")
+loadLib("libs/laya.gltf.js")
+loadLib("libs/worker.js")
+loadLib("libs/workerloader.js")
+loadLib("libs/bmap_helper.js")
 //-----libs-end-------
 loadLib("js/bundle.js");

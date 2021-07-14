@@ -4291,7 +4291,7 @@
                 Laya["PhysicsDebugDraw"].enable();
             if (GameConfig.stat)
                 Laya.Stat.show();
-            Laya.alertGlobalError = true;
+            Laya.alertGlobalError(true);
         }
         onBoyClick(e) {
             if (!this.isShow) {
@@ -6125,9 +6125,8 @@
                 Laya["PhysicsDebugDraw"].enable();
             if (GameConfig.stat)
                 Laya.Stat.show();
-            Laya.alertGlobalError = true;
+            Laya.alertGlobalError(true);
             Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
-            window['LoadBaiduMapScript']();
         }
         onVersionLoaded() {
             Laya.AtlasInfoManager.enable("fileconfig.json", Laya.Handler.create(this, this.onConfigLoaded));
@@ -6135,11 +6134,10 @@
         onConfigLoaded() {
             GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
         }
-        LoadExample() {
-            LayaMain2d.getInstance().Show();
+        Load() {
+            LayaMain2d.getInstance().LoadExamples();
         }
     }
-    new Main().LoadExample();
+    new Main().Load();
 
 }());
-//# sourceMappingURL=bundle.js.map
