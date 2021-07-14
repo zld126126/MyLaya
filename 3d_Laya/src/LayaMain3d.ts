@@ -14,6 +14,8 @@ import { Animation3DMain } from "./Animation3D/Animation3DMain";
 import { Physics3DMain } from "./Physics3D/Physics3DMain";
 import { CannonPhysics3DMain } from "./CannonPhysics3D/CannonPhysics3DMain";
 import { MouseInteractionMain } from "./MouseInteraction/MouseInteractionMain";
+import { ScriptMain } from "./Script/ScriptMain";
+import { SkyMain } from "./Sky/SkyMain";
 
 export class LayaMain3d extends SingletonMainScene {
     constructor() {
@@ -100,8 +102,10 @@ export class LayaMain3d extends SingletonMainScene {
                 MouseInteractionMain.getInstance().Show();
                 break;
             case this.btnNameArr[13]:
+                ScriptMain.getInstance().Show();
                 break;
             case this.btnNameArr[14]:
+                SkyMain.getInstance().Show();
                 break;
             case this.btnNameArr[15]:
                 break;

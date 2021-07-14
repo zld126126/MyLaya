@@ -7718,6 +7718,188 @@
         }
     }
 
+    class ScriptDemo extends SingletonScene {
+        constructor() {
+            super();
+            this._translate = new Laya.Vector3(0, 3, 3);
+            this._rotation = new Laya.Vector3(-30, 0, 0);
+            this._rotation2 = new Laya.Vector3(0, 45, 0);
+            this._forward = new Laya.Vector3(1, -1, 0);
+            this.s_scene = new Laya.Scene3D();
+            var camera = (this.s_scene.addChild(new Laya.Camera(0, 0.1, 100)));
+            camera.transform.translate(this._translate);
+            camera.transform.rotate(this._rotation, true, false);
+            camera.clearColor = null;
+            var directionLight = this.s_scene.addChild(new Laya.DirectionLight());
+            var lightColor = directionLight.color;
+            lightColor.setValue(0.6, 0.6, 0.6);
+            var mat = directionLight.transform.worldMatrix;
+            mat.setForward(this._forward);
+            directionLight.transform.worldMatrix = mat;
+            var box = this.s_scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(1, 1, 1), "MOs"));
+            box.transform.rotate(this._rotation2, false, false);
+            var material = new Laya.PBRSpecularMaterial();
+            Laya.Texture2D.load(GlobalConfig.ResPath + "res/threeDimen/layabox.png", Laya.Handler.create(this, function (text) {
+                this.AutoSetScene3d(this.s_scene);
+                material.albedoTexture = text;
+                box.meshRenderer.material = material;
+                box.addComponent(BoxControlScript);
+            }));
+            Laya.timer.once(4000, this, this.onLoop, [box]);
+        }
+        onLoop(box) {
+            console.log("移除组件");
+            var boxContro = box.getComponent(BoxControlScript);
+            boxContro.destroy();
+        }
+    }
+    class BoxControlScript extends Laya.Script3D {
+        constructor() {
+            super();
+            this._albedoColor = new Laya.Vector4(1, 0, 0, 1);
+            this._rotation = new Laya.Vector3(0, 0.5, 0);
+        }
+        onAwake() {
+            this.box = this.owner;
+        }
+        onStart() {
+            var material = this.box.meshRenderer.material;
+            material.albedoColor = this._albedoColor;
+        }
+        onUpdate() {
+            this.box.transform.rotate(this._rotation, false, false);
+        }
+        onDisable() {
+            console.log("组件设置为不可用");
+        }
+    }
+
+    class ScriptMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "脚本示例"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    ScriptDemo.getInstance().Click();
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
+    class Sky_SkyBox extends SingletonScene {
+        constructor() {
+            super();
+            this.s_scene = new Laya.Scene3D();
+            this.camera = this.s_scene.addChild(new Laya.Camera(0, 0.1, 100));
+            this.camera.transform.rotate(new Laya.Vector3(10, 0, 0), true, false);
+            this.camera.addComponent(CameraMoveScript);
+            this.camera.clearFlag = Laya.BaseCamera.CLEARFLAG_SKY;
+            Laya.BaseMaterial.load(GlobalConfig.ResPath + "res/threeDimen/skyBox/DawnDusk/SkyBox.lmat", Laya.Handler.create(this, function (mat) {
+                this.AutoSetScene3d(this.s_scene);
+                var skyRenderer = this.s_scene.skyRenderer;
+                skyRenderer.mesh = Laya.SkyBox.instance;
+                skyRenderer.material = mat;
+                Laya.timer.frameLoop(1, this, this.onFrameLoop);
+                Laya.timer.frameLoop(1, this, function () {
+                    this.s_scene.skyRenderer.material.exposure = Math.sin(this.exposureNumber += 0.01) + 1;
+                    this.s_scene.skyRenderer.material.rotation += 0.01;
+                });
+            }));
+        }
+    }
+
+    class Sky_Procedural extends SingletonScene {
+        constructor() {
+            super();
+            this.s_scene = new Laya.Scene3D();
+            var camera = this.s_scene.addChild(new Laya.Camera(0, 0.1, 100));
+            camera.addComponent(CameraMoveScript);
+            camera.clearFlag = Laya.BaseCamera.CLEARFLAG_SKY;
+            this.directionLight = this.s_scene.addChild(new Laya.DirectionLight());
+            var mat = this.directionLight.transform.worldMatrix;
+            mat.setForward(new Laya.Vector3(-1.0, -1.0, -1.0));
+            this.directionLight.transform.worldMatrix = mat;
+            this.rotation = new Laya.Vector3(-0.01, 0, 0);
+            var skyRenderer = this.s_scene.skyRenderer;
+            skyRenderer.mesh = Laya.SkyDome.instance;
+            skyRenderer.material = new Laya.SkyProceduralMaterial();
+            Laya.timer.frameLoop(1, this, this.onFrameLoop);
+            this.AutoSetScene3d(this.s_scene);
+        }
+        onFrameLoop() {
+            this.directionLight.transform.rotate(this.rotation);
+        }
+    }
+
+    class SkyMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "天空盒", "程序化天空"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    Sky_SkyBox.getInstance().Click();
+                    break;
+                case this.btnNameArr[2]:
+                    Sky_Procedural.getInstance().Click();
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
     class LayaMain3d extends SingletonMainScene {
         constructor() {
             super();
@@ -7790,8 +7972,10 @@
                     MouseInteractionMain.getInstance().Show();
                     break;
                 case this.btnNameArr[13]:
+                    ScriptMain.getInstance().Show();
                     break;
                 case this.btnNameArr[14]:
+                    SkyMain.getInstance().Show();
                     break;
                 case this.btnNameArr[15]:
                     break;
