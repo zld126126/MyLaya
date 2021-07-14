@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "es6",
     "target": "es6",
-    "noEmitHelpers": true,
+    "noEmitHelpers": false,
     "sourceMap": true
   },
   "exclude": [

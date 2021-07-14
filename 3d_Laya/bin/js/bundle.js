@@ -1590,6 +1590,948 @@
         }
     }
 
+    var BlurVS = "#include \"Lighting.glsl\";\r\n#if defined(GL_FRAGMENT_PRECISION_HIGH)//Â åŽŸæ¥çš„å†™æ³•ä¼šè¢«æˆ‘ä»¬è‡ªå·±çš„è§£æžæµç¨‹å¤„ç†ï¼Œè€Œæˆ‘ä»¬çš„è§£æžæ˜¯ä¸è®¤å†…ç½®å®çš„ï¼Œå¯¼è‡´è¢«åˆ æŽ‰ï¼Œæ‰€ä»¥æ”¹æˆÂ ifÂ definedÂ äº†\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\nattribute vec4 a_PositionTexcoord;\r\nvarying vec2 v_Texcoord0;\r\n\r\nvoid main() {\r\n\tgl_Position = vec4(a_PositionTexcoord.xy, 0.0, 1.0);\r\n\tv_Texcoord0 = a_PositionTexcoord.zw;\r\n\tgl_Position = remapGLPositionZ(gl_Position);\r\n}";
+    var BlurHorizentalFS = "#if defined(GL_FRAGMENT_PRECISION_HIGH)//Â åŽŸæ¥çš„å†™æ³•ä¼šè¢«æˆ‘ä»¬è‡ªå·±çš„è§£æžæµç¨‹å¤„ç†ï¼Œè€Œæˆ‘ä»¬çš„è§£æžæ˜¯ä¸è®¤å†…ç½®å®çš„ï¼Œå¯¼è‡´è¢«åˆ æŽ‰ï¼Œæ‰€ä»¥æ”¹æˆÂ ifÂ definedÂ äº†\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\nvarying vec2 v_Texcoord0;\r\nuniform sampler2D u_MainTex;\r\nuniform vec4 u_MainTex_TexelSize;\r\nuniform float u_DownSampleValue;\r\n\r\nvoid main()\r\n{\r\n    vec4 color = vec4(0.0,0.0,0.0,0.0);\r\n    vec2 uv = v_Texcoord0;\r\n    vec2 uvOffset = vec2(1.0,0.0)*u_MainTex_TexelSize.xy*u_DownSampleValue;\r\n    uv = uv - uvOffset*3.0;\r\n    //é«˜æ–¯å‚æ•°\r\n    color+=0.0205*texture2D(u_MainTex,uv);\r\n    uv+=uvOffset;\r\n    color+=0.0855*texture2D(u_MainTex,uv);\r\n    uv+=uvOffset;\r\n    color+=0.232*texture2D(u_MainTex,uv);\r\n    uv+=uvOffset;\r\n    color+=0.324*texture2D(u_MainTex,uv);\r\n    uv+=uvOffset;\r\n    color+=0.232*texture2D(u_MainTex,uv);\r\n    uv+=uvOffset;\r\n    color+=0.0855*texture2D(u_MainTex,uv);\r\n    uv+=uvOffset;\r\n    color+=0.0205*texture2D(u_MainTex,uv);\r\n\r\n    gl_FragColor = color;\r\n    \r\n\r\n    \r\n}";
+    var BlurVerticalFS = "#if defined(GL_FRAGMENT_PRECISION_HIGH)//Â åŽŸæ¥çš„å†™æ³•ä¼šè¢«æˆ‘ä»¬è‡ªå·±çš„è§£æžæµç¨‹å¤„ç†ï¼Œè€Œæˆ‘ä»¬çš„è§£æžæ˜¯ä¸è®¤å†…ç½®å®çš„ï¼Œå¯¼è‡´è¢«åˆ æŽ‰ï¼Œæ‰€ä»¥æ”¹æˆÂ ifÂ definedÂ äº†\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\nvarying vec2 v_Texcoord0;\r\nuniform sampler2D u_MainTex;\r\nuniform vec4 u_MainTex_TexelSize;\r\nuniform float u_DownSampleValue;\r\n\r\nvoid main()\r\n{\r\n    vec4 color = vec4(0.0,0.0,0.0,0.0);\r\n    vec2 uv = v_Texcoord0;\r\n    vec2 uvOffset = vec2(0.0,1.0)*u_MainTex_TexelSize.xy*u_DownSampleValue;\r\n    uv = uv - uvOffset*3.0;\r\n    //é«˜æ–¯å‚æ•°\r\n    color+=0.0205*texture2D(u_MainTex,uv);\r\n    uv+=uvOffset;\r\n    color+=0.0855*texture2D(u_MainTex,uv);\r\n    uv+=uvOffset;\r\n    color+=0.232*texture2D(u_MainTex,uv);\r\n    uv+=uvOffset;\r\n    color+=0.324*texture2D(u_MainTex,uv);\r\n    uv+=uvOffset;\r\n    color+=0.232*texture2D(u_MainTex,uv);\r\n    uv+=uvOffset;\r\n    color+=0.0855*texture2D(u_MainTex,uv);\r\n    uv+=uvOffset;\r\n    color+=0.0205*texture2D(u_MainTex,uv);\r\n\r\n    gl_FragColor = color;\r\n    \r\n\r\n    \r\n}";
+    var BlurDownSampleFS = "#if defined(GL_FRAGMENT_PRECISION_HIGH)//Â åŽŸæ¥çš„å†™æ³•ä¼šè¢«æˆ‘ä»¬è‡ªå·±çš„è§£æžæµç¨‹å¤„ç†ï¼Œè€Œæˆ‘ä»¬çš„è§£æžæ˜¯ä¸è®¤å†…ç½®å®çš„ï¼Œå¯¼è‡´è¢«åˆ æŽ‰ï¼Œæ‰€ä»¥æ”¹æˆÂ ifÂ definedÂ äº†\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\nvarying vec2 v_Texcoord0;\r\nuniform sampler2D u_MainTex;\r\nuniform vec4 u_MainTex_TexelSize;\r\n\r\nvoid main()\r\n{\r\n    vec4 color = vec4(0.0,0.0,0.0,0.0);\r\n    color += texture2D(u_MainTex,v_Texcoord0+u_MainTex_TexelSize.xy*vec2(1.0,0.0));\r\n\tcolor += texture2D(u_MainTex,v_Texcoord0+u_MainTex_TexelSize.xy*vec2(-1.0,0.0));\r\n\tcolor += texture2D(u_MainTex,v_Texcoord0+u_MainTex_TexelSize.xy*vec2(0.0,-1.0));\r\n\tcolor += texture2D(u_MainTex,v_Texcoord0+u_MainTex_TexelSize.xy*vec2(0.0,1.0));\r\n    gl_FragColor = color/4.0;\r\n    //gl_FragColor = vec4(1.0,0.0,0.0,1.0);\r\n}";
+    var BlurDownSampleVS = "#include \"Lighting.glsl\";\r\n#if defined(GL_FRAGMENT_PRECISION_HIGH)//Â åŽŸæ¥çš„å†™æ³•ä¼šè¢«æˆ‘ä»¬è‡ªå·±çš„è§£æžæµç¨‹å¤„ç†ï¼Œè€Œæˆ‘ä»¬çš„è§£æžæ˜¯ä¸è®¤å†…ç½®å®çš„ï¼Œå¯¼è‡´è¢«åˆ æŽ‰ï¼Œæ‰€ä»¥æ”¹æˆÂ ifÂ definedÂ äº†\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\nattribute vec4 a_PositionTexcoord;\r\nvarying vec2 v_Texcoord0;\r\n\r\nvoid main() {\r\n\tgl_Position = vec4(a_PositionTexcoord.xy, 0.0, 1.0);\r\n\tv_Texcoord0 = a_PositionTexcoord.zw;\r\n\tgl_Position = remapGLPositionZ(gl_Position);\r\n}";
+    var BlurEdgeAdd = "#if defined(GL_FRAGMENT_PRECISION_HIGH)//Â åŽŸæ¥çš„å†™æ³•ä¼šè¢«æˆ‘ä»¬è‡ªå·±çš„è§£æžæµç¨‹å¤„ç†ï¼Œè€Œæˆ‘ä»¬çš„è§£æžæ˜¯ä¸è®¤å†…ç½®å®çš„ï¼Œå¯¼è‡´è¢«åˆ æŽ‰ï¼Œæ‰€ä»¥æ”¹æˆÂ ifÂ definedÂ äº†\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\nvarying vec2 v_Texcoord0;\r\nuniform sampler2D u_MainTex;\r\nuniform sampler2D u_sourceTexture0;\r\n\r\nvoid main()\r\n{\r\n    vec2 uv = v_Texcoord0;\r\n    vec4 mainColor = texture2D(u_MainTex,uv);\r\n    vec4 sourceColor = texture2D(u_sourceTexture0,uv);\r\n    float factor = step(sourceColor.x+sourceColor.y+sourceColor.z,0.001);\r\n    vec4 color = mix(sourceColor,mainColor,factor);\r\n    gl_FragColor =color;\r\n}";
+    var BlurEdgeSub = "#if defined(GL_FRAGMENT_PRECISION_HIGH)//Â åŽŸæ¥çš„å†™æ³•ä¼šè¢«æˆ‘ä»¬è‡ªå·±çš„è§£æžæµç¨‹å¤„ç†ï¼Œè€Œæˆ‘ä»¬çš„è§£æžæ˜¯ä¸è®¤å†…ç½®å®çš„ï¼Œå¯¼è‡´è¢«åˆ æŽ‰ï¼Œæ‰€ä»¥æ”¹æˆÂ ifÂ definedÂ äº†\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\nvarying vec2 v_Texcoord0;\r\nuniform sampler2D u_sourceTexture0;\r\nuniform sampler2D u_sourceTexture1;\r\n\r\nvoid main()\r\n{\r\n    vec2 uv = v_Texcoord0;\r\n    vec4 blurColor = texture2D(u_sourceTexture0,uv);\r\n    vec4 clearColor = texture2D(u_sourceTexture1,uv);\r\n    float factor = step(clearColor.x+clearColor.y+clearColor.z,0.001);\r\n    vec4 color = blurColor*factor;\r\n    color = (1.0-step(color.x+color.y+color.z,0.15))*vec4(1.0,0.0,0.0,1.0);\r\n    gl_FragColor = color;\r\n}";
+    class BlurEffect extends Laya.PostProcessEffect {
+        constructor() {
+            super();
+            this._shader = null;
+            this._shaderData = new Laya.ShaderData();
+            this._downSampleNum = 1;
+            this._blurSpreadSize = 1;
+            this._blurIterations = 2;
+            this._texSize = new Laya.Vector4(1.0, 1.0, 1.0, 1.0);
+            this._shader = Laya.Shader3D.find("blurEffect");
+            this._tempRenderTexture = new Array(13);
+            BlurEffect.BLUR_TYPE_GaussianBlur = 0;
+            BlurEffect.BLUR_TYPE_Simple = 1;
+            BlurEffect.SHADERVALUE_MAINTEX = Laya.Shader3D.propertyNameToID("u_MainTex");
+            BlurEffect.SHADERVALUE_TEXELSIZE = Laya.Shader3D.propertyNameToID("u_MainTex_TexelSize");
+            BlurEffect.SHADERVALUE_DOWNSAMPLEVALUE = Laya.Shader3D.propertyNameToID("u_DownSampleValue");
+        }
+        static init() {
+            BlurEffect.BLUR_TYPE_GaussianBlur = 0;
+            BlurEffect.BLUR_TYPE_Simple = 1;
+            BlurEffect.SHADERVALUE_MAINTEX = Laya.Shader3D.propertyNameToID("u_MainTex");
+            BlurEffect.SHADERVALUE_TEXELSIZE = Laya.Shader3D.propertyNameToID("u_MainTex_TexelSize");
+            BlurEffect.SHADERVALUE_DOWNSAMPLEVALUE = Laya.Shader3D.propertyNameToID("u_DownSampleValue");
+            var attributeMap = {
+                'a_PositionTexcoord': Laya.VertexMesh.MESH_POSITION0
+            };
+            var uniformMap = {
+                'u_MainTex': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_MainTex_TexelSize': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_DownSampleValue': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_sourceTexture0': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_sourceTexture1': Laya.Shader3D.PERIOD_MATERIAL
+            };
+            var shader = Laya.Shader3D.add("blurEffect");
+            var subShader = new Laya.SubShader(attributeMap, uniformMap);
+            shader.addSubShader(subShader);
+            var shaderpass = subShader.addShaderPass(BlurDownSampleVS, BlurDownSampleFS);
+            var renderState = shaderpass.renderState;
+            renderState.depthTest = Laya.RenderState.DEPTHTEST_ALWAYS;
+            renderState.depthWrite = false;
+            renderState.cull = Laya.RenderState.CULL_NONE;
+            renderState.blend = Laya.RenderState.BLEND_DISABLE;
+            subShader = new Laya.SubShader(attributeMap, uniformMap);
+            shader.addSubShader(subShader);
+            shaderpass = subShader.addShaderPass(BlurVS, BlurVerticalFS);
+            renderState = shaderpass.renderState;
+            renderState.depthTest = Laya.RenderState.DEPTHTEST_ALWAYS;
+            renderState.depthWrite = false;
+            renderState.cull = Laya.RenderState.CULL_NONE;
+            renderState.blend = Laya.RenderState.BLEND_DISABLE;
+            subShader = new Laya.SubShader(attributeMap, uniformMap);
+            shader.addSubShader(subShader);
+            shaderpass = subShader.addShaderPass(BlurVS, BlurHorizentalFS);
+            renderState = shaderpass.renderState;
+            renderState.depthTest = Laya.RenderState.DEPTHTEST_ALWAYS;
+            renderState.depthWrite = false;
+            renderState.cull = Laya.RenderState.CULL_NONE;
+            renderState.blend = Laya.RenderState.BLEND_DISABLE;
+            subShader = new Laya.SubShader(attributeMap, uniformMap);
+            shader.addSubShader(subShader);
+            shaderpass = subShader.addShaderPass(BlurVS, BlurEdgeSub);
+            renderState = shaderpass.renderState;
+            renderState.depthTest = Laya.RenderState.DEPTHTEST_ALWAYS;
+            renderState.depthWrite = false;
+            renderState.cull = Laya.RenderState.CULL_NONE;
+            renderState.blend = Laya.RenderState.BLEND_DISABLE;
+            subShader = new Laya.SubShader(attributeMap, uniformMap);
+            shader.addSubShader(subShader);
+            shaderpass = subShader.addShaderPass(BlurVS, BlurEdgeAdd);
+            renderState = shaderpass.renderState;
+            renderState.depthTest = Laya.RenderState.DEPTHTEST_ALWAYS;
+            renderState.depthWrite = false;
+            renderState.cull = Laya.RenderState.CULL_NONE;
+            renderState.blend = Laya.RenderState.BLEND_DISABLE;
+        }
+        get downSampleNum() {
+            return this._downSampleNum;
+        }
+        set downSampleNum(value) {
+            this._downSampleNum = Math.min(6, Math.max(value, 0.0));
+        }
+        get blurSpreadSize() {
+            return this._blurSpreadSize;
+        }
+        set blurSpreadSize(value) {
+            this._blurSpreadSize = Math.min(10, Math.max(value, 1.0));
+        }
+        get blurIterations() {
+            return this._blurIterations;
+        }
+        set blurIterations(value) {
+            this._blurIterations = Math.min(Math.max(value, 0.0), 6.0);
+        }
+        render(context) {
+            var cmd = context.command;
+            var viewport = context.camera.viewport;
+            var scaleFactor = 1.0 / (1 << Math.floor(this._downSampleNum));
+            var tw = Math.floor(viewport.width * scaleFactor);
+            var th = Math.floor(viewport.height * scaleFactor);
+            this._texSize.setValue(1.0 / tw, 1.0 / th, tw, th);
+            this._shaderData.setNumber(BlurEffect.SHADERVALUE_DOWNSAMPLEVALUE, this.blurSpreadSize);
+            this._shaderData.setVector(BlurEffect.SHADERVALUE_TEXELSIZE, this._texSize);
+            var downSampleTexture = Laya.RenderTexture.createFromPool(tw, th, Laya.RenderTextureFormat.R8G8B8, Laya.RenderTextureDepthFormat.DEPTHSTENCIL_NONE);
+            downSampleTexture.filterMode = Laya.FilterMode.Bilinear;
+            this._tempRenderTexture[0] = downSampleTexture;
+            var lastDownTexture = context.source;
+            cmd.blitScreenTriangle(lastDownTexture, downSampleTexture, null, this._shader, this._shaderData, 0);
+            lastDownTexture = downSampleTexture;
+            for (var i = 0; i < this._blurIterations; i++) {
+                var blurTexture = Laya.RenderTexture.createFromPool(tw, th, Laya.RenderTextureFormat.R8G8B8, Laya.RenderTextureDepthFormat.DEPTHSTENCIL_NONE);
+                blurTexture.filterMode = Laya.FilterMode.Bilinear;
+                cmd.blitScreenTriangle(lastDownTexture, blurTexture, null, this._shader, this._shaderData, 1);
+                lastDownTexture = blurTexture;
+                this._tempRenderTexture[i * 2 + 1] = blurTexture;
+                blurTexture = Laya.RenderTexture.createFromPool(tw, th, Laya.RenderTextureFormat.R8G8B8, Laya.RenderTextureDepthFormat.DEPTHSTENCIL_NONE);
+                blurTexture.filterMode = Laya.FilterMode.Bilinear;
+                cmd.blitScreenTriangle(lastDownTexture, blurTexture, null, this._shader, this._shaderData, 2);
+                lastDownTexture = blurTexture;
+                this._tempRenderTexture[i * 2 + 2] = blurTexture;
+            }
+            context.source = lastDownTexture;
+            var maxTexture = this._blurIterations * 2 + 1;
+            for (i = 0; i < maxTexture; i++) {
+                Laya.RenderTexture.recoverToPool(this._tempRenderTexture[i]);
+            }
+            context.deferredReleaseTextures.push(lastDownTexture);
+        }
+    }
+
+    var Scene3D$2 = Laya.Scene3D;
+    var CameraClearFlags = Laya.CameraClearFlags;
+    var Matrix4x4 = Laya.Matrix4x4;
+    var PostProcess$1 = Laya.PostProcess;
+    var Button$2 = Laya.Button;
+    var Shader3D$1 = Laya.Shader3D;
+    var Browser$2 = Laya.Browser;
+    var Event$2 = Laya.Event;
+    var Handler$3 = Laya.Handler;
+    class PostProcess_Blur extends SingletonScene {
+        constructor() {
+            super();
+            Shader3D$1.debugMode = true;
+            BlurEffect.init();
+            Scene3D$2.load(GlobalConfig.ResPath + "res/threeDimen/LayaScene_zhuandibanben/Conventional/zhuandibanben.ls", Handler$3.create(this, function (scene) {
+                this.s_scene = scene;
+                this.AutoSetScene3d(this.s_scene);
+                this.camera = scene.getChildByName("MainCamera");
+                this.camera.addComponent(CameraMoveScript);
+                this.camera.clearFlag = CameraClearFlags.Sky;
+                this.camera.cullingMask ^= 2;
+                this.camera.enableHDR = false;
+                var mainCamera = scene.getChildByName("BlurCamera");
+                mainCamera.clearFlag = CameraClearFlags.Nothing;
+                mainCamera.cullingMask = 2;
+                mainCamera.renderingOrder = 1;
+                mainCamera.enableHDR = false;
+                this.camera.addChild(mainCamera);
+                mainCamera.transform.localMatrix = new Matrix4x4();
+                this.postProcess = new PostProcess$1();
+                var blurEffect = new BlurEffect();
+                this.postProcess.addEffect(blurEffect);
+                this.camera.postProcess = this.postProcess;
+                blurEffect.downSampleNum = 6;
+                blurEffect.blurSpreadSize = 1;
+                blurEffect.blurIterations = 1;
+                this.loadUI();
+            }));
+        }
+        loadUI() {
+            Laya.loader.load([GlobalConfig.ResPath + "res/threeDimen/ui/button.png"], Handler$3.create(this, function () {
+                this.btn = Laya.stage.addChild(new Button$2(GlobalConfig.ResPath + "res/threeDimen/ui/button.png", "关闭高斯模糊"));
+                this.btn.size(200, 40);
+                this.btn.labelBold = true;
+                this.btn.labelSize = 30;
+                this.btn.sizeGrid = "4,4,4,4";
+                this.btn.scale(Browser$2.pixelRatio, Browser$2.pixelRatio);
+                this.btn.pos(Laya.stage.width / 2 - this.btn.width * Browser$2.pixelRatio / 2, Laya.stage.height - 60 * Browser$2.pixelRatio);
+                this.btn.on(Event$2.CLICK, this, function () {
+                    var enableHDR = !!this.camera.postProcess;
+                    if (enableHDR) {
+                        this.btn.label = "开启高斯模糊";
+                        this.camera.postProcess = null;
+                    }
+                    else {
+                        this.btn.label = "关闭高斯模糊";
+                        this.camera.postProcess = this.postProcess;
+                    }
+                });
+            }));
+        }
+        Show() {
+            super.Show();
+            if (this.btn) {
+                this.btn.visible = true;
+            }
+        }
+        Hide() {
+            super.Hide();
+            if (this.btn) {
+                this.btn.visible = false;
+            }
+        }
+    }
+
+    var EdgeMode;
+    (function (EdgeMode) {
+        EdgeMode[EdgeMode["ColorEdge"] = 0] = "ColorEdge";
+        EdgeMode[EdgeMode["NormalEdge"] = 1] = "NormalEdge";
+        EdgeMode[EdgeMode["DepthEdge"] = 2] = "DepthEdge";
+    })(EdgeMode || (EdgeMode = {}));
+    var EdgeEffectVS = "#if defined(GL_FRAGMENT_PRECISION_HIGH)\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\n#include \"Lighting.glsl\";\r\n\r\nattribute vec4 a_PositionTexcoord;\r\n\r\nvarying vec2 v_Texcoord0;\r\n\r\nvoid main() {\r\n\tgl_Position = vec4(a_PositionTexcoord.xy, 0.0, 1.0);\r\n\tv_Texcoord0 = a_PositionTexcoord.zw;\r\n\tgl_Position = remapGLPositionZ(gl_Position);\r\n}\r\n";
+    var EdgeEffectFS = "#if defined(GL_FRAGMENT_PRECISION_HIGH)\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\n#include \"DepthNormalUtil.glsl\";\r\n\r\nuniform sampler2D u_MainTex;\r\nuniform vec4 u_MainTex_TexelSize;\r\n\r\nuniform vec4 u_DepthBufferParams;\r\n\r\nuniform vec3 u_EdgeColor;\r\n\r\n#ifdef DEPTHEDGE\r\n    uniform float u_Depthhold;\r\n#endif\r\n\r\n#ifdef NORMALEDGE\r\n    uniform float u_NormalHold;\r\n#endif\r\n\r\n#ifdef COLOREDGE\r\n    uniform float u_ColorHold;\r\n#endif\r\n\r\nvarying vec2 v_Texcoord0;\r\n\r\n#ifdef DEPTHNORMAL\r\n    uniform sampler2D u_DepthNormalTex;\r\n    void getDepthNormal(out float depth, out vec3 normal){\r\n        vec4 col = texture2D(u_DepthNormalTex, v_Texcoord0);\r\n        DecodeDepthNormal(col, depth, normal);\r\n    }\r\n\r\n    float getDepth(vec2 uv) {\r\n        float depth;\r\n        vec3 normal;\r\n        vec4 col = texture2D(u_DepthNormalTex, uv);\r\n        DecodeDepthNormal(col, depth, normal);\r\n        return depth;\r\n    }\r\n\r\n    vec3 getNormal(vec2 uv) {\r\n        float depth;\r\n        vec3 normal;\r\n        vec4 col = texture2D(u_DepthNormalTex, uv);\r\n        DecodeDepthNormal(col, depth, normal);\r\n        return normal;\r\n    }\r\n\r\n#endif\r\n\r\n#ifdef DEPTH\r\n    uniform sampler2D u_DepthTex;\r\n    float getDepth(vec2 uv) {\r\n        float depth = texture2D(u_DepthTex, uv).r;\r\n        depth = Linear01Depth(depth, u_DepthBufferParams);\r\n        return depth;\r\n    }\r\n#endif\r\n\r\nvoid SobelSample(in vec2 uv,out vec3 colorG, out vec3 normalG, out vec3 depthG) {\r\n\r\n    float offsetx = u_MainTex_TexelSize.x;\r\n    float offsety = u_MainTex_TexelSize.y;\r\n    vec2 offsets[9];\r\n    offsets[0] = vec2(-offsetx,  offsety); // å·¦ä¸Š\r\n    offsets[1] = vec2( 0.0,    offsety); // æ­£ä¸Š\r\n    offsets[2] = vec2( offsetx,  offsety); // å³ä¸Š\r\n    offsets[3] = vec2(-offsetx,  0.0);   // å·¦\r\n    offsets[4] = vec2( 0.0,    0.0);   // ä¸­\r\n    offsets[5] = vec2( offsetx,  0.0);   // å³\r\n    offsets[6] = vec2(-offsetx, -offsety); // å·¦ä¸‹\r\n    offsets[7] = vec2( 0.0,   -offsety); // æ­£ä¸‹\r\n    offsets[8] = vec2( offsetx, -offsety); // å³ä¸‹\r\n\r\n    float Gx[9];\r\n    Gx[0] = -1.0; Gx[1] = 0.0; Gx[2] = 1.0; \r\n    Gx[3] = -2.0; Gx[4] = 0.0; Gx[5] = 2.0; \r\n    Gx[6] = -1.0; Gx[7] = 0.0; Gx[8] = 1.0; \r\n\r\n    float Gy[9];\r\n    Gy[0] = 1.0; Gy[1] = 2.0; Gy[2] = 1.0; \r\n    Gy[3] = 0.0; Gy[4] = 0.0; Gy[5] = 0.0; \r\n    Gy[6] = -1.0; Gy[7] = -2.0;Gy[8] = -1.0; \r\n\r\n    vec3 sampleTex[9];\r\n    float sampleDepth[9];\r\n    vec3 sampleNormal[9];\r\n    for (int i = 0; i < 9; i++)\r\n    {\r\n        vec2 uvOffset = uv + offsets[i];\r\n        sampleTex[i] = texture2D(u_MainTex, uvOffset).rgb;\r\n        sampleDepth[i] = getDepth(uvOffset);\r\n        sampleNormal[i] = (getNormal(uvOffset) + 1.0) / 2.0;\r\n    }\r\n\r\n    vec3 colorGx = vec3(0.0);\r\n    vec3 colorGy = vec3(0.0);\r\n    float depthGx = 0.0;\r\n    float depthGy = 0.0;\r\n    vec3 normalGx = vec3(0.0);\r\n    vec3 normalGy = vec3(0.0);\r\n\r\n    for (int i = 0; i < 9; i++) {\r\n        colorGx += sampleTex[i] * Gx[i];\r\n        colorGy += sampleTex[i] * Gy[i];\r\n        depthGx += sampleDepth[i] * Gx[i];\r\n        depthGy += sampleDepth[i] * Gy[i];\r\n        normalGx += sampleNormal[i] * Gx[i];\r\n        normalGy += sampleNormal[i] * Gy[i];\r\n    }\r\n\r\n    float colDepthG = abs(depthGx) + abs(depthGy);\r\n    depthG = vec3(colDepthG);\r\n\r\n    colorG = abs(colorGx) + abs(colorGy);\r\n\r\n    normalG = abs(normalGx) + abs(normalGy);\r\n\r\n}\r\n\r\nfloat ColorGray(vec3 color) {\r\n    return (color.r + color.g + color.b) / 3.0;\r\n}\r\n\r\nvec3 getEdgeValue(float hold, vec3 valueG) {\r\n    return vec3(step(hold, ColorGray(valueG)));\r\n}\r\n\r\nvoid main() {\r\n    \r\n    vec2 uv = v_Texcoord0;\r\n\r\n    vec3 colorG, normalG, depthG;\r\n    SobelSample(uv, colorG, normalG, depthG);\r\n    vec3 edgeColor = vec3(0.2);\r\n\r\n    #if defined(DEPTHEDGE)\r\n        vec3 edgeValue = getEdgeValue(u_Depthhold, depthG);\r\n    #endif\r\n\r\n    #if defined(NORMALEDGE)\r\n        vec3 edgeValue = getEdgeValue(u_NormalHold, normalG);\r\n    #endif\r\n\r\n    #if defined(COLOREDGE)\r\n        vec3 edgeValue = getEdgeValue(u_ColorHold, colorG);\r\n    #endif\r\n\r\n    vec3 fillColor = u_EdgeColor;\r\n\r\n    #ifdef SOURCE\r\n        fillColor = texture2D(u_MainTex, uv).rgb;\r\n    #endif\r\n\r\n    vec3 finalColor = mix(fillColor, edgeColor, edgeValue);\r\n    gl_FragColor = vec4(finalColor, 1.0);\r\n\r\n}";
+    class EdgeEffect extends Laya.PostProcessEffect {
+        constructor() {
+            super();
+            this._shader = null;
+            this._shaderData = new Laya.ShaderData();
+            this._depthBufferparam = new Laya.Vector4();
+            this._edgeMode = EdgeMode.NormalEdge;
+            if (!EdgeEffect._isShaderInit) {
+                EdgeEffect._isShaderInit = true;
+                EdgeEffect.EdgeEffectShaderInit();
+            }
+            this._shader = Laya.Shader3D.find("PostProcessEdge");
+            this.edgeColor = new Laya.Vector3(0.2, 0.2, 0.2);
+            this.colorHold = 0.7;
+            this.normalHold = 0.7;
+            this.depthHold = 0.7;
+            this.edgeMode = EdgeMode.DepthEdge;
+            this.showSource = true;
+            EdgeEffect._isShaderInit = false;
+            EdgeEffect.DEPTHTEXTURE = Laya.Shader3D.propertyNameToID("u_DepthTex");
+            EdgeEffect.DEPTHNORMALTEXTURE = Laya.Shader3D.propertyNameToID("u_DepthNormalTex");
+            EdgeEffect.DEPTHBUFFERPARAMS = Laya.Shader3D.propertyNameToID("u_DepthBufferParams");
+            EdgeEffect.EDGECOLOR = Laya.Shader3D.propertyNameToID("u_EdgeColor");
+            EdgeEffect.COLORHOLD = Laya.Shader3D.propertyNameToID("u_ColorHold");
+            EdgeEffect.DEPTHHOLD = Laya.Shader3D.propertyNameToID("u_Depthhold");
+            EdgeEffect.NORMALHOLD = Laya.Shader3D.propertyNameToID("u_NormalHold");
+        }
+        get edgeColor() {
+            return this._shaderData.getVector3(EdgeEffect.EDGECOLOR);
+        }
+        set edgeColor(value) {
+            this._shaderData.setVector3(EdgeEffect.EDGECOLOR, value);
+        }
+        get colorHold() {
+            return this._shaderData.getNumber(EdgeEffect.COLORHOLD);
+        }
+        set colorHold(value) {
+            this._shaderData.setNumber(EdgeEffect.COLORHOLD, value);
+        }
+        get depthHold() {
+            return this._shaderData.getNumber(EdgeEffect.DEPTHHOLD);
+        }
+        set depthHold(value) {
+            this._shaderData.setNumber(EdgeEffect.DEPTHHOLD, value);
+        }
+        get normalHold() {
+            return this._shaderData.getNumber(EdgeEffect.NORMALHOLD);
+        }
+        set normalHold(value) {
+            this._shaderData.setNumber(EdgeEffect.NORMALHOLD, value);
+        }
+        get edgeMode() {
+            return this._edgeMode;
+        }
+        get showSource() {
+            return this._shaderData.hasDefine(EdgeEffect.SHADERDEFINE_SOURCE);
+        }
+        set showSource(value) {
+            if (value) {
+                this._shaderData.addDefine(EdgeEffect.SHADERDEFINE_SOURCE);
+            }
+            else {
+                this._shaderData.removeDefine(EdgeEffect.SHADERDEFINE_SOURCE);
+            }
+        }
+        set edgeMode(value) {
+            this._edgeMode = value;
+            switch (value) {
+                case EdgeMode.ColorEdge:
+                    this._shaderData.addDefine(EdgeEffect.SHADERDEFINE_COLOREDGE);
+                    this._shaderData.removeDefine(EdgeEffect.SHADERDEFINE_DEPTHEDGE);
+                    this._shaderData.removeDefine(EdgeEffect.SHADERDEFINE_NORMALEDGE);
+                    break;
+                case EdgeMode.NormalEdge:
+                    this._shaderData.addDefine(EdgeEffect.SHADERDEFINE_NORMALEDGE);
+                    this._shaderData.removeDefine(EdgeEffect.SHADERDEFINE_DEPTHEDGE);
+                    this._shaderData.removeDefine(EdgeEffect.SHADERDEFINE_COLOREDGE);
+                    break;
+                case EdgeMode.DepthEdge:
+                    this._shaderData.addDefine(EdgeEffect.SHADERDEFINE_DEPTHEDGE);
+                    this._shaderData.removeDefine(EdgeEffect.SHADERDEFINE_COLOREDGE);
+                    this._shaderData.removeDefine(EdgeEffect.SHADERDEFINE_NORMALEDGE);
+                    break;
+            }
+        }
+        render(context) {
+            let cmd = context.command;
+            let viewport = context.camera.viewport;
+            let camera = context.camera;
+            let far = camera.farPlane;
+            let near = camera.nearPlane;
+            let source = context.source;
+            let destination = context.destination;
+            let width = viewport.width;
+            let height = viewport.height;
+            let renderTexture = Laya.RenderTexture.createFromPool(width, height, Laya.TextureFormat.R8G8B8A8, Laya.RenderTextureDepthFormat.DEPTH_16);
+            renderTexture.filterMode = Laya.FilterMode.Bilinear;
+            if (camera.depthTextureMode == Laya.DepthTextureMode.Depth) {
+                this._shaderData.addDefine(EdgeEffect.SHADERDEFINE_DEPTH);
+                this._shaderData.removeDefine(EdgeEffect.SHADERDEFINE_DEPTHNORMAL);
+                this._shaderData.setTexture(EdgeEffect.DEPTHTEXTURE, camera.depthTexture);
+            }
+            else if (camera.depthTextureMode == Laya.DepthTextureMode.DepthNormals) {
+                this._shaderData.addDefine(EdgeEffect.SHADERDEFINE_DEPTHNORMAL);
+                this._shaderData.removeDefine(EdgeEffect.SHADERDEFINE_DEPTH);
+                this._shaderData.setTexture(EdgeEffect.DEPTHNORMALTEXTURE, camera.depthNormalTexture);
+            }
+            this._depthBufferparam.setValue(1.0 - far / near, far / near, (near - far) / (near * far), 1 / near);
+            this._shaderData.setVector(EdgeEffect.DEPTHBUFFERPARAMS, this._depthBufferparam);
+            cmd.blitScreenTriangle(source, renderTexture, null, this._shader, this._shaderData, 0);
+            context.source = renderTexture;
+            context.deferredReleaseTextures.push(renderTexture);
+        }
+        static EdgeEffectShaderInit() {
+            EdgeEffect.SHADERDEFINE_DEPTH = Laya.Shader3D.getDefineByName("DEPTH");
+            EdgeEffect.SHADERDEFINE_DEPTHNORMAL = Laya.Shader3D.getDefineByName("DEPTHNORMAL");
+            EdgeEffect.SHADERDEFINE_DEPTHEDGE = Laya.Shader3D.getDefineByName("DEPTHEDGE");
+            EdgeEffect.SHADERDEFINE_NORMALEDGE = Laya.Shader3D.getDefineByName("NORMALEDGE");
+            EdgeEffect.SHADERDEFINE_COLOREDGE = Laya.Shader3D.getDefineByName("COLOREDGE");
+            EdgeEffect.SHADERDEFINE_SOURCE = Laya.Shader3D.getDefineByName("SOURCE");
+            let attributeMap = {
+                'a_PositionTexcoord': Laya.VertexMesh.MESH_POSITION0
+            };
+            let uniformMap = {
+                'u_MainTex': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_OffsetScale': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_MainTex_TexelSize': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_DepthTex': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_DepthNormalTex': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_DepthBufferParams': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_ColorHold': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_Depthhold': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_NormalHold': Laya.Shader3D.PERIOD_MATERIAL
+            };
+            let shader = Laya.Shader3D.add("PostProcessEdge");
+            let subShader = new Laya.SubShader(attributeMap, uniformMap);
+            shader.addSubShader(subShader);
+            let pass = subShader.addShaderPass(EdgeEffectVS, EdgeEffectFS);
+            pass.renderState.depthWrite = false;
+            EdgeEffect._isShaderInit = false;
+            EdgeEffect.DEPTHTEXTURE = Laya.Shader3D.propertyNameToID("u_DepthTex");
+            EdgeEffect.DEPTHNORMALTEXTURE = Laya.Shader3D.propertyNameToID("u_DepthNormalTex");
+            EdgeEffect.DEPTHBUFFERPARAMS = Laya.Shader3D.propertyNameToID("u_DepthBufferParams");
+            EdgeEffect.EDGECOLOR = Laya.Shader3D.propertyNameToID("u_EdgeColor");
+            EdgeEffect.COLORHOLD = Laya.Shader3D.propertyNameToID("u_ColorHold");
+            EdgeEffect.DEPTHHOLD = Laya.Shader3D.propertyNameToID("u_Depthhold");
+            EdgeEffect.NORMALHOLD = Laya.Shader3D.propertyNameToID("u_NormalHold");
+        }
+    }
+
+    var Scene3D$3 = Laya.Scene3D;
+    var Camera$2 = Laya.Camera;
+    var Shader3D$2 = Laya.Shader3D;
+    var Vector3$2 = Laya.Vector3;
+    var Quaternion = Laya.Quaternion;
+    var MeshSprite3D = Laya.MeshSprite3D;
+    var PrimitiveMesh = Laya.PrimitiveMesh;
+    var DepthTextureMode = Laya.DepthTextureMode;
+    var Loader$2 = Laya.Loader;
+    var PostProcess$2 = Laya.PostProcess;
+    var DirectionLight$1 = Laya.DirectionLight;
+    var Browser$3 = Laya.Browser;
+    var Slider = Laya.Slider;
+    var Button$3 = Laya.Button;
+    var Event$3 = Laya.Event;
+    var Handler$4 = Laya.Handler;
+    class PostProcess_Edge extends SingletonScene {
+        constructor() {
+            super();
+            this.btns = [];
+            this.sliders = [];
+            Shader3D$2.debugMode = true;
+            this.s_scene = new Scene3D$3();
+            this.camera = this.s_scene.addChild(new Camera$2(0, 0.2, 50));
+            this.camera.addComponent(CameraMoveScript);
+            this.camera.transform.position = new Vector3$2(0, 4, 10);
+            this.camera.transform.rotation = new Quaternion(-0.2, 0, 0, 0.97);
+            this.addLight();
+            let res = [
+                GlobalConfig.ResPath + "res/threeDimen/skinModel/dude/dude.lh",
+            ];
+            Laya.loader.create(res, Handler$4.create(this, this.onResComplate));
+        }
+        onResComplate() {
+            this.AutoSetScene3d(this.s_scene);
+            let sphere = new MeshSprite3D(PrimitiveMesh.createSphere(1), "Sphere");
+            this.s_scene.addChild(sphere);
+            sphere.transform.position = new Vector3$2(0, 1, 0);
+            let plane = new MeshSprite3D(PrimitiveMesh.createPlane(), "Plane");
+            this.s_scene.addChild(plane);
+            plane.transform.position = new Vector3$2(0, -0.5, 0);
+            let cube = new MeshSprite3D(PrimitiveMesh.createBox(1, 1, 1), "Cube");
+            this.s_scene.addChild(cube);
+            cube.transform.position = new Vector3$2(0, 3, 0);
+            this.camera.depthTextureMode |= DepthTextureMode.DepthNormals;
+            let dude = Loader$2.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/dude/dude.lh");
+            this.s_scene.addChild(dude);
+            dude.transform.position = new Vector3$2(1.5, 0, 0);
+            dude.transform.rotationEuler = new Vector3$2(0, 180, 0);
+            let postProcess = new PostProcess$2();
+            this.camera.postProcess = postProcess;
+            let edgeEffect = new EdgeEffect();
+            postProcess.addEffect(edgeEffect);
+            this.addUI(edgeEffect);
+        }
+        addLight() {
+            let dirLightDirections = [new Vector3$2(-1, -1, -1), new Vector3$2(1, -1, -1)];
+            let lightColor = new Vector3$2(0.6, 0.6, 0.6);
+            for (let index = 0; index < dirLightDirections.length; index++) {
+                let dir = dirLightDirections[index];
+                Vector3$2.normalize(dir, dirLightDirections[index]);
+                let dirLight = new DirectionLight$1();
+                this.s_scene.addChild(dirLight);
+                dirLight.transform.worldMatrix.setForward(dirLightDirections[index]);
+                dirLight.color = lightColor;
+            }
+        }
+        addUI(edgeEffect) {
+            Laya.loader.load([GlobalConfig.ResPath + "res/ui/hslider.png", GlobalConfig.ResPath + "res/threeDimen/ui/button.png",
+                GlobalConfig.ResPath + "res/ui/hslider$bar.png", GlobalConfig.ResPath + "res/ui/colorPicker.png"], Handler$4.create(this, function () {
+                let colorButton = this.addButton(100, 250, 160, 30, "color edge", 20, function () {
+                    edgeEffect.edgeMode = EdgeMode.ColorEdge;
+                    colorSlider.visible = true;
+                    normalSlider.visible = false;
+                    depthSlider.visible = false;
+                });
+                let colorSlider = this.addSlider(100, 290, 300, 0.01, 1, 0.7, 0.01, function (value) {
+                    edgeEffect.colorHold = value;
+                });
+                let normalFunc = function () {
+                    edgeEffect.edgeMode = EdgeMode.NormalEdge;
+                    colorSlider.visible = false;
+                    normalSlider.visible = true;
+                    depthSlider.visible = false;
+                };
+                let normalButton = this.addButton(100, 330, 160, 30, "normal edge", 20, normalFunc);
+                let normalSlider = this.addSlider(100, 370, 300, 0.01, 1, 0.7, 0.01, function (value) {
+                    edgeEffect.normalHold = value;
+                });
+                let depthButton = this.addButton(100, 410, 160, 30, "depth edge", 20, function () {
+                    edgeEffect.edgeMode = EdgeMode.DepthEdge;
+                    colorSlider.visible = false;
+                    normalSlider.visible = false;
+                    depthSlider.visible = true;
+                });
+                let depthSlider = this.addSlider(100, 450, 300, 0.01, 1, 0.7, 0.01, function (value) {
+                    edgeEffect.depthHold = value;
+                });
+                let source = this.addButton(100, 490, 160, 30, "show source", 20, function () {
+                    edgeEffect.showSource = !edgeEffect.showSource;
+                });
+                normalFunc();
+            }));
+        }
+        addBtn(x, y, width, height, text, size, clickFunc) {
+            let button = Laya.stage.addChild(new Button$3(GlobalConfig.ResPath + "res/threeDimen/ui/button.png", text));
+            button.size(width, height);
+            button.labelBold = true;
+            button.labelSize = size;
+            button.sizeGrid = "4,4,4,4";
+            button.scale(Browser$3.pixelRatio, Browser$3.pixelRatio);
+            button.pos(x, y);
+            button.on(Event$3.CLICK, this, clickFunc);
+            this.btns.push(button);
+            return button;
+        }
+        addSlider(x, y, width, min, max, value, tick, changeFunc) {
+            let slider = Laya.stage.addChild(new Slider(GlobalConfig.ResPath + "res/ui/hslider.png"));
+            slider.width = width;
+            slider.pos(x, y);
+            slider.min = min;
+            slider.max = max;
+            slider.value = value;
+            slider.tick = tick;
+            slider.changeHandler = Handler$4.create(this, changeFunc, [], false);
+            slider.visible = false;
+            this.sliders.push(slider);
+            return slider;
+        }
+        Show() {
+            super.Show();
+            for (var i = 0; i < this.btns.length; i++) {
+                this.btns[i].visible = true;
+            }
+            for (var i = 0; i < this.sliders.length; i++) {
+                this.sliders[i].visible = true;
+            }
+        }
+        Hide() {
+            super.Hide();
+            for (var i = 0; i < this.btns.length; i++) {
+                this.btns[i].visible = false;
+            }
+            for (var i = 0; i < this.sliders.length; i++) {
+                this.sliders[i].visible = false;
+            }
+        }
+    }
+
+    var FullScreenVert = "#if defined(GL_FRAGMENT_PRECISION_HIGH)\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\n#define SHADER_NAME SCREENVS\r\n\r\n#include \"Lighting.glsl\";\r\n\r\nattribute vec4 a_PositionTexcoord;\r\nuniform vec4 u_OffsetScale;\r\nvarying vec2 v_Texcoord0;\r\n\r\nvoid main() {\t\r\n\tgl_Position = vec4(u_OffsetScale.x*2.0-1.0+(a_PositionTexcoord.x+1.0)*u_OffsetScale.z,(1.0-((u_OffsetScale.y*2.0-1.0+(-a_PositionTexcoord.y+1.0)*u_OffsetScale.w)+1.0)/2.0)*2.0-1.0, 0.0, 1.0);\t\r\n\tv_Texcoord0 = a_PositionTexcoord.zw;\r\n\tgl_Position = remapGLPositionZ(gl_Position);\r\n}\r\n";
+    var CoCFS = "#if defined(GL_FRAGMENT_PRECISION_HIGH)\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\n#define SHADER_NAME COCFS\r\n\r\nuniform sampler2D u_MainTex;\r\nuniform vec4 u_ZBufferParams;\r\nuniform vec3 u_CoCParams;\r\n\r\n#ifdef CAMERA_NORMALDEPTH\r\n    uniform sampler2D u_CameraDepthNormalTexture;\r\n#else\r\n    uniform sampler2D u_CameraDepthTexture;\r\n#endif\r\n\r\n\r\nvarying vec2 v_Texcoord0;\r\n\r\n// Z buffer to linear 0..1 depth\r\nfloat Linear01Depth(float z,vec4 zbufferParams)\r\n{\r\n    return 1.0 / (zbufferParams.x * z + zbufferParams.y);\r\n}\r\n\r\n// Z buffer to linear depth\r\nfloat LinearEyeDepth(float z,vec4 zbufferParams)\r\n{\r\n    return 1.0 / (zbufferParams.z * z + zbufferParams.w);\r\n}\r\n\r\nfloat DecodeFloatRG(vec2 enc )\r\n{\r\n    vec2 kDecodeDot = vec2(1.0, 1.0/255.0);\r\n    return dot( enc, kDecodeDot );\r\n}\r\n\r\nvoid DecodeDepthNormal(vec4 enc, out float depth)\r\n{\r\n    depth = DecodeFloatRG (enc.zw);\r\n}\r\n\r\nvoid main() {\r\n\r\n    #ifdef CAMERA_NORMALDEPTH\r\n        vec4 depthNormal = texture2D(u_CameraDepthNormalTexture, v_Texcoord0);\r\n        float depth = 0.0;\r\n        DecodeDepthNormal(depthNormal, depth);\r\n        depth = ((1.0 / depth) - u_ZBufferParams.y) * (1.0 / u_ZBufferParams.x);\r\n    #else\r\n        float depth = texture2D(u_CameraDepthTexture, v_Texcoord0).x;\r\n    #endif\r\n\r\n    depth = LinearEyeDepth(depth, u_ZBufferParams);\r\n    float farStart = u_CoCParams.x;\r\n    float farEnd = u_CoCParams.y;\r\n\r\n    float coc = (depth - farStart) / (farEnd - farStart);\r\n    coc = clamp(coc, 0.0, 1.0);\r\n    gl_FragColor = vec4(coc, coc, coc, 1.0);\r\n}\r\n";
+    var PrefilterFS = "#if defined(GL_FRAGMENT_PRECISION_HIGH)\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\n#define SHADER_NAME PrefilterFS\r\n\r\nuniform sampler2D u_MainTex;\r\nuniform sampler2D u_FullCoCTex;\r\nuniform vec4 u_MainTex_TexelSize;\r\n\r\nvarying vec2 v_Texcoord0;\r\n\r\nconst int kCount = 5;\r\nvec2 kTaps[5];\r\n\r\nvoid main () {\r\n\r\n    kTaps[0] = vec2( 0.0,  0.0);\r\n    kTaps[1] = vec2( 0.9, -0.4);\r\n    kTaps[2] = vec2(-0.9,  0.4);\r\n    kTaps[3] = vec2( 0.4,  0.9);\r\n    kTaps[4] = vec2(-0.4, -0.9);\r\n\r\n    vec3 colorAcc = vec3(0.0);\r\n    float farCoCAcc = 0.0;\r\n    for (int i = 0; i < kCount; i++) {\r\n        vec2 uv = u_MainTex_TexelSize.xy * kTaps[i] + v_Texcoord0;\r\n        vec3 tapColor = texture2D(u_MainTex, uv).rgb;\r\n        float coc = texture2D(u_FullCoCTex, uv).r;\r\n\r\n        colorAcc += tapColor * coc;\r\n        farCoCAcc += coc;\r\n    }\r\n    vec3 color = colorAcc * (1.0 / float(kCount));\r\n    float farCoC = farCoCAcc * (1.0 / float(kCount));\r\n\r\n    // float farCoC = texture2D(u_FullCoCTex, v_Texcoord0).x;\r\n    // vec3 color = texture2D(u_MainTex, v_Texcoord0).rgb;\r\n    // color *= farCoC;\r\n\r\n    gl_FragColor = vec4(color, farCoC);\r\n}";
+    var BlurVFS = "#if defined(GL_FRAGMENT_PRECISION_HIGH)\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\n#define SHADER_NAME BlurVFS\r\n\r\nuniform sampler2D u_MainTex;\r\n\r\nuniform vec4 u_SourceSize;\r\nuniform vec4 u_DownSampleScale;\r\nuniform vec3 u_CoCParams;\r\n\r\nvarying vec2 v_Texcoord0;\r\n\r\n// todo 3 & 5\r\nconst int kTapCount = 3;\r\nfloat kOffsets[3];\r\nfloat kCoeffs[3];\r\n\r\n\r\nvec4 Blur(vec2 dir, float premultiply) {\r\n\r\n    kOffsets[0] = -1.33333333;\r\n    kOffsets[1] = 0.00000000;\r\n    kOffsets[2] = 1.33333333;\r\n\r\n    kCoeffs[0] = 0.35294118;\r\n    kCoeffs[1] = 0.29411765;\r\n    kCoeffs[2] = 0.3529411;\r\n\r\n    vec2 uv = v_Texcoord0;\r\n    // ivec2 positionSS = ivec2(u_SourceSize.xy * uv);\r\n\r\n    vec4 halfColor = texture2D(u_MainTex, uv);\r\n    float samp0CoC = halfColor.a;\r\n\r\n    float maxRadius = u_CoCParams.z;\r\n    vec2 offset = u_SourceSize.zw * dir * samp0CoC * maxRadius;\r\n\r\n    vec4 acc = vec4(0.0);\r\n\r\n    for (int i = 0; i < kTapCount; i++) {\r\n        vec2 sampCoord = uv + kOffsets[i] * offset;\r\n        vec4 samp = texture2D(u_MainTex, sampCoord);\r\n        float sampCoC = samp.w;\r\n        vec3 sampColor = samp.xyz;\r\n\r\n        float weight = clamp(1.0 - (samp0CoC - sampCoC), 0.0, 1.0);\r\n        acc += vec4(sampColor, 1.0) * kCoeffs[i] * weight;\r\n    }\r\n\r\n    acc.xyz /= acc.w + 1e-4;\r\n    return vec4(acc.xyz, 1.0);\r\n}\r\n\r\nvoid main() {\r\n    gl_FragColor = Blur(vec2(0.0, 1.0), 0.0);\r\n    // gl_FragColor = texture2D(u_MainTex, v_Texcoord0);\r\n}\r\n";
+    var BlurHFS = "#if defined(GL_FRAGMENT_PRECISION_HIGH)\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\n#define SHADER_NAME BlurHFS\r\n\r\nuniform sampler2D u_MainTex;\r\n\r\nuniform vec4 u_SourceSize;\r\nuniform vec4 u_DownSampleScale;\r\nuniform vec3 u_CoCParams;\r\n\r\nvarying vec2 v_Texcoord0;\r\n\r\nconst int kTapCount = 3;\r\nfloat kOffsets[3];\r\nfloat kCoeffs[3];\r\n\r\nvec4 Blur(vec2 dir, float premultiply) {\r\n\r\n    kOffsets[0] = -1.33333333;\r\n    kOffsets[1] = 0.00000000;\r\n    kOffsets[2] = 1.33333333;\r\n\r\n    kCoeffs[0] = 0.35294118;\r\n    kCoeffs[1] = 0.29411765;\r\n    kCoeffs[2] = 0.3529411;\r\n\r\n    vec2 uv = v_Texcoord0;\r\n    // ivec2 positionSS = ivec2(u_SourceSize.xy * uv);\r\n\r\n    vec4 halfColor = texture2D(u_MainTex, uv);\r\n    float samp0CoC = halfColor.a;\r\n\r\n    float maxRadius = u_CoCParams.z;\r\n    vec2 offset = u_SourceSize.zw  * dir * samp0CoC * maxRadius;\r\n\r\n    vec4 acc = vec4(0.0);\r\n\r\n    for (int i = 0; i < kTapCount; i++) {\r\n        vec2 sampCoord = uv + kOffsets[i] * offset;\r\n        vec4 samp = texture2D(u_MainTex, sampCoord);\r\n        float sampCoC = samp.a;\r\n        vec3 sampColor = samp.rgb;\r\n\r\n        float weight = clamp(1.0 - (samp0CoC - sampCoC), 0.0, 1.0);\r\n        acc += vec4(sampColor, sampCoC) * kCoeffs[i] * weight;\r\n    }\r\n\r\n    acc.xyz /= acc.w + 1e-4;\r\n    return vec4(acc.xyz, samp0CoC);\r\n}\r\n\r\nvoid main() {\r\n    gl_FragColor = Blur(vec2(1.0, 0.0), 1.0);\r\n}";
+    var CompositeFS = "#if defined(GL_FRAGMENT_PRECISION_HIGH)\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\nuniform sampler2D u_MainTex;\r\nuniform sampler2D u_BlurCoCTex;\r\nuniform sampler2D u_FullCoCTex;\r\n\r\nvarying vec2 v_Texcoord0;\r\n\r\nvoid main() {\r\n\r\n    vec3 baseColor = texture2D(u_MainTex, v_Texcoord0).rgb;\r\n    vec4 samplevalue = texture2D(u_BlurCoCTex, v_Texcoord0);\r\n    vec3 farColor = samplevalue.rgb;\r\n    float coc = texture2D(u_FullCoCTex, v_Texcoord0).r;\r\n\r\n    vec3 dstColor = vec3(0.0);\r\n    float dstAlpha = 1.0;\r\n\r\n    float blend = sqrt(coc * 3.14 * 2.0);\r\n    dstColor = farColor * clamp(blend, 0.0, 1.0);\r\n    dstAlpha = clamp(1.0 - blend, 0.0, 1.0);\r\n\r\n\r\n    gl_FragColor = vec4(baseColor * dstAlpha + dstColor, 1.0);\r\n\r\n}";
+    class GaussianDoF extends Laya.PostProcessEffect {
+        constructor() {
+            GaussianDoF.__init__();
+            super();
+            this._shader = Laya.Shader3D.find("GaussianDoF");
+            this._shaderData = new Laya.ShaderData();
+            this._shaderData.setVector3(GaussianDoF.COCPARAMS, new Laya.Vector3(10, 30, 1));
+            this._zBufferParams = new Laya.Vector4();
+            this._sourceSize = new Laya.Vector4();
+            this._dowmSampleScale = new Laya.Vector4();
+            GaussianDoF.SOURCESIZE = Laya.Shader3D.propertyNameToID("u_SourceSize");
+            GaussianDoF.ZBUFFERPARAMS = Laya.Shader3D.propertyNameToID("u_ZBufferParams");
+            GaussianDoF.COCPARAMS = Laya.Shader3D.propertyNameToID("u_CoCParams");
+            GaussianDoF.DEPTHTEXTURE = Laya.Shader3D.propertyNameToID("u_CameraDepthTexture");
+            GaussianDoF.NORMALDEPTHTEXTURE = Laya.Shader3D.propertyNameToID("u_CameraDepthNormalTexture");
+            GaussianDoF.FULLCOCTEXTURE = Laya.Shader3D.propertyNameToID("u_FullCoCTex");
+            GaussianDoF.DOWNSAMPLESCALE = Laya.Shader3D.propertyNameToID("u_DownSampleScale");
+            GaussianDoF.BLURCOCTEXTURE = Laya.Shader3D.propertyNameToID("u_BlurCoCTex");
+        }
+        static __init__() {
+            GaussianDoF.SOURCESIZE = Laya.Shader3D.propertyNameToID("u_SourceSize");
+            GaussianDoF.ZBUFFERPARAMS = Laya.Shader3D.propertyNameToID("u_ZBufferParams");
+            GaussianDoF.COCPARAMS = Laya.Shader3D.propertyNameToID("u_CoCParams");
+            GaussianDoF.DEPTHTEXTURE = Laya.Shader3D.propertyNameToID("u_CameraDepthTexture");
+            GaussianDoF.NORMALDEPTHTEXTURE = Laya.Shader3D.propertyNameToID("u_CameraDepthNormalTexture");
+            GaussianDoF.FULLCOCTEXTURE = Laya.Shader3D.propertyNameToID("u_FullCoCTex");
+            GaussianDoF.DOWNSAMPLESCALE = Laya.Shader3D.propertyNameToID("u_DownSampleScale");
+            GaussianDoF.BLURCOCTEXTURE = Laya.Shader3D.propertyNameToID("u_BlurCoCTex");
+            GaussianDoF.SHADERDEFINE_DEPTHNORMALTEXTURE = Laya.Shader3D.getDefineByName("CAMERA_NORMALDEPTH");
+            let attributeMap = {
+                'a_PositionTexcoord': Laya.VertexMesh.MESH_POSITION0
+            };
+            let uniformMap = {
+                'u_MainTex': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_OffsetScale': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_ZBufferParams': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_CoCParams': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_CameraDepthTexture': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_CameraDepthNormalTexture': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_FullCoCTex': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_SourceSize': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_DownSampleScale': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_BlurCoCTex': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_MainTex_TexelSize': Laya.Shader3D.PERIOD_MATERIAL,
+            };
+            let shader = Laya.Shader3D.add("GaussianDoF");
+            let cocSubShader = new Laya.SubShader(attributeMap, uniformMap);
+            shader.addSubShader(cocSubShader);
+            let cocPass = cocSubShader.addShaderPass(FullScreenVert, CoCFS);
+            let prefilterSubShader = new Laya.SubShader(attributeMap, uniformMap);
+            shader.addSubShader(prefilterSubShader);
+            let prefilterPass = prefilterSubShader.addShaderPass(FullScreenVert, PrefilterFS);
+            let blurHSubShader = new Laya.SubShader(attributeMap, uniformMap);
+            shader.addSubShader(blurHSubShader);
+            let blurHPass = blurHSubShader.addShaderPass(FullScreenVert, BlurHFS);
+            let blurVSubShader = new Laya.SubShader(attributeMap, uniformMap);
+            shader.addSubShader(blurVSubShader);
+            let blurVPass = blurVSubShader.addShaderPass(FullScreenVert, BlurVFS);
+            let compositeSubShader = new Laya.SubShader(attributeMap, uniformMap);
+            shader.addSubShader(compositeSubShader);
+            let compositePass = compositeSubShader.addShaderPass(FullScreenVert, CompositeFS);
+        }
+        set farStart(value) {
+            let cocParams = this._shaderData.getVector3(GaussianDoF.COCPARAMS);
+            cocParams.x = value;
+            this._shaderData.setVector3(GaussianDoF.COCPARAMS, cocParams);
+        }
+        get farStart() {
+            return this._shaderData.getVector3(GaussianDoF.COCPARAMS).x;
+        }
+        set farEnd(value) {
+            let cocParams = this._shaderData.getVector3(GaussianDoF.COCPARAMS);
+            cocParams.y = Math.max(cocParams.x, value);
+            this._shaderData.setVector3(GaussianDoF.COCPARAMS, cocParams);
+        }
+        get farEnd() {
+            return this._shaderData.getVector3(GaussianDoF.COCPARAMS).y;
+        }
+        set maxRadius(value) {
+            let cocParams = this._shaderData.getVector3(GaussianDoF.COCPARAMS);
+            cocParams.z = Math.min(value, 2);
+            this._shaderData.setVector3(GaussianDoF.COCPARAMS, cocParams);
+        }
+        get maxRadius() {
+            return this._shaderData.getVector3(GaussianDoF.COCPARAMS).z;
+        }
+        setupShaderValue(context) {
+            let camera = context.camera;
+            let source = context.source;
+            this._dowmSampleScale.setValue(0.5, 0.5, 2.0, 2.0);
+            this._shaderData.setVector(GaussianDoF.DOWNSAMPLESCALE, this._dowmSampleScale);
+            let far = camera.farPlane;
+            let near = camera.nearPlane;
+            this._zBufferParams.setValue(1.0 - far / near, far / near, (near - far) / (near * far), 1 / near);
+            this._shaderData.setVector(GaussianDoF.ZBUFFERPARAMS, this._zBufferParams);
+            if (camera.depthTextureMode & Laya.DepthTextureMode.Depth) {
+                let depthTexture = camera.depthTexture;
+                this._shaderData.setTexture(GaussianDoF.DEPTHTEXTURE, depthTexture);
+                this._shaderData.removeDefine(GaussianDoF.SHADERDEFINE_DEPTHNORMALTEXTURE);
+            }
+            else if (camera.depthTextureMode & Laya.DepthTextureMode.DepthNormals) {
+                let depthNormalTexture = camera.depthNormalTexture;
+                this._shaderData.setTexture(GaussianDoF.NORMALDEPTHTEXTURE, depthNormalTexture);
+                this._shaderData.addDefine(GaussianDoF.SHADERDEFINE_DEPTHNORMALTEXTURE);
+            }
+            else {
+                camera.depthTextureMode |= Laya.DepthTextureMode.Depth;
+            }
+        }
+        render(context) {
+            let cmd = context.command;
+            let viewport = context.camera.viewport;
+            let camera = context.camera;
+            this.setupShaderValue(context);
+            let source = context.source;
+            let shader = this._shader;
+            let shaderData = this._shaderData;
+            let dataTexFormat = Laya.RenderTextureFormat.R16G16B16A16;
+            let fullCoC = Laya.RenderTexture.createFromPool(source.width, source.height, dataTexFormat, Laya.RenderTextureDepthFormat.DEPTHSTENCIL_NONE, 1);
+            cmd.blitScreenTriangle(source, fullCoC, null, shader, shaderData, 0);
+            fullCoC.filterMode = Laya.FilterMode.Bilinear;
+            this._shaderData.setTexture(GaussianDoF.FULLCOCTEXTURE, fullCoC);
+            let prefilterTex = Laya.RenderTexture.createFromPool(source.width / 2, source.height / 2, dataTexFormat, Laya.RenderTextureDepthFormat.DEPTHSTENCIL_NONE, 1);
+            cmd.blitScreenTriangle(source, prefilterTex, null, shader, shaderData, 1);
+            prefilterTex.filterMode = Laya.FilterMode.Bilinear;
+            this._sourceSize.setValue(prefilterTex.width, prefilterTex.height, 1.0 / prefilterTex.width, 1.0 / prefilterTex.height);
+            this._shaderData.setValueData(GaussianDoF.SOURCESIZE, this._sourceSize);
+            let blurHTex = Laya.RenderTexture.createFromPool(prefilterTex.width, prefilterTex.height, dataTexFormat, Laya.RenderTextureDepthFormat.DEPTHSTENCIL_NONE, 1);
+            cmd.blitScreenTriangle(prefilterTex, blurHTex, null, this._shader, this._shaderData, 2);
+            let blurVTex = Laya.RenderTexture.createFromPool(prefilterTex.width, prefilterTex.height, dataTexFormat, Laya.RenderTextureDepthFormat.DEPTHSTENCIL_NONE, 1);
+            cmd.blitScreenTriangle(blurHTex, blurVTex, null, this._shader, this._shaderData, 3);
+            blurVTex.filterMode = Laya.FilterMode.Bilinear;
+            blurVTex.anisoLevel = 1;
+            fullCoC.filterMode = Laya.FilterMode.Point;
+            this._shaderData.setTexture(GaussianDoF.BLURCOCTEXTURE, blurVTex);
+            let finalTex = Laya.RenderTexture.createFromPool(source.width, source.height, source.format, source.depthStencilFormat, 1);
+            cmd.blitScreenTriangle(source, finalTex, null, this._shader, this._shaderData, 4);
+            context.source = finalTex;
+            Laya.RenderTexture.recoverToPool(fullCoC);
+            Laya.RenderTexture.recoverToPool(prefilterTex);
+            Laya.RenderTexture.recoverToPool(blurHTex);
+            Laya.RenderTexture.recoverToPool(blurVTex);
+            context.deferredReleaseTextures.push(finalTex);
+        }
+    }
+
+    var Shader3D$3 = Laya.Shader3D;
+    var Loader$3 = Laya.Loader;
+    var DepthTextureMode$1 = Laya.DepthTextureMode;
+    var PostProcess$3 = Laya.PostProcess;
+    var Handler$5 = Laya.Handler;
+    class PostProcessDoF extends SingletonScene {
+        constructor() {
+            super();
+            Shader3D$3.debugMode = true;
+            Laya.loader.create(GlobalConfig.ResPath + "res/threeDimen/LayaScene_zhuandibanben/Conventional/zhuandibanben.ls", Handler$5.create(this, this.onComplate));
+        }
+        onComplate() {
+            let scene = this.scene = Loader$3.getRes(GlobalConfig.ResPath + "res/threeDimen/LayaScene_zhuandibanben/Conventional/zhuandibanben.ls");
+            this.AutoSetScene3d(scene);
+            let camera = this.camera = scene.getChildByName("MainCamera");
+            camera.addComponent(CameraMoveScript);
+            let mainCamera = scene.getChildByName("BlurCamera");
+            mainCamera.removeSelf();
+            camera.depthTextureMode |= DepthTextureMode$1.Depth;
+            let postProcess = new PostProcess$3();
+            camera.postProcess = postProcess;
+            let gaussianDoF = new GaussianDoF();
+            console.log(gaussianDoF);
+            postProcess.addEffect(gaussianDoF);
+            gaussianDoF.farStart = 1;
+            gaussianDoF.farEnd = 5;
+            gaussianDoF.maxRadius = 1.0;
+        }
+    }
+
+    var BlitScreenVS = "#if defined(GL_FRAGMENT_PRECISION_HIGH)\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\n#include \"Lighting.glsl\";\r\n\r\n#define SHADER_NAME ScalableAO:VS\r\n\r\nattribute vec4 a_PositionTexcoord;\r\nuniform vec4 u_OffsetScale;\r\nvarying vec2 v_Texcoord0;\r\n\r\nuniform mat4 u_Projection;\r\nuniform mat4 u_View;\r\n\r\nvarying mat4 v_inverseView;\r\nvarying mat4 v_inverseProj;\r\n\r\nvoid main() {\t\r\n\tgl_Position = vec4(u_OffsetScale.x*2.0-1.0+(a_PositionTexcoord.x+1.0)*u_OffsetScale.z,(1.0-((u_OffsetScale.y*2.0-1.0+(-a_PositionTexcoord.y+1.0)*u_OffsetScale.w)+1.0)/2.0)*2.0-1.0, 0.0, 1.0);\t\r\n\tv_Texcoord0 = a_PositionTexcoord.zw;\r\n\tgl_Position = remapGLPositionZ(gl_Position);\r\n\r\n\tv_inverseView = INVERSE_MAT(u_View);\r\n\tv_inverseProj = INVERSE_MAT(u_Projection);\r\n}";
+    var FragAO = "#if defined(GL_FRAGMENT_PRECISION_HIGH)\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\n#define SHADER_NAME FragAO\r\n\r\n#include \"DepthNormalUtil.glsl\";\r\n\r\n// define const\r\n#define SAMPLE_COUNT 6.0\r\n#define TWO_PI 6.28318530718\r\n#define EPSILON 1.0e-4\r\nconst float kBeta = 0.002;\r\nconst float kContrast = 0.6;\r\n// varying\r\nvarying vec2 v_Texcoord0;\r\nvarying mat4 v_inverseProj;\r\n// uniform\r\nuniform sampler2D u_MainTex;\r\nuniform float u_radius;\r\nuniform float u_Intensity;\r\n\r\n\r\nuniform mat4 u_Projection;\r\nuniform vec4 u_ProjectionParams;\r\nuniform mat4 u_ViewProjection;\r\nuniform mat4 u_View;\r\nuniform float u_Time;\r\n\r\n// é‡‡æ · depthNormalTexture, è¿”å›ž positionCS.z, normalVS\r\nfloat GetDepthCSNormalVS(vec2 uv, out vec3 normalVS) {\r\n    vec4 env = texture2D(u_CameraDepthNormalsTexture, uv);\r\n    float depthCS = 0.0;\r\n    DecodeDepthNormal(env, depthCS, normalVS);\r\n    normalVS = normalize(normalVS);\r\n    return depthCS;\r\n}\r\n\r\n// è¿”å›ž è§‚å¯Ÿç©ºé—´æ·±åº¦\r\nfloat GetDepthVS(float depthCS) {\r\n\r\n    return LinearEyeDepth(depthCS, u_ZBufferParams);\r\n    // return depthCS * 20.0;\r\n}\r\n\r\n// æ ¹æ®å±å¹•uvå’Œæ·±åº¦å€¼ï¼Œè®¡ç®— è§‚å¯Ÿç©ºé—´åæ ‡\r\nvec3 GetPositionVS(vec2 uv, float depthCS) {\r\n    vec3 positionNDC = vec3(uv * 2.0 - 1.0, depthCS);\r\n\r\n    vec4 positionVS = v_inverseProj * vec4(positionNDC, 1.0);\r\n    return positionVS.xyz / positionVS.w;\r\n}\r\n\r\nfloat UVRandom(float u, float v) {\r\n    float f = dot(vec2(12.9898, 78.233), vec2(u, v));\r\n    return fract(43758.5453 * sin(f));\r\n}\r\n\r\n// èŽ·å–éšæœºåç§»\r\nvec3 PickSamplePoint(vec2 uv, int i) {\r\n    float index = float(i);\r\n\r\n    float time =sin(u_Time*2.0);\r\n    // todo  é‡‡æ · noise ä»£æ›¿è®¡ç®—éšæœº?\r\n    float u = UVRandom(uv.x + time, uv.y + index) * 2.0 - 1.0;\r\n    float theta = UVRandom(-uv.x - time, uv.y + index) * TWO_PI;\r\n\r\n    vec3 v = vec3(vec2(cos(theta), sin(theta)) * sqrt(1.0 - u * u), u);\r\n    float l = sqrt((index + 1.0) / SAMPLE_COUNT) * u_radius;\r\n    return v * l;\r\n}\r\n\r\nvec4 PackAONormal(float ao, vec3 normal) {\r\n    return vec4(ao, normal * 0.5 + 0.5);\r\n}\r\n\r\nvoid main() {\r\n    vec2 uv = v_Texcoord0;\r\n    //æ³•çº¿\r\n    vec3 normalVS = vec3(0.0);\r\n    float depthCS = GetDepthCSNormalVS(uv, normalVS);\r\n    //éžçº¿æ€§æ·±åº¦\r\n    depthCS = SAMPLE_DEPTH_TEXTURE(u_CameraDepthTexture, uv);\r\n    //çº¿æ€§æ·±åº¦\r\n    float depthVS = GetDepthVS(depthCS);\r\n    //èŽ·å¾—è§‚å¯Ÿç©ºé—´çš„ä½ç½®\r\n    vec3 positionVS = GetPositionVS(uv, depthCS);\r\n\r\n    float ao = 0.0;\r\n    vec3 tempNormalVS;\r\n    \r\n    for (int s = 0; s < int(SAMPLE_COUNT); s++) {\r\n        // éšæœºåç§»\r\n        vec3 sampleOffset = PickSamplePoint(uv, s);\r\n        // è°ƒæ•´åç§»æ–¹å‘ï¼Œ ä¸Ž normalVS åŒå‘,ä¿è¯åŠçƒ\r\n        sampleOffset = -sampleOffset * sign(dot(-normalVS , sampleOffset));\r\n        sampleOffset = sampleOffset*0.5;\r\n\r\n        vec3 positionVS_S = sampleOffset + positionVS;\r\n\r\n        // å°†åç§»åŽview space åæ ‡ ä¹˜ä¸ŠæŠ•å½±çŸ©é˜µè½¬æ¢åˆ° clip space\r\n        vec3 positionCS_S = (u_Projection * vec4(positionVS_S, 1.0)).xyz;\r\n        // èŽ·å– åç§»ç‚¹ çš„å±å¹• uv\r\n        vec2 uv_S = (positionCS_S.xy / (-positionVS_S.z) + 1.0) * 0.5;\r\n        // é‡‡æ · uv_S èŽ·å– æ·±åº¦å€¼\r\n        //å–å¾—æ·±åº¦\r\n        float depthCS_S = SAMPLE_DEPTH_TEXTURE(u_CameraDepthTexture, uv_S);\r\n        if (uv_S.x < 0.0 || uv_S.y > 1.0) {\r\n            depthCS_S += 1.0e8;\r\n        }\r\n        //å¾—åˆ°é‡‡æ ·ç‚¹çš„ä¸–ç•Œåæ ‡\r\n        vec3 positionVS_S2 = GetPositionVS(uv_S, depthCS_S);\r\n        vec3 sampleOffset2 = positionVS_S2 - positionVS;\r\n        float a1 = max(dot(sampleOffset2, normalVS) - kBeta * depthVS, 0.0);\r\n        float a2 = dot(sampleOffset2, sampleOffset2) + EPSILON;\r\n        ao += a1/ a2;\r\n    }\r\n\r\n    ao *= u_radius;\r\n\r\n    ao = pow(abs(ao * u_Intensity / SAMPLE_COUNT), kContrast);\r\n\r\n     gl_FragColor = PackAONormal(ao, normalVS);\r\n}";
+    var AoBlurHorizontal = "#if defined(GL_FRAGMENT_PRECISION_HIGH)\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\n#define SHADER_NAME AOBlurHorizontal\r\n//è´¨é‡\r\n#define BLUR_HIGH_QUALITY 0\r\n\r\nuniform sampler2D u_MainTex;\r\nuniform vec4 u_MainTex_TexelSize;\r\nvarying vec2 v_Texcoord0;\r\n\r\nuniform vec2 u_Delty;\r\n\r\nvec3 GetPackedNormal(vec4 p)\r\n{\r\n    return p.gba * 2.0 - 1.0;\r\n}\r\n\r\nfloat CompareNormal(vec3 d1, vec3 d2)\r\n{\r\n    return smoothstep(0.8, 1.0, dot(d1, d2));\r\n}\r\n\r\nfloat GetPackedAO(vec4 p)\r\n{\r\n    return p.r;\r\n}\r\n\r\nvec4 PackAONormal(float ao, vec3 normal) {\r\n    return vec4(ao, normal * 0.5 + 0.5);\r\n}\r\n\r\nvoid main() {\r\n\t vec2 delta = vec2(u_MainTex_TexelSize.x * 2.0*u_Delty.x,u_Delty.y*u_MainTex_TexelSize.y*2.0);\r\n\t vec2 uv = v_Texcoord0;\r\n\r\n\r\n#if defined(BLUR_HIGH_QUALITY)\r\n\r\n    // High quality 7-tap Gaussian with adaptive sampling\r\n\tvec2 uvtran = uv;\r\n    vec4 p0  = texture2D(u_MainTex,uv);\r\n\tuvtran = uv-delta;\r\n    vec4 p1a = texture2D(u_MainTex,uvtran);\r\n\tuvtran = uv+delta;\r\n    vec4 p1b = texture2D(u_MainTex,uvtran);\r\n\tuvtran = uv-delta*2.0;\r\n    vec4 p2a =  texture2D(u_MainTex,uvtran);\r\n\tuvtran = uv+delta*2.0;\r\n    vec4 p2b =  texture2D(u_MainTex,uvtran);\r\n\tuvtran = uv-delta * 3.2307692308;\r\n    vec4 p3a =  texture2D(u_MainTex,uvtran);;\r\n\tuvtran = uv+delta * 3.2307692308;\r\n    vec4 p3b =  texture2D(u_MainTex,uvtran);;\r\n\r\n    vec3 n0 = GetPackedNormal(p0);\r\n    \r\n\r\n    float w0  = 0.37004405286;\r\n    float w1a = CompareNormal(n0, GetPackedNormal(p1a)) * 0.31718061674;\r\n    float w1b = CompareNormal(n0, GetPackedNormal(p1b)) * 0.31718061674;\r\n    float w2a = CompareNormal(n0, GetPackedNormal(p2a)) * 0.19823788546;\r\n    float w2b = CompareNormal(n0, GetPackedNormal(p2b)) * 0.19823788546;\r\n    float w3a = CompareNormal(n0, GetPackedNormal(p3a)) * 0.11453744493;\r\n    float w3b = CompareNormal(n0, GetPackedNormal(p3b)) * 0.11453744493;\r\n\r\n    float s;\r\n    s  = GetPackedAO(p0)  * w0;\r\n    s += GetPackedAO(p1a) * w1a;\r\n    s += GetPackedAO(p1b) * w1b;\r\n    s += GetPackedAO(p2a) * w2a;\r\n    s += GetPackedAO(p2b) * w2b;\r\n    s += GetPackedAO(p3a) * w3a;\r\n    s += GetPackedAO(p3b) * w3b;\r\n\r\n    s /= w0 + w1a + w1b + w2a + w2b + w3a + w3b;\r\n\r\n#else\r\n\r\n    // Fater 5-tap Gaussian with linear sampling\r\n    vec4 p0  = texture2D(u_MainTex, sampler_MainTex, i.texcoordStereo);\r\n    vec4 p1a = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, UnityStereoTransformScreenSpaceTex(i.texcoord - delta * 1.3846153846));\r\n    vec4 p1b = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, UnityStereoTransformScreenSpaceTex(i.texcoord + delta * 1.3846153846));\r\n    vec4 p2a = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, UnityStereoTransformScreenSpaceTex(i.texcoord - delta * 3.2307692308));\r\n    vec4 p2b = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, UnityStereoTransformScreenSpaceTex(i.texcoord + delta * 3.2307692308));\r\n\r\n\tvec2 uvtran = uv;\r\n    vec4 p0  = texture2D(u_MainTex,uv);\r\n\tuvtran = uv-delta * 1.3846153846;\r\n    vec4 p1a = texture2D(u_MainTex,uvtran);\r\n\tuvtran = uv+delta * 1.3846153846;\r\n    vec4 p1b = texture2D(u_MainTex,uvtran);\r\n\tuvtran = uv-delta*3.2307692308;\r\n    vec4 p2a =  texture2D(u_MainTex,uvtran);\r\n\tuvtran = uv+delta*3.2307692308;\r\n    vec4 p2b =  texture2D(u_MainTex,uvtran);\r\n\r\n \tvec3 n0 = GetPackedNormal(p0);\r\n\r\n    float w0  = 0.2270270270;\r\n    float w1a = CompareNormal(n0, GetPackedNormal(p1a)) * 0.3162162162;\r\n    float w1b = CompareNormal(n0, GetPackedNormal(p1b)) * 0.3162162162;\r\n    float w2a = CompareNormal(n0, GetPackedNormal(p2a)) * 0.0702702703;\r\n    float w2b = CompareNormal(n0, GetPackedNormal(p2b)) * 0.0702702703;\r\n\r\n    float s;\r\n    s  = GetPackedAO(p0)  * w0;\r\n    s += GetPackedAO(p1a) * w1a;\r\n    s += GetPackedAO(p1b) * w1b;\r\n    s += GetPackedAO(p2a) * w2a;\r\n    s += GetPackedAO(p2b) * w2b;\r\n\r\n    s /= w0 + w1a + w1b + w2a + w2b;\r\n\r\n#endif\r\n\r\n    gl_FragColor = PackAONormal(s, n0);;\r\n}";
+    var AOComposition = "#if defined(GL_FRAGMENT_PRECISION_HIGH)\r\n\tprecision highp float;\r\n#else\r\n\tprecision mediump float;\r\n#endif\r\n\r\n#define SHADER_NAME AOBlurHorizontal\r\n//è´¨é‡\r\n#define BLUR_HIGH_QUALITY 0\r\n\r\nuniform sampler2D u_MainTex;\r\nuniform vec4 u_MainTex_TexelSize;\r\nuniform vec3 u_AOColor;\r\nuniform sampler2D u_compositionAoTexture;\r\nvarying vec2 v_Texcoord0;\r\n\r\nvec3 GetPackedNormal(vec4 p)\r\n{\r\n    return p.gba * 2.0 - 1.0;\r\n}\r\nfloat CompareNormal(vec3 d1, vec3 d2)\r\n{\r\n    return smoothstep(0.8, 1.0, dot(d1, d2));\r\n}\r\nfloat GetPackedAO(vec4 p)\r\n{\r\n    return p.r;\r\n}\r\n// Geometry-aware bilateral filter (single pass/small kernel)\r\nfloat BlurSmall(sampler2D tex, vec2 uv, vec2 delta)\r\n{\r\n    vec4 p0 = texture2D(tex,uv);\r\n    vec2 uvtran =uv+vec2(-delta.x,-delta.y) ;\r\n    vec4 p1 = texture2D(tex,uvtran);\r\n    uvtran =uv+vec2(delta.x,-delta.y);\r\n    vec4 p2 = texture2D(tex, uvtran);\r\n    uvtran =uv+vec2(-delta.x,delta.y) ;\r\n    vec4 p3 = texture2D(tex, uvtran);\r\n    uvtran =uv+delta;\r\n    vec4 p4 = texture2D(tex, uvtran);\r\n\r\n    vec3 n0 = GetPackedNormal(p0);\r\n\r\n    float w0 = 1.0;\r\n    float w1 = CompareNormal(n0, GetPackedNormal(p1));\r\n    float w2 = CompareNormal(n0, GetPackedNormal(p2));\r\n    float w3 = CompareNormal(n0, GetPackedNormal(p3));\r\n    float w4 = CompareNormal(n0, GetPackedNormal(p4));\r\n\r\n    float s;\r\n    s  = GetPackedAO(p0) * w0;\r\n    s += GetPackedAO(p1) * w1;\r\n    s += GetPackedAO(p2) * w2;\r\n    s += GetPackedAO(p3) * w3;\r\n    s += GetPackedAO(p4) * w4;\r\n\r\n    return s / (w0 + w1 + w2 + w3 + w4);\r\n}\r\n\r\nvoid main() {\r\n    vec2 uv = v_Texcoord0;\r\n    vec2 delty = u_MainTex_TexelSize.xy;\r\n    float ao = BlurSmall(u_compositionAoTexture,uv,delty);\r\n    vec4 albedo = texture2D(u_MainTex,uv);\r\n    vec4 aocolor = vec4(ao*u_AOColor,ao);\r\n    //albedo.rgb = ao*u_AOColor*albedo.rgb;\r\n    albedo.rgb = albedo.rgb*(1.0-ao)+ao*u_AOColor*ao;\r\n    gl_FragColor = albedo;\r\n\r\n\r\n}";
+    class ScalableAO extends Laya.PostProcessEffect {
+        constructor() {
+            super();
+            ScalableAO.HasInit || ScalableAO.init();
+            this._shader = Laya.Shader3D.find("ScalableAO");
+            this._shaderData = new Laya.ShaderData();
+            this._aoBlurHorizontalShader = Laya.Shader3D.find("AOBlurHorizontal");
+            this._aoComposition = Laya.Shader3D.find("AOComposition");
+            ScalableAO.BlurDelty = Laya.Shader3D.propertyNameToID("u_Delty");
+            ScalableAO.AOColor = Laya.Shader3D.propertyNameToID("u_AOColor");
+            ScalableAO.aoTexture = Laya.Shader3D.propertyNameToID("u_compositionAoTexture");
+            ScalableAO.radius = Laya.Shader3D.propertyNameToID("u_radius");
+            ScalableAO.instance = Laya.Shader3D.propertyNameToID("u_Intensity");
+            ScalableAO.HasInit = false;
+            ScalableAO.deltyHorizontal = new Laya.Vector2(1.0, 0.0);
+            ScalableAO.deltyVector = new Laya.Vector2(0.0, 1.0);
+        }
+        static init() {
+            let attributeMap = {
+                'a_PositionTexcoord': Laya.VertexMesh.MESH_POSITION0
+            };
+            let uniformMap = {
+                'u_Projection': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_ProjectionParams': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_ViewProjection': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_ZBufferParams': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_View': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_Time': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_CameraDepthTexture': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_CameraDepthNormalsTexture': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_radius': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_Intensity': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_MainTex': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_OffsetScale': Laya.Shader3D.PERIOD_MATERIAL,
+            };
+            let shader = Laya.Shader3D.add("ScalableAO");
+            let subShader = new Laya.SubShader(attributeMap, uniformMap);
+            shader.addSubShader(subShader);
+            subShader.addShaderPass(BlitScreenVS, FragAO);
+            attributeMap = {
+                'a_PositionTexcoord': Laya.VertexMesh.MESH_POSITION0
+            };
+            shader = Laya.Shader3D.add("AOBlurHorizontal");
+            subShader = new Laya.SubShader(attributeMap, {
+                'u_MainTex': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_OffsetScale': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_View': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_Projection': Laya.Shader3D.PERIOD_MATERIAL
+            });
+            shader.addSubShader(subShader);
+            subShader.addShaderPass(BlitScreenVS, AoBlurHorizontal);
+            attributeMap = {
+                'a_PositionTexcoord': Laya.VertexMesh.MESH_POSITION0
+            };
+            shader = Laya.Shader3D.add("AOComposition");
+            subShader = new Laya.SubShader(attributeMap, {
+                'u_MainTex': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_OffsetScale': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_View': Laya.Shader3D.PERIOD_MATERIAL,
+                'u_Projection': Laya.Shader3D.PERIOD_MATERIAL
+            });
+            shader.addSubShader(subShader);
+            subShader.addShaderPass(BlitScreenVS, AOComposition);
+            ScalableAO.BlurDelty = Laya.Shader3D.propertyNameToID("u_Delty");
+            ScalableAO.AOColor = Laya.Shader3D.propertyNameToID("u_AOColor");
+            ScalableAO.aoTexture = Laya.Shader3D.propertyNameToID("u_compositionAoTexture");
+            ScalableAO.radius = Laya.Shader3D.propertyNameToID("u_radius");
+            ScalableAO.instance = Laya.Shader3D.propertyNameToID("u_Intensity");
+            ScalableAO.HasInit = false;
+            ScalableAO.deltyHorizontal = new Laya.Vector2(1.0, 0.0);
+            ScalableAO.deltyVector = new Laya.Vector2(0.0, 1.0);
+        }
+        set aoColor(value) {
+            this._shaderData.setVector3(ScalableAO.AOColor, value);
+        }
+        set instance(value) {
+            this._shaderData.setNumber(ScalableAO.instance, value);
+        }
+        set radius(value) {
+            this._shaderData.setNumber(ScalableAO.radius, value);
+        }
+        setUniform(camera) {
+            let scene = camera.scene;
+            let shaderData = this._shaderData;
+            shaderData.setVector2(ScalableAO.BlurDelty, ScalableAO.deltyHorizontal);
+        }
+        render(context) {
+            let cmd = context.command;
+            let viewport = context.camera.viewport;
+            let camera = context.camera;
+            camera.depthTextureMode |= Laya.DepthTextureMode.DepthNormals;
+            camera.depthTextureMode |= Laya.DepthTextureMode.Depth;
+            let depthNormalTexture = camera.depthNormalTexture;
+            let depthTexture = camera.depthTexture;
+            if (!depthNormalTexture || !depthTexture) {
+                return;
+            }
+            depthNormalTexture.wrapModeU = Laya.WarpMode.Clamp;
+            depthNormalTexture.wrapModeV = Laya.WarpMode.Clamp;
+            let source = context.source;
+            let width = source.width;
+            let height = source.height;
+            let textureFormat = source.format;
+            let depthFormat = Laya.RenderTextureDepthFormat.DEPTHSTENCIL_NONE;
+            let finalTex = Laya.RenderTexture.createFromPool(width, height, textureFormat, depthFormat);
+            let shader = this._shader;
+            let shaderData = this._shaderData;
+            this.setUniform(camera);
+            cmd.blitScreenTriangle(null, finalTex, null, shader, shaderData, 0);
+            let blurTex = Laya.RenderTexture.createFromPool(width, height, textureFormat, depthFormat);
+            cmd.blitScreenTriangle(finalTex, blurTex, null, this._aoBlurHorizontalShader, shaderData, 0);
+            cmd.setShaderDataVector2(shaderData, ScalableAO.BlurDelty, ScalableAO.deltyVector);
+            cmd.blitScreenTriangle(blurTex, finalTex, null, this._aoBlurHorizontalShader, this._shaderData, 0);
+            cmd.setShaderDataTexture(shaderData, ScalableAO.aoTexture, finalTex);
+            cmd.blitScreenTriangle(null, blurTex, null, this._aoComposition, this._shaderData, 0);
+            context.source = blurTex;
+            context.deferredReleaseTextures.push(finalTex);
+            context.deferredReleaseTextures.push(blurTex);
+        }
+    }
+
+    var Scene3D$4 = Laya.Scene3D;
+    var Camera$3 = Laya.Camera;
+    var PostProcess$4 = Laya.PostProcess;
+    var Shader3D$4 = Laya.Shader3D;
+    var Vector3$3 = Laya.Vector3;
+    var DirectionLight$2 = Laya.DirectionLight;
+    var Sprite3D$1 = Laya.Sprite3D;
+    var MeshSprite3D$1 = Laya.MeshSprite3D;
+    var PrimitiveMesh$1 = Laya.PrimitiveMesh;
+    var BlinnPhongMaterial = Laya.BlinnPhongMaterial;
+    var Button$4 = Laya.Button;
+    var Browser$4 = Laya.Browser;
+    var Event$4 = Laya.Event;
+    var Handler$6 = Laya.Handler;
+    class ProstProcess_AO extends SingletonScene {
+        constructor() {
+            super();
+            Shader3D$4.debugMode = true;
+            this.onResComplate();
+        }
+        onResComplate() {
+            this.s_scene = new Scene3D$4();
+            this.s_scene.ambientColor = new Vector3$3(1, 1, 1);
+            var camera = this.s_scene.addChild(new Camera$3(0, 0.1, 1000));
+            camera.transform.translate(new Vector3$3(0, 1, 5));
+            camera.transform.rotate(new Vector3$3(-15, 0, 0), true, false);
+            camera.addComponent(CameraMoveScript);
+            this.camera = camera;
+            var directionLight = this.s_scene.addChild(new DirectionLight$2());
+            directionLight.color.setValue(0.5, 0.5, 0.5);
+            var mat = directionLight.transform.worldMatrix;
+            mat.setForward(new Vector3$3(-1.0, -1.0, -1.0));
+            directionLight.transform.worldMatrix = mat;
+            this.addObjectInScene(this.s_scene);
+            this.addPostProcess(camera);
+            this.loadUI();
+        }
+        addObjectInScene(scene) {
+            let sprite = new Sprite3D$1();
+            scene.addChild(sprite);
+            let planeMesh = PrimitiveMesh$1.createPlane(10, 10, 1, 1);
+            let plane = new MeshSprite3D$1(planeMesh);
+            scene.addChild(plane);
+            let cubeMesh = PrimitiveMesh$1.createBox();
+            let sphere = PrimitiveMesh$1.createSphere(0.3);
+            let cube0 = new MeshSprite3D$1(cubeMesh);
+            let cube1 = new MeshSprite3D$1(cubeMesh);
+            let cube2 = new MeshSprite3D$1(cubeMesh);
+            let cube3 = new MeshSprite3D$1(cubeMesh);
+            let sphere0 = new MeshSprite3D$1(sphere);
+            let sphere1 = new MeshSprite3D$1(sphere);
+            let sphere2 = new MeshSprite3D$1(sphere);
+            let sphere3 = new MeshSprite3D$1(sphere);
+            cube0.meshRenderer.sharedMaterial = new BlinnPhongMaterial;
+            sprite.addChild(cube0);
+            sprite.addChild(cube1);
+            sprite.addChild(cube2);
+            sprite.addChild(cube3);
+            sprite.addChild(sphere0);
+            sprite.addChild(sphere1);
+            sprite.addChild(sphere2);
+            sprite.addChild(sphere3);
+            cube1.transform.position = new Vector3$3(-1, 0, 0);
+            cube2.transform.position = new Vector3$3(-1, 0, 1);
+            cube3.transform.position = new Vector3$3(-1, 1, 0);
+            sphere0.transform.position = new Vector3$3(-3, 0, 0);
+            sphere1.transform.position = new Vector3$3(2, 0, 0);
+            sphere2.transform.position = new Vector3$3(2, 0.5, 0);
+            sphere3.transform.position = new Vector3$3(-1, 0, 2);
+        }
+        addPostProcess(camera) {
+            let postProcess = new PostProcess$4();
+            camera.postProcess = postProcess;
+            this.postProcess = postProcess;
+            let ao = new ScalableAO();
+            ao.radius = 0.15;
+            ao.aoColor = new Vector3$3(0.0, 0.0, 0.0);
+            ao.instance = 0.5;
+            postProcess.addEffect(ao);
+        }
+        loadUI() {
+            Laya.loader.load([GlobalConfig.ResPath + "res/threeDimen/ui/button.png"], Handler$6.create(this, function () {
+                this.AutoSetScene3d(this.s_scene);
+                this.btn = Laya.stage.addChild(new Button$4(GlobalConfig.ResPath + "res/threeDimen/ui/button.png", "关闭AO"));
+                this.btn.size(200, 40);
+                this.btn.labelBold = true;
+                this.btn.labelSize = 30;
+                this.btn.sizeGrid = "4,4,4,4";
+                this.btn.scale(Browser$4.pixelRatio, Browser$4.pixelRatio);
+                this.btn.pos(Laya.stage.width / 2 - this.btn.width * Browser$4.pixelRatio / 2, Laya.stage.height - 60 * Browser$4.pixelRatio);
+                this.btn.on(Event$4.CLICK, this, function () {
+                    var enableHDR = !!this.camera.postProcess;
+                    if (enableHDR) {
+                        this.btn.label = "开启AO";
+                        this.camera.postProcess = null;
+                    }
+                    else {
+                        this.btn.label = "关闭AO";
+                        this.camera.postProcess = this.postProcess;
+                    }
+                });
+            }));
+        }
+        Show() {
+            super.Show();
+            if (this.btn) {
+                this.btn.visible = true;
+            }
+        }
+        Hide() {
+            super.Hide();
+            if (this.btn) {
+                this.btn.visible = false;
+            }
+        }
+    }
+
     class PostProcessMain extends SingletonMainScene {
         constructor() {
             super();
@@ -1622,15 +2564,19 @@
                     EventManager.DispatchEvent("BACKTOMAIN");
                     break;
                 case this.btnNameArr[1]:
+                    PostProcess_Blur.getInstance().Click();
                     break;
                 case this.btnNameArr[2]:
                     PostProcessBloom.getInstance().Click();
                     break;
                 case this.btnNameArr[3]:
+                    PostProcess_Edge.getInstance().Click();
                     break;
                 case this.btnNameArr[4]:
+                    PostProcessDoF.getInstance().Click();
                     break;
                 case this.btnNameArr[5]:
+                    ProstProcess_AO.getInstance().Click();
                     break;
             }
             console.log(name + "按钮_被点击");
@@ -1764,23 +2710,23 @@
         }
     }
 
-    var Handler$3 = Laya.Handler;
-    var Scene3D$2 = Laya.Scene3D;
-    var Camera$2 = Laya.Camera;
-    var Vector3$2 = Laya.Vector3;
-    var DirectionLight$1 = Laya.DirectionLight;
-    var MeshSprite3D = Laya.MeshSprite3D;
-    var Loader$2 = Laya.Loader;
+    var Handler$7 = Laya.Handler;
+    var Scene3D$5 = Laya.Scene3D;
+    var Camera$4 = Laya.Camera;
+    var Vector3$4 = Laya.Vector3;
+    var DirectionLight$3 = Laya.DirectionLight;
+    var MeshSprite3D$2 = Laya.MeshSprite3D;
+    var Loader$4 = Laya.Loader;
     var PBRStandardMaterial = Laya.PBRStandardMaterial;
     var Script3D = Laya.Script3D;
-    var PrimitiveMesh = Laya.PrimitiveMesh;
-    var Button$2 = Laya.Button;
-    var Browser$2 = Laya.Browser;
-    var Event$2 = Laya.Event;
+    var PrimitiveMesh$2 = Laya.PrimitiveMesh;
+    var Button$5 = Laya.Button;
+    var Browser$5 = Laya.Browser;
+    var Event$5 = Laya.Event;
     class RotationScript extends Script3D {
         constructor() {
             super(...arguments);
-            this.autoRotateSpeed = new Vector3$2(0, 0.05, 0);
+            this.autoRotateSpeed = new Vector3$4(0, 0.05, 0);
             this.rotation = true;
         }
         onUpdate() {
@@ -1794,26 +2740,26 @@
             Laya.loader.create([
                 GlobalConfig.ResPath + "res/threeDimen/staticModel/grid/plane.lh",
                 GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh"
-            ], Handler$3.create(this, this.onComplete));
+            ], Handler$7.create(this, this.onComplete));
         }
         onComplete() {
-            var scene = Laya.stage.addChild(new Scene3D$2());
-            var camera = (scene.addChild(new Camera$2(0, 0.1, 100)));
-            camera.transform.translate(new Vector3$2(0, 1.2, 1.6));
-            camera.transform.rotate(new Vector3$2(-35, 0, 0), true, false);
+            var scene = Laya.stage.addChild(new Scene3D$5());
+            var camera = (scene.addChild(new Camera$4(0, 0.1, 100)));
+            camera.transform.translate(new Vector3$4(0, 1.2, 1.6));
+            camera.transform.rotate(new Vector3$4(-35, 0, 0), true, false);
             camera.addComponent(CameraMoveScript);
-            var directionLight = scene.addChild(new DirectionLight$1());
-            directionLight.color = new Vector3$2(0.85, 0.85, 0.8);
-            directionLight.transform.rotate(new Vector3$2(-Math.PI / 3, 0, 0));
+            var directionLight = scene.addChild(new DirectionLight$3());
+            directionLight.color = new Vector3$4(0.85, 0.85, 0.8);
+            directionLight.transform.rotate(new Vector3$4(-Math.PI / 3, 0, 0));
             directionLight.shadowDistance = 3;
             directionLight.shadowResolution = 1024;
             var rotationScript = directionLight.addComponent(RotationScript);
-            var grid = scene.addChild(Loader$2.getRes(GlobalConfig.ResPath + "res/threeDimen/staticModel/grid/plane.lh"));
+            var grid = scene.addChild(Loader$4.getRes(GlobalConfig.ResPath + "res/threeDimen/staticModel/grid/plane.lh"));
             grid.getChildAt(0).meshRenderer.receiveShadow = true;
-            var layaMonkey = scene.addChild(Loader$2.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh"));
-            layaMonkey.transform.localScale = new Vector3$2(0.3, 0.3, 0.3);
+            var layaMonkey = scene.addChild(Loader$4.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh"));
+            layaMonkey.transform.localScale = new Vector3$4(0.3, 0.3, 0.3);
             layaMonkey.getChildAt(0).getChildAt(0).skinnedMeshRenderer.castShadow = true;
-            var sphereSprite = this.addPBRSphere(PrimitiveMesh.createSphere(0.1), new Vector3$2(0, 0.2, 0.5), scene);
+            var sphereSprite = this.addPBRSphere(PrimitiveMesh$2.createSphere(0.1), new Vector3$4(0, 0.2, 0.5), scene);
             sphereSprite.meshRenderer.castShadow = true;
             sphereSprite.meshRenderer.receiveShadow = true;
             this.loadUI(rotationScript);
@@ -1821,7 +2767,7 @@
         addPBRSphere(sphereMesh, position, scene) {
             var mat = new PBRStandardMaterial();
             mat.smoothness = 0.2;
-            var meshSprite = new MeshSprite3D(sphereMesh);
+            var meshSprite = new MeshSprite3D$2(sphereMesh);
             meshSprite.meshRenderer.sharedMaterial = mat;
             var transform = meshSprite.transform;
             transform.localPosition = position;
@@ -1829,14 +2775,14 @@
             return meshSprite;
         }
         loadUI(rottaionScript) {
-            Laya.loader.load([GlobalConfig.ResPath + "res/threeDimen/ui/button.png"], Handler$3.create(this, function () {
-                this.rotationButton = Laya.stage.addChild(new Button$2("res/threeDimen/ui/button.png", "Stop Rotation"));
+            Laya.loader.load([GlobalConfig.ResPath + "res/threeDimen/ui/button.png"], Handler$7.create(this, function () {
+                this.rotationButton = Laya.stage.addChild(new Button$5("res/threeDimen/ui/button.png", "Stop Rotation"));
                 this.rotationButton.size(150, 30);
                 this.rotationButton.labelSize = 20;
                 this.rotationButton.sizeGrid = "4,4,4,4";
-                this.rotationButton.scale(Browser$2.pixelRatio, Browser$2.pixelRatio);
-                this.rotationButton.pos(Laya.stage.width / 2 - this.rotationButton.width * Browser$2.pixelRatio / 2, Laya.stage.height - 40 * Browser$2.pixelRatio);
-                this.rotationButton.on(Event$2.CLICK, this, function () {
+                this.rotationButton.scale(Browser$5.pixelRatio, Browser$5.pixelRatio);
+                this.rotationButton.pos(Laya.stage.width / 2 - this.rotationButton.width * Browser$5.pixelRatio / 2, Laya.stage.height - 40 * Browser$5.pixelRatio);
+                this.rotationButton.on(Event$5.CLICK, this, function () {
                     if (rottaionScript.rotation) {
                         this.rotationButton.label = "Start Rotation";
                         rottaionScript.rotation = false;
@@ -1862,16 +2808,16 @@
         }
     }
 
-    var Shader3D$1 = Laya.Shader3D;
-    var Handler$4 = Laya.Handler;
-    var Scene3D$3 = Laya.Scene3D;
+    var Shader3D$5 = Laya.Shader3D;
+    var Handler$8 = Laya.Handler;
+    var Scene3D$6 = Laya.Scene3D;
     var SpotLight = Laya.SpotLight;
-    var MeshSprite3D$1 = Laya.MeshSprite3D;
+    var MeshSprite3D$3 = Laya.MeshSprite3D;
     class SpotLightShadowMap extends SingletonScene {
         constructor() {
             super();
-            Shader3D$1.debugMode = true;
-            Scene3D$3.load(GlobalConfig.ResPath + "res/threeDimen/testNewFunction/LayaScene_depthScene/Conventional/depthScene.ls", Handler$4.create(this, function (scene) {
+            Shader3D$5.debugMode = true;
+            Scene3D$6.load(GlobalConfig.ResPath + "res/threeDimen/testNewFunction/LayaScene_depthScene/Conventional/depthScene.ls", Handler$8.create(this, function (scene) {
                 this.demoScene = scene;
                 this.AutoSetScene3d(this.demoScene);
                 this.camera = scene.getChildByName("Camera");
@@ -1884,7 +2830,7 @@
             var childLength = scene3d.numChildren;
             for (var i = 0; i < childLength; i++) {
                 var childSprite = scene3d.getChildAt(i);
-                if (childSprite instanceof MeshSprite3D$1) {
+                if (childSprite instanceof MeshSprite3D$3) {
                     childSprite.meshRenderer.receiveShadow = true;
                     childSprite.meshRenderer.castShadow = true;
                 }
@@ -1897,16 +2843,16 @@
         }
     }
 
-    var Handler$5 = Laya.Handler;
-    var Scene3D$4 = Laya.Scene3D;
-    var Vector3$3 = Laya.Vector3;
+    var Handler$9 = Laya.Handler;
+    var Scene3D$7 = Laya.Scene3D;
+    var Vector3$5 = Laya.Vector3;
     var PointLight = Laya.PointLight;
     var SpotLight$1 = Laya.SpotLight;
     var Script3D$1 = Laya.Script3D;
     class LightMoveScript extends Script3D$1 {
         constructor() {
             super(...arguments);
-            this.forward = new Vector3$3();
+            this.forward = new Vector3$5();
             this.lights = [];
             this.offsets = [];
             this.moveRanges = [];
@@ -1930,12 +2876,12 @@
             super();
             var c = new Config3D();
             c.maxLightCount = 16;
-            Scene3D$4.load(GlobalConfig.ResPath + "res/threeDimen/scene/MultiLightScene/InventoryScene_Forest.ls", Handler$5.create(this, function (scene) {
+            Scene3D$7.load(GlobalConfig.ResPath + "res/threeDimen/scene/MultiLightScene/InventoryScene_Forest.ls", Handler$9.create(this, function (scene) {
                 this.s_scene = scene;
                 this.AutoSetScene3d(this.s_scene);
                 var camera = scene.getChildByName("Main Camera");
                 camera.addComponent(CameraMoveScript);
-                camera.transform.localPosition = new Vector3$3(8.937199060699333, 61.364798067809126, -66.77836086472654);
+                camera.transform.localPosition = new Vector3$5(8.937199060699333, 61.364798067809126, -66.77836086472654);
                 var moveScript = camera.addComponent(LightMoveScript);
                 var moverLights = moveScript.lights;
                 var offsets = moveScript.offsets;
@@ -1947,12 +2893,12 @@
                     pointLight.color.setValue(Math.random(), Math.random(), Math.random());
                     pointLight.intensity = 6.0 + Math.random() * 8;
                     moverLights[i] = pointLight;
-                    offsets[i] = new Vector3$3((Math.random() - 0.5) * 10, pointLight.range * 0.75, (Math.random() - 0.5) * 10);
-                    moveRanges[i] = new Vector3$3((Math.random() - 0.5) * 40, 0, (Math.random() - 0.5) * 40);
+                    offsets[i] = new Vector3$5((Math.random() - 0.5) * 10, pointLight.range * 0.75, (Math.random() - 0.5) * 10);
+                    moveRanges[i] = new Vector3$5((Math.random() - 0.5) * 40, 0, (Math.random() - 0.5) * 40);
                 }
                 var spotLight = scene.addChild(new SpotLight$1());
-                spotLight.transform.localPosition = new Vector3$3(0.0, 9.0, -35.0);
-                spotLight.transform.localRotationEuler = new Vector3$3(-15.0, 180.0, 0.0);
+                spotLight.transform.localPosition = new Vector3$5(0.0, 9.0, -35.0);
+                spotLight.transform.localRotationEuler = new Vector3$5(-15.0, 180.0, 0.0);
                 spotLight.color.setValue(Math.random(), Math.random(), Math.random());
                 spotLight.range = 50;
                 spotLight.intensity = 15;
@@ -2818,29 +3764,29 @@
         }
     }
 
-    var Vector3$4 = Laya.Vector3;
-    var Shader3D$2 = Laya.Shader3D;
-    var Scene3D$5 = Laya.Scene3D;
-    var Handler$6 = Laya.Handler;
-    var PrimitiveMesh$1 = Laya.PrimitiveMesh;
+    var Vector3$6 = Laya.Vector3;
+    var Shader3D$6 = Laya.Shader3D;
+    var Scene3D$8 = Laya.Scene3D;
+    var Handler$a = Laya.Handler;
+    var PrimitiveMesh$3 = Laya.PrimitiveMesh;
     var Vector4 = Laya.Vector4;
     var PBRStandardMaterial$1 = Laya.PBRStandardMaterial;
-    var MeshSprite3D$2 = Laya.MeshSprite3D;
+    var MeshSprite3D$4 = Laya.MeshSprite3D;
     class PBRMaterialDemo extends SingletonScene {
         constructor() {
             super();
-            Shader3D$2.debugMode = true;
-            Scene3D$5.load(GlobalConfig.ResPath + "res/threeDimen/scene/LayaScene_EmptyScene/Conventional/EmptyScene.ls", Handler$6.create(this, function (scene) {
+            Shader3D$6.debugMode = true;
+            Scene3D$8.load(GlobalConfig.ResPath + "res/threeDimen/scene/LayaScene_EmptyScene/Conventional/EmptyScene.ls", Handler$a.create(this, function (scene) {
                 this.s_scene = scene;
                 this.AutoSetScene3d(this.s_scene);
                 var camera = scene.getChildByName("Main Camera");
                 var moveScript = camera.addComponent(CameraMoveScript);
                 moveScript.rotaionSpeed = 0.005;
-                var sphereMesh = PrimitiveMesh$1.createSphere(0.25, 32, 32);
+                var sphereMesh = PrimitiveMesh$3.createSphere(0.25, 32, 32);
                 const row = 6;
-                this.addSpheresSpecialMetallic(sphereMesh, new Vector3$4(0, 1.5, 0), scene, row, new Vector4(186 / 255, 110 / 255, 64 / 255, 1.0), 1.0);
-                this.addSpheresSmoothnessMetallic(sphereMesh, new Vector3$4(0, 0, 0), scene, 3, row, new Vector4(1.0, 1.0, 1.0, 1.0));
-                this.addSpheresSpecialMetallic(sphereMesh, new Vector3$4(0, -1.5, 0), scene, row, new Vector4(0.0, 0.0, 0.0, 1.0), 0.0);
+                this.addSpheresSpecialMetallic(sphereMesh, new Vector3$6(0, 1.5, 0), scene, row, new Vector4(186 / 255, 110 / 255, 64 / 255, 1.0), 1.0);
+                this.addSpheresSmoothnessMetallic(sphereMesh, new Vector3$6(0, 0, 0), scene, 3, row, new Vector4(1.0, 1.0, 1.0, 1.0));
+                this.addSpheresSpecialMetallic(sphereMesh, new Vector3$6(0, -1.5, 0), scene, row, new Vector4(0.0, 0.0, 0.0, 1.0), 0.0);
             }));
         }
         addPBRSphere(sphereMesh, position, scene, color, smoothness, metallic) {
@@ -2848,7 +3794,7 @@
             mat.albedoColor = color;
             mat.smoothness = smoothness;
             mat.metallic = metallic;
-            var meshSprite = new MeshSprite3D$2(sphereMesh);
+            var meshSprite = new MeshSprite3D$4(sphereMesh);
             meshSprite.meshRenderer.sharedMaterial = mat;
             var transform = meshSprite.transform;
             transform.localPosition = position;
@@ -2864,7 +3810,7 @@
                     var metallic = 1.0 - j / (m - 1);
                     var pos = PBRMaterialDemo._tempPos;
                     pos.setValue(-width / 2 + i * width / (n - 1), height / 2 - j * height / (m - 1), 3.0);
-                    Vector3$4.add(offset, pos, pos);
+                    Vector3$6.add(offset, pos, pos);
                     this.addPBRSphere(sphereMesh, pos, scene, color, smoothness, metallic);
                 }
             }
@@ -2876,12 +3822,12 @@
                 var metallic = metallic;
                 var pos = PBRMaterialDemo._tempPos;
                 pos.setValue(-width / 2 + i * width / (n - 1), 0, 3.0);
-                Vector3$4.add(offset, pos, pos);
+                Vector3$6.add(offset, pos, pos);
                 this.addPBRSphere(sphereMesh, pos, scene, color, smoothness, metallic);
             }
         }
     }
-    PBRMaterialDemo._tempPos = new Vector3$4();
+    PBRMaterialDemo._tempPos = new Vector3$6();
 
     class EffectMaterialDemo extends SingletonScene {
         constructor() {
@@ -3090,37 +4036,37 @@
         }
     }
 
-    var Sprite3D$1 = Laya.Sprite3D;
-    var Scene3D$6 = Laya.Scene3D;
-    var Camera$3 = Laya.Camera;
-    var Vector3$5 = Laya.Vector3;
+    var Sprite3D$2 = Laya.Sprite3D;
+    var Scene3D$9 = Laya.Scene3D;
+    var Camera$5 = Laya.Camera;
+    var Vector3$7 = Laya.Vector3;
     var Vector4$1 = Laya.Vector4;
-    var MeshSprite3D$3 = Laya.MeshSprite3D;
-    var PrimitiveMesh$2 = Laya.PrimitiveMesh;
-    var DirectionLight$2 = Laya.DirectionLight;
+    var MeshSprite3D$5 = Laya.MeshSprite3D;
+    var PrimitiveMesh$4 = Laya.PrimitiveMesh;
+    var DirectionLight$4 = Laya.DirectionLight;
     var Texture2D$1 = Laya.Texture2D;
-    var BlinnPhongMaterial = Laya.BlinnPhongMaterial;
+    var BlinnPhongMaterial$1 = Laya.BlinnPhongMaterial;
     var TextureFormat = Laya.TextureFormat;
     var HalfFloatUtils = Laya.HalfFloatUtils;
     var FilterMode = Laya.FilterMode;
     class HalfFloatTexture extends SingletonScene {
         constructor() {
             super();
-            var scene = new Scene3D$6();
-            var camera = scene.addChild(new Camera$3(0, 0.1, 100));
-            camera.transform.translate(new Vector3$5(0, 2, 5));
-            camera.transform.rotate(new Vector3$5(-15, 0, 0), true, false);
+            var scene = new Scene3D$9();
+            var camera = scene.addChild(new Camera$5(0, 0.1, 100));
+            camera.transform.translate(new Vector3$7(0, 2, 5));
+            camera.transform.rotate(new Vector3$7(-15, 0, 0), true, false);
             camera.addComponent(CameraMoveScript);
             camera.clearColor = new Vector4$1(0.2, 0.2, 0.2, 1.0);
-            var directionLight = scene.addChild(new DirectionLight$2());
+            var directionLight = scene.addChild(new DirectionLight$4());
             var mat = directionLight.transform.worldMatrix;
-            mat.setForward(new Vector3$5(-1.0, -1.0, -1.0));
+            mat.setForward(new Vector3$7(-1.0, -1.0, -1.0));
             directionLight.transform.worldMatrix = mat;
-            this.sprite3D = scene.addChild(new Sprite3D$1());
-            var box = this.sprite3D.addChild(new MeshSprite3D$3(PrimitiveMesh$2.createPlane(1, 1)));
-            box.transform.position = new Vector3$5(0.0, 1.0, 2.5);
-            box.transform.rotate(new Vector3$5(90, 0, 0), false, false);
-            var material = new BlinnPhongMaterial();
+            this.sprite3D = scene.addChild(new Sprite3D$2());
+            var box = this.sprite3D.addChild(new MeshSprite3D$5(PrimitiveMesh$4.createPlane(1, 1)));
+            box.transform.position = new Vector3$7(0.0, 1.0, 2.5);
+            box.transform.rotate(new Vector3$7(90, 0, 0), false, false);
+            var material = new BlinnPhongMaterial$1();
             material.albedoTexture = this.createHalfFloatTexture();
             box.meshRenderer.sharedMaterial = material;
             this.AutoSetScene3d(scene);
@@ -3146,33 +4092,33 @@
     }
 
     var UnlitMaterial = Laya.UnlitMaterial;
-    var Scene3D$7 = Laya.Scene3D;
-    var Camera$4 = Laya.Camera;
-    var Vector3$6 = Laya.Vector3;
+    var Scene3D$a = Laya.Scene3D;
+    var Camera$6 = Laya.Camera;
+    var Vector3$8 = Laya.Vector3;
     var Vector4$2 = Laya.Vector4;
-    var MeshSprite3D$4 = Laya.MeshSprite3D;
-    var PrimitiveMesh$3 = Laya.PrimitiveMesh;
-    var Browser$3 = Laya.Browser;
+    var MeshSprite3D$6 = Laya.MeshSprite3D;
+    var PrimitiveMesh$5 = Laya.PrimitiveMesh;
+    var Browser$6 = Laya.Browser;
     var Texture2D$2 = Laya.Texture2D;
-    var Handler$7 = Laya.Handler;
+    var Handler$b = Laya.Handler;
     class GPUCompression_ASTC extends SingletonScene {
         constructor() {
             super();
-            this.s_scene = new Scene3D$7();
-            var camera = this.s_scene.addChild(new Camera$4(0, 0.1, 100));
-            camera.transform.translate(new Vector3$6(0, 2, 5));
-            camera.transform.rotate(new Vector3$6(-15, 0, 0), true, false);
+            this.s_scene = new Scene3D$a();
+            var camera = this.s_scene.addChild(new Camera$6(0, 0.1, 100));
+            camera.transform.translate(new Vector3$8(0, 2, 5));
+            camera.transform.rotate(new Vector3$8(-15, 0, 0), true, false);
             camera.addComponent(CameraMoveScript);
             camera.clearColor = new Vector4$2(0.2, 0.2, 0.2, 1.0);
-            let meshSprite = new MeshSprite3D$4(PrimitiveMesh$3.createBox());
+            let meshSprite = new MeshSprite3D$6(PrimitiveMesh$5.createBox());
             this.mat = new UnlitMaterial();
             this.s_scene.addChild(meshSprite);
             meshSprite.meshRenderer.sharedMaterial = this.mat;
-            if (!Browser$3.onAndroid && !Browser$3.onIOS) {
+            if (!Browser$6.onAndroid && !Browser$6.onIOS) {
                 console.log("PC不支持ASTC纹理");
                 return;
             }
-            Texture2D$2.load(GlobalConfig.ResPath + "res/threeDimen/texture/ASTC4x4Test.ktx", Handler$7.create(this, function (texture) {
+            Texture2D$2.load(GlobalConfig.ResPath + "res/threeDimen/texture/ASTC4x4Test.ktx", Handler$b.create(this, function (texture) {
                 this.mat.albedoTexture = texture;
                 this.AutoSetScene3d(this.s_scene);
             }));
@@ -3180,33 +4126,33 @@
     }
 
     var UnlitMaterial$1 = Laya.UnlitMaterial;
-    var Scene3D$8 = Laya.Scene3D;
-    var Camera$5 = Laya.Camera;
-    var Vector3$7 = Laya.Vector3;
+    var Scene3D$b = Laya.Scene3D;
+    var Camera$7 = Laya.Camera;
+    var Vector3$9 = Laya.Vector3;
     var Vector4$3 = Laya.Vector4;
-    var MeshSprite3D$5 = Laya.MeshSprite3D;
-    var PrimitiveMesh$4 = Laya.PrimitiveMesh;
-    var Browser$4 = Laya.Browser;
+    var MeshSprite3D$7 = Laya.MeshSprite3D;
+    var PrimitiveMesh$6 = Laya.PrimitiveMesh;
+    var Browser$7 = Laya.Browser;
     var Texture2D$3 = Laya.Texture2D;
-    var Handler$8 = Laya.Handler;
+    var Handler$c = Laya.Handler;
     class GPUCompression_ETC2 extends SingletonScene {
         constructor() {
             super();
-            this.s_scene = new Scene3D$8();
-            var camera = this.s_scene.addChild(new Camera$5(0, 0.1, 100));
-            camera.transform.translate(new Vector3$7(0, 2, 5));
-            camera.transform.rotate(new Vector3$7(-15, 0, 0), true, false);
+            this.s_scene = new Scene3D$b();
+            var camera = this.s_scene.addChild(new Camera$7(0, 0.1, 100));
+            camera.transform.translate(new Vector3$9(0, 2, 5));
+            camera.transform.rotate(new Vector3$9(-15, 0, 0), true, false);
             camera.addComponent(CameraMoveScript);
             camera.clearColor = new Vector4$3(0.2, 0.2, 0.2, 1.0);
-            let meshSprite = new MeshSprite3D$5(PrimitiveMesh$4.createBox());
+            let meshSprite = new MeshSprite3D$7(PrimitiveMesh$6.createBox());
             this.mat = new UnlitMaterial$1();
             this.s_scene.addChild(meshSprite);
             meshSprite.meshRenderer.sharedMaterial = this.mat;
-            if (!Browser$4.onAndroid) {
+            if (!Browser$7.onAndroid) {
                 console.log("只有安卓支持ETC");
                 return;
             }
-            Texture2D$3.load(GlobalConfig.ResPath + "res/threeDimen/texture/ETC2Test.ktx", Handler$8.create(this, function (texture) {
+            Texture2D$3.load(GlobalConfig.ResPath + "res/threeDimen/texture/ETC2Test.ktx", Handler$c.create(this, function (texture) {
                 this.mat.albedoTexture = texture;
                 this.AutoSetScene3d(this.s_scene);
             }));
@@ -3910,26 +4856,26 @@
         }
     }
 
-    var Scene3D$9 = Laya.Scene3D;
-    var Handler$9 = Laya.Handler;
+    var Scene3D$c = Laya.Scene3D;
+    var Handler$d = Laya.Handler;
     var BitmapFont = Laya.BitmapFont;
     var Text = Laya.Text;
-    var Browser$5 = Laya.Browser;
-    var Event$3 = Laya.Event;
+    var Browser$8 = Laya.Browser;
+    var Event$6 = Laya.Event;
     class SkeletonMask extends SingletonScene {
         constructor() {
             super();
             this.fontName = "fontClip";
             this.texts = [];
             this.loadFont();
-            Scene3D$9.load(GlobalConfig.ResPath + "res/threeDimen/LayaScene_MaskModelTest/Conventional/MaskModelTest.ls", Handler$9.create(this, function (scene) {
+            Scene3D$c.load(GlobalConfig.ResPath + "res/threeDimen/LayaScene_MaskModelTest/Conventional/MaskModelTest.ls", Handler$d.create(this, function (scene) {
                 this.AutoSetScene3d(scene);
                 var camera = scene.getChildByName("Camera");
             }));
         }
         loadFont() {
             var bitmapFont = new BitmapFont();
-            bitmapFont.loadFont(GlobalConfig.ResPath + "res/threeDimen/LayaScene_MaskModelTest/font/fontClip.fnt", new Handler$9(this, this.onFontLoaded, [bitmapFont]));
+            bitmapFont.loadFont(GlobalConfig.ResPath + "res/threeDimen/LayaScene_MaskModelTest/font/fontClip.fnt", new Handler$d(this, this.onFontLoaded, [bitmapFont]));
         }
         onFontLoaded(bitmapFont) {
             bitmapFont.setSpaceWidth(10);
@@ -3947,9 +4893,9 @@
             txt.leading = 5;
             txt.fontSize = 10;
             txt.zOrder = 999999999;
-            txt.scale(Browser$5.pixelRatio, Browser$5.pixelRatio);
+            txt.scale(Browser$8.pixelRatio, Browser$8.pixelRatio);
             txt.pos(Laya.stage.width / 2 - 50, Laya.stage.height / 2);
-            Laya.stage.on(Event$3.RESIZE, txt, () => {
+            Laya.stage.on(Event$6.RESIZE, txt, () => {
                 txt.pos(Laya.stage.width / 2 - 50, Laya.stage.height / 2);
             });
             this.texts.push(txt);
@@ -3966,7 +4912,7 @@
             txt.fontSize = 15;
             txt.zOrder = 999999999;
             txt.pos(Laya.stage.width / 2 - 240, Laya.stage.height / 2);
-            Laya.stage.on(Event$3.RESIZE, txt, () => {
+            Laya.stage.on(Event$6.RESIZE, txt, () => {
                 txt.pos(Laya.stage.width / 2 - 240, Laya.stage.height / 2);
             });
             this.texts.push(txt);
@@ -3982,7 +4928,7 @@
             txt.zOrder = 999999999;
             txt.fontSize = 15;
             txt.pos(Laya.stage.width / 2 + 140, Laya.stage.height / 2);
-            Laya.stage.on(Event$3.RESIZE, txt, () => {
+            Laya.stage.on(Event$6.RESIZE, txt, () => {
                 txt.pos(Laya.stage.width / 2 + 140, Laya.stage.height / 2);
             });
             this.texts.push(txt);
@@ -4002,23 +4948,23 @@
         }
     }
 
-    var Shader3D$3 = Laya.Shader3D;
-    var Sprite3D$2 = Laya.Sprite3D;
-    var Scene3D$a = Laya.Scene3D;
-    var Vector3$8 = Laya.Vector3;
+    var Shader3D$7 = Laya.Shader3D;
+    var Sprite3D$3 = Laya.Sprite3D;
+    var Scene3D$d = Laya.Scene3D;
+    var Vector3$a = Laya.Vector3;
     var Animator = Laya.Animator;
-    var Handler$a = Laya.Handler;
+    var Handler$e = Laya.Handler;
     class SimpleSkinAnimationInstance extends SingletonScene {
         constructor() {
             super();
             this.animatorName = ["run", "chongci", "dead", "xuli", "stand"];
             this.widthNums = 30;
             this.step = 10;
-            Shader3D$3.debugMode = true;
-            this.s_scene = new Scene3D$a();
-            this.s_scene.ambientColor = new Vector3$8(0.5, 0.5, 0.5);
+            Shader3D$7.debugMode = true;
+            this.s_scene = new Scene3D$d();
+            this.s_scene.ambientColor = new Vector3$a(0.5, 0.5, 0.5);
             var path = GlobalConfig.ResPath + "res/threeDimen/texAnimation/Conventional/LayaMonkey.lh";
-            Sprite3D$2.load(path, Handler$a.create(this, function (sprite) {
+            Sprite3D$3.load(path, Handler$e.create(this, function (sprite) {
                 this.AutoSetScene3d(this.s_scene);
                 this.s_scene.addChild(sprite);
                 this.oriSprite3D = this.s_scene.getChildAt(0).getChildAt(2);
@@ -4043,8 +4989,8 @@
                 for (var j = left; j < right; j += this.step) {
                     var xchange = (Math.random() - 0.5) * 10;
                     var zchange = (Math.random() - 0.5) * 10;
-                    var quaterial = new Vector3$8(0, Math.random() * 180, 0);
-                    this.cloneSprite(new Vector3$8(i + xchange, 0, j + zchange), quaterial);
+                    var quaterial = new Vector3$a(0, Math.random() * 180, 0);
+                    this.cloneSprite(new Vector3$a(i + xchange, 0, j + zchange), quaterial);
                 }
         }
     }
@@ -5424,6 +6370,378 @@
         }
     }
 
+    var Scene3D$e = Laya.Scene3D;
+    var Camera$8 = Laya.Camera;
+    var Vector3$b = Laya.Vector3;
+    var DirectionLight$5 = Laya.DirectionLight;
+    var MeshSprite3D$8 = Laya.MeshSprite3D;
+    var PrimitiveMesh$7 = Laya.PrimitiveMesh;
+    var Rigidbody3D = Laya.Rigidbody3D;
+    var BoxColliderShape = Laya.BoxColliderShape;
+    var Texture2D$4 = Laya.Texture2D;
+    var BlinnPhongMaterial$2 = Laya.BlinnPhongMaterial;
+    var FixedConstraint = Laya.FixedConstraint;
+    var Script3D$2 = Laya.Script3D;
+    var Handler$f = Laya.Handler;
+    class PhysicsWorld_ConstraintFixedJoint extends SingletonScene {
+        constructor() {
+            super();
+            this.s_scene = new Scene3D$e();
+            this.camera = this.s_scene.addChild(new Camera$8(0, 0.1, 100));
+            this.camera.transform.translate(new Vector3$b(0, 3, 10));
+            this.camera.clearColor = null;
+            var directionLight = this.s_scene.addChild(new DirectionLight$5());
+            directionLight.color = new Vector3$b(1, 1, 1);
+            var mat = directionLight.transform.worldMatrix;
+            mat.setForward(new Vector3$b(-1.0, -1.0, -1.0));
+            directionLight.transform.worldMatrix = mat;
+            this.addbox();
+        }
+        addbox() {
+            var box = this.s_scene.addChild(new MeshSprite3D$8(PrimitiveMesh$7.createBox(1, 1, 1)));
+            var transform = box.transform;
+            var pos = transform.position;
+            pos.setValue(0, 5, 0);
+            transform.position = pos;
+            var rigidBody = box.addComponent(Rigidbody3D);
+            var boxShape = new BoxColliderShape(1, 1, 1);
+            rigidBody.colliderShape = boxShape;
+            rigidBody.mass = 10;
+            rigidBody.isKinematic = true;
+            var box2 = this.s_scene.addChild(new MeshSprite3D$8(PrimitiveMesh$7.createBox(1, 1, 1)));
+            var transform2 = box2.transform;
+            var pos2 = transform2.position;
+            pos2.setValue(0, 3, 0);
+            transform2.position = pos2;
+            var rigidBody2 = box2.addComponent(Rigidbody3D);
+            var boxShape2 = new BoxColliderShape(1, 1, 1);
+            rigidBody2.colliderShape = boxShape2;
+            rigidBody2.mass = 10;
+            Texture2D$4.load(GlobalConfig.ResPath + "res/threeDimen/texture/layabox.png", Handler$f.create(this, function (texture) {
+                this.AutoSetScene3d(this.s_scene);
+                var blinnMat = new BlinnPhongMaterial$2();
+                blinnMat.albedoTexture = texture;
+                box.meshRenderer.material = blinnMat;
+                box2.meshRenderer.material = blinnMat;
+            }));
+            var fixedConstraint = box.addComponent(FixedConstraint);
+            fixedConstraint.anchor = new Vector3$b(0, 0, 0);
+            fixedConstraint.connectAnchor = new Vector3$b(0, 2, 0);
+            box.addComponent(FixedEventTest);
+            fixedConstraint.setConnectRigidBody(rigidBody, rigidBody2);
+        }
+    }
+    class FixedEventTest extends Script3D$2 {
+        onStart() {
+            this.fixedConstraint = this.owner.getComponent(FixedConstraint);
+            this.fixedConstraint.breakForce = 1000;
+        }
+        onUpdate() {
+            if (this.fixedConstraint) {
+                if (this.fixedConstraint.connectedBody) {
+                    var mass = this.fixedConstraint.connectedBody.mass;
+                    this.fixedConstraint.connectedBody.mass = mass + 1;
+                }
+            }
+        }
+        onJointBreak() {
+            console.log("break");
+        }
+    }
+
+    var Scene3D$f = Laya.Scene3D;
+    var Camera$9 = Laya.Camera;
+    var Shader3D$8 = Laya.Shader3D;
+    var Vector3$c = Laya.Vector3;
+    var DirectionLight$6 = Laya.DirectionLight;
+    var MeshSprite3D$9 = Laya.MeshSprite3D;
+    var PrimitiveMesh$8 = Laya.PrimitiveMesh;
+    var BlinnPhongMaterial$3 = Laya.BlinnPhongMaterial;
+    var Texture2D$5 = Laya.Texture2D;
+    var Vector4$4 = Laya.Vector4;
+    var Rigidbody3D$1 = Laya.Rigidbody3D;
+    var ConfigurableConstraint = Laya.ConfigurableConstraint;
+    var BoxColliderShape$1 = Laya.BoxColliderShape;
+    var SphereColliderShape = Laya.SphereColliderShape;
+    var Handler$g = Laya.Handler;
+    class PhysicsWorld_ConfigurableJoint extends SingletonScene {
+        constructor() {
+            super();
+            Config3D.useCannonPhysics = false;
+            Shader3D$8.debugMode = true;
+            this.s_scene = new Scene3D$f();
+            this.camera = this.s_scene.addChild(new Camera$9(0, 0.1, 100));
+            this.camera.transform.translate(new Vector3$c(0, 3, 30));
+            this.camera.addComponent(CameraMoveScript);
+            var directionLight = this.s_scene.addChild(new DirectionLight$6());
+            directionLight.color = new Vector3$c(1, 1, 1);
+            directionLight.transform.worldMatrix.setForward(new Vector3$c(-1.0, -1.0, 1.0));
+            var plane = this.s_scene.addChild(new MeshSprite3D$9(PrimitiveMesh$8.createPlane(40, 40, 40, 40)));
+            plane.transform.position = new Vector3$c(0, -2.0, 0);
+            var planeMat = new BlinnPhongMaterial$3();
+            Texture2D$5.load(GlobalConfig.ResPath + "res/threeDimen/Physics/grass.png", Handler$g.create(this, function (tex) {
+                this.AutoSetScene3d(this.s_scene);
+                planeMat.albedoTexture = tex;
+            }));
+            var tilingOffset = planeMat.tilingOffset;
+            tilingOffset.setValue(5, 5, 0, 0);
+            planeMat.tilingOffset = tilingOffset;
+            plane.meshRenderer.material = planeMat;
+            this.springTest();
+            this.bounceTest();
+            this.alongZAixs();
+            this.freeRotate();
+            this.rotateAngularX();
+            this.rotateAngularPoint();
+        }
+        springTest() {
+            var boxA = this.addRigidBodySphere(new Vector3$c(7, 3, 0), 1);
+            var boxARigid = boxA.getComponent(Rigidbody3D$1);
+            boxARigid.overrideGravity = true;
+            boxARigid.isKinematic = true;
+            var boxB = this.addRigidBodyBox(new Vector3$c(10, 0, 0), 1);
+            boxB.meshRenderer.material.albedoColor = new Vector4$4(1, 0, 0, 1);
+            var boxBRigid = boxB.getComponent(Rigidbody3D$1);
+            var configurableConstraint = boxA.addComponent(ConfigurableConstraint);
+            configurableConstraint.setConnectRigidBody(boxARigid, boxBRigid);
+            configurableConstraint.anchor = new Vector3$c(0, -3, 0);
+            configurableConstraint.connectAnchor = new Vector3$c(0, 0, 0);
+            configurableConstraint.minLinearLimit = new Vector3$c(-3, 0, 0);
+            configurableConstraint.maxLinearLimit = new Vector3$c(3, 0, 0);
+            configurableConstraint.XMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LIMITED;
+            configurableConstraint.YMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.ZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularXMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularYMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.linearLimitSpring = new Vector3$c(100, 0, 0);
+            configurableConstraint.linearDamp = new Vector3$c(0, 0, 0);
+        }
+        bounceTest() {
+            var boxA = this.addRigidBodySphere(new Vector3$c(7, 3, 3), 1);
+            var boxARigid = boxA.getComponent(Rigidbody3D$1);
+            var boxB = this.addRigidBodyBox(new Vector3$c(7, 0, 3), 1);
+            boxB.meshRenderer.material.albedoColor = new Vector4$4(1, 0, 0, 1);
+            var boxBRigid = boxB.getComponent(Rigidbody3D$1);
+            var configurableConstraint = boxA.addComponent(ConfigurableConstraint);
+            configurableConstraint.setConnectRigidBody(boxARigid, boxBRigid);
+            configurableConstraint.anchor = new Vector3$c(0, -3, 0);
+            configurableConstraint.connectAnchor = new Vector3$c(0, 0, 0);
+            configurableConstraint.minLinearLimit = new Vector3$c(-2, 0, 0);
+            configurableConstraint.maxLinearLimit = new Vector3$c(2, 0, 0);
+            configurableConstraint.XMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LIMITED;
+            configurableConstraint.YMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.ZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularXMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularYMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.linearBounce = new Vector3$c(0.5, 0, 0);
+            boxBRigid.applyImpulse(new Vector3$c(100, 0, 0));
+        }
+        bounceTestY() {
+            var boxA = this.addRigidBodySphere(new Vector3$c(0, 4, 0), 1);
+            var boxARigid = boxA.getComponent(Rigidbody3D$1);
+            var boxB = this.addRigidBodyBox(new Vector3$c(0, 2, 0), 1);
+            boxB.meshRenderer.material.albedoColor = new Vector4$4(1, 0, 0, 1);
+            var boxBRigid = boxB.getComponent(Rigidbody3D$1);
+            var configurableConstraint = boxA.addComponent(ConfigurableConstraint);
+            configurableConstraint.setConnectRigidBody(boxARigid, boxBRigid);
+            configurableConstraint.anchor = new Vector3$c(0, -2, 0);
+            configurableConstraint.connectAnchor = new Vector3$c(0, 0, 0);
+            configurableConstraint.minLinearLimit = new Vector3$c(0, -2, 0);
+            configurableConstraint.maxLinearLimit = new Vector3$c(0, 10, 0);
+            configurableConstraint.XMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.YMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LIMITED;
+            configurableConstraint.ZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularXMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularYMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+        }
+        rotateAngularX() {
+            var boxA = this.addRigidBodySphere(new Vector3$c(-2, 3, 0), 1);
+            var boxARigid = boxA.getComponent(Rigidbody3D$1);
+            var boxB = this.addRigidBodyBox(new Vector3$c(-2, 1, 0), 1);
+            boxB.meshRenderer.material.albedoColor = new Vector4$4(1, 0, 0, 1);
+            var boxBRigid = boxB.getComponent(Rigidbody3D$1);
+            var configurableConstraint = boxA.addComponent(ConfigurableConstraint);
+            configurableConstraint.setConnectRigidBody(boxARigid, boxBRigid);
+            configurableConstraint.anchor = new Vector3$c(0, -2, 0);
+            configurableConstraint.connectAnchor = new Vector3$c(0, 0, 0);
+            configurableConstraint.minAngularLimit = new Vector3$c(-2, 0, 0);
+            configurableConstraint.maxAngularLimit = new Vector3$c(2, 0, 0);
+            configurableConstraint.XMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.YMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.ZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularXMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_FREE;
+            configurableConstraint.angularYMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            boxBRigid.angularVelocity = new Vector3$c(5, 0, 0);
+        }
+        rotateAngularZ() {
+            var boxA = this.addRigidBodySphere(new Vector3$c(-7, 6, 0), 1);
+            var boxARigid = boxA.getComponent(Rigidbody3D$1);
+            var boxB = this.addRigidBodyBox(new Vector3$c(-7, 4, 0), 1);
+            boxB.meshRenderer.material.albedoColor = new Vector4$4(1, 0, 0, 1);
+            var boxBRigid = boxB.getComponent(Rigidbody3D$1);
+            var configurableConstraint = boxA.addComponent(ConfigurableConstraint);
+            configurableConstraint.setConnectRigidBody(boxARigid, boxBRigid);
+            configurableConstraint.anchor = new Vector3$c(0, -2, 0);
+            configurableConstraint.connectAnchor = new Vector3$c(0, 0, 0);
+            configurableConstraint.minAngularLimit = new Vector3$c(0, 0, -1);
+            configurableConstraint.maxAngularLimit = new Vector3$c(0, 0, 1);
+            configurableConstraint.XMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.YMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.ZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularXMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularYMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LIMITED;
+            boxBRigid.angularVelocity = new Vector3$c(0.0, 0, 0.5);
+        }
+        rotateAngularY() {
+            var boxA = this.addRigidBodySphere(new Vector3$c(-5, 6, 0), 1);
+            var boxARigid = boxA.getComponent(Rigidbody3D$1);
+            var boxB = this.addRigidBodyBox(new Vector3$c(-5, 4, 0), 1);
+            boxB.meshRenderer.material.albedoColor = new Vector4$4(1, 0, 0, 1);
+            var boxBRigid = boxB.getComponent(Rigidbody3D$1);
+            var configurableConstraint = boxA.addComponent(ConfigurableConstraint);
+            configurableConstraint.setConnectRigidBody(boxARigid, boxBRigid);
+            configurableConstraint.anchor = new Vector3$c(0, -2, 0);
+            configurableConstraint.connectAnchor = new Vector3$c(0, 0, 0);
+            configurableConstraint.minAngularLimit = new Vector3$c(0, -1, 0);
+            configurableConstraint.maxAngularLimit = new Vector3$c(0, 1, 0);
+            configurableConstraint.XMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.YMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.ZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularXMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularYMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LIMITED;
+            configurableConstraint.angularZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            boxBRigid.angularVelocity = new Vector3$c(0.0, 0.5, 0);
+        }
+        freeRotate() {
+            var boxA = this.addRigidBodySphere(new Vector3$c(-6, 3, 0), 1);
+            var boxARigid = boxA.getComponent(Rigidbody3D$1);
+            var boxB = this.addRigidBodyBox(new Vector3$c(-6, 1, 0), 1);
+            boxB.meshRenderer.material.albedoColor = new Vector4$4(1, 0, 0, 1);
+            var boxBRigid = boxB.getComponent(Rigidbody3D$1);
+            var configurableConstraint = boxA.addComponent(ConfigurableConstraint);
+            configurableConstraint.setConnectRigidBody(boxARigid, boxBRigid);
+            configurableConstraint.anchor = new Vector3$c(0, -1, 0);
+            configurableConstraint.connectAnchor = new Vector3$c(0, 1, 0);
+            configurableConstraint.XMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.YMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.ZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularXMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_FREE;
+            configurableConstraint.angularYMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_FREE;
+            configurableConstraint.angularZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_FREE;
+            boxBRigid.angularVelocity = new Vector3$c(20, 2, 10);
+        }
+        rotateAngularPoint() {
+            var boxA = this.addRigidBodySphere(new Vector3$c(0, 15, 0), 1);
+            var boxARigid = boxA.getComponent(Rigidbody3D$1);
+            var boxB = this.addRigidBodyBox(new Vector3$c(6, 15, 0), 1);
+            boxB.meshRenderer.material.albedoColor = new Vector4$4(1, 0, 0, 1);
+            var boxBRigid = boxB.getComponent(Rigidbody3D$1);
+            var configurableConstraint = boxA.addComponent(ConfigurableConstraint);
+            configurableConstraint.setConnectRigidBody(boxARigid, boxBRigid);
+            configurableConstraint.anchor = new Vector3$c(0, 0, 0);
+            configurableConstraint.connectAnchor = new Vector3$c(-6, 0, 0);
+            configurableConstraint.XMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.YMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.ZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularXMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularYMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_FREE;
+        }
+        alongXAixs() {
+            var boxA = this.addRigidBodySphere(new Vector3$c(0, 0, -4), 1);
+            var boxARigid = boxA.getComponent(Rigidbody3D$1);
+            var boxB = this.addRigidBodyBox(new Vector3$c(5, 0, -4), 1);
+            boxB.meshRenderer.material.albedoColor = new Vector4$4(1, 0, 0, 1);
+            var boxBRigid = boxB.getComponent(Rigidbody3D$1);
+            var configurableConstraint = boxA.addComponent(ConfigurableConstraint);
+            configurableConstraint.setConnectRigidBody(boxARigid, boxBRigid);
+            configurableConstraint.anchor = new Vector3$c(0, 0, 0);
+            configurableConstraint.connectAnchor = new Vector3$c(-5, 0, 0);
+            configurableConstraint.minLinearLimit = new Vector3$c(-2, 0, 0);
+            configurableConstraint.maxLinearLimit = new Vector3$c(2, 0, 0);
+            configurableConstraint.XMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LIMITED;
+            configurableConstraint.YMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.ZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularXMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularYMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            boxBRigid.linearVelocity = new Vector3$c(1.0, 0.0, 0);
+        }
+        alongYAixs() {
+            var boxA = this.addRigidBodySphere(new Vector3$c(0, 0, 0), 1);
+            var boxARigid = boxA.getComponent(Rigidbody3D$1);
+            var boxB = this.addRigidBodyBox(new Vector3$c(5, 0, 0), 1);
+            boxB.meshRenderer.material.albedoColor = new Vector4$4(1, 0, 0, 1);
+            var boxBRigid = boxB.getComponent(Rigidbody3D$1);
+            var configurableConstraint = boxA.addComponent(ConfigurableConstraint);
+            configurableConstraint.setConnectRigidBody(boxARigid, boxBRigid);
+            configurableConstraint.anchor = new Vector3$c(0, 0, 0);
+            configurableConstraint.connectAnchor = new Vector3$c(-5, 0, 0);
+            configurableConstraint.minLinearLimit = new Vector3$c(0, -3, 0);
+            configurableConstraint.maxLinearLimit = new Vector3$c(0, 3, 0);
+            configurableConstraint.XMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.YMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LIMITED;
+            configurableConstraint.ZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularXMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularYMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            boxBRigid.linearVelocity = new Vector3$c(0.0, 1.0, 0);
+        }
+        alongZAixs() {
+            var boxA = this.addRigidBodySphere(new Vector3$c(2, 3, 0), 1);
+            var boxARigid = boxA.getComponent(Rigidbody3D$1);
+            var boxB = this.addRigidBodyBox(new Vector3$c(2, 0, 0), 1);
+            boxB.meshRenderer.material.albedoColor = new Vector4$4(1, 0, 0, 1);
+            var boxBRigid = boxB.getComponent(Rigidbody3D$1);
+            var configurableConstraint = boxA.addComponent(ConfigurableConstraint);
+            configurableConstraint.setConnectRigidBody(boxARigid, boxBRigid);
+            configurableConstraint.anchor = new Vector3$c(0, 0, 0);
+            configurableConstraint.connectAnchor = new Vector3$c(0, 3, 0);
+            configurableConstraint.minLinearLimit = new Vector3$c(0, 0, -4);
+            configurableConstraint.maxLinearLimit = new Vector3$c(0, 0, 4);
+            configurableConstraint.XMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.YMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.ZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LIMITED;
+            configurableConstraint.angularXMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularYMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            configurableConstraint.angularZMotion = ConfigurableConstraint.CONFIG_MOTION_TYPE_LOCKED;
+            boxBRigid.linearVelocity = new Vector3$c(0.0, 0.0, 4);
+        }
+        addRigidBodyBox(pos, scale) {
+            var box = this.s_scene.addChild(new MeshSprite3D$9(PrimitiveMesh$8.createBox(scale, scale, scale)));
+            box.transform.position = pos;
+            var mat = new BlinnPhongMaterial$3();
+            box.meshRenderer.material = mat;
+            var rigidBody = box.addComponent(Rigidbody3D$1);
+            var boxShape = new BoxColliderShape$1(scale, scale, scale);
+            rigidBody.colliderShape = boxShape;
+            rigidBody.mass = 1;
+            rigidBody.friction = 0.5;
+            rigidBody.restitution = 10.0;
+            return box;
+        }
+        addRigidBodySphere(pos, scale) {
+            var sphere = this.s_scene.addChild(new MeshSprite3D$9(PrimitiveMesh$8.createSphere(0.2)));
+            sphere.transform.position = pos;
+            var mat = new BlinnPhongMaterial$3();
+            mat.albedoColor = new Vector4$4(0, 1, 0, 1);
+            sphere.meshRenderer.material = mat;
+            var rigidBody = sphere.addComponent(Rigidbody3D$1);
+            var boxShape = new SphereColliderShape(0.2);
+            rigidBody.colliderShape = boxShape;
+            rigidBody.mass = 1;
+            rigidBody.friction = 0.5;
+            rigidBody.restitution = 0.0;
+            rigidBody.isKinematic = true;
+            return sphere;
+        }
+    }
+
     class Physics3DMain extends SingletonMainScene {
         constructor() {
             super();
@@ -5489,11 +6807,151 @@
                     PhysicsWorld_TriggerAndCollisionEvent.getInstance().Click();
                     break;
                 case this.btnNameArr[11]:
+                    PhysicsWorld_ConstraintFixedJoint.getInstance().Click();
                     break;
                 case this.btnNameArr[12]:
+                    PhysicsWorld_ConfigurableJoint.getInstance().Click();
                     break;
             }
             console.log(name + "按钮_被点击");
+        }
+    }
+
+    var Scene3D$g = Laya.Scene3D;
+    var Camera$a = Laya.Camera;
+    var BlinnPhongMaterial$4 = Laya.BlinnPhongMaterial;
+    var Vector3$d = Laya.Vector3;
+    var DirectionLight$7 = Laya.DirectionLight;
+    var MeshSprite3D$a = Laya.MeshSprite3D;
+    var Texture2D$6 = Laya.Texture2D;
+    var PrimitiveMesh$9 = Laya.PrimitiveMesh;
+    var CannonPhysicsCollider = Laya.CannonPhysicsCollider;
+    var CannonRigidbody3D = Laya.CannonRigidbody3D;
+    var CannonBoxColliderShape = Laya.CannonBoxColliderShape;
+    var CannonSphereColliderShape = Laya.CannonSphereColliderShape;
+    var CannonCompoundColliderShape = Laya.CannonCompoundColliderShape;
+    var Handler$h = Laya.Handler;
+    class CannonPhysicsWorld_BaseCollider extends SingletonScene {
+        constructor() {
+            super();
+            Laya3D.init(0, 0, null, Handler$h.create(this, () => {
+                Config3D.useCannonPhysics = true;
+                this.s_scene = new Scene3D$g();
+                var camera = this.s_scene.addChild(new Camera$a(0, 0.1, 100));
+                camera.transform.translate(new Vector3$d(0, 6, 9.5));
+                camera.transform.rotate(new Vector3$d(-15, 0, 0), true, false);
+                camera.addComponent(CameraMoveScript);
+                camera.clearColor = null;
+                var directionLight = this.s_scene.addChild(new DirectionLight$7());
+                directionLight.color = new Vector3$d(0.6, 0.6, 0.6);
+                var mat = directionLight.transform.worldMatrix;
+                mat.setForward(new Vector3$d(-1.0, -1.0, -1.0));
+                directionLight.transform.worldMatrix = mat;
+                var plane = this.s_scene.addChild(new MeshSprite3D$a(PrimitiveMesh$9.createPlane(10, 10, 10, 10)));
+                var planeMat = new BlinnPhongMaterial$4();
+                Texture2D$6.load(GlobalConfig.ResPath + "res/threeDimen/Physics/grass.png", Handler$h.create(this, function (tex) {
+                    this.AutoSetScene3d(this.s_scene);
+                    planeMat.albedoTexture = tex;
+                }));
+                var tilingOffset = planeMat.tilingOffset;
+                tilingOffset.setValue(5, 5, 0, 0);
+                planeMat.tilingOffset = tilingOffset;
+                plane.meshRenderer.material = planeMat;
+                var planeCollider = plane.addComponent(CannonPhysicsCollider);
+                var planeShape = new CannonBoxColliderShape(10, 0.01, 10);
+                planeCollider.colliderShape = planeShape;
+                planeCollider.friction = 2;
+                planeCollider.restitution = 0.3;
+                this.mat1 = new BlinnPhongMaterial$4();
+                this.mat2 = new BlinnPhongMaterial$4();
+                this.mat3 = new BlinnPhongMaterial$4();
+                Texture2D$6.load(GlobalConfig.ResPath + "res/threeDimen/Physics/rocks.jpg", Handler$h.create(this, function (tex) {
+                    this.mat1.albedoTexture = tex;
+                }));
+                Texture2D$6.load(GlobalConfig.ResPath + "res/threeDimen/Physics/plywood.jpg", Handler$h.create(this, function (tex) {
+                    this.mat2.albedoTexture = tex;
+                }));
+                Texture2D$6.load(GlobalConfig.ResPath + "res/threeDimen/Physics/wood.jpg", Handler$h.create(this, function (tex) {
+                    this.mat3.albedoTexture = tex;
+                }));
+                Laya.timer.loop(3000, this, function () {
+                    var random = Math.random();
+                    if (random < 0.33)
+                        this.addCompoundColliderShape();
+                    else if (random < 0.66)
+                        this.addSphere();
+                    else
+                        this.addBox();
+                });
+            }));
+        }
+        addBox() {
+            var sX = 1;
+            var sY = 1;
+            var sZ = 1;
+            var box = this.s_scene.addChild(new MeshSprite3D$a(PrimitiveMesh$9.createBox(sX, sY, sZ)));
+            box.meshRenderer.material = this.mat1;
+            var transform = box.transform;
+            var pos = transform.position;
+            pos.setValue(Math.random() * 2 - 2, 10, Math.random() * 2 - 2);
+            transform.position = pos;
+            var scale = transform.getWorldLossyScale();
+            scale.setValue(Math.random(), Math.random(), Math.random());
+            transform.setWorldLossyScale(scale);
+            var rigidBody = box.addComponent(CannonRigidbody3D);
+            var boxShape = new CannonBoxColliderShape(sX, sY, sZ);
+            rigidBody.colliderShape = boxShape;
+            rigidBody.mass = 10;
+        }
+        addSphere() {
+            var radius = 1;
+            var sphere = this.s_scene.addChild(new MeshSprite3D$a(PrimitiveMesh$9.createSphere(1)));
+            sphere.meshRenderer.material = this.mat2;
+            var sphereTransform = sphere.transform;
+            var pos = sphereTransform.position;
+            pos.setValue(Math.random() * 4 - 2, 10, Math.random() * 4 - 2);
+            var scale = sphereTransform.getWorldLossyScale();
+            scale.setValue(0.5, 0.5, 0.5);
+            sphereTransform.setWorldLossyScale(scale);
+            sphereTransform.position = pos;
+            var rigidBody = sphere.addComponent(CannonRigidbody3D);
+            var sphereShape = new CannonSphereColliderShape(radius);
+            rigidBody.colliderShape = sphereShape;
+            rigidBody.mass = 10;
+        }
+        addCompoundColliderShape() {
+            var x = Math.random() * 4 - 2;
+            var y = 10;
+            var z = Math.random() * 4 - 2;
+            var mesh = this.addMeshBox(x, y, z);
+            var scale = mesh.transform.getWorldLossyScale();
+            scale.setValue(0.5, 0.5, 0.5);
+            mesh.transform.setWorldLossyScale(scale);
+            this.s_scene.addChild(mesh);
+            var rigidBody = mesh.addComponent(CannonRigidbody3D);
+            var boxShape0 = new CannonBoxColliderShape(1, 1, 1);
+            var boxShape1 = new CannonBoxColliderShape(1, 1, 1);
+            var boxShape2 = new CannonBoxColliderShape(1, 1, 1);
+            var boxShape3 = new CannonBoxColliderShape(1, 1, 1);
+            var boxCompoundShape = new CannonCompoundColliderShape();
+            boxCompoundShape.addChildShape(boxShape0, new Vector3$d(0.5, 0.5, 0));
+            boxCompoundShape.addChildShape(boxShape1, new Vector3$d(0.5, -0.5, 0));
+            boxCompoundShape.addChildShape(boxShape2, new Vector3$d(-0.5, 0.5, 0));
+            boxCompoundShape.addChildShape(boxShape3, new Vector3$d(-0.5, -0.5));
+            rigidBody.colliderShape = boxCompoundShape;
+            rigidBody.mass = 10;
+        }
+        addMeshBox(x, y, z) {
+            var sX = 2;
+            var sY = 2;
+            var sZ = 1;
+            var box = this.s_scene.addChild(new MeshSprite3D$a(PrimitiveMesh$9.createBox(sX, sY, sZ)));
+            box.meshRenderer.material = this.mat3;
+            var transform = box.transform;
+            var pos = transform.position;
+            pos.setValue(x, y, z);
+            transform.position = pos;
+            return box;
         }
     }
 
@@ -5529,6 +6987,7 @@
                     EventManager.DispatchEvent("BACKTOMAIN");
                     break;
                 case this.btnNameArr[1]:
+                    CannonPhysicsWorld_BaseCollider.getInstance().Click();
                     break;
                 case this.btnNameArr[2]:
                     break;

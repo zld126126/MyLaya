@@ -11,6 +11,8 @@ import { PhysicsWorld_Kinematic } from "./PhysicsWorld_Kinematic";
 import { PhysicsWorld_MeshCollider } from "./PhysicsWorld_MeshCollider";
 import { PhysicsWorld_TriggerAndCollisionEvent } from "./PhysicsWorld_TriggerAndCollisionEvent";
 import { PhysicsWorld_RayShapeCast } from "./PhysicsWorld_RayShapeCast";
+import { PhysicsWorld_ConstraintFixedJoint } from "./PhysicsWorld_ConstraintFixedJoint";
+import { PhysicsWorld_ConfigurableJoint } from "./PhysicsWorld_ConfigurableJoint";
 
 export class Physics3DMain extends SingletonMainScene {
     private btnNameArr: Array<string> = [
@@ -90,10 +92,10 @@ export class Physics3DMain extends SingletonMainScene {
                 PhysicsWorld_TriggerAndCollisionEvent.getInstance().Click();
                 break;
             case this.btnNameArr[11]:
-                //TODO
+                PhysicsWorld_ConstraintFixedJoint.getInstance().Click();
                 break;
             case this.btnNameArr[12]:
-                //TODO
+                PhysicsWorld_ConfigurableJoint.getInstance().Click();
                 break;
         }
         console.log(name + "按钮_被点击");

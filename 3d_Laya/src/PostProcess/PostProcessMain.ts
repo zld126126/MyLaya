@@ -2,6 +2,10 @@ import SingletonMainScene from "../SingletonMainScene";
 import { EventManager, EventType } from "../EventManager";
 import { GlobalConfig } from "../GlobalConfig";
 import { PostProcessBloom } from "./PostProcessBloom";
+import { PostProcess_Blur } from "./PostProcess_Blur";
+import { PostProcess_Edge } from "./PostProcess_Edge";
+import { PostProcessDoF } from "./PostProcessDoF";
+import { ProstProcess_AO } from "./ProstProcess_AO";
 
 export class PostProcessMain extends SingletonMainScene {
     private btnNameArr: Array<string> = [
@@ -47,19 +51,19 @@ export class PostProcessMain extends SingletonMainScene {
                 EventManager.DispatchEvent(EventType.BACKTOMAIN);
                 break;
             case this.btnNameArr[1]:
-                // TODO
+                PostProcess_Blur.getInstance().Click();
                 break;
             case this.btnNameArr[2]:
                 PostProcessBloom.getInstance().Click();
                 break;
             case this.btnNameArr[3]:
-                // TODO
+                PostProcess_Edge.getInstance().Click();
                 break;
             case this.btnNameArr[4]:
-                // TODO
+                PostProcessDoF.getInstance().Click();
                 break;
             case this.btnNameArr[5]:
-                // TODO
+                ProstProcess_AO.getInstance().Click();
                 break;
         }
         console.log(name + "按钮_被点击");

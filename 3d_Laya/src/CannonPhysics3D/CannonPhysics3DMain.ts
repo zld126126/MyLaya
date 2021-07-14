@@ -1,6 +1,7 @@
 import SingletonMainScene from "../SingletonMainScene";
 import { EventManager, EventType } from "../EventManager";
 import { GlobalConfig } from "../GlobalConfig";
+import { CannonPhysicsWorld_BaseCollider } from "./CannonPhysicsWorld_BaseCollider";
 
 export class CannonPhysics3DMain extends SingletonMainScene {
     private btnNameArr: Array<string> = [
@@ -46,6 +47,7 @@ export class CannonPhysics3DMain extends SingletonMainScene {
                 EventManager.DispatchEvent(EventType.BACKTOMAIN);
                 break;
             case this.btnNameArr[1]:
+                CannonPhysicsWorld_BaseCollider.getInstance().Click();
                 break;
             case this.btnNameArr[2]:
                 break;
