@@ -11,6 +11,7 @@ import { MeshMain } from "./Mesh/MeshMain";
 import { MaterialMain } from "./Material/MaterialMain";
 import { TextureMain } from "./Texture/TextureMain";
 import { Animation3DMain } from "./Animation3D/Animation3DMain";
+import { Physics3DMain } from "./Physics3D/Physics3DMain";
 
 export class LayaMain3d extends SingletonMainScene {
     constructor() {
@@ -88,6 +89,7 @@ export class LayaMain3d extends SingletonMainScene {
                 Animation3DMain.getInstance().Show();
                 break;
             case this.btnNameArr[10]:
+                Physics3DMain.getInstance().Show();
                 break;
             case this.btnNameArr[11]:
                 break;

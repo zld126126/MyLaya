@@ -34,7 +34,7 @@ export class EnvironmentalReflection extends SingletonScene {
         camera.clearFlag = Laya.BaseCamera.CLEARFLAG_SKY;
 
         //天空盒
-        Laya.BaseMaterial.load(GlobalConfig.ResPath + "res/threeDimen/skyBox/DawnDusk/SkyBox.lmat", Laya.Handler.create(null, function (mat: Laya.SkyBoxMaterial): void {
+        Laya.BaseMaterial.load(GlobalConfig.ResPath + "res/threeDimen/skyBox/DawnDusk/SkyBox.lmat", Laya.Handler.create(this, function (mat: Laya.SkyBoxMaterial): void {
             this.AutoSetScene3d(scene);
 
             //获取相机的天空盒渲染体

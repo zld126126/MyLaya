@@ -1,21 +1,24 @@
 import SingletonMainScene from "../SingletonMainScene";
 import { EventManager, EventType } from "../EventManager";
 import { GlobalConfig } from "../GlobalConfig";
-import { AnimatorDemo } from "./AnimatorDemo";
-import { AnimationLayerBlend } from "./AnimationLayerBlend";
-import { AnimatorStateScriptDemo } from "./AnimatorStateScriptDemo";
-import { BoneLinkSprite3D } from "./BoneLinkSprite3D";
-import { MaterialAnimation } from "./MaterialAnimation";
-import { SkeletonMask } from "./SkeletonMask";
-import { SimpleSkinAnimationInstance } from "./SimpleSkinAnimationInstance";
-import { CameraAnimation } from "./CameraAnimation";
-import { RigidbodyAnimationDemo } from "./RigidbodyAnimationDemo";
+import { PhysicsWorld_BaseCollider } from "./PhysicsWorld_BaseCollidert";
+import { PhysicsWorld_BuildingBlocks } from "./PhysicsWorld_BuildingBlocks";
+import { PhysicsWorld_Character } from "./PhysicsWorld_Character";
+import { PhysicsWorld_CollisionFiflter } from "./PhysicsWorld_CollisionFiflter";
+import { PhysicsWorld_CompoundCollider } from "./PhysicsWorld_CompoundCollider";
+import { PhysicsWorld_ContinueCollisionDetection } from "./PhysicsWorld_ContinueCollisionDetection";
+import { PhysicsWorld_Kinematic } from "./PhysicsWorld_Kinematic";
+import { PhysicsWorld_MeshCollider } from "./PhysicsWorld_MeshCollider";
+import { PhysicsWorld_TriggerAndCollisionEvent } from "./PhysicsWorld_TriggerAndCollisionEvent";
+import { PhysicsWorld_RayShapeCast } from "./PhysicsWorld_RayShapeCast";
 
-export class Animation3DMain extends SingletonMainScene {
+export class Physics3DMain extends SingletonMainScene {
     private btnNameArr: Array<string> = [
         "返回主页",
-        "动画示例", "动画过渡和混合", "动画状态脚本", "蒙皮动画挂点", "材质动画",
-        "刚体动画", "摄像机动画", "预烘焙动画", "骨骼动画遮罩",];
+        "基础碰撞器", "选取物体", "角色碰撞器", "碰撞器过滤器", "碰撞器混合",
+        "连续碰撞检测", "刚起碰撞", "网格碰撞器", "射线检测", "触发和碰撞事件",
+        "固定关节", "可配置关节"
+    ];
 
     constructor() {
         super();
@@ -57,31 +60,40 @@ export class Animation3DMain extends SingletonMainScene {
                 EventManager.DispatchEvent(EventType.BACKTOMAIN);
                 break;
             case this.btnNameArr[1]:
-                AnimatorDemo.getInstance().Click();
+                PhysicsWorld_BaseCollider.getInstance().Click();
                 break;
             case this.btnNameArr[2]:
-                AnimationLayerBlend.getInstance().Click();
+                PhysicsWorld_BuildingBlocks.getInstance().Click();
                 break;
             case this.btnNameArr[3]:
-                AnimatorStateScriptDemo.getInstance().Click();
+                PhysicsWorld_Character.getInstance().Click();
                 break;
             case this.btnNameArr[4]:
-                BoneLinkSprite3D.getInstance().Click();
+                PhysicsWorld_CollisionFiflter.getInstance().Click();
                 break;
             case this.btnNameArr[5]:
-                MaterialAnimation.getInstance().Click();
+                PhysicsWorld_CompoundCollider.getInstance().Click();
                 break;
             case this.btnNameArr[6]:
-                RigidbodyAnimationDemo.getInstance().Click();
+                PhysicsWorld_ContinueCollisionDetection.getInstance().Click();
                 break;
             case this.btnNameArr[7]:
-                CameraAnimation.getInstance().Click();
+                PhysicsWorld_Kinematic.getInstance().Click();
                 break;
             case this.btnNameArr[8]:
-                SimpleSkinAnimationInstance.getInstance().Click();
+                PhysicsWorld_MeshCollider.getInstance().Click();
                 break;
             case this.btnNameArr[9]:
-                SkeletonMask.getInstance().Click();
+                PhysicsWorld_RayShapeCast.getInstance().Click();
+                break;
+            case this.btnNameArr[10]:
+                PhysicsWorld_TriggerAndCollisionEvent.getInstance().Click();
+                break;
+            case this.btnNameArr[11]:
+                //TODO
+                break;
+            case this.btnNameArr[12]:
+                //TODO
                 break;
         }
         console.log(name + "按钮_被点击");

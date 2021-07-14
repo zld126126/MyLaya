@@ -13,6 +13,7 @@ loadLib("libs/laya.ani.js")
 loadLib("libs/laya.ui.js")
 loadLib("libs/laya.d3.js")
 loadLib("libs/laya.device.js")
+loadLib("libs/laya.physics.js")
 loadLib("libs/laya.physics3D.js")
 //-----libs-end-------
 loadLib("js/bundle.js");
