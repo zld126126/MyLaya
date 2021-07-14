@@ -1,14 +1,12 @@
 import SingletonMainScene from "../SingletonMainScene";
 import { EventManager, EventType } from "../EventManager";
 import { GlobalConfig } from "../GlobalConfig";
-import { CannonPhysicsWorld_BaseCollider } from "./CannonPhysicsWorld_BaseCollider";
-import { CannonPhysicsWorld_ColliderEvent } from "./CannonPhysicsWorld_ColliderEvent";
-import { CannonPhysicsWorld_PhysicsProperty } from "./CannonPhysicsWorld_PhysicsProperty";
-import { CannonPhysicsWorld_RayCheck } from "./CannonPhysicsWorld_RayCheck";
+import { MouseInteraction } from "./MouseInteraction";
+import { MultiTouch } from "./MultiTouch";
 
-export class CannonPhysics3DMain extends SingletonMainScene {
+export class MouseInteractionMain extends SingletonMainScene {
     private btnNameArr: Array<string> = [
-        "返回主页", "基础碰撞器", "碰撞事件", "物理属性", "射线检测"];
+        "返回主页", "鼠标交互", "多点触控"];
 
     constructor() {
         super();
@@ -50,16 +48,10 @@ export class CannonPhysics3DMain extends SingletonMainScene {
                 EventManager.DispatchEvent(EventType.BACKTOMAIN);
                 break;
             case this.btnNameArr[1]:
-                CannonPhysicsWorld_BaseCollider.getInstance().Click();
+                MouseInteraction.getInstance().Click();
                 break;
             case this.btnNameArr[2]:
-                CannonPhysicsWorld_ColliderEvent.getInstance().Click();
-                break;
-            case this.btnNameArr[3]:
-                CannonPhysicsWorld_PhysicsProperty.getInstance().Click();
-                break;
-            case this.btnNameArr[4]:
-                CannonPhysicsWorld_RayCheck.getInstance().Click();
+                MultiTouch.getInstance().Click();
                 break;
         }
         console.log(name + "按钮_被点击");

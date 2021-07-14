@@ -6955,6 +6955,419 @@
         }
     }
 
+    var Scene3D$h = Laya.Scene3D;
+    var BlinnPhongMaterial$5 = Laya.BlinnPhongMaterial;
+    var Camera$b = Laya.Camera;
+    var MeshSprite3D$b = Laya.MeshSprite3D;
+    var Vector3$e = Laya.Vector3;
+    var DirectionLight$8 = Laya.DirectionLight;
+    var Texture2D$7 = Laya.Texture2D;
+    var PrimitiveMesh$a = Laya.PrimitiveMesh;
+    var CannonPhysicsCollider$1 = Laya.CannonPhysicsCollider;
+    var CannonBoxColliderShape$1 = Laya.CannonBoxColliderShape;
+    var Script3D$3 = Laya.Script3D;
+    var Event$7 = Laya.Event;
+    var CannonRigidbody3D$1 = Laya.CannonRigidbody3D;
+    var CannonSphereColliderShape$1 = Laya.CannonSphereColliderShape;
+    var CannonCompoundColliderShape$1 = Laya.CannonCompoundColliderShape;
+    var Handler$i = Laya.Handler;
+    class CannonPhysicsWorld_ColliderEvent extends SingletonScene {
+        constructor() {
+            super();
+            this.speed = 0.1;
+            this.tempSpeed = new Vector3$e();
+            Laya3D.init(0, 0, null, Handler$i.create(this, () => {
+                Config3D.useCannonPhysics = true;
+                this.s_scene = new Scene3D$h();
+                this.camera = this.s_scene.addChild(new Camera$b(0, 0.1, 100));
+                this.camera.transform.translate(new Vector3$e(0, 6, 15));
+                this.camera.transform.rotate(new Vector3$e(-15, 0, 0), true, false);
+                this.camera.addComponent(CameraMoveScript);
+                this.camera.clearColor = null;
+                var directionLight = this.s_scene.addChild(new DirectionLight$8());
+                directionLight.color = new Vector3$e(0.6, 0.6, 0.6);
+                var mat = directionLight.transform.worldMatrix;
+                mat.setForward(new Vector3$e(-1.0, -1.0, -1.0));
+                directionLight.transform.worldMatrix = mat;
+                var plane = this.s_scene.addChild(new MeshSprite3D$b(PrimitiveMesh$a.createPlane(20, 20, 10, 10)));
+                var planeMat = new BlinnPhongMaterial$5();
+                Texture2D$7.load(GlobalConfig.ResPath + "res/threeDimen/Physics/grass.png", Handler$i.create(this, function (tex) {
+                    this.AutoSetScene3d(this.s_scene);
+                    planeMat.albedoTexture = tex;
+                }));
+                var tilingOffset = planeMat.tilingOffset;
+                tilingOffset.setValue(5, 5, 0, 0);
+                planeMat.tilingOffset = tilingOffset;
+                plane.meshRenderer.material = planeMat;
+                var planeCollider = plane.addComponent(CannonPhysicsCollider$1);
+                var planeShape = new CannonBoxColliderShape$1(20, 0.01, 20);
+                planeCollider.colliderShape = planeShape;
+                planeCollider.friction = 2;
+                planeCollider.restitution = 0.3;
+                this.mat1 = new BlinnPhongMaterial$5();
+                this.mat2 = new BlinnPhongMaterial$5();
+                this.mat3 = new BlinnPhongMaterial$5();
+                Texture2D$7.load(GlobalConfig.ResPath + "res/threeDimen/Physics/rocks.jpg", Handler$i.create(this, function (tex) {
+                    this.mat1.albedoTexture = tex;
+                }));
+                Texture2D$7.load(GlobalConfig.ResPath + "res/threeDimen/Physics/plywood.jpg", Handler$i.create(this, function (tex) {
+                    this.mat2.albedoTexture = tex;
+                }));
+                Texture2D$7.load(GlobalConfig.ResPath + "res/threeDimen/Physics/wood.jpg", Handler$i.create(this, function (tex) {
+                    this.mat3.albedoTexture = tex;
+                }));
+                this.addBox(false);
+                this.addSphere();
+                this.addCompoundColliderShape();
+                this.Kinematic = this.addBox(true);
+                this.Kinematic.transform.position = new Vector3$e(0, 0.5, 5);
+                this.Kinematic.addComponent(colliderCheck);
+                Laya.stage.on(Event$7.KEY_DOWN, this, this.keyDown);
+                Laya.stage.on(Event$7.KEY_PRESS, this, this.keyDown);
+            }));
+        }
+        addBox(isKinematic) {
+            var sX = 1;
+            var sY = 1;
+            var sZ = 1;
+            var box = this.s_scene.addChild(new MeshSprite3D$b(PrimitiveMesh$a.createBox(sX, sY, sZ)));
+            box.name = "box";
+            box.meshRenderer.material = this.mat1;
+            var transform = box.transform;
+            var pos = transform.position;
+            pos.setValue(-5, 5, 0);
+            transform.position = pos;
+            var rigidBody = box.addComponent(CannonRigidbody3D$1);
+            var boxShape = new CannonBoxColliderShape$1(sX, sY, sZ);
+            rigidBody.colliderShape = boxShape;
+            rigidBody.mass = 10;
+            rigidBody.isKinematic = isKinematic;
+            return box;
+        }
+        addSphere() {
+            var radius = 1;
+            var sphere = this.s_scene.addChild(new MeshSprite3D$b(PrimitiveMesh$a.createSphere(1)));
+            sphere.name = "sphere";
+            sphere.meshRenderer.material = this.mat2;
+            var sphereTransform = sphere.transform;
+            var pos = sphereTransform.position;
+            pos.setValue(0, 1, 0);
+            sphereTransform.position = pos;
+            var physicsCollider = sphere.addComponent(CannonPhysicsCollider$1);
+            var sphereShape = new CannonSphereColliderShape$1(radius);
+            physicsCollider.colliderShape = sphereShape;
+            physicsCollider.isTrigger = true;
+        }
+        addCompoundColliderShape() {
+            var mesh = this.addMeshBox(5, 5, 0);
+            mesh.name = "compound";
+            var scale = mesh.transform.getWorldLossyScale();
+            scale.setValue(0.5, 0.5, 0.5);
+            mesh.transform.setWorldLossyScale(scale);
+            this.s_scene.addChild(mesh);
+            var rigidBody = mesh.addComponent(CannonRigidbody3D$1);
+            var boxShape0 = new CannonBoxColliderShape$1(1, 1, 1);
+            var boxShape1 = new CannonBoxColliderShape$1(1, 1, 1);
+            var boxShape2 = new CannonBoxColliderShape$1(1, 1, 1);
+            var boxShape3 = new CannonBoxColliderShape$1(1, 1, 1);
+            var boxCompoundShape = new CannonCompoundColliderShape$1();
+            boxCompoundShape.addChildShape(boxShape0, new Vector3$e(0.5, 0.5, 0));
+            boxCompoundShape.addChildShape(boxShape1, new Vector3$e(0.5, -0.5, 0));
+            boxCompoundShape.addChildShape(boxShape2, new Vector3$e(-0.5, 0.5, 0));
+            boxCompoundShape.addChildShape(boxShape3, new Vector3$e(-0.5, -0.5));
+            rigidBody.colliderShape = boxCompoundShape;
+            rigidBody.mass = 10;
+        }
+        addMeshBox(x, y, z) {
+            var sX = 2;
+            var sY = 2;
+            var sZ = 1;
+            var box = this.s_scene.addChild(new MeshSprite3D$b(PrimitiveMesh$a.createBox(sX, sY, sZ)));
+            box.meshRenderer.material = this.mat3;
+            var transform = box.transform;
+            var pos = transform.position;
+            pos.setValue(x, y, z);
+            transform.position = pos;
+            return box;
+        }
+        keyDown(e) {
+            switch (e.keyCode) {
+                case 87:
+                    this.tempSpeed.setValue(0, 0, -this.speed);
+                    break;
+                case 83:
+                    this.tempSpeed.setValue(0, 0, this.speed);
+                    break;
+                case 65:
+                    this.tempSpeed.setValue(-this.speed, 0, 0);
+                    break;
+                case 68:
+                    this.tempSpeed.setValue(this.speed, 0, 0);
+                    break;
+            }
+            this.Kinematic.transform.translate(this.tempSpeed);
+        }
+    }
+    class colliderCheck extends Script3D$3 {
+        onTriggerEnter(other) {
+            console.log("triggerEnter");
+        }
+        onTriggerStay(other) {
+            console.log("triggerStay");
+        }
+        onTriggerExit(other) {
+            console.log("triggerExit");
+        }
+        onCollisionEnter(collision) {
+            console.log("collisionEnter");
+        }
+        onCollisionStay(collision) {
+            console.log("collisionStay");
+        }
+        onCollisionExit(collision) {
+            console.log("collisionexit");
+        }
+    }
+
+    var Scene3D$i = Laya.Scene3D;
+    var Camera$c = Laya.Camera;
+    var Vector3$f = Laya.Vector3;
+    var DirectionLight$9 = Laya.DirectionLight;
+    var MeshSprite3D$c = Laya.MeshSprite3D;
+    var BlinnPhongMaterial$6 = Laya.BlinnPhongMaterial;
+    var PrimitiveMesh$b = Laya.PrimitiveMesh;
+    var Texture2D$8 = Laya.Texture2D;
+    var CannonPhysicsCollider$2 = Laya.CannonPhysicsCollider;
+    var CannonBoxColliderShape$2 = Laya.CannonBoxColliderShape;
+    var CannonRigidbody3D$2 = Laya.CannonRigidbody3D;
+    var CannonSphereColliderShape$2 = Laya.CannonSphereColliderShape;
+    var Handler$j = Laya.Handler;
+    class CannonPhysicsWorld_PhysicsProperty extends SingletonScene {
+        constructor() {
+            super();
+            Laya3D.init(0, 0, null, Handler$j.create(this, () => {
+                Config3D.useCannonPhysics = true;
+                this.s_scene = new Scene3D$i();
+                var camera = this.s_scene.addChild(new Camera$c(0, 0.1, 100));
+                camera.transform.translate(new Vector3$f(0, 6, 9.5));
+                camera.transform.rotate(new Vector3$f(-15, 0, 0), true, false);
+                camera.addComponent(CameraMoveScript);
+                camera.clearColor = null;
+                var directionLight = this.s_scene.addChild(new DirectionLight$9());
+                directionLight.color = new Vector3$f(0.6, 0.6, 0.6);
+                var mat = directionLight.transform.worldMatrix;
+                mat.setForward(new Vector3$f(-1.0, -1.0, -1.0));
+                directionLight.transform.worldMatrix = mat;
+                var plane = this.s_scene.addChild(new MeshSprite3D$c(PrimitiveMesh$b.createPlane(20, 20, 10, 10)));
+                var planeMat = new BlinnPhongMaterial$6();
+                Texture2D$8.load(GlobalConfig.ResPath + "res/threeDimen/Physics/grass.png", Handler$j.create(this, function (tex) {
+                    this.AutoSetScene3d(this.s_scene);
+                    planeMat.albedoTexture = tex;
+                }));
+                plane.meshRenderer.material = planeMat;
+                var planeCollider = plane.addComponent(CannonPhysicsCollider$2);
+                var planeShape = new CannonBoxColliderShape$2(20, 0.01, 20);
+                planeCollider.restitution = 1.0;
+                planeCollider.colliderShape = planeShape;
+                planeCollider.friction = 0.1;
+                this.addSphere(-4, 5, 0, 0, 0);
+                this.addSphere(-2, 5, 0, 0.5, 0);
+                this.addSphere(0, 5, 0, 0.9, 0);
+                this.addSphere(2, 1, 0, 0, 0.5).linearVelocity = new Vector3$f(0, 0, -5);
+                this.addSphere(4, 1, 0, 0, 0.8).linearVelocity = (new Vector3$f(0, 0, -5));
+                this.addBox(6, 0.6, 0, 0.1).linearVelocity = new Vector3$f(0, 0, -10);
+                this.addBox(8, 0.6, 0, 0.5).linearVelocity = new Vector3$f(0, 0, -10);
+            }));
+        }
+        addSphere(x, y, z, restitution, damp) {
+            var radius = 1;
+            var sphere = this.s_scene.addChild(new MeshSprite3D$c(PrimitiveMesh$b.createSphere(1)));
+            var sphereTransform = sphere.transform;
+            var pos = sphereTransform.position;
+            pos.setValue(x, y, z);
+            var scale = sphereTransform.getWorldLossyScale();
+            scale.setValue(0.5, 0.5, 0.5);
+            sphereTransform.setWorldLossyScale(scale);
+            sphereTransform.position = pos;
+            var rigidBody = sphere.addComponent(CannonRigidbody3D$2);
+            var sphereShape = new CannonSphereColliderShape$2(radius);
+            rigidBody.colliderShape = sphereShape;
+            rigidBody.mass = 10;
+            rigidBody.restitution = restitution;
+            rigidBody.angularDamping = damp;
+            rigidBody.linearDamping = 0.1;
+            return rigidBody;
+        }
+        addBox(x, y, z, friction) {
+            var sX = 1;
+            var sY = 1;
+            var sZ = 1;
+            var box = this.s_scene.addChild(new MeshSprite3D$c(PrimitiveMesh$b.createBox(sX, sY, sZ)));
+            var transform = box.transform;
+            var pos = transform.position;
+            pos.setValue(x, y, z);
+            transform.position = pos;
+            var rigidBody = box.addComponent(CannonRigidbody3D$2);
+            var boxShape = new CannonBoxColliderShape$2(sX, sY, sZ);
+            rigidBody.colliderShape = boxShape;
+            rigidBody.mass = 10;
+            rigidBody.friction = friction;
+            return rigidBody;
+        }
+    }
+
+    var Scene3D$j = Laya.Scene3D;
+    var BlinnPhongMaterial$7 = Laya.BlinnPhongMaterial;
+    var Camera$d = Laya.Camera;
+    var Vector2 = Laya.Vector2;
+    var Ray = Laya.Ray;
+    var Vector3$g = Laya.Vector3;
+    var Vector4$5 = Laya.Vector4;
+    var MeshSprite3D$d = Laya.MeshSprite3D;
+    var DirectionLight$a = Laya.DirectionLight;
+    var Texture2D$9 = Laya.Texture2D;
+    var PrimitiveMesh$c = Laya.PrimitiveMesh;
+    var CannonPhysicsCollider$3 = Laya.CannonPhysicsCollider;
+    var CannonBoxColliderShape$3 = Laya.CannonBoxColliderShape;
+    var Event$8 = Laya.Event;
+    var CannonRigidbody3D$3 = Laya.CannonRigidbody3D;
+    var CannonSphereColliderShape$3 = Laya.CannonSphereColliderShape;
+    var CannonCompoundColliderShape$2 = Laya.CannonCompoundColliderShape;
+    var MouseManager = Laya.MouseManager;
+    var CannonHitResult = Laya.CannonHitResult;
+    var Handler$k = Laya.Handler;
+    class CannonPhysicsWorld_RayCheck extends SingletonScene {
+        constructor() {
+            super();
+            this.point = new Vector2();
+            this.ray = new Ray(new Vector3$g(), new Vector3$g());
+            this.colorRed = new Vector4$5(1, 0, 0, 1);
+            this.colorWrite = new Vector4$5(1, 1, 1, 1);
+            Laya3D.init(0, 0, null, Handler$k.create(this, () => {
+                Config3D.useCannonPhysics = true;
+                this.s_scene = new Scene3D$j();
+                this.camera = this.s_scene.addChild(new Camera$d(0, 0.1, 100));
+                this.camera.transform.translate(new Vector3$g(0, 6, 9.5));
+                this.camera.transform.rotate(new Vector3$g(-15, 0, 0), true, false);
+                this.camera.addComponent(CameraMoveScript);
+                this.camera.clearColor = null;
+                var directionLight = this.s_scene.addChild(new DirectionLight$a());
+                directionLight.color = new Vector3$g(0.6, 0.6, 0.6);
+                var mat = directionLight.transform.worldMatrix;
+                mat.setForward(new Vector3$g(-1.0, -1.0, -1.0));
+                directionLight.transform.worldMatrix = mat;
+                var plane = this.s_scene.addChild(new MeshSprite3D$d(PrimitiveMesh$c.createPlane(20, 20, 10, 10)));
+                var planeMat = new BlinnPhongMaterial$7();
+                Texture2D$9.load(GlobalConfig.ResPath + "res/threeDimen/Physics/grass.png", Handler$k.create(this, function (tex) {
+                    this.AutoSetScene3d(this.s_scene);
+                    planeMat.albedoTexture = tex;
+                }));
+                var tilingOffset = planeMat.tilingOffset;
+                tilingOffset.setValue(5, 5, 0, 0);
+                planeMat.tilingOffset = tilingOffset;
+                plane.meshRenderer.material = planeMat;
+                var planeCollider = plane.addComponent(CannonPhysicsCollider$3);
+                var planeShape = new CannonBoxColliderShape$3(20, 0.01, 20);
+                planeCollider.colliderShape = planeShape;
+                planeCollider.friction = 2;
+                planeCollider.restitution = 0.3;
+                this.mat1 = new BlinnPhongMaterial$7();
+                this.mat2 = new BlinnPhongMaterial$7();
+                this.mat3 = new BlinnPhongMaterial$7();
+                Texture2D$9.load(GlobalConfig.ResPath + "res/threeDimen/Physics/rocks.jpg", Handler$k.create(this, function (tex) {
+                    this.mat1.albedoTexture = tex;
+                }));
+                Texture2D$9.load(GlobalConfig.ResPath + "res/threeDimen/Physics/plywood.jpg", Handler$k.create(this, function (tex) {
+                    this.mat2.albedoTexture = tex;
+                }));
+                Texture2D$9.load(GlobalConfig.ResPath + "res/threeDimen/Physics/wood.jpg", Handler$k.create(this, function (tex) {
+                    this.mat3.albedoTexture = tex;
+                }));
+                this.addBox();
+                this.addSphere();
+                this.addCompoundColliderShape();
+                Laya.stage.on(Event$8.MOUSE_DOWN, this, this.mouseDown);
+            }));
+        }
+        addBox() {
+            var sX = 1;
+            var sY = 1;
+            var sZ = 1;
+            var box = this.s_scene.addChild(new MeshSprite3D$d(PrimitiveMesh$c.createBox(sX, sY, sZ)));
+            box.name = "box";
+            box.meshRenderer.material = this.mat1;
+            var transform = box.transform;
+            var pos = transform.position;
+            pos.setValue(-5, 5, 0);
+            transform.position = pos;
+            var rigidBody = box.addComponent(CannonRigidbody3D$3);
+            var boxShape = new CannonBoxColliderShape$3(sX, sY, sZ);
+            rigidBody.colliderShape = boxShape;
+            rigidBody.mass = 10;
+        }
+        addSphere() {
+            var radius = 1;
+            var sphere = this.s_scene.addChild(new MeshSprite3D$d(PrimitiveMesh$c.createSphere(1)));
+            sphere.name = "sphere";
+            sphere.meshRenderer.material = this.mat2;
+            var sphereTransform = sphere.transform;
+            var pos = sphereTransform.position;
+            pos.setValue(0, 5, 0);
+            sphereTransform.position = pos;
+            var rigidBody = sphere.addComponent(CannonRigidbody3D$3);
+            var sphereShape = new CannonSphereColliderShape$3(radius);
+            rigidBody.colliderShape = sphereShape;
+            rigidBody.mass = 10;
+        }
+        addCompoundColliderShape() {
+            var mesh = this.addMeshBox(5, 5, 0);
+            mesh.name = "compound";
+            var scale = mesh.transform.getWorldLossyScale();
+            scale.setValue(0.5, 0.5, 0.5);
+            mesh.transform.setWorldLossyScale(scale);
+            this.s_scene.addChild(mesh);
+            var rigidBody = mesh.addComponent(CannonRigidbody3D$3);
+            var boxShape0 = new CannonBoxColliderShape$3(1, 1, 1);
+            var boxShape1 = new CannonBoxColliderShape$3(1, 1, 1);
+            var boxShape2 = new CannonBoxColliderShape$3(1, 1, 1);
+            var boxShape3 = new CannonBoxColliderShape$3(1, 1, 1);
+            var boxCompoundShape = new CannonCompoundColliderShape$2();
+            boxCompoundShape.addChildShape(boxShape0, new Vector3$g(0.5, 0.5, 0));
+            boxCompoundShape.addChildShape(boxShape1, new Vector3$g(0.5, -0.5, 0));
+            boxCompoundShape.addChildShape(boxShape2, new Vector3$g(-0.5, 0.5, 0));
+            boxCompoundShape.addChildShape(boxShape3, new Vector3$g(-0.5, -0.5));
+            rigidBody.colliderShape = boxCompoundShape;
+            rigidBody.mass = 10;
+        }
+        addMeshBox(x, y, z) {
+            var sX = 2;
+            var sY = 2;
+            var sZ = 1;
+            var box = this.s_scene.addChild(new MeshSprite3D$d(PrimitiveMesh$c.createBox(sX, sY, sZ)));
+            box.meshRenderer.material = this.mat3;
+            var transform = box.transform;
+            var pos = transform.position;
+            pos.setValue(x, y, z);
+            transform.position = pos;
+            return box;
+        }
+        mouseDown() {
+            this.point.x = MouseManager.instance.mouseX;
+            this.point.y = MouseManager.instance.mouseY;
+            this.camera.viewportPointToRay(this.point, this.ray);
+            var out = new CannonHitResult();
+            this.s_scene.cannonPhysicsSimulation.rayCast(this.ray, out);
+            if (out.succeeded) {
+                var selectSprite3D = out.collider.owner;
+                selectSprite3D.meshRenderer.sharedMaterial.albedoColor = this.colorRed;
+                if (this.oldSelectMesh)
+                    if (selectSprite3D != this.oldSelectMesh)
+                        this.oldSelectMesh.meshRenderer.sharedMaterial.albedoColor = this.colorWrite;
+                this.oldSelectMesh = selectSprite3D;
+            }
+        }
+    }
+
     class CannonPhysics3DMain extends SingletonMainScene {
         constructor() {
             super();
@@ -6990,10 +7403,315 @@
                     CannonPhysicsWorld_BaseCollider.getInstance().Click();
                     break;
                 case this.btnNameArr[2]:
+                    CannonPhysicsWorld_ColliderEvent.getInstance().Click();
                     break;
                 case this.btnNameArr[3]:
+                    CannonPhysicsWorld_PhysicsProperty.getInstance().Click();
                     break;
                 case this.btnNameArr[4]:
+                    CannonPhysicsWorld_RayCheck.getInstance().Click();
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
+    class MouseInteraction extends SingletonScene {
+        constructor() {
+            super();
+            this.posX = 0.0;
+            this.posY = 0.0;
+            this.point = new Laya.Vector2();
+            this.text = new Laya.Text();
+            this.s_scene = new Laya.Scene3D();
+            this._ray = new Laya.Ray(new Laya.Vector3(0, 0, 0), new Laya.Vector3(0, 0, 0));
+            this.point = new Laya.Vector2();
+            this._outHitResult = new Laya.HitResult();
+            this._camera = new Laya.Camera(0, 0.1, 100);
+            this.s_scene.addChild(this._camera);
+            this._camera.transform.translate(new Laya.Vector3(0, 0.7, 5));
+            this._camera.transform.rotate(new Laya.Vector3(-15, 0, 0), true, false);
+            this._camera.addComponent(CameraMoveScript);
+            var directionLight = new Laya.DirectionLight();
+            this.s_scene.addChild(directionLight);
+            directionLight.color = new Laya.Vector3(1, 1, 1);
+            directionLight.transform.rotate(new Laya.Vector3(-3.14 / 3, 0, 0));
+            Laya.loader.create([
+                GlobalConfig.ResPath + "res/threeDimen/staticModel/grid/plane.lh",
+                GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh"
+            ], Laya.Handler.create(this, this.onComplete));
+        }
+        onComplete() {
+            this.AutoSetScene3d(this.s_scene);
+            var grid = this.s_scene.addChild(Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/staticModel/grid/plane.lh"));
+            grid.layer = 10;
+            var staticLayaMonkey = new Laya.MeshSprite3D(Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/Assets/LayaMonkey/LayaMonkey-LayaMonkey.lm"));
+            this.s_scene.addChild(staticLayaMonkey);
+            staticLayaMonkey.meshRenderer.material = Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/Assets/LayaMonkey/Materials/T_Diffuse.lmat");
+            staticLayaMonkey.transform.position = new Laya.Vector3(0, 0, 0.5);
+            staticLayaMonkey.transform.localScale = new Laya.Vector3(0.3, 0.3, 0.3);
+            staticLayaMonkey.transform.rotation = new Laya.Quaternion(0.7071068, 0, 0, -0.7071067);
+            var layaMonkey_clone1 = Laya.Sprite3D.instantiate(staticLayaMonkey, this.s_scene, false, new Laya.Vector3(0.0, 0, 0.5));
+            var layaMonkey_clone2 = Laya.Sprite3D.instantiate(staticLayaMonkey, this.s_scene, false, new Laya.Vector3(0.0, 0, 0.5));
+            var layaMonkey_clone3 = Laya.Sprite3D.instantiate(staticLayaMonkey, this.s_scene, false, new Laya.Vector3(0.0, 0, 0.5));
+            staticLayaMonkey.name = "大熊";
+            layaMonkey_clone1.name = "二熊";
+            layaMonkey_clone2.name = "三熊";
+            layaMonkey_clone3.name = "小小熊";
+            layaMonkey_clone1.transform.translate(new Laya.Vector3(1.5, 0, 0.0));
+            layaMonkey_clone2.transform.translate(new Laya.Vector3(-1.5, 0, 0.0));
+            layaMonkey_clone3.transform.translate(new Laya.Vector3(2.5, 0, 0.0));
+            layaMonkey_clone2.transform.rotate(new Laya.Vector3(0, 60, 0), false, false);
+            var scale = new Laya.Vector3(0.1, 0.1, 0.1);
+            layaMonkey_clone3.transform.localScale = scale;
+            var meshCollider = staticLayaMonkey.addComponent(Laya.PhysicsCollider);
+            var meshShape = new Laya.MeshColliderShape();
+            meshShape.mesh = staticLayaMonkey.meshFilter.sharedMesh;
+            meshCollider.colliderShape = meshShape;
+            var meshCollider1 = layaMonkey_clone1.addComponent(Laya.PhysicsCollider);
+            var meshShape1 = new Laya.MeshColliderShape();
+            meshShape1.mesh = layaMonkey_clone1.meshFilter.sharedMesh;
+            meshCollider1.colliderShape = meshShape1;
+            var meshCollider2 = layaMonkey_clone2.addComponent(Laya.PhysicsCollider);
+            var meshShape2 = new Laya.MeshColliderShape();
+            meshShape2.mesh = layaMonkey_clone2.meshFilter.sharedMesh;
+            meshCollider2.colliderShape = meshShape2;
+            var meshCollider3 = layaMonkey_clone3.addComponent(Laya.PhysicsCollider);
+            var meshShape3 = new Laya.MeshColliderShape();
+            meshShape3.mesh = layaMonkey_clone3.meshFilter.sharedMesh;
+            meshCollider3.colliderShape = meshShape3;
+            this.text.x = Laya.stage.width / 2 - 50;
+            this.text = new Laya.Text();
+            this.text.overflow = Laya.Text.HIDDEN;
+            this.text.color = "#FFFFFF";
+            this.text.font = "Impact";
+            this.text.fontSize = 20;
+            this.text.x = Laya.stage.width / 2;
+            Laya.stage.addChild(this.text);
+            this.addMouseEvent();
+        }
+        addMouseEvent() {
+            Laya.stage.on(Laya.Event.MOUSE_DOWN, this, this.onMouseDown);
+        }
+        onMouseDown() {
+            this.point.x = Laya.MouseManager.instance.mouseX;
+            this.point.y = Laya.MouseManager.instance.mouseY;
+            this._camera.viewportPointToRay(this.point, this._ray);
+            this.s_scene.physicsSimulation.rayCast(this._ray, this._outHitResult);
+            if (this._outHitResult.succeeded) {
+                this.text.text = "点击到了" + this._outHitResult.collider.owner.name;
+            }
+        }
+        Show() {
+            super.Show();
+            if (this.text) {
+                this.text.visible = true;
+            }
+        }
+        Hide() {
+            super.Hide();
+            if (this.text) {
+                this.text.visible = false;
+            }
+        }
+    }
+    class SceneScript extends Laya.Script3D {
+        constructor() {
+            super();
+            this._albedoColor = new Laya.Vector4(0.0, 0.0, 0.0, 1.0);
+            this.box = null;
+        }
+        onAwake() {
+            this.box = this.owner;
+        }
+        onUpdate() {
+        }
+        onMouseDown() {
+        }
+        onCollisionEnter(collision) {
+            this.box.meshRenderer.sharedMaterial.albedoColor = this._albedoColor;
+        }
+    }
+
+    class MultiTouch extends SingletonScene {
+        constructor() {
+            super();
+            this._upVector3 = new Laya.Vector3(0, 1, 0);
+            this._upVector3 = new Laya.Vector3(0, 1, 0);
+            var resource = [GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh"];
+            Laya.loader.create(resource, Laya.Handler.create(this, this.onComplete));
+        }
+        onComplete() {
+            var scene = new Laya.Scene3D();
+            this.AutoSetScene3d(scene);
+            var camera = new Laya.Camera(0, 0.1, 100);
+            scene.addChild(camera);
+            camera.name = "camera";
+            camera.transform.translate(new Laya.Vector3(0, 0.8, 1.5));
+            camera.transform.rotate(new Laya.Vector3(-15, 0, 0), true, false);
+            var directionLight = new Laya.DirectionLight();
+            scene.addChild(directionLight);
+            directionLight.color = new Laya.Vector3(0.6, 0.6, 0.6);
+            var monkey = Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh");
+            monkey.addComponent(MonkeyScript);
+            scene.addChild(monkey);
+            camera.transform.lookAt(monkey.transform.position, new Laya.Vector3(0, 1, 0));
+            this.text = new Laya.Text();
+            this.text.x = Laya.stage.width / 2 - 100;
+            this.text.y = 50;
+            this.text.text = "触控点归零";
+            this.text.name = "ceshi";
+            this.text.overflow = Laya.Text.HIDDEN;
+            this.text.color = "#FFFFFF";
+            this.text.font = "Impact";
+            this.text.fontSize = 20;
+            this.text.borderColor = "#FFFF00";
+            Laya.stage.addChild(this.text);
+            this.infoText = new Laya.Text();
+            this.infoText.x = Laya.stage.width / 2 - 100;
+            this.infoText.text = "单指旋转，双指缩放";
+            this.infoText.overflow = Laya.Text.HIDDEN;
+            this.infoText.color = "#FFFFFF";
+            this.infoText.font = "Impact";
+            this.infoText.fontSize = 20;
+            this.infoText.borderColor = "#FFFF00";
+            Laya.stage.addChild(this.infoText);
+        }
+        Show() {
+            super.Show();
+            if (this.text) {
+                this.text.visible = true;
+            }
+            if (this.infoText) {
+                this.infoText.visible = true;
+            }
+        }
+        Hide() {
+            super.Hide();
+            if (this.text) {
+                this.text.visible = false;
+            }
+            if (this.infoText) {
+                this.infoText.visible = false;
+            }
+        }
+    }
+    class MonkeyScript extends Laya.Script3D {
+        constructor() {
+            super();
+            this.distance = 0.0;
+            this.sprite3DSacle = new Laya.Vector3();
+            this._scene = null;
+            this._text = null;
+            this._camera = null;
+            this.rotation = new Laya.Vector3(0, 0.01, 0);
+            this.lastPosition = new Laya.Vector2(0, 0);
+            this.distance = 0.0;
+            this.disVector1 = new Laya.Vector2(0, 0);
+            this.disVector2 = new Laya.Vector2(0, 0);
+            this.isTwoTouch = false;
+            this.first = true;
+            this.twoFirst = true;
+        }
+        onStart() {
+            this._scene = this.owner.parent;
+            this._text = this._scene.parent.getChildByName("ceshi");
+            this._camera = this._scene.getChildByName("camera");
+        }
+        onUpdate() {
+            var touchCount = this._scene.input.touchCount();
+            if (1 === touchCount) {
+                if (this.isTwoTouch) {
+                    return;
+                }
+                this._text.text = "触控点为1";
+                var touch = this._scene.input.getTouch(0);
+                if (this.first) {
+                    this.lastPosition.x = touch.position.x;
+                    this.lastPosition.y = touch.position.y;
+                    this.first = false;
+                }
+                else {
+                    var deltaY = touch.position.y - this.lastPosition.y;
+                    var deltaX = touch.position.x - this.lastPosition.x;
+                    this.lastPosition.x = touch.position.x;
+                    this.lastPosition.y = touch.position.y;
+                    this.owner.transform.rotate(new Laya.Vector3(1 * deltaY / 2, 1 * deltaX / 2, 0), true, false);
+                }
+            }
+            else if (2 === touchCount) {
+                this._text.text = "触控点为2";
+                this.isTwoTouch = true;
+                var touch = this._scene.input.getTouch(0);
+                var touch2 = this._scene.input.getTouch(1);
+                if (this.twoFirst) {
+                    this.disVector1.x = touch.position.x - touch2.position.x;
+                    this.disVector1.y = touch.position.y - touch2.position.y;
+                    this.distance = Laya.Vector2.scalarLength(this.disVector1);
+                    this.sprite3DSacle = this.owner.transform.scale;
+                    this.twoFirst = false;
+                }
+                else {
+                    this.disVector2.x = touch.position.x - touch2.position.x;
+                    this.disVector2.y = touch.position.y - touch2.position.y;
+                    var distance2 = Laya.Vector2.scalarLength(this.disVector2);
+                    let factor = 0.001 * (distance2 - this.distance);
+                    this.sprite3DSacle.x += factor;
+                    this.sprite3DSacle.y += factor;
+                    this.sprite3DSacle.z += factor;
+                    this.owner.transform.scale = this.sprite3DSacle;
+                    this.distance = distance2;
+                }
+            }
+            else if (0 === touchCount) {
+                this._text.text = "触控点归零";
+                this.first = true;
+                this.twoFirst = true;
+                this.lastPosition.x = 0;
+                this.lastPosition.y = 0;
+                this.isTwoTouch = false;
+            }
+        }
+        onLateUpdate() {
+        }
+    }
+
+    class MouseInteractionMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "鼠标交互", "多点触控"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    MouseInteraction.getInstance().Click();
+                    break;
+                case this.btnNameArr[2]:
+                    MultiTouch.getInstance().Click();
                     break;
             }
             console.log(name + "按钮_被点击");
@@ -7069,6 +7787,7 @@
                     CannonPhysics3DMain.getInstance().Show();
                     break;
                 case this.btnNameArr[12]:
+                    MouseInteractionMain.getInstance().Show();
                     break;
                 case this.btnNameArr[13]:
                     break;
