@@ -576,7 +576,6 @@
                 this.teapot.transform.rotate(new Laya.Vector3(-90, 0, 0), false, false);
                 this.sprite3D.addChild(this.teapot);
                 var pbrMat = new Laya.PBRStandardMaterial();
-                pbrMat.enableReflection = true;
                 pbrMat.metallic = 1;
                 this.teapot.meshRenderer.material = pbrMat;
             }));
@@ -5434,6 +5433,50 @@
         }
     }
 
+    class CannonPhysics3DMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "基础碰撞器", "碰撞事件", "物理属性", "射线检测"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    break;
+                case this.btnNameArr[2]:
+                    break;
+                case this.btnNameArr[3]:
+                    break;
+                case this.btnNameArr[4]:
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
     class LayaMain3d extends SingletonMainScene {
         constructor() {
             super();
@@ -5500,6 +5543,7 @@
                     Physics3DMain.getInstance().Show();
                     break;
                 case this.btnNameArr[11]:
+                    CannonPhysics3DMain.getInstance().Show();
                     break;
                 case this.btnNameArr[12]:
                     break;
@@ -5546,7 +5590,7 @@
                 Laya["PhysicsDebugDraw"].enable();
             if (GameConfig.stat)
                 Laya.Stat.show();
-            Laya.alertGlobalError = true;
+            Laya.alertGlobalError(true);
             Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
         }
         onVersionLoaded() {
@@ -5555,11 +5599,11 @@
         onConfigLoaded() {
             GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
         }
-        LoadExamples() {
+        Load() {
             LayaMain3d.getInstance().LoadExamples();
         }
     }
-    new Main().LoadExamples();
+    new Main().Load();
 
 }());
 //# sourceMappingURL=bundle.js.map

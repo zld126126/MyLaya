@@ -66,7 +66,7 @@ export class EnvironmentalReflection extends SingletonScene {
             //实例PBR材质
             var pbrMat = new Laya.PBRStandardMaterial();
             //开启该材质的反射
-            pbrMat.enableReflection = true;
+            // pbrMat.enableReflection = true;
             //设置材质的金属度，尽量高点，反射效果更明显
             pbrMat.metallic = 1;
             this.teapot.meshRenderer.material = pbrMat;
