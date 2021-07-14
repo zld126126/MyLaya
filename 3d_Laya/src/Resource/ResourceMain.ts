@@ -3,6 +3,7 @@ import { EventManager, EventType } from "../EventManager";
 import { LoadResourceDemo } from "./LoadResourceDemo";
 import { GlobalConfig } from "../GlobalConfig";
 import { GarbageCollection } from "./GarbageCollection";
+import { LoadGltfRosource } from "./LoadGltfRosource";
 
 
 export class ResourceMain extends SingletonMainScene {
@@ -49,13 +50,13 @@ export class ResourceMain extends SingletonMainScene {
                 EventManager.DispatchEvent(EventType.BACKTOMAIN);
                 break;
             case this.btnNameArr[1]:
-                new LoadResourceDemo();
+                LoadResourceDemo.getInstance().Click();
                 break;
             case this.btnNameArr[2]:
-                new GarbageCollection();
+                GarbageCollection.getInstance().Click();
                 break;
             case this.btnNameArr[3]:
-                console.log("TODO:未来实现");
+                LoadGltfRosource.getInstance().Click();
                 break;
         }
         console.log(name + "按钮_被点击");
