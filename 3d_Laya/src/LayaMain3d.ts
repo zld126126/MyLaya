@@ -16,6 +16,10 @@ import { CannonPhysics3DMain } from "./CannonPhysics3D/CannonPhysics3DMain";
 import { MouseInteractionMain } from "./MouseInteraction/MouseInteractionMain";
 import { ScriptMain } from "./Script/ScriptMain";
 import { SkyMain } from "./Sky/SkyMain";
+import { Particle3DMain } from "./Particle3D/Particle3DMain";
+import { TrailMain } from "./Trail/TrailMain";
+import { ShaderMain } from "./Shader/ShaderMain";
+import { PerformanceMain } from "./Performance/PerformanceMain";
 
 export class LayaMain3d extends SingletonMainScene {
     constructor() {
@@ -108,12 +112,16 @@ export class LayaMain3d extends SingletonMainScene {
                 SkyMain.getInstance().Show();
                 break;
             case this.btnNameArr[15]:
+                Particle3DMain.getInstance().Show();
                 break;
             case this.btnNameArr[16]:
+                TrailMain.getInstance().Show();
                 break;
             case this.btnNameArr[17]:
+                ShaderMain.getInstance().Show();
                 break;
             case this.btnNameArr[18]:
+                PerformanceMain.getInstance().Show();
                 break;
             case this.btnNameArr[19]:
                 break;
