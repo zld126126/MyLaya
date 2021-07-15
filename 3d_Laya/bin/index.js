@@ -18,5 +18,6 @@ loadLib("libs/laya.cannonPhysics.js")
 loadLib("libs/laya.gltf.js")
 loadLib("libs/laya.physics3D.js")
 loadLib("libs/astar.js")
+loadLib("libs/grass_demo.js")
 //-----libs-end-------
 loadLib("js/bundle.js");

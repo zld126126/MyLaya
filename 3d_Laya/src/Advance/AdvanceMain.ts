@@ -5,6 +5,15 @@ import { Laya3DCombineHtml } from "./Laya3DCombineHtml";
 import { AStarFindPath } from "./AStarFindPath";
 import { Scene2DPlayer3D } from "./Scene2DPlayer3D";
 import { Secne3DPlayer2D } from "./Secne3DPlayer2D";
+import { DrawTextTexture } from "./DrawTextTexture";
+import { VideoPlayIn3DWorld } from "./VideoPlayIn3DWorld";
+import { CommandBuffer_BlurryGlass } from "./CommandBuffer_BlurryGlass";
+import { CommandBuffer_Outline } from "./CommandBuffer_Outline";
+import { CommandBuffer_DrawCustomInstance } from "./CommandBuffer_DrawCustomInstance";
+import { GrassDemo } from "./GrassDemo";
+import { ReflectionProbeDemo } from "./ReflectionProbeDemo";
+import { CameraDepthModeTextureDemo } from "./CameraDepthModeTextureDemo";
+import { SeparableSSS_RenderDemo } from "./SeparableSSS_RenderDemo";
 
 export class AdvanceMain extends SingletonMainScene {
     private btnNameArr: Array<string> = [
@@ -66,20 +75,31 @@ export class AdvanceMain extends SingletonMainScene {
                 Secne3DPlayer2D.getInstance().Click();
                 break;
             case this.btnNameArr[5]:
+                DrawTextTexture.getInstance().Click();
                 break;
             case this.btnNameArr[6]:
+                VideoPlayIn3DWorld.getInstance().Click();
                 break;
             case this.btnNameArr[7]:
+                CommandBuffer_BlurryGlass.getInstance().Click();
                 break;
             case this.btnNameArr[8]:
+                CommandBuffer_Outline.getInstance().Click();
                 break;
             case this.btnNameArr[9]:
+                CommandBuffer_DrawCustomInstance.getInstance().Click();
                 break;
             case this.btnNameArr[10]:
+                GrassDemo.getInstance().Click();
                 break;
             case this.btnNameArr[11]:
+                ReflectionProbeDemo.getInstance().Click();
                 break;
             case this.btnNameArr[12]:
+                CameraDepthModeTextureDemo.getInstance().Click();
+                break;
+            case this.btnNameArr[13]:
+                SeparableSSS_RenderDemo.getInstance().Click();
                 break;
         }
         console.log(name + "按钮_被点击");
