@@ -1,6 +1,4 @@
 import { CameraMoveScript } from "../common/CameraMoveScript";
-import { SeparableSSSRenderMaterial } from "../common/SeparableSSSRenderMaterial";
-import { SeparableSSS_BlitMaterial } from "../common/SeparableSSS_BlitMaterial";
 import { GlobalConfig } from "../GlobalConfig";
 import SingletonScene from "../SingletonScene";
 import Scene3D = Laya.Scene3D;
@@ -37,8 +35,8 @@ export class SeparableSSS_RenderDemo extends SingletonScene {
     pbrMaterial: PBRStandardMaterial;
     //testPlane
     planeMat: UnlitMaterial;
-    sssssBlitMaterail: SeparableSSS_BlitMaterial;
-    sssssRenderMaterial: SeparableSSSRenderMaterial;
+    sssssBlitMaterail: any;
+    sssssRenderMaterial: any;
 
     //reference:https://github.com/iryoku/separable-sss 
     //流程：分别渲染皮肤Mesh的漫反射部分以及渲染皮肤Mesh的高光部分,分别存储在不同的FrameBuffer中
@@ -52,11 +50,8 @@ export class SeparableSSS_RenderDemo extends SingletonScene {
         super();
 
         Shader3D.debugMode = true;
-        SeparableSSS_BlitMaterial.init();
-        SeparableSSSRenderMaterial.init();
-
-        this.sssssBlitMaterail = new SeparableSSS_BlitMaterial();
-        this.sssssRenderMaterial = new SeparableSSSRenderMaterial();
+        this.sssssBlitMaterail = window['NewSeparableSSS_BlitMaterial']();
+        this.sssssRenderMaterial = window['NewSeparableSSSRenderMaterial']();
         this.PreloadingRes();
     }
 
@@ -134,11 +129,11 @@ export class SeparableSSS_RenderDemo extends SingletonScene {
         //buf.blitScreenQuad(specRrenderTexture,null);
 
         //拿到三张图片后，对diffuse贴图进行高斯核模糊
-        buf.setShaderDataTexture(this.sssssBlitMaterail.shaderData, SeparableSSS_BlitMaterial.SHADERVALUE_DEPTHTEX, depthTexture);
+        buf.setShaderDataTexture(this.sssssBlitMaterail.shaderData, this.sssssBlitMaterail.SHADERVALUE_DEPTHTEX, depthTexture);
         let blurRenderTexture = RenderTexture.createFromPool(viewPort.width, viewPort.height, RenderTextureFormat.R8G8B8A8, RenderTextureDepthFormat.DEPTHSTENCIL_NONE);
-        buf.setShaderDataVector2(this.sssssBlitMaterail.shaderData, SeparableSSS_BlitMaterial.SHADERVALUE_BLURDIR, new Vector2(10.0, 0.0));
+        buf.setShaderDataVector2(this.sssssBlitMaterail.shaderData, this.sssssBlitMaterail.SHADERVALUE_BLURDIR, new Vector2(10.0, 0.0));
         buf.blitScreenQuadByMaterial(diffuseRenderTexture, blurRenderTexture, new Vector4(0, 0, 1.0, 1.0), this.sssssBlitMaterail, 0);
-        buf.setShaderDataVector2(this.sssssBlitMaterail.shaderData, SeparableSSS_BlitMaterial.SHADERVALUE_BLURDIR, new Vector2(0.0, 10.0));
+        buf.setShaderDataVector2(this.sssssBlitMaterail.shaderData, this.sssssBlitMaterail.SHADERVALUE_BLURDIR, new Vector2(0.0, 10.0));
         buf.blitScreenQuadByMaterial(blurRenderTexture, diffuseRenderTexture, new Vector4(0.0, 0.0, 0.0, 0.0), this.sssssBlitMaterail, 0);
 
 
