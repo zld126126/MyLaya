@@ -8915,6 +8915,567 @@
         }
     }
 
+    var Script3D$4 = Laya.Script3D;
+    var Vector3$i = Laya.Vector3;
+    var Event$9 = Laya.Event;
+    var MouseManager$1 = Laya.MouseManager;
+    var Scene3D$k = Laya.Scene3D;
+    var Text$1 = Laya.Text;
+    var Browser$9 = Laya.Browser;
+    var Handler$n = Laya.Handler;
+    class RotationScript$1 extends Script3D$4 {
+        constructor() {
+            super();
+            this._mouseDown = false;
+            this._rotate = new Vector3$i();
+            this._autoRotateSpeed = new Vector3$i(0, 0.25, 0);
+            Laya.stage.on(Event$9.MOUSE_DOWN, this, function () {
+                this._mouseDown = true;
+                this._lastMouseX = MouseManager$1.instance.mouseX;
+            });
+            Laya.stage.on(Event$9.MOUSE_UP, this, function () {
+                this._mouseDown = false;
+            });
+        }
+        onUpdate() {
+            if (this._mouseDown) {
+                var deltaX = MouseManager$1.instance.mouseX - this._lastMouseX;
+                this._rotate.y = deltaX * 0.2;
+                this.model.transform.rotate(this._rotate, false, false);
+                this._lastMouseX = MouseManager$1.instance.mouseX;
+            }
+            else {
+                this.model.transform.rotate(this._autoRotateSpeed, false, false);
+            }
+        }
+    }
+    class DamagedHelmetModelShow extends SingletonScene {
+        constructor() {
+            super();
+            this.txts = [];
+            Scene3D$k.load(GlobalConfig.ResPath + "res/threeDimen/scene/LayaScene_DamagedHelmetScene/Conventional/DamagedHelmetScene.ls", Handler$n.create(this, function (scene) {
+                this.AutoSetScene3d(scene);
+                var damagedHelmet = scene.getChildAt(1).getChildAt(0);
+                var rotationScript = damagedHelmet.addComponent(RotationScript$1);
+                rotationScript.model = damagedHelmet;
+                var size = 20;
+                this.addText(size, size * 4, "Drag the screen to rotate the model.", "#F09900");
+                size = 10;
+                this.addText(size, Laya.stage.height - size * 4, "Battle Damaged Sci-fi Helmet by theblueturtle_    www.leonardocarrion.com", "#FFFF00");
+            }));
+        }
+        addText(size, y, text, color) {
+            var cerberusText = new Text$1();
+            cerberusText.color = color;
+            cerberusText.fontSize = size * Browser$9.pixelRatio;
+            cerberusText.x = size;
+            cerberusText.y = y;
+            cerberusText.text = text;
+            Laya.stage.addChild(cerberusText);
+            this.txts.push(cerberusText);
+        }
+        Show() {
+            super.Show();
+            for (var i = 0; i < this.txts.length; i++) {
+                this.txts[i].visible = true;
+            }
+        }
+        Hide() {
+            super.Hide();
+            for (var i = 0; i < this.txts.length; i++) {
+                this.txts[i].visible = false;
+            }
+        }
+    }
+
+    var Scene3D$l = Laya.Scene3D;
+    var Handler$o = Laya.Handler;
+    class GhostModelShow extends SingletonScene {
+        constructor() {
+            super();
+            Scene3D$l.load(GlobalConfig.ResPath + "res/threeDimen/scene/PBRScene/Demo.ls", Handler$o.create(this, function (scene) {
+                this.AutoSetScene3d(scene);
+                var camera = scene.getChildByName("Camera");
+                camera.addComponent(CameraMoveScript);
+            }));
+        }
+    }
+
+    var Script3D$5 = Laya.Script3D;
+    var Vector3$j = Laya.Vector3;
+    var Event$a = Laya.Event;
+    var MouseManager$2 = Laya.MouseManager;
+    var Scene3D$m = Laya.Scene3D;
+    var Text$2 = Laya.Text;
+    var Browser$a = Laya.Browser;
+    var AmbientMode = Laya.AmbientMode;
+    var Handler$p = Laya.Handler;
+    class RotationScript$2 extends Script3D$5 {
+        constructor() {
+            super();
+            this._mouseDown = false;
+            this._rotate = new Vector3$j();
+            Laya.stage.on(Event$a.MOUSE_DOWN, this, function () {
+                this._mouseDown = true;
+                this._lastMouseX = MouseManager$2.instance.mouseX;
+            });
+            Laya.stage.on(Event$a.MOUSE_UP, this, function () {
+                this._mouseDown = false;
+            });
+        }
+        onUpdate() {
+            if (this._mouseDown) {
+                var deltaX = MouseManager$2.instance.mouseX - this._lastMouseX;
+                this._rotate.y = deltaX * 0.2;
+                this.model.transform.rotate(this._rotate, false, false);
+                this._lastMouseX = MouseManager$2.instance.mouseX;
+            }
+        }
+    }
+    class CerberusModelShow extends SingletonScene {
+        constructor() {
+            super();
+            this.txts = [];
+            Scene3D$m.load(GlobalConfig.ResPath + "res/threeDimen/scene/LayaScene_CerberusScene/Conventional/CerberusScene.ls", Handler$p.create(this, function (scene) {
+                this.AutoSetScene3d(scene);
+                scene.ambientMode = AmbientMode.SphericalHarmonics;
+                var model = scene.getChildByName("Cerberus_LP");
+                var rotationScript = model.addComponent(RotationScript$2);
+                rotationScript.model = model;
+                var size = 20;
+                this.addText(size, size * 4, "Drag the screen to rotate the model.", "#F09900");
+                size = 10;
+                this.addText(size, Laya.stage.height - size * 4, "Cerberus by Andrew Maximov     http://artisaverb.info/PBT.html", "#FFFF00");
+            }));
+        }
+        addText(size, y, text, color) {
+            var cerberusText = new Text$2();
+            cerberusText.color = color;
+            cerberusText.fontSize = size * Browser$a.pixelRatio;
+            cerberusText.x = size;
+            cerberusText.y = y;
+            cerberusText.text = text;
+            this.txts.push(cerberusText);
+            Laya.stage.addChild(cerberusText);
+        }
+        Show() {
+            super.Show();
+            for (var i = 0; i < this.txts.length; i++) {
+                this.txts[i].visible = true;
+            }
+        }
+        Hide() {
+            super.Hide();
+            for (var i = 0; i < this.txts.length; i++) {
+                this.txts[i].visible = false;
+            }
+        }
+    }
+
+    class DemoMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页", "幽灵模型", "损坏头盔模型", "地狱犬枪模型"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    GhostModelShow.getInstance().Show();
+                    break;
+                case this.btnNameArr[2]:
+                    DamagedHelmetModelShow.getInstance().Click();
+                    break;
+                case this.btnNameArr[3]:
+                    CerberusModelShow.getInstance().Click();
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
+    class Laya3DCombineHtml extends SingletonScene {
+        constructor() {
+            super();
+            var div = Laya.Browser.window.document.createElement("div");
+            div.innerHTML = "<h1 style='color: red;'>此内容来源于HTML网页, 可直接在html代码中书写 - h1标签</h1>";
+            document.body.appendChild(div);
+            var config3D = new Config3D();
+            config3D.isAlpha = true;
+            Laya3D.init(0, 0, config3D);
+            Laya.stage.scaleMode = Laya.Stage.SCALE_FULL;
+            Laya.stage.screenMode = Laya.Stage.SCREEN_NONE;
+            Laya.stage.bgColor = null;
+            this.s_scene = new Laya.Scene3D();
+            var camera = this.s_scene.addChild(new Laya.Camera(0, 0.1, 100));
+            camera.transform.translate(new Laya.Vector3(0, 0.5, 1));
+            camera.transform.rotate(new Laya.Vector3(-15, 0, 0), true, false);
+            camera.clearColor = null;
+            var directionLight = this.s_scene.addChild(new Laya.DirectionLight());
+            directionLight.color = new Laya.Vector3(0.7, 0.6, 0.6);
+            Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh", Laya.Handler.create(this, function (layaMonkey) {
+                this.AutoSetScene3d(this.s_scene);
+                this.s_scene.addChild(layaMonkey);
+            }));
+        }
+    }
+
+    var MeshTerrainSprite3D = Laya.MeshTerrainSprite3D;
+    var Sprite3D$4 = Laya.Sprite3D;
+    var Vector3$k = Laya.Vector3;
+    var Scene3D$n = Laya.Scene3D;
+    var Texture2D$b = Laya.Texture2D;
+    var Loader$6 = Laya.Loader;
+    var Animator$1 = Laya.Animator;
+    var AnimatorState = Laya.AnimatorState;
+    var Camera$f = Laya.Camera;
+    var Tween = Laya.Tween;
+    var Event$b = Laya.Event;
+    var Handler$q = Laya.Handler;
+    class AStarFindPath extends SingletonScene {
+        constructor() {
+            super();
+            this._position = new Vector3$k(0, 0, 0);
+            this._upVector3 = new Vector3$k(0, 1, 0);
+            this._tarPosition = new Vector3$k(0, 0, 0);
+            this._finalPosition = new Vector3$k(0, 0, 0);
+            this._rotation = new Vector3$k(-45, 180, 0);
+            this._rotation2 = new Vector3$k(0, 180, 0);
+            this.index = 0;
+            this.curPathIndex = 0;
+            this.nextPathIndex = 1;
+            this.pointCount = 10;
+            this.path = [];
+            var resource = [{ url: GlobalConfig.ResPath + "res/threeDimen/scene/TerrainScene/XunLongShi.ls", clas: Scene3D$n, priority: 1 },
+                { url: GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh", clas: Sprite3D$4, priority: 1 },
+                { url: GlobalConfig.ResPath + "res/threeDimen/scene/TerrainScene/Assets/HeightMap.png", clas: Texture2D$b, priority: 1, constructParams: [1024, 1024, 1, false, true] },
+                { url: GlobalConfig.ResPath + "res/threeDimen/scene/TerrainScene/Assets/AStarMap.png", clas: Texture2D$b, priority: 1, constructParams: [64, 64, 1, false, true] }];
+            Laya.loader.create(resource, Handler$q.create(this, this.onLoadFinish));
+        }
+        onLoadFinish() {
+            this.s_scene = Loader$6.getRes(GlobalConfig.ResPath + "res/threeDimen/scene/TerrainScene/XunLongShi.ls");
+            this.initPath(this.s_scene);
+            this.AutoSetScene3d(this.s_scene);
+            var meshSprite3D = this.s_scene.getChildByName('Scenes').getChildByName('HeightMap');
+            meshSprite3D.active = false;
+            var heightMap = Loader$6.getRes(GlobalConfig.ResPath + "res/threeDimen/scene/TerrainScene/Assets/HeightMap.png");
+            this.terrainSprite = MeshTerrainSprite3D.createFromMeshAndHeightMap(meshSprite3D.meshFilter.sharedMesh, heightMap, 6.574996471405029, 10.000000953674316);
+            this.terrainSprite.transform.worldMatrix = meshSprite3D.transform.worldMatrix;
+            this.aStarMap = Loader$6.getRes(GlobalConfig.ResPath + "res/threeDimen/scene/TerrainScene/Assets/AStarMap.png");
+            var aStarArr = this.createGridFromAStarMap(this.aStarMap);
+            this.graph = new window.Graph(aStarArr);
+            this.opts = [];
+            this.opts.closest = true;
+            this.opts.heuristic = window.astar.heuristics.diagonal;
+            this.moveSprite3D = this.s_scene.addChild(new Sprite3D$4());
+            this.moveSprite3D.transform.position = this.path[0];
+            this.layaMonkey = this.moveSprite3D.addChild(Loader$6.getRes(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh"));
+            var tmpLocalScale = this.layaMonkey.transform.localScale;
+            tmpLocalScale.setValue(0.5, 0.5, 0.5);
+            var aniSprite3d = this.layaMonkey.getChildAt(0);
+            var animator = aniSprite3d.getComponent(Animator$1);
+            var state = new AnimatorState();
+            state.name = "run";
+            state.clipStart = 40 / 150;
+            state.clipEnd = 70 / 150;
+            state.clip = animator.getDefaultState().clip;
+            animator.addState(state);
+            animator.play("run");
+            var mat = this.layaMonkey.getChildAt(0).getChildAt(0).skinnedMeshRenderer.sharedMaterial;
+            mat.albedoIntensity = 8;
+            this.layaMonkey.transform.position.cloneTo(this._finalPosition);
+            var moveCamera = this.moveSprite3D.addChild(new Camera$f());
+            var tmpLocalPosition = moveCamera.transform.localPosition;
+            tmpLocalPosition.setValue(-1.912066, 10.07926, -10.11014);
+            moveCamera.transform.localPosition = tmpLocalPosition;
+            moveCamera.transform.rotate(this._rotation, true, false);
+            moveCamera.addComponent(CameraMoveScript);
+            Laya.stage.on(Event$b.MOUSE_UP, this, function () {
+                this.index = 0;
+                var startPoint = this.getGridIndex(this.path[this.curPathIndex % this.pointCount].x, this.path[this.curPathIndex++ % this.pointCount].z);
+                var endPoint = this.getGridIndex(this.path[this.nextPathIndex % this.pointCount].x, this.path[this.nextPathIndex++ % this.pointCount].z);
+                var start = this.graph.grid[startPoint.x][startPoint.z];
+                var end = this.graph.grid[endPoint.x][endPoint.z];
+                this._everyPath = window.astar.search(this.graph, start, end, {
+                    closest: this.opts.closest
+                });
+                if (this._everyPath && this._everyPath.length > 0) {
+                    this.resPath = this.getRealPosition(start, this._everyPath);
+                }
+            });
+            Laya.timer.loop(40, this, this.loopfun);
+        }
+        loopfun() {
+            if (this.resPath && this.index < this.resPath.length) {
+                this._position.x = this.resPath[this.index].x;
+                this._position.z = this.resPath[this.index++].z;
+                this._position.y = this.terrainSprite.getHeight(this._position.x, this._position.z);
+                if (isNaN(this._position.y)) {
+                    this._position.y = this.moveSprite3D.transform.position.y;
+                }
+                if (this.index === 1) {
+                    this._tarPosition.x = this.resPath[this.resPath.length - 1].x;
+                    this._tarPosition.z = this.resPath[this.resPath.length - 1].z;
+                    this._tarPosition.y = this.moveSprite3D.transform.position.y;
+                    this.layaMonkey.transform.lookAt(this._tarPosition, this._upVector3, false);
+                    this.layaMonkey.transform.rotate(this._rotation2, false, false);
+                }
+                Tween.to(this._finalPosition, { x: this._position.x, y: this._position.y, z: this._position.z }, 40);
+                this.moveSprite3D.transform.position = this._finalPosition;
+            }
+        }
+        initPath(scene) {
+            for (var i = 0; i < this.pointCount; i++) {
+                var str = "path" + i;
+                this.path.push(scene.getChildByName('Scenes').getChildByName('Area').getChildByName(str).transform.localPosition);
+            }
+        }
+        getGridIndex(x, z) {
+            var minX = this.terrainSprite.minX;
+            var minZ = this.terrainSprite.minZ;
+            var cellX = this.terrainSprite.width / this.aStarMap.width;
+            var cellZ = this.terrainSprite.depth / this.aStarMap.height;
+            var gridX = Math.floor((x - minX) / cellX);
+            var gridZ = Math.floor((z - minZ) / cellZ);
+            var boundWidth = this.aStarMap.width - 1;
+            var boundHeight = this.aStarMap.height - 1;
+            (gridX > boundWidth) && (gridX = boundWidth);
+            (gridZ > boundHeight) && (gridZ = boundHeight);
+            (gridX < 0) && (gridX = 0);
+            (gridZ < 0) && (gridZ = 0);
+            var res = [];
+            res.x = gridX;
+            res.z = gridZ;
+            return res;
+        }
+        getRealPosition(start, path) {
+            var resPath = [];
+            var minX = this.terrainSprite.minX;
+            var minZ = this.terrainSprite.minZ;
+            var cellX = this.terrainSprite.width / this.aStarMap.width;
+            var cellZ = this.terrainSprite.depth / this.aStarMap.height;
+            var halfCellX = cellX / 2;
+            var halfCellZ = cellZ / 2;
+            resPath[0] = [];
+            resPath[0].x = start.x * cellX + halfCellX + minX;
+            resPath[0].z = start.y * cellZ + halfCellZ + minZ;
+            for (var i = 1; i < path.length; i++) {
+                var gridPos = path[i];
+                resPath[i] = [];
+                resPath[i].x = gridPos.x * cellX + halfCellX + minX;
+                resPath[i].z = gridPos.y * cellZ + halfCellZ + minZ;
+            }
+            return resPath;
+        }
+        createGridFromAStarMap(texture) {
+            var textureWidth = texture.width;
+            var textureHeight = texture.height;
+            var pixelsInfo = texture.getPixels();
+            var aStarArr = [];
+            var index = 0;
+            for (var w = 0; w < textureWidth; w++) {
+                var colaStarArr = aStarArr[w] = [];
+                for (var h = 0; h < textureHeight; h++) {
+                    var r = pixelsInfo[index++];
+                    var g = pixelsInfo[index++];
+                    var b = pixelsInfo[index++];
+                    var a = pixelsInfo[index++];
+                    if (r == 255 && g == 255 && b == 255 && a == 255)
+                        colaStarArr[h] = 1;
+                    else {
+                        colaStarArr[h] = 0;
+                    }
+                }
+            }
+            ;
+            return aStarArr;
+        }
+    }
+
+    class Scene2DPlayer3D extends SingletonScene {
+        constructor() {
+            super();
+            this.pos = new Laya.Vector3(310, 500, 0);
+            this._translate = new Laya.Vector3(0, 0, 0);
+            this._translateW = new Laya.Vector3(0, 0, -0.2);
+            this._translateS = new Laya.Vector3(0, 0, 0.2);
+            this._translateA = new Laya.Vector3(-0.2, 0, 0);
+            this._translateD = new Laya.Vector3(0.2, 0, 0);
+            this.dialog = new Laya.Image(GlobalConfig.ResPath + "res/threeDimen/secne.jpg");
+            Laya.stage.addChild(this.dialog);
+            this.s_scene = new Laya.Scene3D();
+            var camera = new Laya.Camera(0, 0.1, 1000);
+            this.s_scene.addChild(camera);
+            camera.transform.rotate(new Laya.Vector3(-45, 0, 0), false, false);
+            camera.transform.translate(new Laya.Vector3(5, -10, 1));
+            camera.orthographic = true;
+            camera.orthographicVerticalSize = 10;
+            camera.clearFlag = Laya.BaseCamera.CLEARFLAG_DEPTHONLY;
+            var directionLight = new Laya.DirectionLight();
+            this.s_scene.addChild(directionLight);
+            Laya.Sprite3D.load(GlobalConfig.ResPath + "res/threeDimen/skinModel/LayaMonkey/LayaMonkey.lh", Laya.Handler.create(this, function (layaMonkey) {
+                this.AutoSetScene3d(this.s_scene);
+                this.s_scene.addChild(layaMonkey);
+                this._layaMonkey = layaMonkey;
+                layaMonkey.transform.localScale = new Laya.Vector3(0.3, 0.3, 0.3);
+                camera.convertScreenCoordToOrthographicCoord(this.pos, this._translate);
+                layaMonkey.transform.position = this._translate;
+                layaMonkey.transform.rotationEuler = new Laya.Vector3(-30, 0, 0);
+                Laya.timer.frameLoop(1, this, this.onKeyDown);
+            }));
+        }
+        onKeyDown() {
+            Laya.KeyBoardManager.hasKeyDown(87) && this._layaMonkey.transform.translate(this._translateW);
+            Laya.KeyBoardManager.hasKeyDown(83) && this._layaMonkey.transform.translate(this._translateS);
+            Laya.KeyBoardManager.hasKeyDown(65) && this._layaMonkey.transform.translate(this._translateA);
+            Laya.KeyBoardManager.hasKeyDown(68) && this._layaMonkey.transform.translate(this._translateD);
+        }
+        Show() {
+            super.Show();
+            if (this.dialog) {
+                this.dialog.visible = true;
+            }
+        }
+        Hide() {
+            super.Hide();
+            if (this.dialog) {
+                this.dialog.visible = false;
+            }
+        }
+    }
+
+    class Secne3DPlayer2D extends SingletonScene {
+        constructor() {
+            super();
+            this._position = new Laya.Vector3();
+            this._outPos = new Laya.Vector4();
+            this.scaleDelta = 0;
+            this.s_scene = new Laya.Scene3D();
+            this.camera = new Laya.Camera(0, 0.1, 100);
+            this.s_scene.addChild(this.camera);
+            this.camera.transform.translate(new Laya.Vector3(0, 0.35, 1));
+            this.camera.transform.rotate(new Laya.Vector3(-15, 0, 0), true, false);
+            var directionLight = new Laya.DirectionLight();
+            this.s_scene.addChild(directionLight);
+            directionLight.color = new Laya.Vector3(1, 1, 1);
+            directionLight.transform.rotate(new Laya.Vector3(-3.14 / 3, 0, 0));
+            Laya.loader.create(GlobalConfig.ResPath + "res/threeDimen/staticModel/grid/plane.lh", Laya.Handler.create(this, this.onComplete));
+        }
+        onComplete() {
+            this.AutoSetScene3d(this.s_scene);
+            var grid = this.s_scene.addChild(Laya.Loader.getRes(GlobalConfig.ResPath + "res/threeDimen/staticModel/grid/plane.lh"));
+            this.layaMonkey2D = Laya.stage.addChild(new Laya.Image(GlobalConfig.ResPath + "res/threeDimen/monkey.png"));
+            Laya.timer.frameLoop(1, this, this.animate);
+        }
+        animate() {
+            this._position.x = Math.sin(this.scaleDelta += 0.01);
+            this.camera.viewport.project(this._position, this.camera.projectionViewMatrix, this._outPos);
+            this.layaMonkey2D.pos(this._outPos.x / Laya.stage.clientScaleX, this._outPos.y / Laya.stage.clientScaleY);
+        }
+        Show() {
+            super.Show();
+            if (this.layaMonkey2D) {
+                this.layaMonkey2D.visible = true;
+            }
+        }
+        Hide() {
+            super.Hide();
+            if (this.layaMonkey2D) {
+                this.layaMonkey2D.visible = false;
+            }
+        }
+    }
+
+    class AdvanceMain extends SingletonMainScene {
+        constructor() {
+            super();
+            this.btnNameArr = [
+                "返回主页",
+                "Laya3D与网页混合", "寻路导航", "2D场景+3D人物", "2D人物+3D场景", "3D文字纹理",
+                "视频纹理", "毛玻璃", "轮廓", "Instance渲染", "草地",
+                "反射探针", "相机深度模式纹理展示", "次表面散射"
+            ];
+            Laya.stage.addChild(this);
+            this.LoadExamples();
+        }
+        LoadExamples() {
+            for (let index = 0; index < this.btnNameArr.length; index++) {
+                this.createButton(this.btnNameArr[index], this._onclick, index);
+            }
+        }
+        createButton(name, cb, index, skin = GlobalConfig.ResPath + "res/threeDimen/ui/button.png") {
+            var btn = new Laya.Button(skin, name);
+            btn.on(Laya.Event.CLICK, this, cb, [name]);
+            btn.pos(Laya.stage.width - 50, Laya.stage.height - 50);
+            btn.size(50, 20);
+            btn.name = name;
+            btn.right = 5;
+            btn.top = index * (btn.height + 5);
+            this.addChild(btn);
+            return btn;
+        }
+        _onclick(name) {
+            switch (name) {
+                case this.btnNameArr[0]:
+                    this.Hide();
+                    EventManager.DispatchEvent("BACKTOMAIN");
+                    break;
+                case this.btnNameArr[1]:
+                    Laya3DCombineHtml.getInstance().Click();
+                    break;
+                case this.btnNameArr[2]:
+                    AStarFindPath.getInstance().Click();
+                    break;
+                case this.btnNameArr[3]:
+                    Scene2DPlayer3D.getInstance().Click();
+                    break;
+                case this.btnNameArr[4]:
+                    Secne3DPlayer2D.getInstance().Click();
+                    break;
+                case this.btnNameArr[5]:
+                    break;
+                case this.btnNameArr[6]:
+                    break;
+                case this.btnNameArr[7]:
+                    break;
+                case this.btnNameArr[8]:
+                    break;
+                case this.btnNameArr[9]:
+                    break;
+                case this.btnNameArr[10]:
+                    break;
+                case this.btnNameArr[11]:
+                    break;
+                case this.btnNameArr[12]:
+                    break;
+            }
+            console.log(name + "按钮_被点击");
+        }
+    }
+
     class LayaMain3d extends SingletonMainScene {
         constructor() {
             super();
@@ -9005,8 +9566,10 @@
                     PerformanceMain.getInstance().Show();
                     break;
                 case this.btnNameArr[19]:
+                    AdvanceMain.getInstance().Show();
                     break;
                 case this.btnNameArr[20]:
+                    DemoMain.getInstance().Show();
                     break;
             }
             console.log(name + "按钮_被点击");

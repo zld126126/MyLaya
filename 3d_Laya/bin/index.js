@@ -17,5 +17,6 @@ loadLib("libs/laya.physics.js")
 loadLib("libs/laya.cannonPhysics.js")
 loadLib("libs/laya.gltf.js")
 loadLib("libs/laya.physics3D.js")
+loadLib("libs/astar.js")
 //-----libs-end-------
 loadLib("js/bundle.js");

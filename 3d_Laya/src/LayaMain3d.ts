@@ -20,6 +20,8 @@ import { Particle3DMain } from "./Particle3D/Particle3DMain";
 import { TrailMain } from "./Trail/TrailMain";
 import { ShaderMain } from "./Shader/ShaderMain";
 import { PerformanceMain } from "./Performance/PerformanceMain";
+import { DemoMain } from "./Demo/DemoMain";
+import { AdvanceMain } from "./Advance/AdvanceMain";
 
 export class LayaMain3d extends SingletonMainScene {
     constructor() {
@@ -124,8 +126,10 @@ export class LayaMain3d extends SingletonMainScene {
                 PerformanceMain.getInstance().Show();
                 break;
             case this.btnNameArr[19]:
+                AdvanceMain.getInstance().Show();
                 break;
             case this.btnNameArr[20]:
+                DemoMain.getInstance().Show();
                 break;
         }
         console.log(name + "按钮_被点击");
