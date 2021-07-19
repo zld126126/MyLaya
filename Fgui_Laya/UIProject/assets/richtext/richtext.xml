@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <richtext id="n0_eecm" name="n0" xy="94,57" size="70,43" fontSize="30" ubb="true" vars="true" autoSize="none" text="[color=#FFFFFF,#000000]文字[/color]"/>
+  </displayList>
+</component>

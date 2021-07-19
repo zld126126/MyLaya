@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <component id="n2_eecm" name="n2" src="eecm2" fileName="Button1.xml" xy="248,163"/>
+    <component id="n4_eecm" name="n4" src="eecm3" fileName="Button2.xml" xy="248,267" grayed="true"/>
+  </displayList>
+</component>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <text id="n0_eecm" name="n0" xy="252,108" size="297,82" fontSize="30" color="#ffffff" text="laya 只支持.sk的龙骨 &#xA;不支持fgui编辑预览"/>
+  </displayList>
+</component>

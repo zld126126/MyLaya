@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <loader id="n1_eecm" name="n1" xy="29,21" size="207,360" url="ui://jl8ao6txeecm2" fill="scaleFree"/>
+    <image id="n2_eecm" name="n2" src="eecm3" fileName="img/tu2.jpg" xy="262,21" size="129,138" fillMethod="radial360" fillAmount="35"/>
+    <image id="n4_eecm" name="n4" src="eecm5" fileName="img/tu3.png" xy="262,185">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+  </displayList>
+</component>

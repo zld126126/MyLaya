@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="jgsmcwr2">
+  <resources>
+    <component id="eecm0" name="object.xml" path="/"/>
+    <component id="eecm2" name="Button1.xml" path="/"/>
+    <component id="eecm3" name="Button2.xml" path="/"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

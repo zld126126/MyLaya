@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <text id="n0_eecm" name="n0" xy="42,30" size="70,42" fontSize="30" color="#ffffff" autoSize="none" text="text"/>
+  </displayList>
+</component>

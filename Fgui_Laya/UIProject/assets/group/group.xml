@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <component id="n0_eecm" name="n0" src="eecm1" fileName="Button1.xml" xy="60,39" size="347,103" group="n2_eecm"/>
+    <component id="n1_eecm" name="n1" src="eecm1" fileName="Button1.xml" xy="258,39" size="347,103" group="n2_eecm"/>
+    <group id="n2_eecm" name="n2" xy="60,39" size="545,103"/>
+    <component id="n6_eecm" name="n6" src="eecm1" fileName="Button1.xml" xy="60,165" size="314,175" group="n7_eecm"/>
+    <component id="n5_eecm" name="n5" src="eecm1" fileName="Button1.xml" xy="402,165" size="313,175" group="n7_eecm"/>
+    <group id="n7_eecm" name="n7" xy="60,165" size="655,175" advanced="true" layout="hz" colGap="28" excludeInvisibles="true"/>
+  </displayList>
+</component>

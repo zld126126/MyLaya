@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <graph id="n0_eecm" name="n0" xy="147,88" size="100,100" type="polygon" lineSize="0" lineColor="#ffffffff" fillColor="#ffcc6600" points="0,0,100,53,100,53,0,100"/>
+  </displayList>
+</component>

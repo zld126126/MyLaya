@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="jl8ao6tx">
+  <resources>
+    <component id="eecm1" name="image.xml" path="/"/>
+    <image id="eecm2" name="tu.jpg" path="/img/" scale="9grid" scale9grid="36,141,166,102"/>
+    <image id="eecm3" name="tu2.jpg" path="/img/"/>
+    <image id="eecm4" name="tu3@3x.png" path="/img/"/>
+    <image id="eecm5" name="tu3.png" path="/img/"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <text id="n0_eecm" name="n0" xy="274,207" size="234,95" fontSize="30" color="#ffffff" autoSize="none" text="输入框:&#xA;请输入文本..." input="true"/>
+  </displayList>
+</component>
