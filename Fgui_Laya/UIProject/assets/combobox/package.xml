@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="a0g3kh00">
+  <resources>
+    <component id="p35f0" name="combobox.xml" path="/"/>
+    <component id="p35f1" name="ComboBox1_item.xml" path="/"/>
+    <component id="p35f2" name="ComboBox1_popup.xml" path="/"/>
+    <component id="p35f3" name="ComboBox1.xml" path="/" exported="true"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

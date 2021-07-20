@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="atfvtbba">
+  <resources>
+    <component id="p35f0" name="popup.xml" path="/"/>
+    <component id="p35f1" name="PopupMenu1_item.xml" path="/"/>
+    <component id="p35f2" name="PopupMenu1.xml" path="/" exported="true"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

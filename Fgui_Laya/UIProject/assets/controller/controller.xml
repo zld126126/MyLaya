@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <controller name="c1" pages="0,,1," selected="1"/>
+  <displayList>
+    <component id="n0_eecm" name="n0" src="eecm1" fileName="Button1.xml" xy="38,51">
+      <gearDisplay controller="c1" pages="0"/>
+    </component>
+    <component id="n1_eecm" name="n1" src="eecm2" fileName="Button2.xml" xy="35,46">
+      <gearDisplay controller="c1" pages="1"/>
+    </component>
+  </displayList>
+</component>

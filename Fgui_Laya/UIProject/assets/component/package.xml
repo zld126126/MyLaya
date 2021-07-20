@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="j80a6zxa">
+  <resources>
+    <component id="eecm0" name="component_btn.xml" path="/"/>
+    <image id="eecm1" name="favicon.png" path="/"/>
+    <component id="eecm2" name="component.xml" path="/"/>
+    <image id="eecm4" name="mask.png" path="/"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="50,100" extention="Label" initName="frame">
+  <displayList>
+    <graph id="n0_p35f" name="dragArea" xy="0,0" size="50,20" type="rect" lineSize="0" fillColor="#ffff9900">
+      <relation target="" sidePair="width-width"/>
+    </graph>
+    <graph id="n1_p35f" name="contentArea" xy="0,21" size="50,80" type="rect" lineSize="0" fillColor="#ffffcc00" corner="5">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <component id="n3_p35f" name="closeButton" src="p35f3" fileName="closeButton.xml" xy="42,-2" size="10,10"/>
+  </displayList>
+</component>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="ahockox5">
+  <resources>
+    <component id="p35f0" name="slider.xml" path="/"/>
+    <component id="p35f1" name="Slider1_grip.xml" path="/"/>
+    <component id="p35f2" name="Slider1.xml" path="/"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

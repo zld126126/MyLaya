@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="a14ywd9a">
+  <resources>
+    <component id="p35f0" name="progressbar.xml" path="/"/>
+    <component id="p35f1" name="ProgressBar1.xml" path="/"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

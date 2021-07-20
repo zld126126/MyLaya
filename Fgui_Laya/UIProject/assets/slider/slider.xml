@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <component id="n0_p35f" name="n0" src="p35f2" fileName="Slider1.xml" xy="221,87" size="178,15">
+      <Slider value="80" max="100"/>
+    </component>
+  </displayList>
+</component>

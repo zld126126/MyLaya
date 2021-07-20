@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="200,60" extention="Button">
+  <displayList>
+    <loader id="n0_eecm" name="n0" xy="11,8" size="44,44" aspect="true" url="ui://j80a6zxaeecm1" fill="scaleFree"/>
+    <text id="n1_eecm" name="n1" xy="68,8" size="121,44" fontSize="18" align="center" vAlign="middle" autoSize="none" text="1234567890"/>
+  </displayList>
+  <Button/>
+</component>

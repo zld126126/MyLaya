@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="axijax6f">
+  <resources>
+    <component id="p35f0" name="button.xml" path="/"/>
+    <component id="p35f1" name="Button1.xml" path="/"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

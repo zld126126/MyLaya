@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <component id="n0_p35f" name="n0" src="p35f6" fileName="ScrollBar1.xml" xy="74,50"/>
+  </displayList>
+</component>

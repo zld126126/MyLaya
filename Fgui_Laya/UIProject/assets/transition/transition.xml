@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <text id="n0_p35f" name="n0" xy="81,89" size="296,42" fontSize="30" color="#cccccc" autoSize="none" text="Yi2San45Liu7捌玖10"/>
+  </displayList>
+  <transition name="t0">
+    <item time="0" type="XY" target="n0_p35f" tween="true" startValue="81,89.5" endValue="81,300" duration="12"/>
+    <item time="12" type="Scale" target="n0_p35f" tween="true" startValue="0.9,1" endValue="1.5,1.5" duration="9"/>
+    <item time="21" type="Scale" target="n0_p35f" tween="true" startValue="1.5,1.5" endValue="1,1" duration="3"/>
+  </transition>
+</component>

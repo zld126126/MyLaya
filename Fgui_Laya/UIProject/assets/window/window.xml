@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <component id="n0_p35f" name="frame" src="p35f1" fileName="WindowFrame1.xml" xy="381,237" size="49,72"/>
+  </displayList>
+</component>

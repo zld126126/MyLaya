@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="aqcg0tc4">
+  <resources>
+    <component id="p35f0" name="Label1.xml" path="/"/>
+    <component id="p35f1" name="label.xml" path="/"/>
+    <image id="p35f2" name="tu3.png" path="/"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <component id="n0_p35f" name="n0" src="eecm1" fileName="Button1.xml" xy="108,217" size="385,80"/>
+    <text id="n1_p35f" name="n1" xy="539,219" size="124,80" fontSize="30" autoSize="none" text="1234567890">
+      <relation target="n0_p35f" sidePair="leftext-left"/>
+    </text>
+  </displayList>
+</component>

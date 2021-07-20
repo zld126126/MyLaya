@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <component id="n0_p35f" name="n0" src="p35f2" fileName="PopupMenu1.xml" xy="52,53" size="109,100"/>
+  </displayList>
+</component>

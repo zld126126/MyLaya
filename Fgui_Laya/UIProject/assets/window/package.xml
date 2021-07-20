@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="a73w0a97">
+  <resources>
+    <component id="p35f0" name="window.xml" path="/"/>
+    <component id="p35f1" name="WindowFrame1.xml" path="/"/>
+    <component id="p35f2" name="Label1.xml" path="/"/>
+    <component id="p35f3" name="closeButton.xml" path="/"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

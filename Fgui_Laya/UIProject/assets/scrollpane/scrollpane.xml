@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600" overflow="scroll">
+  <displayList>
+    <component id="n0_eecm" name="n0" src="eecm1" fileName="Button1.xml" xy="64,41"/>
+    <component id="n1_eecm" name="n1" src="eecm1" fileName="Button1.xml" xy="66,168"/>
+    <component id="n2_eecm" name="n2" src="eecm1" fileName="Button1.xml" xy="66,292"/>
+    <component id="n3_eecm" name="n3" src="eecm1" fileName="Button1.xml" xy="66,419"/>
+    <component id="n4_eecm" name="n4" src="eecm1" fileName="Button1.xml" xy="66,540"/>
+  </displayList>
+</component>
