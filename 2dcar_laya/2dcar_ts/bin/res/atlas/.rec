@@ -1,0 +1,77 @@
+D .
+R E043894 font.ttf
+D comp
+P 316AD948 btn_close.png
+P 5B258D17 button.png
+P 3C493DD4 check_circle.png
+P 98E54F0D checkbox.png
+P 6B7AB858 clip_num.png
+P 63A22FAC clip_tree_arrow.png
+P D749C312 clip_tree_folder.png
+P 704C5D70 combobox.png
+P D566AE8B fontClip.png
+P 38AB8F3F fontClip_num.png
+P 6EF336AE hscroll$bar.png
+P 7FF47AC5 hscroll$down.png
+P 3D7B147A hscroll$up.png
+P 750BD445 hscroll.png
+P 9A5EF899 hslider$bar.png
+P 9CED7132 hslider.png
+P BA2A0579 html.png
+P 8236CD48 image.png
+P 4ACB7AEF img_bg.png
+P FCD04607 img_bg2.png
+P 23FB4D29 img_bg3.png
+P 5FD17798 img_bg4.png
+P 2BE22124 img_bg5.png
+P BA28BD65 img_blank.png
+P BA2A0579 label.png
+P B017E53E progress$bar.png
+P C05839CD progress.png
+P 3C493DD4 radio.png
+P 3C493DD4 radiogroup.png
+P 5BA25C15 tab.png
+P A3D7A036 textarea.png
+P A3D7A036 textinput.png
+P 2DCE1DF9 vscroll$bar.png
+P 6FE7EA34 vscroll$down.png
+P 0587871F vscroll$up.png
+P 5FD17798 vscroll.png
+P DDDDFB9E vslider$bar.png
+P 01BAE7F5 vslider.png
+D Sprites
+P D73AD060 bonusGold_1.png
+P A330E3D9 bonusGold_2.png
+P 2C6CE04D bonusGold_3.png
+P 759FC704 bonusGold_4.png
+P DDC4A271 Car1.png
+P 8570510D Car2.png
+P AB20094E Car3.png
+P BA2537D8 Car4.png
+P 95CE079D Car6.png
+P 152D82D9 Car8.png
+P F44D8C18 Car9.png
+R 90E18B6C Road.png
+D Sprites/car3
+P ABF3EF77 Car3Ani_01.png
+P 091B212B Car3Ani_02.png
+P 73E0139F Car3Ani_03.png
+P 02644BAB Car3Ani_04.png
+D Sprites/car6
+P 2C139B68 Car6Ani_01.png
+P 3459B01E Car6Ani_02.png
+P 4378AE35 Car6Ani_03.png
+P E8C07EF0 Car6Ani_04.png
+D Sprites/UI
+R AA7F7BAE bg.png
+P C19973A8 ButtonBack.png
+P 8B1163C8 ButtonHome2.png
+P A55B4C78 ButtonPause.png
+P CEEB19F3 ButtonPlay.png
+P 7B554FD9 ButtonQuit2.png
+P C07DE2AB ButtonRestart.png
+P 6D3C9AE1 ButtonSoundOff.png
+P FA4B7DEA ButtonSoundOff1.png
+P 0B7A7A52 ButtonSoundOn.png
+P 53D54330 ButtonSoundOn1.png
+P 8F88EC3A GameLogo.png

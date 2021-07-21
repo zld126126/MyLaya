@@ -1,0 +1,88 @@
+{
+    "copyFilesFilter": [
+        "../bin/**/*.*"
+    ],
+    "openDataZone": false,
+    "compressJson": false,
+    "compressJsonFilter": [
+        "$basePath/**/*.{json,atlas}"
+    ],
+    "compressJsonNoteList": [
+        ""
+    ],
+    "compressImage": false,
+    "compressImageFilter": [
+        "$basePath/**/*.{png,jpg}"
+    ],
+    "compressImageNoteList": [
+        ""
+    ],
+    "compressJs": false,
+    "compressJsFilter": [
+        "$basePath/**/*.js"
+    ],
+    "compressJsNoteList": [
+        ""
+    ],
+    "version": false,
+    "versionFilter": [
+        "$basePath/**/*.*",
+        "!$basePath/*.html",
+        "!$basePath/{version.json,game.js,game.json,project.config.json,weapp-adapter.js,project.swan.json,swan-game-adapter.js,main.js,gameConfig.json}",
+        "!$basePath/layaforqq/**/*.*"
+    ],
+    "versionNoteList": [
+        "",
+        "",
+        "",
+        ""
+    ],
+    "exclude": false,
+    "excludeFilter": [
+        "!$basePath/res/**/*.*"
+    ],
+    "vexcludeNoteList": [
+        ""
+    ],
+    "packfile": false,
+    "packfileFilter": [
+        ""
+    ],
+    "packfileFullValue": [
+        "$basePath/**/*.*"
+    ],
+    "packfileTargetValue": "",
+    "packfileNoteList": [
+        ""
+    ],
+    "clearReleaseDir": true,
+    "compile": false,
+    "forceCompile": false,
+    "onlyIndexJS": true,
+    "projectType": "js",
+    "pubTime": 1572344673806,
+    "xmInfo": {
+        "name": "打地鼠",
+        "projName": "quickgame",
+        "package": "com.pjz.dadishu",
+        "icon": "C:\\Users\\97662\\Desktop\\打地鼠课程素材\\timg.png",
+        "versionName": "1.0",
+        "versionCode": 1,
+        "minPlatformVersion": 1050,
+        "orientation": "landscape",
+        "logLevel": "off",
+        "oppoDebug": false,
+        "useReleaseSign": false,
+        "subpack": false
+    },
+    "xmSign": {
+        "generateSign": false,
+        "countryName": "",
+        "provinceName": "",
+        "localityName": "",
+        "orgName": "",
+        "orgUnitName": "",
+        "commonName": "",
+        "emailAddr": ""
+    }
+}

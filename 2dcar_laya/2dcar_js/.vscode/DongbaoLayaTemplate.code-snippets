@@ -1,0 +1,26 @@
+{
+    "Laya Template":{
+        "scope": "javascript,typescript",
+        "prefix": "Laya Template",
+        "body": [
+            "/**",
+            "*",
+            "* @ author:DongTech",
+            "* @ email:9212085@qq.com",
+            "* @ data: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE",
+            "*/",
+            "export default class $TM_FILENAME_BASE extends Laya.Script {",
+            "",
+            "\tconstructor() {",
+            "\t\tsuper();",
+            "\t\t/** @prop {name:tips, tips:\"提示文本\", type:Node, default:null}*/",
+            "\t\tthis.tips=null;",
+            "\t}",
+            "",
+            "\tonAwake() {",
+            "\t}",
+            "}"
+        ],
+        "description": "快速创建一个Laya模板类"
+    }
+}
