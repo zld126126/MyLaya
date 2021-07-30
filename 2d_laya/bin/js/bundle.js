@@ -5054,11 +5054,34 @@
         }
     }
 
+    class DOM_JSSCRIPT {
+        constructor() {
+            Laya.init(800, 600);
+            Laya.stage.bgColor = "#FFFFFF";
+            Laya.stage.alignH = Laya.Stage.ALIGN_CENTER;
+            Laya.stage.alignV = Laya.Stage.ALIGN_MIDDLE;
+            this.RunJSCode("console.log('RunJSCode');");
+        }
+        RunJSCode(code) {
+            var laya = window['Laya'];
+            if (laya != null) {
+                try {
+                    Function('"use strict";(()=>{' + code + '})()')();
+                }
+                catch (error) {
+                    console.log(error);
+                    return;
+                }
+                console.log("运行成功:", code);
+            }
+        }
+    }
+
     class DOMMain extends SingletonMainScene {
         constructor() {
             super();
             this.btnNameArr = [
-                "返回主页", "视频", "表单输入"
+                "返回主页", "视频", "表单输入", "运行js脚本"
             ];
             Laya.stage.addChild(this);
             this.LoadExamples();
@@ -5090,6 +5113,9 @@
                     break;
                 case this.btnNameArr[2]:
                     new DOM_Form();
+                    break;
+                case this.btnNameArr[3]:
+                    new DOM_JSSCRIPT();
                     break;
             }
             console.log(name + "按钮_被点击");
@@ -6141,3 +6167,4 @@
     new Main().Load();
 
 }());
+//# sourceMappingURL=bundle.js.map

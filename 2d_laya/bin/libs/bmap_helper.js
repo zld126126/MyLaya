@@ -21,3 +21,12 @@ function LoadBaiduMapScript() {
         document.body.appendChild(scriptNode);
     });
 }
+
+// 临时方法检查laya存在
+function CheckLaya(){
+    if (window.Laya){
+        console.log("Laya Exist");
+        return;
+    }
+    console.log("Laya Not Exist");
+}

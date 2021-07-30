@@ -3,6 +3,7 @@ import { EventManager, EventType } from "../EventManager";
 import { DOM_Form } from "./DOM_Form";
 import { DOM_Video } from "./DOM_Video";
 import { GlobalConfig } from "../GlobalConfig";
+import { DOM_JSSCRIPT } from "./DOM_JSSCRIPT";
 
 export class DOMMain extends SingletonMainScene {
     constructor() {
@@ -12,7 +13,7 @@ export class DOMMain extends SingletonMainScene {
     }
 
     private btnNameArr: Array<string> = [
-        "返回主页", "视频", "表单输入"];
+        "返回主页", "视频", "表单输入","运行js脚本"];
 
     // 加载例子
     LoadExamples() {
@@ -52,6 +53,9 @@ export class DOMMain extends SingletonMainScene {
                 break;
             case this.btnNameArr[2]:
                 new DOM_Form();
+                break;
+            case this.btnNameArr[3]:
+                new DOM_JSSCRIPT();
                 break;
         }
         console.log(name + "按钮_被点击");

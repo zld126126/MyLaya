@@ -6,6 +6,7 @@
     <component id="rn114" name="Button2.xml" path="/"/>
     <component id="rn116" name="Item.xml" path="/" exported="true"/>
     <component id="ffoa9" name="Refresh.xml" path="/"/>
+    <image id="hr2sa" name="企业微信截图_20210726155736.png" path="/"/>
   </resources>
   <publish name="" genCode="true"/>
 </packageDescription>
